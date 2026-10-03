@@ -1,5 +1,13 @@
 #title {
-    background-image: url("https://voxi-cs.github.io/LibPhyMT_mu/Main/Chapters/Chapter-7/Lesson-1/Tile/tile_6.png");
+    /* ... */
+
+    background-image: url('/LibPhyMT_mu/Main/Chapters/Chapter-7/Lesson-1/Tile/tile_6.png');
+
+    background-size: auto 46.153846%;
+    background-position: center;
+    background-repeat: repeat;
+
+    /* ... */
 }
 .title-container #title .tc .inner-box {
       background: rgba(77, 0, 0, 0.231);
