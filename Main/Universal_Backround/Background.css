@@ -1,0 +1,11 @@
+/* 1) Global & background */
+body {
+  margin: 0;
+  font-family: "Computer Modern", serif;
+  /* modern pitch-black to near-black gradient */
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  color: #fafafa;           /* default text color for dark card */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

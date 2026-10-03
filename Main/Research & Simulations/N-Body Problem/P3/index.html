@@ -1,0 +1,1703 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>N-Body Problem</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Configure MathJax for automatic equation numbering -->
+    <script>
+      window.MathJax = {
+        tex: {
+          tags: "ams", // number AMS environments (equation, align, etc.)
+          tagSide: "right", // place numbers on the right
+          tagIndent: "0.8em", // indent numbers slightly
+          // define macros here
+          macros: {
+            // JS string needs backslash escaped, so use "\\hspace{1.5em}"
+            customquad: "\\hspace{0.4em}",
+          },
+        },
+      };
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          // allow AMS tags like \begin{equation} and numbering
+          packages: { "[+]": ["ams"] },
+          tags: "ams",
+          tagSide: "right",
+          tagIndent: "0.8em",
+          macros: {
+            customquad: "\\hspace{0.4em}",
+          },
+        },
+        // optional: ensure MathJax automatically typesets on load
+        startup: {
+          typeset: true,
+        },
+      };
+    </script>
+
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      /* scale the rendered math (instead of \scalebox) */
+      .math-scale {
+        display: inline-block;
+        transform-origin: 0 0;
+        /* top-left */
+        transform: scale(0.88);
+        /* if you need spacing control: */
+        margin: 0.2em 0;
+      }
+
+      /* optional: better font fallback for math */
+      body {
+        font-family: "Computer Modern", serif;
+      }
+    </style>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Max Slater style fonts with better weight support -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/Main/Research & Simulations/The_Structure/Structure.css"
+    />
+    
+    <link
+      rel="stylesheet"
+      href="/Main/Research & Simulations/N-Body Problem/index.css"
+    />
+     <link
+      rel="stylesheet"
+      href="/Main/Research & Simulations/The_Structure/index.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <div id="navbar-container"></div>
+
+    <div class="title-container">
+      <h1 id="title">
+        <span class="Subject" data-mini="false">Subject</span>
+        <div class="tc">
+          Analysis of 2-Body, 3-Body and N-Body Problem &amp; modeling the Solar
+          system.
+        </div>
+      </h1>
+    </div>
+
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Research &amp; Simulations by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+
+    </div>
+
+    <div class="quote-container">
+      <blockquote>
+        "Is it not possible to ask whether one of the bodies will remain forever in some region of the sky or whether it will possibly get away indefinitely?"<br />
+        <span>— Henri Poincaré</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h3>Lagrange\Libration Equilibrium Points</h3>
+      <p>
+        Imagine you are given the task to build a space telescope and then
+        launch it — but launch it where? We can't let the telescope roam around
+        in space, mainly for three reasons. First, space telescopes need an
+        unobstructed, stable view of deep space; if the telescope moves
+        unpredictably it will be very hard to control. Second, it wouldn't be
+        smart to let a deep-space telescope drift away from Earth —
+        communication delays would grow and operations would become much harder.
+        And most important of all: think about this — if I tell you to go
+        outside in the morning and take pictures of the stars you’ll surely call
+        me dumb, because the Sun is up and we can't really see the sky. Even if
+        you take out your telescope, the Sun’s brightness makes it too difficult
+        to see anything except the brightest stars or planets. So in space we
+        also need to keep our telescope in a place that's always shaded from the
+        Sun if we want to look for very faint, deep objects and phenomena. For
+        those reasons it's much better to keep the telescope relatively close to
+        Earth and fixed with respect to Earth as Earth orbits the Sun,
+        positioned on the side away from the Sun so sunlight can't hit it
+        directly. Since you’re a very smart individual, you decide to put the
+        telescope at a Lagrange point — called \(\mathbf{L_2}\).
+      </p>
+
+      <p>
+        <strong>Lagrange points</strong> are special positions in the restricted
+        three-body problem where the gravitational pulls of the two primaries
+        and the centrifugal force in the rotating frame exactly balance. A test
+        particle placed at a Lagrange point can remain stationary in the
+        rotating frame — that is, it keeps the same position relative to the two
+        primaries. In the idealized circular restricted three-body problem there
+        are five such points: <strong>\(L1\)</strong>, <strong>\(L2\)</strong>,
+        <strong>\(L3\)</strong>, <strong>\(L4\)</strong> and
+        <strong>\(L5\)</strong>.
+      </p>
+
+      <p>
+        In practice, spacecraft do not sit exactly at the mathematical points:
+        they usually follow halo or Lissajous orbits around \(L1\) or \(L2\) and
+        perform small station-keeping burns to stay nearby. These orbits provide
+        the practical advantages of a Lagrange location while handling the
+        dynamical instabilities that exist at some of the points. In this
+        section we will discuss the ideas behind Lagrange points and their
+        derivation; along the way we will write Python code to simulate
+        different systems.
+      </p>
+
+      <h3>Positioning the Lagrange Points</h3>
+      <p>
+        Now that we know what Lagrange points are, it would be reasonable for us
+        to figure out where their locations are, and that is what we will be
+        doing here. What we are interested in here is a special solution for the
+        CR3BP: points in space where both the velocity and acceleration of the
+        test particle are zero in the rotating frame. You might already have
+        some idea how we are going to do that — I will guess you want us to take
+        the gradient of the effective potential \(U\) and then set it to zero;
+        mathematically, \(\mathbf{\nabla}U=0\). But before we do so, we would
+        like to simplify our effective potential such that the essential
+        dynamics is preserved. First, since \(n\) can be taken as any fixed
+        value we will set \(n=1\), then we won't have to worry about it. Another
+        thing we would like to do is make the effective potential not depend
+        explicitly on \(x\) and \(y\); instead we want to write the effective
+        potential in terms of \(r_1\) and \(r_2\) (distances from the points
+        \((x,y)\) to primaries). Note: none of this affects the essential
+        dynamics of the system — it is just to simplify the calculation.
+      </p>
+
+      <p>
+        We know that: \[ {r_1}^2=(x+\mu_2)^2+y^2+z^2 \quad \text{and} \quad
+        {r_2}^2=(x-\mu_1)^2+y^2+z^2 \] So, \[ \mu_1 r_1^2+\mu_2 r_2^2
+        =\mu_1\big((x+\mu_2)^2+y^2\big)+\mu_2\big((x-\mu_1)^2+y^2\big) \\
+        =(\mu_1+\mu_2)(x^2+y^2)+\mu_1\mu_2^2+\mu_2\mu_1^2 \\
+        =x^2+y^2+\mu_1\mu_2, \] Using the fact that \(\mu_1+\mu_2=1\) and
+        \(\mu_1\mu_2^2+\mu_2\mu_1^2=\mu_1\mu_2(\mu_1+\mu_2)=\mu_1\mu_2\) we get:
+        \begin{equation} \mu_1 r_1^2+\mu_2 r_2^2 = x^2+y^2 + \mu_1\mu_2
+        \end{equation} We know the effective potential is: \[ U
+        =\left[\frac{n^2}{2}\left(x^2+y^2\right)+\frac{\mu_1}{r_1}+\frac{\mu_2}{r_2}\right]
+        \] Rearranging the term in eq(63) for \(x^2+y^2\) we can rewrite the
+        potential as: \[ U =\left[\frac{1}{2}\left(\mu_1 r_1^2+\mu_2 r_2^2 -
+        \mu_1\mu_2 \right)+\frac{\mu_1}{r_1}+\frac{\mu_2}{r_2}\right] \]
+        Rearranging terms gives us: \begin{equation} U =
+        \mu_1\left(\frac{{r_1}^2}{2}+\frac{1}{r_1}\right) +
+        \mu_2\left(\frac{{r_2}^2}{2}+\frac{1}{r_2}\right) - \frac{1}{2} \mu_1
+        \mu_2 \end{equation} Alright, so the gradient of the effective potential
+        is, \(\mathbf{\nabla}U = \left(\frac{\partial U}{\partial x} \hat{x} +
+        \frac{\partial U}{\partial y} \hat{y} + \frac{\partial U}{\partial z}
+        \hat{z}\right)\). Since \(U\) is independent of \(z\) because we put our
+        primaries on the \(xy\)-plane, the partial derivative of \(U\) with
+        respect to \(z\) is zero, and the partial derivatives of \(U\) with
+        respect to \(x\) and \(y\) are: \[ \frac{\partial U}{\partial x} =
+        \frac{\partial U}{\partial r_1} \frac{\partial r_1}{\partial x} +
+        \frac{\partial U}{\partial r_2} \frac{\partial r_2}{\partial x} =
+        \left[{\mu}_{1} \left(r_{1} - \frac{1}{r_{1}^{2}}\right)\right]
+        \left[\frac{x + {\mu}_{2}}{r_1}\right] + \left[{\mu}_{2} \left(r_{2} -
+        \frac{1}{r_{2}^{2}}\right)\right]\left[\frac{x - {\mu}_{1}}{r_2}\right]
+        \] And, \[ \frac{\partial U}{\partial y} = \frac{\partial U}{\partial
+        r_1} \frac{\partial r_1}{\partial y} + \frac{\partial U}{\partial r_2}
+        \frac{\partial r_2}{\partial y} =\left[{\mu}_{1} \left(r_{1} -
+        \frac{1}{r_{1}^{2}}\right)\right] \left[\frac{y}{r_1}\right] +
+        \left[{\mu}_{2} \left(r_{2} - \frac{1}{r_{2}^{2}}\right)\right]
+        \left[\frac{y}{r_2}\right] \] So, after evaluating the partial
+        derivatives we have: \begin{equation} \left[{\mu}_{1} \left(r_{1} -
+        \frac{1}{r_{1}^{2}}\right)\right] \left[\frac{x + {\mu}_{2}}{r_1}\right]
+        + \left[{\mu}_{2} \left(r_{2} -
+        \frac{1}{r_{2}^{2}}\right)\right]\left[\frac{x - {\mu}_{1}}{r_2}\right]
+        = 0 \end{equation} \begin{equation} \left[{\mu}_{1} \left(r_{1} -
+        \frac{1}{r_{1}^{2}}\right)\right] \left[\frac{y}{r_1}\right] +
+        \left[{\mu}_{2} \left(r_{2} - \frac{1}{r_{2}^{2}}\right)\right]
+        \left[\frac{y}{r_2}\right]=0 \end{equation}
+      </p>
+      <p>
+        One solution of this system could be if \(\frac{\partial U}{\partial
+        r_1}\) and \(\frac{\partial U}{\partial r_2}\) are zero, then: \[
+        \frac{\partial U}{\partial r_1} = \left[{\mu}_{1} \left(r_{1} -
+        \frac{1}{r_{1}^{2}}\right)\right] = 0 \quad \text{and} \quad
+        \frac{\partial U}{\partial r_2} = \left[{\mu}_{2} \left(r_{2} -
+        \frac{1}{r_{2}^{2}}\right)\right]=0 \] And by definition \(r_1\) and
+        \(r_2\) are greater than zero; solving these equations we get: \[ r_1 =
+        r_2 = 1 \] So, using equation (33) and (34) we have the following system
+        of equations: \[ 1=(x+\mu_2)^2+y^2 \quad \text{and} \quad
+        1=(x-\mu_1)^2+y^2 \] Solving them we get: \[ x=\frac{1}{2} - \mu_2 \quad
+        \text{and} \quad y=\pm \frac{\sqrt{3}}{2} \] So, we get a solution — a
+        point in space where the gradient of the effective potential is zero.
+        But look carefully: we got one solution for \(x\), while for \(y\) we
+        got two solutions, \(y=+\frac{\sqrt{3}}{2}\) and
+        \(y=-\frac{\sqrt{3}}{2}\). This corresponds to two points in space where
+        the gradient of the effective potential is zero,
+        \(\left(\frac{1}{2}-\mu_2,+\frac{\sqrt{3}}{2}\right)\) and
+        \(\left(\frac{1}{2}-\mu_2,-\frac{\sqrt{3}}{2}\right)\). What that means
+        is that if a particle of small mass is at these points, the net force on
+        the particle is zero and the particle will stay stationary at those
+        points. These two points have a very special name and we talked about
+        them before: they are known as the \(L4\) and \(L5\) Lagrange points.
+        \(\left(\frac{1}{2}-\mu_2,+\frac{\sqrt{3}}{2}\right)\) is the \(L4\) and
+        \(\left(\frac{1}{2}-\mu_2,-\frac{\sqrt{3}}{2}\right)\) is the \(L5\)
+        Lagrange point. Here, although we chose \(a = n = 1\), the essential
+        dynamics are still the same. One thing we can notice is that the
+        triangle formed by connecting the primaries with the points we found is
+        an \(\mathbf{equilateral\ triangle}\). You can prove that using simple
+        middle-school math, so we will leave it up to the reader to show that
+        the triangle formed by the points \((x_1,y_1)=(-\mu_2,0)\),
+        \((x_2,y_2)=(\mu_1,0)\) and
+        \(\left(\frac{1}{2}-\mu_2,\pm\frac{\sqrt{3}}{2}\right)\) is equilateral.
+        If we didn't set \(a = n = 1\), the \(L4\) and \(L5\) points will be at
+        \(\left(\left(\frac{1}{2}-\mu_2\right)a,+\frac{\sqrt{3}}{2}a\right)\)
+        and
+        \(\left(\left(\frac{1}{2}-\mu_2\right)a,-\frac{\sqrt{3}}{2}a\right)\)
+        and we dont have to worry about \(n\). Yeah, so we have \(L4\) and
+        \(L5\) are at coordinate: \begin{equation} \boxed{L4: \customquad
+        \left(\left(\frac{1}{2}-\mu_2\right)a,+\frac{\sqrt{3}}{2}a\right)}
+        \end{equation} \begin{equation} \boxed{L5: \customquad
+        \left(\left(\frac{1}{2}-\mu_2\right)a,-\frac{\sqrt{3}}{2}a\right)}
+        \end{equation}
+        <img
+          class="plots_type_1"
+          src="/Main/Research & Simulations/N-Body Problem/diagrames/R3BP_L4nL5.png"
+          alt="Orbital Plot"
+          width="503.3"
+          height="583.8"
+        />
+      </p>
+      <p>
+        Going back to eq(66), we can see that \(y=0\) is also a solution to the
+        equations. It is likely that somewhere on the \(x\)-axis (where \(y=0\))
+        there is maybe one or more Lagrange points, but to know for sure we have
+        to find them. (A reminder: \(a\) is the separation between the
+        primaries.) Like previously we will let \(a=1\) and after we find the
+        solution we can just multiply by a to get the Lagrange Point for any
+        CR3BP or any system in approximation of CR3BP. For a point on the
+        \(x\)-axis, the sum of the distances — the magnitudes of the
+        displacement vectors from each primary to that point — equals \(a=1\).
+        What it basically means is that: \[ r_1+r_2=1 \] From this we get: \[
+        r_1=x+\mu_2,\quad r_2=\mu_1-x \quad \Rightarrow \frac{\partial
+        r_1}{\partial x}=-\frac{\partial r_2}{\partial x}=1 \] Alright, now
+        using this to substitute into eq(65) gives us: \[ \left[{\mu}_{1}
+        \left(r_{1} - \frac{1}{r_{1}^{2}}\right)\right] + \left[{\mu}_{2}
+        \left(r_{2} - \frac{1}{r_{2}^{2}}\right)\right](-1) = 0 \] Here
+        \(\frac{x+\mu_2}{r_1}=1\) and \(\frac{x-\mu_1}{r_2}=-1\). \[\Rightarrow
+        \left[{\mu}_{1} \left(1-r_2 - \frac{1}{(1-{r}_{2})^{2}}\right)\right] -
+        \left[{\mu}_{2} \left(r_{2} - \frac{1}{r_{2}^{2}}\right)\right] = 0 \]
+        \[\Rightarrow \frac{\mu_2}{\mu_1} = \frac{\left(1-r_2 -
+        \frac{1}{(1-{r}_{2})^{2}}\right)}{\left(r_{2} -
+        \frac{1}{r_{2}^{2}}\right)} \] \[\Rightarrow \frac{\mu_2}{\mu_1} =
+        3{r}_{2}^{3}\frac{1-r_2+\frac{{r}^{2}_{2}}{3}}{\left(1+r_2+{r}_{2}^{2}\right)\left(1-r_2\right)^3}
+        \] \begin{equation} \frac{\mu_2}{3\mu_1} =
+        {r}_{2}^{3}\frac{1-r_2+\frac{{r}^{2}_{2}}{3}}{\left(1+r_2+{r}_{2}^{2}\right)\left(1-r_2\right)^3}
+        \end{equation} To actually find the Lagrange point we have to solve this
+        equation; unfortunately we can't just use a formula to compute \(r_2\).
+        Instead here we have to find an approximation for \(r_2\); we're going
+        to do that by something called the
+        <strong>Lagrange–Bürmann inversion method</strong>. To do so first we
+        need to series-expand this:
+        \(\frac{1-r_2+\frac{{r}^{2}_{2}}{3}}{\left(1+r_2+{r}_{2}^{2}\right)\left(1-r_2\right)^3}\).
+        Let, \[ A(r_2) \equiv
+        \frac{1-r_2+\frac{{r}^{2}_{2}}{3}}{\left(1+r_2+{r}_{2}^{2}\right)\left(1-r_2\right)^3},
+        \quad Q(r_2) \equiv \left(1+r_2+{r}_{2}^{2}\right)\left(1-r_2\right)^3
+        \] So, First expanding \(Q(r_2)\) gives us: \[ Q(r_2) =
+        1-3{r}_{2}+3{r}_{2}^{2}-{r}_{2}^{3}+{r}_{2}-3{r}_{2}^{2}+3{r}_{2}^{3}-{r}_{2}^{4}+{r}_{2}^{2}-3{r}_{2}^{3}+3{r}_{2}^{4}-{r}_{2}^{5}
+        \] \[\Rightarrow Q(r_2) = 1-2{r}_{2} +
+        {r}^2_{2}-{r}_{2}^{3}+2{r}_{2}^{4}-{r}_{2}^{5} \] For small \(r_2\) \[
+        Q(r_2) = 1-2{r}_{2} +
+        {r}^2_{2}-{r}_{2}^{3}+2{r}_{2}^{4}+\mathcal{O}(r^5) \] We want
+        \(E(r_2)=1/Q(r_2)\), where \(E(r_2)\) is something like below: \[ E(r_2)
+        = \frac{1}{Q(r_2)} = 1 +
+        e_1{r}_{2}+e_2{r}^{2}_{2}+e_3{r}^{3}_{2}+e_4{r}^{4}_{2} +... \] If we
+        enforce \(Q(r_2)E(r_2)=1\): \[ \left(1-2{r}_{2} +
+        {r}^2_{2}-{r}_{2}^{3}+2{r}_{2}^{4}-{r}_{2}^{5}\right)\left(1 +
+        e_1{r}_{2}+e_2{r}^{2}_{2}+e_3{r}^{3}_{2}+e_4{r}^{4}_{2} +...\right)=1 \]
+        Here, \(Q(r_2)=\sum_{\substack{i=0}}^{\infty}d_i {r}_2^{i}\) and
+        \(E(r_2)=\sum_{\substack{i=0}}^{\infty}e_i {r}_2^{i}\), so: \[
+        Q(r_2)E(r_2)=\sum_{\substack{i=0}}^{\infty}d_i
+        {r}_2^{i}\sum_{\substack{i=0}}^{\infty}e_i {r}_2^{i}=1 \] Using the
+        Cauchy product rule for sums we get: \[
+        \sum_{\substack{i=0}}^{\infty}\left(\sum_{\substack{j=0}}^{i}d_j
+        e_{i-j}\right){r}_{2}^{i}=1 \] For \(Q(r_2)E(r_2)=1\) to hold, all
+        coefficients of positive powers of \(r_2\) must vanish. That means for
+        \(i\geq 1\), \[ \sum_{\substack{j=0}}^{i}d_j e_{i-j}=0 \] Now that we
+        have this, we can compute the coefficients of \(E(r_2)\), the \(e_i\)'s,
+        so: \[ e_i = -\left(d_i+ \sum_{j=1}^{i-1} d_j e_{i-j}\right) \] So,
+        using this recurrence we get: \[ E(r_2) = 1 +
+        2{r}_{2}+3{r}^{2}_{2}+5{r}^{3}_{2}+7{r}^{4}_{2} +
+        9{r}^{5}_{2}+12{r}^{6}_{2}+15{r}^{7}_{2}+18{r}^{8}_{2}+22{r}^{9}_{2}+26{r}^{10}_{2}+30{r}^{11}_{2}+35{r}^{12}_{2}+40{r}^{13}_{2}+45{r}^{14}_{2}+51{r}^{15}_{2}+...
+        \] So, we can write for small \(r_2\): \[ E(r_2) = 1 +
+        2{r}_{2}+3{r}^{2}_{2}+5{r}^{3}_{2}+7{r}^{4}_{2} + \mathcal{O}(r^5) \] If
+        we now use \(E(r_2)\) and substitute the result we get: \[ A(r_2) =
+        \left(1 - r_2 + \frac{r_2^{2}}{3}\right) E(r_2) \] \[ A(r_2) = \biggl(1
+        - r_2 + \frac{r_2^{2}}{3}\biggr) \biggl( 1 + 2 r_2 + 3 r_2^{2} + 5
+        r_2^{3} + 7 r_2^{4} + 9 r_2^{5} + 12 r_2^{6} + 15 r_2^{7} + 18 r_2^{8} +
+        22 r_2^{9} + 26 r_2^{10} + 30 r_2^{11} + 35 r_2^{12} + \dots \biggr) \]
+      </p>
+
+      <p>
+        We also want to series-expand \(A(r_2)\), so if we multiply \(\biggl(1 -
+        r_2 + \frac{r_2^{2}}{3}\biggr)\) with \(E(r_2)\) then we get: \[
+        A(r_2)=1*\left(1 + 2 r_2 + 3 r_2^{2} + 5 r_2^{3} + 7 r_2^{4} + 9 r_2^{5}
+        + 12 r_2^{6} + 15 r_2^{7} + 18 r_2^{8} + 22 r_2^{9} + 26 r_2^{10} + 30
+        r_2^{11} + 35 r_2^{12} + 40 r_2^{13} + 45 r_2^{14} + 51 r_2^{15} +
+        \dots\right) \] \[ -r_2\left(1 + 2 r_2 + 3 r_2^{2} + 5 r_2^{3} + 7
+        r_2^{4} + 9 r_2^{5} + 12 r_2^{6} + 15 r_2^{7} + 18 r_2^{8} + 22 r_2^{9}
+        + 26 r_2^{10} + 30 r_2^{11} + 35 r_2^{12} + 40 r_2^{13} + 45 r_2^{14} +
+        51 r_2^{15} + \dots\right) \] \[ +\frac{1}{3}r_{2}^{2}\left(1 + 2 r_2 +
+        3 r_2^{2} + 5 r_2^{3} + 7 r_2^{4} + 9 r_2^{5} + 12 r_2^{6} + 15 r_2^{7}
+        + 18 r_2^{8} + 22 r_2^{9} + 26 r_2^{10} + 30 r_2^{11} + 35 r_2^{12} + 40
+        r_2^{13} + 45 r_2^{14} + 51 r_2^{15} + \dots\right) \] So, we get:
+        \begin{equation} A(r_2)=\left(1 + 2 r_2 + 3 r_2^{2} + 5 r_2^{3} + 7
+        r_2^{4} + 9 r_2^{5} + 12 r_2^{6} + 15 r_2^{7} + 18 r_2^{8} + 22 r_2^{9}
+        + 26 r_2^{10} + 30 r_2^{11} + 35 r_2^{12} + 40 r_2^{13} + 45 r_2^{14} +
+        51 r_2^{15} + \dots\right) \end{equation} \[ +\left(-r_2 - 2 r_{2}^{2} -
+        3 r_2^{3} - 5 r_2^{4} - 7 r_2^{5} - 9 r_2^{6} - 12 r_2^{7} - 15 r_2^{8}
+        - 18 r_2^{9} - 22 r_2^{10} - 26 r_2^{11} - 30 r_2^{12} - 35 r_2^{13} -
+        40 r_2^{14} - 45 r_2^{15} - 51 r_2^{16} - \dots\right) \] \[
+        +\left(\frac{1}{3}r_{2}^{2} + \frac{2}{3}r_{2}^{3} + r_2^{4} +
+        \frac{5}{3} r_2^{5} + \frac{7}{3} r_2^{6} + 3 r_2^{7} + 4 r_2^{8} + 5
+        r_2^{9} + 6 r_2^{10} + \frac{22}{3} r_2^{11} + \frac{26}{3} r_2^{12} +
+        10 r_2^{13} + \frac{35}{3} r_2^{14} + \frac{40}{3} r_2^{15} + 15
+        r_2^{16} + 17 r_2^{17} + \dots\right) \] Since we series-expand
+        \(A(r_2)\) we need an expression of \(A(r_2)\) like below: \[ A(r_2) =
+        a_0+a_1{r}_{2}^{1}+a_2{r}_{2}^{2}+a_3{r}_{2}^{3}+\dots \] So, we can say
+        \(1=a_0\), \(r_{2}\left(2-1\right) = a_1r_2\) and so on; by matching
+        each degree in \(A(r_2)\) with the terms in eq(70) we get: \[ A(r_2) = 1
+        + r_2 + \tfrac{4}{3}r_2^2 + \tfrac{8}{3}r_2^3 + 3r_2^4 +
+        \tfrac{11}{3}r_2^5 + \tfrac{16}{3}r_2^6 + 6r_2^7 + 7r_2^8 + 9r_2^9 +
+        10r_2^{10} + \tfrac{34}{3}r_2^{11} + \tfrac{41}{3}r_2^{12} + 15r_2^{13}
+        + \tfrac{50}{3}r_2^{14} + \tfrac{58}{3}r_2^{15} + \dots \] Now, let
+        \(u\) be \[ u = r_2 + \tfrac{4}{3}r_2^2 + \tfrac{8}{3}r_2^3 + 3r_2^4 +
+        \tfrac{11}{3}r_2^5 + \tfrac{16}{3}r_2^6 + 6r_2^7 + 7r_2^8 + 9r_2^9 +
+        10r_2^{10} + \tfrac{34}{3}r_2^{11} + \tfrac{41}{3}r_2^{12} + 15r_2^{13}
+        + \tfrac{50}{3}r_2^{14} + \tfrac{58}{3}r_2^{15} + \dots \]
+        <br />
+        \[ A(r_2) = 1 + u \] Alright, going back to eq(69) we had: \[
+        \frac{\mu_2}{3\mu_1} =
+        {r}_{2}^{3}\frac{1-r_2+\frac{{r}^{2}_{2}}{3}}{\left(1+r_2+{r}_{2}^{2}\right)\left(1-r_2\right)^3}
+        \] let's define \(\alpha\) to be: \[ \alpha \equiv
+        \left(\frac{\mu_2}{3\mu_1}\right)^{1/3} \] That means: \[ \alpha =
+        r_2\left(A(r_2)\right)^{1/3}=r_2\left(1+u\right)^{\frac{1}{3}} \] Now,
+        again if we expand \(\left(1+u\right)^{\frac{1}{3}}\) using the binomial
+        expansion we get: \[ \left(1+u\right)^{\frac{1}{3}} = 1 + \frac{1}{3}
+        {r}_{2} + \frac{1}{3} {r}_{2}^{2} + \frac{53}{81} {r}_{2}^{3} +
+        \frac{101}{243} {r}_{2}^{4} + \frac{97}{243} {r}_{2}^{5} +
+        \frac{3953}{6561} {r}_{2}^{6} + \frac{8585}{19683} {r}_{2}^{7} + \dots
+        \] So, now if we substitute this into the equation for \(\alpha\) we
+        get: \[ \alpha = r_2 \left(1 + \frac{1}{3} {r}_{2} + \frac{1}{3}
+        {r}_{2}^{2} + \frac{53}{81} {r}_{2}^{3} + \frac{101}{243} {r}_{2}^{4} +
+        \frac{97}{243} {r}_{2}^{5} + \frac{3953}{6561} {r}_{2}^{6} +
+        \frac{8585}{19683} {r}_{2}^{7} + \dots\right) \] \[ \alpha = {r}_{2} +
+        \frac{1}{3} {r}_{2}^{2} + \frac{1}{3} {r}_{2}^{3} + \frac{53}{81}
+        {r}_{2}^{4} + \frac{101}{243} {r}_{2}^{5} + \mathcal{O}({r}_{2}^{6}) \]
+        So, for small \(r_2\) we can ignore the higher order terms. \[ \alpha =
+        {r}_{2} + \frac{1}{3} {r}_{2}^{2} + \frac{1}{3} {r}_{2}^{3} +
+        \frac{53}{81} {r}_{2}^{4} + \frac{101}{243} {r}_{2}^{5} +
+        \mathcal{O}({r}_{2}^{6}) \] But, we need to find \(r_2\) in order to
+        find the Lagrange point, so how do we do it? Like here we have a series
+        of \(r_2\) but from this we need to solve for \(r_2\); as you can see we
+        can't use elementary algebra to solve for \(r_2\) but instead here we
+        are going to use the
+        <strong>Lagrange–Bürmann inversion method</strong> which says:
+        <br />
+        Suppose \(z\) is defined as a function of \(x\) of the form, \[
+        z=\phi(x) \] where \(\phi\) is analytic at a point \(a\) and
+        \(\phi'(a)\neq0\). Then it is possible to solve the equation for \(x\),
+        expressing the form \(x=g(z)\) given by a power series: \begin{equation}
+        g(z) = a+\sum_{n=1}^{\infty}g_n \frac{\left(z-\phi(a)\right)^n}{n!}
+        \end{equation} where, \begin{equation} g_n = \lim_{x \to a}
+        \frac{d^{n-1}}{dx^{n-1}}
+        \left[\left(\frac{x-a}{\phi(x)-\phi(a)}\right)^n\right] \end{equation}
+        So, using this method we can find an expression for \(r_2\). Here we
+        will let \(a=0\) since \(r_2\) is small, so we want to expand \(r_2\)
+        around zero. We have \[ \alpha(r_2) = r_2 \phi(r_2) \quad \text{where, }
+        \phi(r_2) = 1 + \frac{1}{3} {r}_{2} + \frac{1}{3} {r}_{2}^{2} +
+        \frac{53}{81} {r}_{2}^{3} + \frac{101}{243} {r}_{2}^{4} + \frac{97}{243}
+        {r}_{2}^{5} + \frac{3953}{6561} {r}_{2}^{6} + \frac{8585}{19683}
+        {r}_{2}^{7} + \dots \] So, to make sure we can apply the
+        Lagrange–Bürmann theorem we need to make sure \(\phi(r_2)\) meets the
+        condition that is \(\alpha'(a)\neq 0\), \[ \alpha(a) = a\phi(a) \quad
+        \implies \alpha(0) = 0* \phi(0) = 0 \] And, using the product rule \[
+        \alpha' = \phi(r_2) + r_2\phi'(r_2) \implies \alpha'(0) = \phi(0) = 1
+        \neq 0 \] So, yes we can apply the Lagrange–Bürmann method to invert
+        \(\alpha\). Using eq(71) we get: \[ r_2(\alpha) = 0 +
+        \sum_{n=1}^{\infty}g_n \frac{\left(\alpha-\phi(0)\right)^n}{n!} =
+        \sum_{n=1}^{\infty}g_n \frac{\alpha^n}{n!} \] and here \(g_n\) is, \[
+        g_n = \lim_{x \to 0} \frac{d^{n-1}}{dx^{n-1}}
+        \left[\left(\frac{x}{x\phi(x)}\right)^n\right]=\frac{d^{n-1}}{dr_{2}^{n-1}}\phi(r_2)^{-n}\Big|_{r_2=0}
+        \] and therefore the inverse series is, \begin{equation} r_2(\alpha) =
+        \sum_{n=1}^{\infty}
+        \frac{1}{n!}\frac{d^{n-1}}{dr_{2}^{n-1}}\phi(r_2)^{-n}\Big|_{r_2=0}\alpha^n
+        \end{equation} This series expansion of \(r_2\) has exactly the same
+        form as: \[ r_2 = \sum_{n=0}^{\infty} c_n \alpha^{n+1}, \quad c_n =
+        \frac{1}{(n+1)!}\frac{d^{n}}{dr_{2}^{n}}\phi(r_2)^{-(n+1)}\Big|_{r_2=0}
+        \] Now, if we expand the sum we get: \[ r_2(\alpha) = \alpha -
+        \frac{1}{3} \alpha^2 - \frac{1}{9} \alpha^3 - \frac{23}{81} \alpha^4 +
+        \frac{28}{27} \alpha^5 - \frac{492}{729} \alpha^6 - \frac{86}{6561}
+        \alpha^7 - \frac{4733}{2187} \alpha^8 + \dots \] Here, \(r_2\) is the
+        distance between \(\mu_2\) and the Lagrange point. The specific Lagrange
+        point derived here is called the
+        <strong>\(\mathbf{L1}\)</strong> Lagrange point, and \(r_2\) denotes the
+        distance from \(\mu_2\) to \(L1\). The \(L1\) point lies between the two
+        primaries. It turns out there are two additional Lagrange points that
+        are collinear with \(L1\) and the primaries (or with the center of mass
+        of the primaries if the primaries are treated as rigid bodies). The
+        location of the \(L_1\) on the \(x\)-axis can be obtained by using \(r_2
+        = -x + \mu_1\). So, the location of \(L1\) on the \(x\)-axis is: \[
+        \boxed{L1: \customquad \left(\mu_1 - \alpha + \frac{1}{3} \alpha^2 +
+        \frac{1}{9} \alpha^3 + \frac{23}{81} \alpha^4 - \frac{28}{27} \alpha^5 +
+        \frac{492}{729} \alpha^6 + \frac{86}{6561} \alpha^7 + \frac{4733}{2187}
+        \alpha^8 - \dots , 0\right ) } \] If \(r_1 + r_2 = a\), then \[
+        \boxed{L1: \customquad \left(a\mu_1 - a\alpha + \frac{a}{3} \alpha^2 +
+        \frac{a}{9} \alpha^3 + \frac{23a}{81} \alpha^4 - \frac{28a}{27} \alpha^5
+        + \frac{492a}{729} \alpha^6 + \frac{86a}{6561} \alpha^7 +
+        \frac{4733a}{2187} \alpha^8 - \dots , 0\right ) } \]
+
+        <img
+          class="plots_type_1"
+          src="/Main/Research & Simulations/N-Body Problem/diagrames/R3BP_L4nL5nL1.png"
+          alt="Orbital Plot"
+          width="503.3"
+          height="583.8"
+        />
+      </p>
+
+      <p>
+        As you can see, the red cross is the \(L_1\) Lagrange point, and \(L_1\)
+        is always between the primaries. The other two Lagrange points that are
+        collinear with the primaries and \(L_1\) are not between the primaries;
+        instead, they lie on the opposite sides of the primaries and are closer
+        to one of the primaries. The \(L_3\) point is closer to \(m_1\) because
+        we assumed \(m_1>m_2\), and \(L_2\) is closer to \(m_2\) than to
+        \(m_1\).<br />
+
+        Knowing all this, we can now find the location of \(L2\).<br />
+        Alright, we found \(L1\) to be between the primaries and we are pretty
+        sure there are no other Lagrange points between the primaries. That is
+        because, if we take \(a=1\), then the condition \(r_1+r_2=1\) only holds
+        if the point we took is between the primaries. So we have to look at
+        points other than those between the primaries. We also saw that the only
+        Lagrange points not on the \(x\)-axis are the \(L4\) and \(L5\) points.
+        As we mentioned before, it turns out the other two Lagrange points are
+        on the \(x\)-axis. What that means is the other two Lagrange points must
+        satisfy \(r_1-r_2=1\) and \(r_2-r_1=1\) if we take \(a=1\). So for
+        \(L2\), \begin{equation} r_1 - r_2 = 1 \end{equation} From this, like
+        before, we obtain: \[ r_1 = x + \mu_2, \quad r_2 = x - \mu_1 \implies
+        \frac{\partial r_1}{\partial x} = \frac{\partial r_2}{\partial x} = 1 \]
+        If we now substitute for \(r_1\) into eq(65) then we get: \[
+        \left[{\mu}_{1} \left(1 + r_2 - \frac{1}{(1+r_{2})^{2}}\right)\right] +
+        \left[{\mu}_{2} \left(r_{2} - \frac{1}{r_{2}^{2}}\right)\right] = 0 \]
+        From this we get: \[ \frac{\mu_2}{\mu_1} = 3 r_{2}^{3} = \frac{1+r_2 +
+        \frac{r_{2}^{2}}{3}}{(1+r_{2})^2 (1 - r_{2}^{3})} \] Using the same
+        procedure as before we get: \begin{equation} \alpha = r_{2} -
+        \frac{1}{3} r_{2}^{2} + \frac{1}{3} r_{2}^{3} + \frac{1}{81} r_{2}^{4} +
+        \frac{47}{243} r_{2}^{5} - \frac{43}{243} r_{2}^{6} + \frac{2549}{6561}
+        r_{2}^{7} - \frac{4589}{19683} r_{2}^{8} + \dots \end{equation} And if
+        we now invert the series like before for \(L1\) we get: \begin{equation}
+        r_2 = \alpha + \frac{1}{3} \alpha^2 - \frac{1}{9} \alpha^3 -
+        \frac{31}{81} \alpha^4 - \frac{119}{243} \alpha^5 - \frac{1}{9} \alpha^6
+        + \frac{3089}{6561} \alpha^7 + \frac{14849}{19683} \alpha^8 + \dots
+        \end{equation} Alright, so the \(L2\) Lagrange point is at:
+        \begin{equation} \boxed{L2: \customquad \left( \mu_1 + \alpha +
+        \frac{1}{3} \alpha^2 - \frac{1}{9} \alpha^3 - \frac{31}{81} \alpha^4 -
+        \frac{119}{243} \alpha^5 - \frac{1}{9} \alpha^6 + \frac{3089}{6561}
+        \alpha^7 + \frac{14849}{19683} \alpha^8 + \dots , 0\right) }
+        \end{equation} \begin{equation} \boxed{L2: \customquad \left(a\mu_1 +
+        a\alpha + \frac{a}{3} \alpha^2 - \frac{a}{9} \alpha^3 - \frac{31a}{81}
+        \alpha^4 - \frac{119a}{243} \alpha^5 - \frac{a}{9} \alpha^6 +
+        \frac{3089a}{6561} \alpha^7 + \frac{14849a}{19683} \alpha^8 + \dots ,
+        0\right)} \end{equation}
+        <img
+          class="plots_type_1"
+          src="/Main/Research & Simulations/N-Body Problem/diagrames/R3BP_L4nL5nL1nL2.png"
+          alt="Orbital Plot"
+          width="503.3"
+          height="583.8"
+        />
+      </p>
+
+      <p>
+        In the figure we can see where the \(L2\) Lagrange point is usually
+        found.<br />
+
+        Now that we have all Lagrange points except one, the \(L3\) Lagrange
+        point. For the \(L3\) Lagrange point: \[ r_2 - r_1 = 1 \] And, like
+        before: \[ r_1 = -x - \mu_2,\customquad r_2 = -x + \mu_1 \implies
+        \frac{\partial r_1}{\partial x} = \frac{\partial r_2}{\partial x} = -1
+        \] Again substituting into eq(65): \[ \left[{\mu}_{1} \left(r_{1} -
+        \frac{1}{r_{1}^{2}}\right)\right] - \left[{\mu}_{2} \left( 1 + r_1 -
+        \frac{1}{\left(1 + r_1\right)^{2}}\right)\right] = 0 \] \[ \Rightarrow
+        \frac{\mu_2}{\mu_1} = \frac{(1-r_{1}^{3}) (1 + r_1)^2 } {r_{1}^{3}
+        (r_{1}^{2} + 3r_1 + 3)} \] Let's say \(r_1\) has the form \(r_1 = 1 +
+        \beta\), where \(\beta\) is some kind of series. As we have seen before
+        for other Lagrange points, we always have a form \(r_2 = 1 + \dots\). So
+        if \(r_1 = 1 + \beta\) then \(r_2 = 2 + \beta\). Now, if we substitute
+        this into the equation we get: \[ \Rightarrow \frac{\mu_2}{\mu_1} =
+        \frac{(1-(1 + \beta)^{3}) (1 + (1 + \beta))^2 } {(1 + \beta)^{3} ((1 +
+        \beta)^{2} + 3(1 + \beta) + 3)} \] Expanding this gives us:
+        \begin{equation} \frac{\mu_2}{\mu_1} = -\frac{12}{7} \beta +
+        \frac{144}{49} \beta^2 - \frac{1567}{343} \beta^3 + \frac{15745}{2401}
+        \beta^4 - \frac{149390}{16807} \beta^5 + \frac{1359436}{117649} \beta^6
+        - \frac{11986847}{823543}\beta^7 + \dots \end{equation} In order to find
+        \(r_1\) we need to find \(\beta\). Inverting this series we get:
+        \begin{equation} \beta = -\frac{7}{12} \left(\frac{\mu_2}{\mu_1}\right)
+        + \frac{7}{12} \left(\frac{\mu_2}{\mu_1}\right)^2 - \frac{13223}{20736}
+        \left(\frac{\mu_2}{\mu_1}\right)^3 + \frac{177835}{248832}
+        \left(\frac{\mu_2}{\mu_1}\right)^4 - \frac{9608543}{11943936}
+        \left(\frac{\mu_2}{\mu_1}\right)^5 + \frac{387585233}{429981696}
+        \left(\frac{\mu_2}{\mu_1}\right)^6 + \dots \end{equation} So, using
+        \(\beta\) we can calculate \(r_1\) and \(r_2\) and we get:
+        \begin{equation} r_1 = 1 -\frac{7}{12} \left(\frac{\mu_2}{\mu_1}\right)
+        + \frac{7}{12} \left(\frac{\mu_2}{\mu_1}\right)^2 - \frac{13223}{20736}
+        \left(\frac{\mu_2}{\mu_1}\right)^3 + \frac{177835}{248832}
+        \left(\frac{\mu_2}{\mu_1}\right)^4 - \frac{9608543}{11943936}
+        \left(\frac{\mu_2}{\mu_1}\right)^5 + \frac{387585233}{429981696}
+        \left(\frac{\mu_2}{\mu_1}\right)^6 + \dots \end{equation}
+        \begin{equation} r_2 = 2 -\frac{7}{12} \left(\frac{\mu_2}{\mu_1}\right)
+        + \frac{7}{12} \left(\frac{\mu_2}{\mu_1}\right)^2 - \frac{13223}{20736}
+        \left(\frac{\mu_2}{\mu_1}\right)^3 + \frac{177835}{248832}
+        \left(\frac{\mu_2}{\mu_1}\right)^4 - \frac{9608543}{11943936}
+        \left(\frac{\mu_2}{\mu_1}\right)^5 + \frac{387585233}{429981696}
+        \left(\frac{\mu_2}{\mu_1}\right)^6 + \dots \end{equation} So, therefore
+        we have finally obtained our final Lagrange point, the \(L3\) Lagrange
+        point — its location is, if \(a=1\): \begin{equation} \boxed{L3:
+        \customquad \left(-1-\mu_2 + \frac{7}{12}
+        \left(\frac{\mu_2}{\mu_1}\right) - \frac{7}{12}
+        \left(\frac{\mu_2}{\mu_1}\right)^2 + \frac{13223}{20736}
+        \left(\frac{\mu_2}{\mu_1}\right)^3 - \frac{177835}{248832}
+        \left(\frac{\mu_2}{\mu_1}\right)^4 + \frac{9608543}{11943936}
+        \left(\frac{\mu_2}{\mu_1}\right)^5 -
+        \mathcal{O}\left(\frac{\mu_2}{\mu_1}\right)^6 ,0\right)} \end{equation}
+        \begin{equation} \boxed{L3: \customquad \left(-a-a\mu_2 + \frac{7a}{12}
+        \left(\frac{\mu_2}{\mu_1}\right) - \frac{7a}{12}
+        \left(\frac{\mu_2}{\mu_1}\right)^2 + \frac{13223a}{20736}
+        \left(\frac{\mu_2}{\mu_1}\right)^3 - \frac{177835a}{248832}
+        \left(\frac{\mu_2}{\mu_1}\right)^4 + \frac{9608543a}{11943936}
+        \left(\frac{\mu_2}{\mu_1}\right)^5 -
+        \mathcal{O}\left(\frac{\mu_2}{\mu_1}\right)^6 ,0\right)} \end{equation}
+        <img
+          class="plots_type_1"
+          src="/Main/Research & Simulations/N-Body Problem/diagrames/R3BP_L4nL5nL1nL2nL3.png"
+          alt="Orbital Plot"
+          width="553.63"
+          height="642.18"
+        />
+        In the image we can see the general locations of the Lagrange points. As
+        you can see, \(L_4\) and \(L_5\) always form two equilateral triangles
+        with the primaries. The three collinear Lagrange points are \(L_1\),
+        \(L_2\), and \(L_3\). \(L_1\) lies between the primaries, \(L_2\) lies
+        beyond \(m_2\) (on the side away from \(m_1\)) since we take
+        \(m_1>m_2\), and \(L_3\) lies on the far side of \(m_1\).
+      </p>
+
+      <p>
+        If we plot the zero-velocity curves associated with all five Lagrange
+        points for \(\mu_2 = 0.3333\ldots\) and \(\mu_1 = 0.666\ldots\), we get
+        the following plot, as shown in the image:
+        <img
+          class="plots_type_1"
+          src="/Main/Research & Simulations/N-Body Problem/diagrames/CURVES_DE_LEGS.png"
+          alt="Orbital Plot"
+          width="1280"
+          height="612"
+        />
+        Here the orange \(\left(\text{#FF7F0E}\right)\) curves correspond to the
+        zero-velocity curves associated with the \(L1\) Lagrange point. If we
+        also draw the zero-velocity surface for \(L1\) for our described system
+        with \(a=1\), \(\mu_1 = 0.666\ldots\) and \(\mu_2 = 0.333\ldots\), we
+        get:
+        <img
+          class="plots_type_1"
+          src="/Main/Research & Simulations/N-Body Problem/diagrames/L1_suf.png"
+          alt="Orbital Plot"
+          width="408"
+          height="408.5"
+        />
+        Here, as we can see from the zero-velocity surface, \(L1\) is a
+        <strong>saddle point</strong>; even a tiny infinitesimal nudge in any
+        direction will move the test particle, and the test particle will start
+        to orbit one of the planets depending on the direction of the push or
+        slight nudge. This is the reason we will soon see that the \(L1\),
+        \(L2\) and \(L3\) Lagrange points are extremely unstable: in practice
+        when we place anything at \(L1\) or \(L2\) we have to keep giving slight
+        corrections so that it does not drift away from the \(L1\) or \(L2\);
+        otherwise the object will drift away exponentially. This is also why we
+        were unable to simulate motion of a test particle exactly at the \(L1\),
+        \(L2\) and \(L3\) Lagrange points—our simulation uses discrete time
+        steps rather than a continuous time evolution, which lets numerical
+        errors build up and the test particle drift away exponentially. Instead,
+        we will simulate how a space observatory or artificial satellite like
+        the <strong>Deep Space Climate Observatory (DSCOVR)</strong> or the
+        <strong>Solar and Heliospheric Observatory (SOHO)</strong> or
+        <strong>James Webb Space Telescope (JWST)</strong> might maintain their
+        locations at those Lagrange points.
+        <br />
+        If we now do the same thing for \(L2\) we get the following
+        zero-velocity surface:
+        <img
+          class="plots_type_1"
+          src="/Main/Research & Simulations/N-Body Problem/diagrames/L2_suf.png"
+          alt="Orbital Plot"
+          width="408"
+          height="408.5"
+        />
+        We mentioned that \(L2\) is also a saddle point like \(L1\). Here, in
+        the plot, we can see two allowed regions: one region is enclosed by the
+        zero-velocity curves and the other lies outside those enclosed curves.
+        Even a slight infinitesimal nudge can cause the particle to move into
+        either region.
+        <br />
+        In our plot of the zero-velocity curves the red
+        \(\left(\text{#D62728}\right)\) curves correspond to the zero-velocity
+        curves associated with the \(L3\) Lagrange point, if we also plot the
+        zero-velocity surface associate to \(L3\) we get:
+        <img
+          class="plots_type_1"
+          src="/Main/Research & Simulations/N-Body Problem/diagrames/L3_suf.png"
+          alt="Orbital Plot"
+          width="408"
+          height="408.5"
+        />
+        Now, if we plot the zero-velocity surface assosiated with \(L4\) and
+        \(L5\) we get:
+      </p>
+      <table>
+        <tr>
+          <td>
+            <img
+              class="plots_type_1"
+              src="/Main/Research & Simulations/N-Body Problem/diagrames/L4_suf.png"
+              alt="Orbital Plot"
+              width="408"
+              height="408.5"
+            />
+          </td>
+
+          <td>
+            <img
+              class="plots_type_1"
+              src="/Main/Research & Simulations/N-Body Problem/diagrames/L5_suf.png"
+              alt="Orbital Plot"
+              width="408"
+              height="408.5"
+            />
+          </td>
+        </tr>
+      </table>
+      <p>
+        Here, in the plot we can see that there are no zero-velocity curves
+        associated with the \(L4\) and \(L5\) Lagrange points. That means the
+        test particle has access to all of space (only if the particle
+        successfully escapes the \(L4\) and \(L5\) Lagrange points first) — this
+        does not mean it will travel to every point in space; it simply means
+        there is no region of space that is inaccessible to the particle. Also,
+        we see that the Jacobi constant for both \(L4\) and \(L5\) is the same.
+        This is because the Jacobi constant is \[ C_J =
+        \bigg[n^2\big(x^2+y^2\big) +
+        2\Big(\frac{\mu_1}{r_1}+\frac{\mu_2}{r_2}\Big)\bigg] - \dot{x}^2 -
+        \dot{y}^2 - \dot{z}^2, \] and for \(-y\) it doesn’t matter — we square
+        it, so the sign of \(y\) (positive or negative) has no effect. That is
+        why all our zero-velocity curves and surfaces are symmetric about the
+        \(x\)-axis and why the Jacobi constant is the same for \(L4\) and
+        \(L5\). But why are the curves not symmetric about the \(y\)-axis? It is
+        because of eqs. (32) and (33): \[ {r_1}^2=(x+a\mu_2)^2+y^2+z^2, \] \[
+        {r_2}^2=(x-a\mu_1)^2+y^2+z^2. \] Here we square \(y\) directly, so its
+        sign does not matter; but for \(x\) we subtract \(a\mu_1\) for \(r_1\)
+        and add \(a\mu_2\) for \(r_2\) before squaring, and that is why the
+        zero-velocity curves are not symmetric about the \(y\)-axis. One thing
+        to notice in our plots is that the Jacobi constant of \(L1\) is greater
+        than the values for the other Lagrange points; \(L2\) has the
+        second-largest Jacobi constant, \(L3\) the third largest, and \(L4\) and
+        \(L5\) have the lowest values. In fact, for every CR3BP we will see this
+        pattern: \[ L1 > L2 > L3 > (L4 = L5). \] Why? It is because we chose to
+        label these Lagrange points according to their Jacobi constants, with
+        \(L1\) denoting the equilibrium point with the largest Jacobi constant
+        and \(L4\) and \(L5\) denoting the triangular equilibrium points with
+        the lowest Jacobi constant. It is also customary for \(L4\) and \(L5\)
+        to denote the leading and trailing triangular points, respectively.
+      </p>
+      <p>
+        Previously we obtained these results for the locations of the Lagrange
+        points: \[ L1: \customquad \left(\mu_1 - \alpha + \frac{1}{3} \alpha^2 +
+        \frac{1}{9} \alpha^3 + \frac{23}{81} \alpha^4 - \frac{28}{27} \alpha^5 +
+        \frac{492}{729} \alpha^6 + \frac{86}{6561} \alpha^7 + \frac{4733}{2187}
+        \alpha^8 - \dots , 0\right ) \] \[ L2: \customquad \left( \mu_1 + \alpha
+        + \frac{1}{3} \alpha^2 - \frac{1}{9} \alpha^3 - \frac{31}{81} \alpha^4 -
+        \frac{119}{243} \alpha^5 - \frac{1}{9} \alpha^6 + \frac{3089}{6561}
+        \alpha^7 + \frac{14849}{19683} \alpha^8 + \dots , 0\right) \] \[ L3:
+        \customquad \left(-1-\mu_2 + \frac{7}{12}
+        \left(\frac{\mu_2}{\mu_1}\right) - \frac{7}{12}
+        \left(\frac{\mu_2}{\mu_1}\right)^2 + \frac{13223}{20736}
+        \left(\frac{\mu_2}{\mu_1}\right)^3 - \frac{177835}{248832}
+        \left(\frac{\mu_2}{\mu_1}\right)^4 + \frac{9608543}{11943936}
+        \left(\frac{\mu_2}{\mu_1}\right)^5 -
+        \mathcal{O}\left(\frac{\mu_2}{\mu_1}\right)^6 ,0\right) \] \[ L4:
+        \customquad
+        \left(\left(\frac{1}{2}-\mu_2\right)a,+\frac{\sqrt{3}}{2}a\right) \] \[
+        L5: \customquad
+        \left(\left(\frac{1}{2}-\mu_2\right)a,-\frac{\sqrt{3}}{2}a\right) \]
+        Here, notice that as \(\mu_2 \to 0\) we have \(\alpha \to 0\), and
+        \(L1\) and \(L2\) get closer to \(m_2\). If we look at the expressions
+        for the locations of \(L1\) and \(L2\), we see that, neglecting the
+        higher-order terms, \(L1\) and \(L2\) become equidistant from \(m_2\).
+        Likewise, \(L3\) then lies on the unit circle — or more generally on a
+        circle of radius \(a\) it is because The \(L3\) point lies at a distance
+        of \(1+\beta\) if \(\mu_2 \to 0\) then \(\beta \to 0\).
+      </p>
+      <p>
+        Below, in the video, we can see how the Lagrange points evolve, and how
+        the zero-velocity curves associated with them change as \(\mu_1\) varies
+        from \(0.5024875622...\) to \(0.999259807\) and \(\mu_2\) varies from
+        \(0.4975124378\) to \(0.0007401925\).
+        <video width="486" height="486" controls>
+          <source
+            src="/Main/Research & Simulations/N-Body Problem/videos/;p;;;89080001-0600.mp4"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </p>
+      <p>
+        Here in this animation, the \(L_3\) Lagrange point approaches a point
+        that lies on a circle, and our \(m_1\) always lies on that circle in the
+        rotating frame. We also notice that the \(L_1\) and \(L_2\) Lagrange
+        points move closer to \(m_2\). This is not surprising, because in the
+        animation \(\mu_1\) approaches 1, which means \(m_1\) is increasing. For
+        a particle to remain stationary it needs the gravitational force from
+        \(m_1\), \(m_2\) and the centrifugal force to balance so that the net
+        force vanishes. If the particle lies between \(m_1\) and \(m_2\), it
+        must get much closer to \(m_2\) to obtain enough gravitational pull from
+        \(m_2\) to counteract the increased gravity of \(m_1\) and the
+        centrifugal force. Consequently, \(L_1\) shifts toward \(m_1\) and
+        \(L_2\) shifts closer to \(m_2\). Eventually they become equidistant
+        from \(m_1\).
+      </p>
+
+      <h3>
+        Stability of \(L1\),\(L2\), \(L3\), \(L4\) and \(L5\) Lagrange Points
+      </h3>
+      <p>
+        When we plotted the <strong>ZVC</strong> for \(L1\) and \(L2\) we told
+        you why they were so unstable, but here we will make a mathematical
+        analysis and try to understand which Lagrange points are stable and by
+        "how much". Before jumping into this, I believe I should show you
+        simulations of what kind of trajectory we get if we start from all five
+        Lagrange points as initial locations. And later we will analyze the
+        trajectories; below you can see the trajectories we get if we start from
+        all five Lagrange points as initial locations(initial velocities are
+        zero) in rotating-frame:
+      </p>
+      <p>
+        Below the left video is the trajectory of the particle starting from
+        \(L1\); here the normalized masses are \( \mu_1 = 0.9090909090909091\)
+        and \(\mu_2 = 0.09090909090909091\). As you can see, both \(L1\) and
+        \(L2\) are extremely unstable — even though our particle is supposed to
+        stay stationary, that's not what we see in the simulation. This is
+        because we are integrating with discrete time steps; in our run we used
+        a time step \(\Delta t = 9.378005049337248 \times 10^{-6}\). As the
+        simulation progresses numerical errors build up: even if each error is
+        very small, given enough time those perturbations grow rapidly because
+        \(L1\) and \(L2\) are linearly unstable (their linearization has
+        saddle-type directions with positive real eigenvalues). For that reason
+        the particle does not remain stationary at \(L1\) and \(L2\) in the
+        simulation.
+      </p>
+      <table>
+        <tr>
+          <td>
+            <video width="568.62" height="394.875" controls>
+              <source
+                src="/Main/Research & Simulations/N-Body Problem/videos/L1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </td>
+
+          <td>
+            <video width="568.62" height="394.875" controls>
+              <source
+                src="/Main/Research & Simulations/N-Body Problem/videos/L2.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </td>
+        </tr>
+      </table>
+      <p>
+        Below is the trajectory of the particle when initially it is at \(L_3\).
+        In the left video you can see for the first few moments the particle
+        stays still, but then suddenly starts to move. That is the same reason
+        we discussed before: because numerical error is building up; when it
+        crosses a threshold the particle doesn't stay on \(L_3\) anymore and
+        begins to move. We can make \(L_3\) appear more stable numerically by
+        choosing mass ratios that reduce the growth rate of the unstable mode,
+        but \(L_3\) remains linearly unstable in the circular restricted
+        three-body problem. In our second video you can see the particle is
+        stationary for most of the video; that's because for that simulation we
+        used \(\mu_1 = 0.9900990099009901\) and \(\mu_2 =
+        0.009900990099009901\), which reduces the instability growth rate for
+        \(L_3\).
+      </p>
+      <table>
+        <tr>
+          <td>
+            <video width="568.62" height="394.875" controls>
+              <source
+                src="/Main/Research & Simulations/N-Body Problem/videos/L3_1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </td>
+
+          <td>
+            <video width="568.62" height="394.875" controls>
+              <source
+                src="/Main/Research & Simulations/N-Body Problem/videos/L3_2.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </td>
+        </tr>
+      </table>
+      <p>
+        These next two videos are the simulation of what happens when we are at
+        \(L_4\) and \(L_5\). As you can see, not much happens — this is because
+        \(L_4\) and \(L_5\) can be stable Lagrange points. If we place a
+        particle at these two points (with the correct velocity in the rotating
+        frame), small perturbations will not grow and the particle will remain
+        near its initial position. Note: \(L_4\) and \(L_5\) are conditionally
+        stable — they are linearly stable only when the mass ratio \(\mu\) of
+        the primaries is below the critical value \(\mu_{\rm crit}\approx
+        0.03852\). This is why we don't see the same behaviour as we do for
+        \(L_1\), \(L_2\), and \(L_3\).
+      </p>
+      <table>
+        <tr>
+          <td>
+            <video width="568.62" height="394.875" controls>
+              <source
+                src="/Main/Research & Simulations/N-Body Problem/videos/L4.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </td>
+
+          <td>
+            <video width="568.62" height="394.875" controls>
+              <source
+                src="/Main/Research & Simulations/N-Body Problem/videos/L5.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        One can see, when we are exactly at \(L_4\) and \(L_5\) our particle is
+        stationary in the rotating frame and is stationary relative to the
+        primaries. If it manages to get extra energy (for example, a spacecraft
+        performs a burn and produces a Δv) then its Jacobi constant will change
+        and the particle can leave the vicinity of \(L_4\)/\(L_5\). Whether the
+        particle is restricted by zero-velocity curves depends on its Jacobi
+        constant — if the curves enclose the region the particle cannot escape
+        without changing its Jacobi constant; if they do not enclose the region,
+        the particle already has access to the surrounding space. Later we will
+        show what happens when a spacecraft performs a burn, but first below we
+        can see what happens to a particle when its initial position is
+        somewhere near \(L_4\) or \(L_5\) and not exactly at \(L_4\) and
+        \(L_5\). Since \(L_4\) and \(L_5\) are symmetric we will just look at
+        one of them. Below are the particle's evolution and trajectory when the
+        particle starts with a horizontal displacement of
+        \(\epsilon_{\text{error}} = 0.02,\,0.01,\,0.1\) from the \(L_5\)
+        Lagrange point shown in both the inertial frame and the rotating frame.
+      </p>
+      <video width="720" height="500" controls>
+        <source
+          src="/Main/Research & Simulations/N-Body Problem/videos/L5_error_1_rot_in.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+
+      <video width="720" height="500" controls>
+        <source
+          src="/Main/Research & Simulations/N-Body Problem/videos/L5_error_0001_rot_in.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <video width="720" height="500" controls>
+        <source
+          src="/Main/Research & Simulations/N-Body Problem/videos/L5_error_12_rot_in.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+
+      <p>
+        These are the motions we get starting with a horizontal error
+        \(\epsilon\) near the \(L_5\) Lagrange point. Motion near \(L_4\) and
+        \(L_5\) is quite interesting to study, and soon we will see that when we
+        have a very small error near \(L_4\) and \(L_5\) the test particles
+        oscillate around these points — these Lagrange points are that stable.
+        Now we shall start analyzing the stability of all Lagrange points and
+        see more details about these points.
+      </p>
+      <p>
+        Well, but how do we analyze stability of something? Are there some kind
+        of scale or something like a "stability meter"? Well no — actually,
+        we're not exactly assigning a single value to the stability of the
+        Lagrange points. What we are going to do is something called
+        <strong>Linear Stability Analysis</strong>, which will allow us to see
+        what happens to the state vector of the particle and how its components
+        change with time if it deviates from the equilibrium position by a small
+        amount. Remember we said before for the collinear Lagrange points: if we
+        start with a tiny displacement from the equilibrium point then the error
+        builds up exponentially — this is what linear stability analysis allows
+        us to see. We will find that for collinear points \((X(t),Y(t))\) the
+        solution is a linear combination of exponentials \(e^{\lambda t}\), if
+        some \(\lambda>0\) those modes grow, so the collinear points are
+        extremely unstable.
+      </p>
+
+      <p>
+        To do Linear Stability Analysis first we need to linearize the equations
+        of motion. Let the location of the equilibrium position be \((x_0,
+        y_0)\) and let \((X,Y)\) be a small displacement such that the particle
+        is at \((x,y) = (x_0 + X,\, y_0 + Y)\). Now if we substitute this into
+        equations (41) and (42) then \(\ddot{x} = \ddot{(x_0+X)} = \ddot{X}\)
+        and similarly \(\ddot{y} = \ddot{Y}\). Let \(U_i \equiv \frac{\partial
+        U}{\partial i}\). So equations (41) and (42) become \[ \ddot{X} -
+        2n\dot{Y} = U_x(x_0+X, y_0+Y) \] \[ \Rightarrow\quad \ddot{X} -
+        2n\dot{Y} = U_x(x_0,y_0) + X\frac{\partial}{\partial
+        x}\!\left(\frac{\partial U}{\partial x}\right)\Big|_0 +
+        Y\frac{\partial}{\partial y}\!\left(\frac{\partial U}{\partial
+        x}\right)\Big|_0 + \mathcal{O}((X,Y)^2). \] Using the standard notation
+        \(\frac{\partial}{\partial x}\!\left(\frac{\partial U}{\partial
+        x}\right)=U_{xx}\) and \(\frac{\partial}{\partial
+        y}\!\left(\frac{\partial U}{\partial x}\right)=U_{xy}\), we get \[
+        \ddot{X} - 2n\dot{Y} = U_x\big|_0 + XU_{xx}\big|_0 + YU_{xy}\big|_0 +
+        \mathcal{O}((X,Y)^2). \] At equilibrium points \((x_0, y_0)\) the
+        gradient of \(U\) vanishes: \[ U_x\big|_0 = 0,\quad U_y\big|_0 = 0. \]
+        So, making the linear approximation gives \begin{equation} \ddot{X} -
+        2n\dot{Y} \approx XU_{xx}\big|_0 + YU_{xy}\big|_0 =
+        X\left(\frac{\partial^2 U}{\partial x^2}\right)_0 +
+        Y\left(\frac{\partial^2 U}{\partial x\partial y}\right)_0.
+        \end{equation} Similarly, \begin{equation} \ddot{Y} + 2n\dot{X} \approx
+        XU_{yx}\big|_0 + YU_{yy}\big|_0 = X\left(\frac{\partial^2 U}{\partial
+        x\partial y}\right)_0 + Y\left(\frac{\partial^2 U}{\partial
+        y^2}\right)_0. \end{equation} Here the subscript \(|_0\) means we are
+        evaluating the second partial derivatives at the equilibrium point where
+        \(\left.\frac{\partial U}{\partial x}\right|_0=\left.\frac{\partial
+        U}{\partial y}\right|_0=0\). Because we are interested in small
+        displacements around the equilibrium points it is reasonable to drop the
+        higher-order terms; this will be useful for our calculations. Now we
+        will do our standard procedure to linearise the equations of motion.
+      </p>
+
+      <p>
+        We had our eq(85) and eq(86):
+        \[
+          \ddot{X} - 2n\dot{Y} \approx XU_{xx}\big|_0 + YU_{xy}\big|_0,
+        \]
+        \[
+          \ddot{Y} + 2n\dot{X} \approx XU_{yx}\big|_0 + YU_{yy}\big|_0.
+        \]
+        We can write our equations in matrix form as shown below:
+        \[
+          \begin{pmatrix} \dot{X} \\ \dot{Y} \\ \ddot{X} \\ \ddot{Y} \end{pmatrix}
+          =
+          \begin{pmatrix}
+            0 & 0 & 1 & 0 \\[4pt]
+            0 & 0 & 0 & 1 \\[4pt]
+            U_{xx} & U_{xy} & 0 & 2n \\[4pt]
+            U_{xy} & U_{yy} & -2n & 0
+          \end{pmatrix}
+          \begin{pmatrix} X \\ Y \\ \dot{X} \\ \dot{Y} \end{pmatrix}.
+        \]
+        Now instead of two simultaneous second-order equations we have
+        transformed the problem into solving four simultaneous first-order
+        differential equations. We can (and should) write eq(87) as
+        \begin{equation}
+          \dot{\mathbf{X}} = \mathbf{A}\mathbf{X},
+        \end{equation}
+        where
+        \[
+          \mathbf{X} = \begin{pmatrix} X \\ Y \\ \dot{X} \\ \dot{Y} \end{pmatrix},
+          \qquad
+          \mathbf{A} =
+          \begin{pmatrix}
+            0 & 0 & 1 & 0 \\[4pt]
+            0 & 0 & 0 & 1 \\[4pt]
+            U_{xx} & U_{xy} & 0 & 2n \\[4pt]
+            U_{xy} & U_{yy} & -2n & 0
+          \end{pmatrix}.
+        \]
+        Here \(\mathbf{A}\) is a \(4\times4\) transformation matrix
+        \(\mathbb{R}^4\to\mathbb{R}^4\), and \(\mathbf{X}\) is a 4-dimensional
+        state vector. In this procedure our first step is to find the eigenvalues
+        \(\lambda_i\) and eigenvectors of the transformation matrix \(\mathbf{A}\).
+        <strong>NOTE:</strong> Eigenvalues are scalars \(\lambda_i\) such that
+        \(\mathbf{A}\mathbf{x}_i=\lambda_i\mathbf{x}_i\) for some nonzero vector
+        \(\mathbf{x}_i\) (the corresponding eigenvector). 
+
+      </p>
+      <p>
+        Let's take \(n=1\). Then we can write \(\mathbf{A}\mathbf{x}_i=\lambda_i\mathbf{x}_i\) as:
+        \[
+          \left(\mathbf{A} - \lambda_i \mathbb{I}_4\right) \mathbf{x}_i = 0.
+        \]
+        This implies the determinant of the matrix \(\mathbf{A} - \lambda_i \mathbb{I}_4\) is zero, so
+        \[
+          \det(\mathbf{A} - \lambda_i \mathbb{I}_4) = 0.
+        \]
+        If we expand this we obtain the characteristic (polynomial) equation; solving that
+        will give us the eigenvalues \(\lambda_i\).
+      </p>
+      <p>
+        \[
+        \det(\mathbf{A} - \lambda\mathbf{I}) = 0 =
+        \begin{vmatrix}
+        -\lambda & 0 & 1 & 0 \\
+        0 & -\lambda & 0 & 1 \\
+        U_{xx} & U_{xy} & -\lambda & 2 \\
+        U_{xy} & U_{yy} & -2 & -\lambda
+        \end{vmatrix}
+        \]
+        If we calculate the determinant we get:
+        \begin{equation}
+        \lambda^{4} + (4 - U_{xx} - U_{yy})\lambda^{2} + (U_{xx}U_{yy} - U_{xy}^2) = 0.
+        \end{equation}
+        If we solve this we get the following eigenvalues:
+        \begin{equation}
+        \lambda_{1,2} = \pm \left[ \frac{1}{2}(U_{xx} + U_{yy} - 4) - \frac{1}{2} \sqrt{ (4 - U_{xx} - U_{yy})^2 - 4\big(U_{xx}U_{yy} - U_{xy}^2\big) } \right]^{1/2}
+        \end{equation}
+        \begin{equation}
+        \lambda_{3,4} = \pm \left[ \frac{1}{2}(U_{xx} + U_{yy} - 4) + \frac{1}{2} \sqrt{ (4 - U_{xx} - U_{yy})^2 - 4\big(U_{xx}U_{yy} - U_{xy}^2\big) } \right]^{1/2}.
+        \end{equation}
+
+        Our eq(87), as you can see, is coupled — that is \(\ddot{X}\) depends on
+        \((X,Y,\dot{Y})\). In this kind of scenario it is useful if we can remove
+        the coupling; this can be done by something called a <strong>Similarity / Homothetic transformation</strong>.
+        To do this first we let there be a transformation matrix \(\mathbf{B}\)
+        such that we can transform from \(\mathbf{X}\) to some arbitrary vector
+        \(\mathbf{Y}\). Then:
+        \begin{equation}  \mathbf{Y} = \mathbf{B}\mathbf{X}\end{equation}
+
+        So that implies:
+        \begin{equation}\mathbf{X} = \mathbf{B}^{-1}\mathbf{Y} \quad,
+        \dot{\mathbf{X}} = \mathbf{B}^{-1}\dot{\mathbf{Y}}\end{equation} 
+
+        And so if we now substitute \(\mathbf{X}\) in eq(91) we get:
+        \begin{equation}
+        \dot{\mathbf{Y}} = \mathbf{B}\mathbf{A}\mathbf{B}^{-1}\mathbf{Y}.
+        \end{equation}
+        Now here is the thing: \(\dot{\mathbf{Y}}\) is equal to some matrix times
+        \(\mathbf{Y}\). The equation is uncoupled when each \(\dot{Y}_i\) depends
+        only on \(Y_i\). One can then say for this to happen the matrix
+        \(\mathbf{B}\mathbf{A}\mathbf{B}^{-1}\) has to be diagonal. Those who are
+        familiar with eigenvalues and eigenvectors and know a bit of linear algebra
+        can already guess that means \(\mathbf{B}\mathbf{A}\mathbf{B}^{-1}\)
+        should be the diagonal matrix \(\Lambda\) whose diagonal entries are the
+        eigenvalues of \(\mathbf{A}\). Here we choose \(\mathbf{B}\) so that
+        \(\mathbf{B}\mathbf{A}\mathbf{B}^{-1}\) is the diagonal matrix containing
+        the eigenvalues of \(\mathbf{A}\). If you studied linear algebra you know
+        to pick \(\mathbf{B}\) with columns equal to the eigenvectors of
+        \(\mathbf{A}\); if not, make it a homework to show why choosing the
+        eigenvectors of \(\mathbf{A}\) as the columns of \(\mathbf{B}\) makes
+        \(\mathbf{B}\mathbf{A}\mathbf{B}^{-1}\) diagonal — hint: use the
+        definition of eigenvalues and eigenvectors.
+
+        So:
+        \[
+        \mathbf{B}\mathbf{A}\mathbf{B}^{-1} = \Lambda =
+        \begin{pmatrix}
+        \lambda_1 & 0 & \dots & 0 \\
+        0 & \lambda_2 & \dots & 0 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & \dots & \lambda_n
+        \end{pmatrix}
+        = \begin{pmatrix}
+        \lambda_1 & 0 & 0 & 0 \\
+        0 & \lambda_2 & 0 & 0 \\
+        0 & 0 & \lambda_3 & 0 \\
+        0 & 0 & 0 & \lambda_4
+        \end{pmatrix}.
+        \]
+
+        So, now that we have \(\mathbf{B}\mathbf{A}\mathbf{B}^{-1} = \Lambda\),
+        putting it into eq(93) gives:
+        \begin{equation} \dot{\mathbf{Y}} = \Lambda \mathbf{Y}\end{equation}
+
+        so we can also write this as:
+        \begin{equation}\dot{Y}_i = \lambda_i Y_i\end{equation}
+
+        We know the general solution to this kind of differential equation: if we
+        have an ODE of the form \(\dot{x} = c x\) then the general solution is
+        \(x(t) = c' e^{ct}\). So we get:
+        \begin{equation} Y_i = c_i e^{\lambda_i t}\quad \text{here, } i =1,2,...,n\end{equation}
+        
+
+      </p>
+
+      <p>
+        Now that we have the solution for \(Y_i\) we can transform this back to \(\mathbf{X}\):
+        \begin{equation}
+          \mathbf{X} = \mathbf{B}^{-1}\mathbf{Y} = \mathbf{B}^{-1}
+          \begin{pmatrix}
+            c_1 e^{\lambda_1 t} \\
+            c_2 e^{\lambda_2 t} \\
+            \vdots \\
+            c_n e^{\lambda_n t}
+          \end{pmatrix}
+        \end{equation}
+
+        Eq(97) can be written as:
+        \begin{equation}
+          X = \sum_{j=1}^4 \bar{\alpha}_j e^{\lambda_j t}, \quad
+          \dot{X} = \sum_{j=1}^4 \bar{\alpha}_j \lambda_j e^{\lambda_j t}.
+        \end{equation}
+        Here the \(\bar{\alpha}_j\)'s are constants; similarly for \(Y\) and \(\dot{Y}\):
+        \begin{equation}
+          Y = \sum_{j=1}^4 \bar{\beta}_j e^{\lambda_j t}, \quad
+          \dot{Y} = \sum_{j=1}^4 \bar{\beta}_j \lambda_j e^{\lambda_j t}.
+        \end{equation}
+        The coefficients \(\bar{\beta}_j\) are functions of the \(\bar{\alpha}_j\), and the relation between them can be obtained by substituting the expressions for \(X\), \(Y\) and \(\dot{Y}\) into eq(85):
+        \begin{equation}
+          \sum_{j=1}^4 \left( \bar{\alpha}_j \lambda_j^2 - 2n\bar{\beta}_j \lambda_j - U_{xx}\bar{\alpha}_j - U_{xy}\bar{\beta}_j \right) e^{\lambda_j t} = 0.
+        \end{equation}
+        From this equation we get the following relation:
+        \begin{equation}
+          \bar{\beta}_j = \frac{\lambda_j^2 - U_{xx}}{\,2n\lambda_j + U_{xy}\,}\,\bar{\alpha}_j.
+        \end{equation}
+
+        Initially, at time \(t=0\), we have the boundary conditions \(X=X_0\), \(Y=Y_0\), \(\dot{X}=\dot{X}_0\) and \(\dot{Y}=\dot{Y}_0\). From these boundary conditions we can determine the four values of \(\bar{\alpha}_j\) from the solution of the four simultaneous linear equations:
+        \begin{equation}
+          \sum_{j=1}^4 \bar{\alpha}_j = X_0,\quad
+          \sum_{j=1}^4 \lambda_j \bar{\alpha}_j = \dot{X}_0,\quad
+          \sum_{j=1}^4 \bar{\beta}_j = Y_0,\quad
+          \sum_{j=1}^4 \lambda_j \bar{\beta}_j = \dot{Y}_0.
+        \end{equation}
+        Although the complete solution is described by Eqs(98) and (99)
+        with the constants \(\bar{\alpha}_j\) and \(\bar{\beta}_j\) given by the
+        solutions to eq(102), the stability of the equilibrium points can be
+        determined from an inspection of the eigenvalues alone.
+
+        To explore the nature of the eigenvalues we define the quantities:
+        \begin{equation}
+          \bar{A} = \frac{\mu_1}{(r_1^3)_0} + \frac{\mu_2}{(r_2^3)_0},
+        \end{equation}
+        \begin{equation}
+          \bar{B} = 3\left[\frac{\mu_1}{(r_1^5)_0} + \frac{\mu_2}{(r_2^5)_0}\right] y_0^2,
+        \end{equation}
+        \begin{equation}
+          \bar{C} = 3\left[\mu_1\frac{(x_0 + \mu_2)}{(r_1^5)_0} + \mu_2\frac{(x_0 - \mu_1)}{(r_2^5)_0}\right] y_0,
+        \end{equation}
+        \begin{equation}
+          \bar{D} = 3\left[\mu_1\frac{(x_0 + \mu_2)^2}{(r_1^5)_0} + \mu_2\frac{(x_0 - \mu_1)^2}{(r_2^5)_0}\right].
+        \end{equation}
+        In terms of these constants we can write:
+        \begin{equation}
+          U_{xx} = 1 - \bar{A} + \bar{D},
+        \end{equation}
+        \begin{equation}
+          U_{yy} = 1 - \bar{A} + \bar{B},
+        \end{equation}
+        \begin{equation}
+          U_{xy} = \bar{C}.
+        \end{equation}
+
+        Of course all these \(U\)'s are real numbers and so are \(X\), \(Y\) and their derivatives. Even though these quantities are real, this does not restrict the \(\lambda_j\)'s or the \(\bar{\alpha}_j\) and \(\bar{\beta}_j\) to be real — they can be complex.
+
+        The general form of the eigenvalues given by eqs(89) and (90) is:
+        \begin{equation}
+          \lambda_{1,2} = \pm (j_1 + i k_1), \quad
+          \lambda_{3,4} = \pm (j_2 + i k_2),
+        \end{equation}
+        where \(j_1,k_1,j_2,k_2\) are real quantities and \(i=\sqrt{-1}\).
+
+        We have seen that the general solution for the components of the position
+        and velocity vectors relative to the equilibrium point involves a linear
+        combination of terms of the form \(e^{\lambda_j t}\). This means that each
+        \(e^{(j+ik)t}\) term will be matched by an \(e^{(j-ik)t}\) term. If the
+        real part \(j=0\), then the paired terms reduce to sines and cosines (since
+        \(e^{\pm i k t}=\cos(kt)\pm i\sin(kt)\)), giving an oscillatory motion.
+        But if \(j\neq 0\) and is positive, that mode grows like \(e^{j t}\) and
+        will blow up as time increases; in that case the perturbed solution is
+        unstable. Therefore the equilibrium point is stable only if all the
+        eigenvalues are purely imaginary. We will see how this works in practice
+        by considering the general and specific cases.
+      </p>
+
+      <h4>
+        Stability Of The Collinear Points
+      </h4>
+     <p>
+        Now, if we look at the three collinear points to see how stable they are we first
+        need to compute the \(U\)'s from eq(107), and we know for collinear points
+        \(y_0 = 0\), \((r_{1}^{2})_{0} = (x_0+\mu_2)^2\) and \((r_{2}^{2})_0 = (x_0 - \mu_1)^2\), so:
+        \begin{equation}
+          U_{xx} = 1 + 2\bar{A}, \quad U_{yy} = 1 - \bar{A}, \quad U_{xy} = 0
+        \end{equation}
+        Now the characteristic equation becomes:
+        \[
+          \lambda^{4} + (2 - \bar{A})\lambda^{2} + \big(1 + \bar{A} - 2\bar{A}^2\big) = 0.
+        \]
+        Well, to see the stability of the collinear points we need to choose some
+        values for the parameters and initial conditions so we can see how, for that
+        specific parameter set and initial condition, \(X(t)\) and \(Y(t)\) look.
+        If we inspect \(X(t)\) and \(Y(t)\) for those specific values we will get
+        the important part of this section — we will see how stable each Lagrange
+        point actually is.
+      </p>
+
+      <p>
+        Let's first look at the \(L_1\) Lagrange point for the case when
+        \(\mu_2 = 0.01\). We can calculate that for this system the coordinate of
+        \(L_1\) is approximately \((0.848,0)\); let's assume the initial
+        displacement from \(L_1\) is \(X_0 = Y_0 = 10^{-5}\) and take
+        \(\dot{X}_0 = \dot{Y}_0 = 0\). Now if we compute \((r_1)_0\) and \((r_2)_0\)
+        we get \((r_1)_0 \approx 0.858\) and \((r_2)_0 \approx 0.142\), and
+        \(U_{xx} \approx 11.1197297124\) and \(U_{yy} \approx -4.05986485618\).
+        From these we get \(\bar{A} \approx 5.059865\) and \(U_{yy} = 1 - \bar{A} \approx -4.05986485618\).
+        So we get:
+        \[
+          \mathbf{A} =
+          \begin{pmatrix}
+            0 & 0 & 1 & 0 \\[4pt]
+            0 & 0 & 0 & 1 \\[4pt]
+            11.1197297124 & 0 & 0 & 2 \\[4pt]
+            0 & -4.05986485618 & -2 & 0
+          \end{pmatrix}.
+        \]
+        Now if we compute the eigenvalues of \(\mathbf{A}\) we get:
+        \[
+          \lambda_1 \approx -2.90187694,\quad
+          \lambda_2 \approx +2.90187694,\quad
+          \lambda_3 \approx +2.31538872\,i,\quad
+          \lambda_4 \approx -2.31538872\,i.
+        \]
+        From eq(98) and eq(99) we get:
+        \[
+          \bar\alpha_1+\bar\alpha_2+\bar\alpha_3+\bar\alpha_4 = X_0,
+        \]
+        \[
+          \lambda_1\bar\alpha_1+\lambda_2\bar\alpha_2+\lambda_3\bar\alpha_3+\lambda_4\bar\alpha_4 = \dot X_0,
+        \]
+        \[
+          \bar\beta_1+\bar\beta_2+\bar\beta_3+\bar\beta_4 = Y_0,
+        \]
+        \[
+          \lambda_1\bar\beta_1+\lambda_2\bar\beta_2+\lambda_3\bar\beta_3+\lambda_4\bar\beta_4 = \dot Y_0.
+        \]
+        Now using the relation of \(\bar{\beta}_j\) and \(\bar{\alpha}_j\) we get:
+        \[
+          \bar\beta_j=\frac{\lambda_j^2-U_{xx}}{2\lambda_j+U_{xy}}\;\bar\alpha_j.
+        \]
+        Define:
+        \[
+          \gamma_j \equiv \frac{\lambda_j^2-U_{xx}}{2\lambda_j+U_{xy}}\qquad (j=1,\dots,4),
+        \]
+        so
+        \[
+          \bar\beta_j=\gamma_j\bar\alpha_j.
+        \]
+        Then:
+        \[
+          \begin{aligned}
+            &\bar\alpha_1+\bar\alpha_2+\bar\alpha_3+\bar\alpha_4 = X_0,\\
+            &\lambda_1\bar\alpha_1+\lambda_2\bar\alpha_2+\lambda_3\bar\alpha_3+\lambda_4\bar\alpha_4 = \dot X_0,\\
+            &\gamma_1\bar\alpha_1+\gamma_2\bar\alpha_2+\gamma_3\bar\alpha_3+\gamma_4\bar\alpha_4 = Y_0,\\
+            &\lambda_1\gamma_1\bar\alpha_1+\lambda_2\gamma_2\bar\alpha_2+\lambda_3\gamma_3\bar\alpha_3+\lambda_4\gamma_4\bar\alpha_4 = \dot Y_0.
+          \end{aligned}
+        \]
+        In matrix form:
+        \[
+          \begin{pmatrix}
+            1 & 1 & 1 & 1\\[4pt]
+            \lambda_1 & \lambda_2 & \lambda_3 & \lambda_4\\[4pt]
+            \gamma_1 & \gamma_2 & \gamma_3 & \gamma_4\\[4pt]
+            \lambda_1\gamma_1 & \lambda_2\gamma_2 & \lambda_3\gamma_3 & \lambda_4\gamma_4
+          \end{pmatrix}
+          \begin{pmatrix}\bar\alpha_1\\\bar\alpha_2\\\bar\alpha_3\\\bar\alpha_4\end{pmatrix}
+          =
+          \begin{pmatrix}X_0\\\dot X_0\\Y_0\\\dot Y_0\end{pmatrix}.
+        \]
+        Collect the unknowns into \(\vec\alpha=(\bar\alpha_1,\bar\alpha_2,\bar\alpha_3,\bar\alpha_4)^T\)
+        and the right-hand side \(\vec b=(X_0,\dot X_0,Y_0,\dot Y_0)^T\). Then:
+        \[
+          A\vec\alpha = \vec b \quad\Longrightarrow\quad \boxed{\vec\alpha = A^{-1}\,\vec b.}
+        \]
+        Explicit component formula (Cramer's rule): for \(k=1,\dots,4\),
+        \[
+          \bar\alpha_k = \frac{\det(A^{(k)})}{\det(A)},
+        \]
+        where \(A^{(k)}\) is \(A\) with its \(k\)-th column replaced by \(\vec b\).
+      </p>
+
+      <p>
+        As an explicit but compact example, \(\bar\alpha_1\) equals the determinant
+        \[
+          \bar\alpha_1 = \frac{%
+            \det\begin{pmatrix}
+              X_0 & 1 & 1 & 1\\[4pt]
+              \dot X_0 & \lambda_2 & \lambda_3 & \lambda_4\\[4pt]
+              Y_0 & \gamma_2 & \gamma_3 & \gamma_4\\[4pt]
+              \dot Y_0 & \lambda_2\gamma_2 & \lambda_3\gamma_3 & \lambda_4\gamma_4
+            \end{pmatrix}
+          }{%
+            \det\begin{pmatrix}
+              1 & 1 & 1 & 1\\[4pt]
+              \lambda_1 & \lambda_2 & \lambda_3 & \lambda_4\\[4pt]
+              \gamma_1 & \gamma_2 & \gamma_3 & \gamma_4\\[4pt]
+              \lambda_1\gamma_1 & \lambda_2\gamma_2 & \lambda_3\gamma_3 & \lambda_4\gamma_4
+            \end{pmatrix}
+          } \approx 6.9943\times 10^{-6}.
+        \]
+        Doing the similar calculations for the other three \(\alpha_j\) we get:
+        \[
+          \bar\alpha_2 \approx 4.9640 \times 10^{-6},
+        \]
+        \[
+          \bar\alpha_3 \approx -9.7912 \times 10^{-7} - 1.2723\times 10^{-6}i,
+        \]
+        \[
+          \bar\alpha_4 \approx -9.7912 \times 10^{-7} + 1.2723\times 10^{-6}i = \overline{\bar\alpha_3},
+        \]
+        and:
+        \[
+          \bar\beta_1\approx 3.2524\times10^{-6},\qquad
+          \bar\beta_2\approx -2.3083\times10^{-6},
+        \]
+        \[
+          \bar\beta_3\approx 4.52795\times10^{-6}-3.48466\times10^{-6}i,\qquad
+          \bar\beta_4=\overline{\bar\beta_3}.
+        \]
+      </p>
+
+      <p>
+        Alright — now that we have the necessary information we can calculate \(X(t)\) and \(Y(t)\).
+        Here the conjugate pair \((\lambda_3,\lambda_4)\) produces the oscillatory part.
+        If \(\bar\alpha_3=a+ib\) and \(\lambda_3=i\omega\) (here \(\omega\approx2.31538872\)),
+        then
+        \[
+          \bar\alpha_3 e^{i\omega t}+\bar\alpha_4 e^{-i\omega t}
+          = 2\Re(\bar\alpha_3)\cos(\omega t)-2\Im(\bar\alpha_3)\sin(\omega t).
+        \]
+        Using the numeric \(\bar\alpha_3\) and the two real \(\bar\alpha_{1,2}\) gives the closed real form for \(X(t)\):
+        \begin{equation}
+          \boxed{X(t)\approx 6.9943\times10^{-6}\,e^{-2.9019t}
+          +4.9640\times10^{-6}\,e^{+2.9019t}
+          -1.9582\times10^{-6}\cos(2.3154t)
+          +2.5445\times10^{-6}\sin(2.3154t).}
+        \end{equation}
+        And for \(Y(t)\) (using the \(\bar\beta_j\) values similarly):
+        \begin{equation}
+          \boxed{Y(t)\approx 3.2524\times10^{-6}\,e^{-2.9019t}
+          -2.3083\times10^{-6}\,e^{+2.9019t}
+          +9.0559\times10^{-6}\cos(2.3154t)
+          +6.9693\times10^{-6}\sin(2.3154t).}
+        \end{equation}
+      </p>
+
+      <p>
+        In both solutions we can see that eventually the second (growing) term dominates and, as time increases, it blows up — leading to
+        exponential growth in \(X\) and \(Y\).
+      </p>
+
+      <p>
+        Following the same procedure we can also find the \(X(t)\) and \(Y(t)\) of \(L_2\) and \(L_3\). For \(L_2\) we get (example) and for \(L_3\) we obtain:
+        \begin{equation}
+          \boxed{
+          X(t)\approx
+          7.88618\times10^{-6}e^{-2.17955t}
+          +5.40466\times10^{-6}e^{2.17955t}
+          -3.29084\times10^{-6}\cos(1.87488t)
+          +2.88476\times10^{-6}\sin(1.87488t)
+          }
+
+        \end{equation}
+
+        \begin{equation}
+        \boxed{
+          Y(t)\approx
+          4.92099\times10^{-6}e^{-2.17955t}
+          -3.37252\times10^{-6}e^{2.17955t}
+          +8.45153\times10^{-6}\cos(1.87488t)
+          +9.64122\times10^{-6}\sin(1.87488t)
+          }
+        \end{equation}
+
+        and for another \(L_3\) example we wrote:
+
+        \begin{equation}
+        \boxed{
+          X(t)\approx
+          1.98576824\times10^{-5}e^{-0.16147656t}
+          +1.88141902\times10^{-5}e^{0.16147656t}
+          -2.86718726\times10^{-5}\cos(1.00860518t)
+          +1.67061925\times10^{-7}\sin(1.00860518t)
+          }
+        \end{equation}
+
+        \begin{equation}
+        Y(t)\approx
+        1.83941169\times10^{-4}e^{-0.16147656t}
+        -1.74275329\times10^{-4}e^{0.16147656t}
+        +3.34160642\times10^{-7}\cos(1.00860518t)
+        +5.73500596\times10^{-5}\sin(1.00860518t)
+
+        \end{equation}
+      </p>
+      <p>
+        As we can see here, for all three lagrange point the function \(X(t)\) and \(Y(t)\) has at least one term with a
+        positive real eigenvalue in the exponent of \(e^{\lambda t}\), causing
+        instability. And that is why the colinear-points are instable. Notice one intresting thing, for \(L1\) and \(L2\) the term with posative eigen-value is:
+        \[
+        +4.9640\times10^{-6}\,e^{2.9019t}, \quad -2.3083\times10^{-6}\,e^{2.9019t}
+        \]
+        for \(L1\), and for \(L_2\):
+         \[
+        +5.40466\times10^{-6}e^{2.17955t}, \quad -3.37252\times10^{-6}e^{2.17955t}
+        \]
+        Notice in both case the we have \(e\) to the power some positive number that is larger then 1,times \(t\) ofc. But notice what we get for \(L3\):
+        \[
+         +1.88141902\times10^{-5}e^{0.16147656t}, \quad -1.74275329\times10^{-4}e^{0.16147656t}
+        \]
+        Here we have \(e^{0.16147656t}\) and \(0.16147656\) unlike \(2.17955\) and \(2.9019\) are less then 1 and is quite small. Well what does that indicate? it indicates that \(L3\) lagrange point is much more stable then both \(L1\) and \(L2\), and the particle at \(L3\) will shoot off after quite a long time later unlike in the case of \(L1\) and \(L2\). I want you to go back to our simulation of particles at \(L1\),\(L2\) and \(L3\), it is right at the biggening of this subsection.
+        You will see in both case of \(L1\) and \(L2\) the particles shoots of from the lagrange point almost immeditely, where in the case of \(L3\) it takes quitea lot of time for it to take of from \(L3\) and shoot off from \(L3\), although the initial pourpous of those simualtion wasnt to demonstrate this, but it is quite a plesent when things falls into place.
+
+      </p>
+      <h4>Stability of \(L4\) and \(L5\)</h4>
+      <p>
+        Following the same procedure we used for the collinear points, we can now look at
+        the \(L_4\) Lagrange point. For this case, when \(\mu_2=0.01\), we have
+        \[
+          x_0=\frac{1}{2}-\mu_2=0.49,\qquad
+          y_0=\frac{\sqrt3}{2}\approx0.8660254,
+        \]
+        and since \(L_4\) is one of the triangular points we have
+        \[
+          (r_1)_0=(r_2)_0=1.
+        \]
+        Therefore:
+        \[
+          U_{xx}=\frac34,\qquad
+          U_{yy}=\frac94,\qquad
+          U_{xy}=\frac{3\sqrt3}{4}(1-2\mu_2)\approx1.27305734356.
+        \]
+        So we get:
+        \[
+          \mathbf{A}=
+          \begin{pmatrix}
+            0 & 0 & 1 & 0\\[4pt]
+            0 & 0 & 0 & 1\\[4pt]
+            0.75 & 1.27305734356 & 0 & 2\\[4pt]
+            1.27305734356 & 2.25 & -2 & 0
+          \end{pmatrix}.
+        \]
+        The characteristic equation becomes:
+        \[
+          \lambda^4+\lambda^2+\frac{27}{4}\mu_2(1-\mu_2)=0.
+        \]
+        For \(\mu_2=0.01\) this gives:
+        \[
+          \lambda^4+\lambda^2+0.066825=0,
+        \]
+        and the eigenvalues are:
+        \[
+          \lambda_1\approx+0.26834775\,i,\quad
+          \lambda_2\approx-0.26834775\,i,\quad
+          \lambda_3\approx+0.96332211\,i,\quad
+          \lambda_4\approx-0.96332211\,i.
+        \]
+        Here all four eigenvalues are purely imaginary, so there is no exponentially
+        growing term like we had for \(L_1,L_2\) and \(L_3\).
+      </p>
+
+      <p>
+        We use the same initial conditions as before,
+        \(X_0=Y_0=10^{-5}\) and \(\dot{X}_0=\dot{Y}_0=0\). Using
+        \[
+          \gamma_j=
+          \frac{\lambda_j^2-U_{xx}}{2\lambda_j+U_{xy}},
+        \]
+        and solving the same system for the coefficients, we get:
+        \[
+          \bar\alpha_1\approx
+          1.72378\times10^{-5}-1.53376\times10^{-4}i,
+        \]
+        \[
+          \bar\alpha_2=
+          \overline{\bar\alpha_1},
+        \]
+        \[
+          \bar\alpha_3\approx
+          -1.22378\times10^{-5}+4.27253\times10^{-5}i,
+        \]
+        \[
+          \bar\alpha_4=
+          \overline{\bar\alpha_3},
+        \]
+        and:
+        \[
+          \bar\beta_1\approx
+          2.59997\times10^{-5}+8.80739\times10^{-5}i,
+        \]
+        \[
+          \bar\beta_2=
+          \overline{\bar\beta_1},
+        \]
+        \[
+          \bar\beta_3\approx
+          -2.09997\times10^{-5}-2.45343\times10^{-5}i,
+        \]
+        \[
+          \bar\beta_4=
+          \overline{\bar\beta_3}.
+        \]
+      </p>
+
+      <p>
+        Alright — now that we have the necessary information we can calculate \(X(t)\) and
+        \(Y(t)\). Since the eigenvalues come in two conjugate imaginary pairs, both parts
+        of the solution are oscillatory. Using the two conjugate pairs we get:
+        \begin{equation}
+          \boxed{
+          \begin{aligned}
+            X(t)\approx{}&
+            3.44757\times10^{-5}\cos(0.26835t)
+            +3.06753\times10^{-4}\sin(0.26835t)\\
+            &-2.44757\times10^{-5}\cos(0.96332t)
+            -8.54506\times10^{-5}\sin(0.96332t).
+          \end{aligned}}
+        \end{equation}
+        And for \(Y(t)\):
+        \begin{equation}
+          \boxed{
+          \begin{aligned}
+            Y(t)\approx{}&
+            5.19995\times10^{-5}\cos(0.26835t)
+            -1.76148\times10^{-4}\sin(0.26835t)\\
+            &-4.19995\times10^{-5}\cos(0.96332t)
+            +4.90686\times10^{-5}\sin(0.96332t).
+          \end{aligned}}
+        \end{equation}
+      </p>
+      <p>
+        Similerly for \(L5\) we have:
+        \begin{equation}
+          \boxed{
+          \begin{aligned}
+          X(t)\approx{}&
+          4.73063190\times10^{-6}\cos(0.26834775t)
+          +8.50624754\times10^{-5}\sin(0.26834775t)\\
+          &+5.26936810\times10^{-6}\cos(0.96332211t)
+          -2.36954218\times10^{-5}\sin(0.96332211t).
+          \end{aligned}}
+        \end{equation}
+        and,
+        \begin{equation}
+          \boxed{
+          \begin{aligned}
+          Y(t)\approx{}&
+          2.22544268\times10^{-5}\cos(0.26834775t)
+          +4.55426448\times10^{-5}\sin(0.26834775t)\\
+          &-1.22544268\times10^{-5}\cos(0.96332211t)
+          -1.26865833\times10^{-5}\sin(0.96332211t).
+          \end{aligned}}
+        \end{equation}
+      </p>
+      <p>
+        Unlike the three collinear points, here for both \(L4\) and \(L5\) there are no terms of the form
+        \(e^{+\lambda t}\), so for this particular case the perturbed motion remains
+        oscillatory instead of growing exponentially. Now go back to the simulation result 
+        we showed for error \(\epsilon_{\text{error}}\), there you can see for the frist two simulation
+        the particle is occilating around the lagrange point insted of blowing up, but in the thierd case since the error was so large, it had to blow up. 
+      </p>
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Solar System Dynamics.</p>
+              <span class="resource-card__sub">Carl D. Murray. Ch-\(\text{III}\).</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Classical Mechanics.</p>
+              <span class="resource-card__sub">John R. Taylor.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Classical Mechanics.</p>
+              <span class="resource-card__sub">Herbert Goldstein, Charles P. Poole, and John Safko.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Theory of orbits: The Restricted Problem of Three Bodies.</p>
+              <span class="resource-card__sub">Victor Szebehely.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="/Main/Research & Simulations/The_Structure/index.js"></script>
+    <script src="/Main/Research & Simulations/The_Structure/Structure.js"></script>
+  </body>
+</html>

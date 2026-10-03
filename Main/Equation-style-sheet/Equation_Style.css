@@ -1,0 +1,480 @@
+/* ─── Mobile font size ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .definition-box .equation,
+    .definition-box .equation_1 {
+        font-family: "Computer Modern", "Times New Roman", serif;
+        font-size: 1.1rem;
+        font-weight: 500;
+        font-style: normal;
+        line-height: 1.7;
+    }
+}
+
+
+/* ─── QED mark ─────────────────────────────────────────────────── */
+.qed {
+    display: block;
+    text-align: right;
+    font-size: 1.4rem;
+}
+
+.qed::after {
+    content: '■ ';
+}
+
+
+/* ─── Example block ─────────────────────────────────────────────── */
+.Example {
+    background-color: #c9af77;
+    border-left: 4px solid #ffe56f;
+    padding: 0.3em 0.5em;
+    margin: 2em 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.example-label {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+        sans-serif;
+    position: absolute;
+    top: 1em;
+    left: 1.5em;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+.example-label::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: black;
+    margin-top: 2px;
+}
+
+.solution-label {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+        sans-serif;
+    color: black;
+    left: -34em;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1em;
+    margin: 1.5em 0 0.5em 1.5em;
+    position: relative;
+    display: inline-block;
+}
+
+.solution-label::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: black;
+    margin-top: 2px;
+}
+
+
+/* ─── Shared prose-block type styles ────────────────────────────── */
+div.equation-type2,
+div.lemma-type1,
+div.prop-type1,
+div.theo-type1 {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 20px 0;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-style: normal;
+    font-weight: 300;
+}
+
+
+/* ─── Equation display ──────────────────────────────────────────── */
+.equation,
+.equation_1 {
+    display: block;
+    text-align: left;
+    margin: 1em 0;
+
+    /* Match the normal website prose typography */
+    font-family: "Computer Modern", "Times New Roman", serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1.7;
+
+    -webkit-text-stroke: 0.3px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    color: #333;
+
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+}
+
+.equation_inscribed {
+    background-color: rgba(0, 0, 0, 0.07);
+    border-left: 3px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    padding: 0.4em 0.8em;
+    margin: 0.8em 0 0.2em 0;
+    text-align: center;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* ─── Colored border blocks ─────────────────────────────────────── */
+.equation-type1 {
+    background-color: #fff6e7;
+    border-left: 4px solid #008fb3;
+}
+
+.equation-type2 {
+    background-color: #ffffff;
+    border-left: 4px solid #080000d2;
+}
+
+.lemma-type1 {
+    background-color: #ffffff;
+    border-left: 4px solid #53005ed2;
+}
+
+.prop-type1 {
+    background-color: #ffffff;
+    border-left: 4px solid #530087d2;
+}
+
+.theo-type1 {
+    background-color: #ffffff;
+    border-left: 4px solid #c90000d2;
+}
+
+.equation-type1,
+.equation-type2,
+.lemma-type1,
+.prop-type1,
+.theo-type1 {
+    padding: 0.3em 0.5em;
+    margin: 2em 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+
+.custom-roman-list {
+  /* Apply your specified styles here */
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin: 25px 0;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  font-style: normal;
+  font-weight: 500;
+  -webkit-text-stroke: 0.3px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+  color: #333;
+  
+
+  padding-left: 20px;
+}
+
+.custom-roman-list li {
+  list-style-type: lower-roman;
+}
+
+/* This targets the number specifically to add parentheses */
+.custom-roman-list li::marker {
+  content: "(" counter(list-item, lower-roman) ") ";
+}
+
+
+
+
+/* ─── Definition box ────────────────────────────────────────────── */
+.definition-box {
+    background-color: #ffddaaad;
+    border-left: 4px solid #c9930098;
+    padding: 1.5em 2em;
+    margin: 2em 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.048);
+}
+
+.definition-box .DEF {
+    display: block;
+    margin-bottom: 0.8em;
+    color: #000000;
+    font-size: 1.1em;
+
+    letter-spacing: 0.5px;
+}
+
+.definition-box p {
+    margin: 0.8em 0;
+    line-height: 1.7;
+}
+
+.definition-box .equation,
+.definition-box .equation_1 {
+    margin: 1.2em 0;
+    padding: 0.5em;
+    background-color: rgb(194, 175, 138);
+    border-radius: 3px;
+
+
+    font-family: "Computer Modern", "Times New Roman", serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1.7;
+
+    -webkit-text-stroke: 0.3px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    color: #333;
+}
+
+
+/* ─── Overflow clipping on containers ───────────────────────────── */
+.content,
+.definition-box,
+.equation-type1,
+.equation-type2,
+.lemma-type1,
+.prop-type1,
+.theo-type1 {
+    overflow-x: clip;
+}
+
+
+/* ─── Image grid ────────────────────────────────────────────────── */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.image-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.center-image {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 600px;
+}
+
+
+/* ─── MathJax scrollable display equations ─────────────────────── */
+.content mjx-container[jax="CHTML"][display="true"],
+.definition-box mjx-container[jax="CHTML"][display="true"],
+.equation-type1 mjx-container[jax="CHTML"][display="true"],
+.equation-type2 mjx-container[jax="CHTML"][display="true"],
+.lemma-type1 mjx-container[jax="CHTML"][display="true"],
+.prop-type1 mjx-container[jax="CHTML"][display="true"],
+.theo-type1 mjx-container[jax="CHTML"][display="true"] {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+}
+
+
+/* ─── Scrollbar sizing ──────────────────────────────────────────── */
+.content mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar,
+.definition-box mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar,
+.equation-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar,
+.equation-type2 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar,
+.lemma-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar,
+.prop-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar,
+.theo-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar,
+.equation::-webkit-scrollbar,
+.equation_1::-webkit-scrollbar {
+    height: 6px;
+}
+
+
+/* ─── Scrollbar thumb ───────────────────────────────────────────── */
+.content mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-thumb,
+.definition-box mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-thumb,
+.equation-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-thumb,
+.equation-type2 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-thumb,
+.lemma-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-thumb,
+.prop-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-thumb,
+.theo-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-thumb,
+.equation::-webkit-scrollbar-thumb,
+.equation_1::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+
+/* ─── Scrollbar track ────────────────────────────────────────────── */
+.content mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-track,
+.definition-box mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-track,
+.equation-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-track,
+.equation-type2 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-track,
+.lemma-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-track,
+.prop-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-track,
+.theo-type1 mjx-container[jax="CHTML"][display="true"]::-webkit-scrollbar-track,
+.equation::-webkit-scrollbar-track,
+.equation_1::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 999px;
+}
+/* ===== Resources Section ===== */
+.resources-section {
+  max-width: 1000px;
+  margin: 0 auto 32px auto;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.resources-header {
+  margin-bottom: 12px;
+}
+
+.resources-label {
+  display: inline-block;
+  background: #1e0038e7;
+  color: #7fb5b1;
+  font-family: "Computer Modern Sans", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 6px;
+  border-left: 4px solid #574ae6;
+}
+
+/* Outer wrapper that holds the whole grid */
+.resources-outer {
+  background: #f7f5ff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0, 51, 105, 0.09),
+              0 1px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(87, 74, 230, 0.10);
+}
+
+/* Grid: 3 columns on wide, 2 on medium, 1 on mobile */
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* Thin cards */
+.resource-card {
+  display: flex;
+  align-items: flex-start;       
+  gap: 10px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;         /* much thinner than before */
+  box-shadow: 0 1px 4px rgba(0, 51, 105, 0.08);
+  border-left: 3px solid #574ae6;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+  box-sizing: border-box;
+}
+
+.resource-card:hover {
+  box-shadow: 0 4px 14px rgba(0, 51, 105, 0.15);
+  transform: translateY(-1px);
+}
+
+.resource-card__icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: #f0ecff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #574ae6;
+  font-size: 0.82rem;
+  margin-top: 2px;    
+}
+
+.resource-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.resource-card__type {
+  font-family: "Barlow", sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #574ae6;
+  line-height: 1;
+}
+
+.resource-card__title {
+  margin: 0;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.3;
+  white-space: normal;        
+  overflow: visible;          
+  text-overflow: unset;       
+}
+
+.resource-card__sub {
+  font-family: "Barlow", sans-serif;
+  font-size: 0.72rem;
+  color: #999;
+  line-height: 1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .resources-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .resources-grid {
+    grid-template-columns: 1fr;
+  }
+  .resources-section {
+    padding: 0 20px;
+  }
+}
+/* Image card accent — teal instead of purple */
+.resource-card--image {
+  border-left-color: #2a9d8f;
+}
+
+.resource-card--image .resource-card__icon {
+  background: #e6f5f3;
+  color: #2a9d8f;
+}
+
+.resource-card--image .resource-card__type {
+  color: #2a9d8f;
+}

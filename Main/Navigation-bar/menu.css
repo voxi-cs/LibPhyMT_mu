@@ -1,0 +1,27 @@
+body {
+  background: rgb(15, 19, 34);
+}
+
+.nav-links {
+  font-family: "Nerko One";
+  font-size: 30px;
+}
+
+.nav-links li {
+  margin: 25px 0;
+  text-align: center;
+  text-align: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgb(0, 143, 179);
+  font-weight: bold;
+  padding: 10px 15px;
+  font-family: "Nerko One", cursive;
+  font-size: 25px;
+}
+
+.nav-links a:hover {
+  color: rgb(0, 71, 88);
+}

@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eigenvalues and Eigenvectors</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Equation_Style.css" />
+
+    <!-- Keep fonts minimal while developing -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome: keep only if this page really uses icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <!-- MathJax: load only if the page actually contains math -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism: load only if this page actually contains code blocks -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"
+    ></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-7</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Eigenvalues and Eigenvectors-\(\text{I}\).
+          </span>
+        </div>
+
+      </h1>
+    </div>
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <div class="quote-container">
+      <blockquote>
+        "If one has really technically penetrated a subject, things that previously seemed in complete contrast, might be purely mathematical transformations of each other."
+        <br />
+        <span>— John von Neumann</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h2>Introduction</h2>
+      <p>
+        This is an introduction to
+        <strong>Eigenvalues and Eigenvectors</strong>. It may be one of the most
+        used and useful mathematical concepts you will come across often. This
+        lesson should prepare you well and teach you the core concepts. Later,
+        you should solve problems from textbooks so that you may master this
+        wonderful mathematical beauty.
+      </p>
+      <p>
+        One of the reasons why Eigenvalues and Eigenvectors are wonderful is
+        that they allow us to simplify many (not all) problems to a relatively
+        simple, concise, and clean form. This usually happens when we choose the
+        eigenvectors as the basis. In this lesson, we will talk about the
+        general idea behind this topic. Later in this chapter, we will discuss a
+        few applications related to this topic.
+      </p>
+
+      <h2>Eigenvalues and Eigenvectors</h2>
+      <p>
+        Putting it in words: assume we have a linear transformation \(T\). Now
+        if we apply the linear transformation to a vector space, call it
+        \(\mathbb V\), such that \(T: \mathbb V \to \mathbb V\), obviously it
+        should not surprise us that our vectors will be mapped to some other
+        vectors. But there <strong>could be</strong>
+        vectors that remain on the line that they span. What we are
+        basically saying is: assume \(\mathbf v\) is an eigenvector. Then if we
+        apply \(T\) to \(\mathbf v\), what we will get is a scaled vector
+        \(\lambda \mathbf v\), where \(\lambda \mathbf v\) lies on the line that
+        \(\mathbf v\) spans. So what \(T\) does to the vector \(\mathbf v\) is
+      </p>
+      <p>\[ T(\mathbf v) = \lambda \mathbf v \]</p>
+      <p>
+        Here, \(\lambda\) is what we call the eigenvalue, and \(\mathbf v\) is
+        the eigenvector. So basically, \(\lambda\) is the scale factor relating
+        \(T(\mathbf v)\) to \(\mathbf v\).
+      </p>
+      <p>
+        Note: A little side note, remember \(T\) is a transformation \(\mathbb V
+        \to \mathbb V\), so the domain and codomain are the same vector space.
+        When we write the matrix equation \(A\mathbf x = \lambda \mathbf x\), we
+        are using the same basis to represent the vectors and the matrix. The
+        eigenvectors themselves are intrinsic to the linear transformation
+        \(T\); only their coordinate representations depend on the basis.
+      </p>
+      <p>
+        Indeed, below we have shown an example. In the animation below, as you
+        can see, as we apply the transformation, the points on the grid/vectors
+        change and transform, but the two vectors we have drawn remain on the
+        same lines that they originally spanned. They only change in scale, as
+        we mentioned.
+      </p>
+
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_7/Images/eig_1.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_7/Images/eig_1.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_7/Videos/eig_1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <p>
+        The specific transformation that we did was a stretch along the
+        eigendirections. We used the standard basis to define the matrix
+        associated with the linear transformation, and we got: \[ \mathbf A =
+        \begin{pmatrix} 2 & 1\\ 1 & 2 \end{pmatrix} \] The eigenvectors and
+        eigenvalues associated with this transformation are: \[ \mathbf v_1 =
+        \begin{pmatrix} 1 \\ 1 \end{pmatrix}, \quad \mathbf v_2 =
+        \begin{pmatrix} 1 \\ -1 \end{pmatrix} \] We have seen that even though
+        our first eigenvector did scale, our second vector did not move at all.
+        This is because the second vector had an eigenvalue \(1\). The
+        eigenvalues associated with both eigenvectors are: \[ \lambda_1 = 3,
+        \quad \lambda_2 = 1 \]
+      </p>
+
+      <p>
+        Alright, now that we have somewhat of a vague but intuitive idea about
+        what an eigenvector and an eigenvalue are, it is time for us to formally
+        define them and work with them. Actually, there is a very strong but
+        much more technical definition of eigenvectors and eigenvalues, which we
+        will not introduce until the end of this lesson. But first, we can start
+        with an equally valid definition as below:
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">DEFINITION:</strong>
+          Let \(T:\mathbb V \to \mathbb V\) be a linear transformation. A scalar
+          \(\lambda \in \mathbb F\) is called an eigenvalue of \(T\) if there
+          exists a nonzero vector \(\mathbf{v} \in \mathbb V\) such that
+        </p>
+        <p class="equation">\[ T(\mathbf{v}) = \lambda \mathbf{v} \]</p>
+        <p>Any nonzero vector \(\mathbf v \in \mathbb V\) satisfying</p>
+        <p class="equation">\[ T(\mathbf{v}) = \lambda \mathbf{v} \]</p>
+        <p>
+          for some scalar \(\lambda\) is called an eigenvector of \(T\)
+          corresponding to the eigenvalue \(\lambda\).
+        </p>
+        <p>For a matrix \(A\), the same definition is written as:</p>
+        <p class="equation">\[ A\mathbf v = \lambda \mathbf v \]</p>
+      </div>
+
+      <p>
+        Now that we have a good idea about what eigenvectors and eigenvalues
+        are, it is time for us to look at how we find the eigenvectors and
+        eigenvalues associated with a matrix.
+      </p>
+
+      <h3>Equation for the Eigenvalues</h3>
+      <p>
+        Let \(T: \mathbb V \to \mathbb V\) be a linear transformation. We must
+        have the same vector space for the domain and codomain, and we must be
+        using the same basis when writing the matrix equation. Otherwise,
+        \(A\mathbf x = \lambda \mathbf x\) does not make much sense in
+        coordinate form, because \(A\) and \(\mathbf x\) must be represented
+        in the same basis.
+      </p>
+      <p>
+        Here we are interested in calculating the eigenvalues and eigenvectors
+        associated with \(T\), but to do that we need to represent \(T\) using a
+        matrix, or else there is not much to work with. The matrix will allow us
+        to represent the transformation, and using that we will be able to
+        compute the eigenvalues and eigenvectors.
+      </p>
+      <p>
+        Assume \(A\) is the transformation matrix for a linear transformation
+        \(T:\mathbb V \to \mathbb V\). Assume \(\mathbf x\) (from now on we will
+        use \(\mathbf x\) to represent an eigenvector to avoid confusion) is an
+        eigenvector. Then we can write: \[ A\mathbf x = \lambda \mathbf x \]
+        Notice we can rearrange the equation. We can take the right-hand side to
+        the left and then we get: \[ A\mathbf x - \lambda \mathbf x = \mathbf{0}
+        \] This can be written as: \[ \left(A - \lambda I\right)\mathbf x =
+        \mathbf{0} \] Here \(I\) is the identity matrix. We had to do that
+        because \(\lambda\) is a scalar, so it does not make sense to subtract a
+        scalar from a matrix. Also, \(\lambda \mathbf x = \lambda I \mathbf x\),
+        so \((\lambda I)\mathbf x\) is the same thing.
+      </p>
+      <p>
+        Alright, now that we have the equation \(\left(A - \lambda
+        I\right)\mathbf x = \mathbf{0}\), notice that the eigenvector \(\mathbf
+        x\) belongs to the <strong>null space</strong> of \(\left(A - \lambda
+        I\right)\). In fact, the entire eigenspace corresponding to \(\lambda\)
+        is the null space:
+        \[
+        \operatorname{Eigenspace}(\lambda)
+        =
+        \operatorname{Null}\left(A - \lambda I\right).
+        \]
+        Since \(\mathbf x\) is a nonzero vector in this null space, the null
+        space is nontrivial. That implies that the determinant of
+        \(\left(A - \lambda I\right)\) must be zero. It is because, in case
+        you missed the lesson where we discussed determinants in more detail, a
+        square matrix has determinant zero exactly when its null space is
+        nontrivial. Hence: \[
+        \boxed{\det\left(A - \lambda I\right) = 0}
+        \]
+        This is the equation for eigenvalues. This will allow us to calculate the
+        eigenvalues associated with the transformation matrix.
+        \(\det\left(A - \lambda I\right) = 0\) will give us a characteristic
+        polynomial in \(\lambda\). Solving for \(\lambda\) gives the
+        eigenvalues that lie in the underlying scalar field, and using the
+        solutions for the eigenvalues we can substitute them into the equation
+        \(\left(A - \lambda I\right)\mathbf x = \mathbf{0}\) and solve for
+        \(\mathbf x\) to find the eigenvectors.
+      </p>
+
+      <p>
+        I believe it is the best time for me to show you an example that will
+        teach you how the process works.
+      </p>
+
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <p>
+          Let \(T: \mathbb R^2 \to \mathbb R^2\) be the linear transformation
+          defined by \(T(x, y) = (2x+y, x+2y)\). Find the eigenvectors and
+          eigenvalues associated with \(T\).
+        </p>
+        <br />
+        <p>
+          Using the standard basis for the domain and codomain space, we get the
+          following matrix associated with \(T\): \[ A = \begin{pmatrix} 2 & 1\\
+          1 & 2 \end{pmatrix} \] Now if we use the eigenvalue equation, we get:
+          \[ \det\left(A - \lambda I\right) = \det\begin{pmatrix} 2-\lambda &
+          1\\ 1 & 2-\lambda \end{pmatrix} = 0 \] So, \[ \det\begin{pmatrix}
+          2-\lambda & 1\\ 1 & 2-\lambda \end{pmatrix} = (2-\lambda)^2 - 1 = 0 \]
+          Notice this is a second-order characteristic polynomial equation.
+          Solving it gives us two solutions: \[ \boxed{\lambda_1 = 3, \quad
+          \lambda_2 = 1} \] meaning that for this transformation we have two
+          different eigenvalues. Now that we have the eigenvalues, it is time
+          for us to find the eigenvectors. \[ \left(A - \lambda I\right)\mathbf
+          x = \mathbf 0 \] Now if we set values for \(\lambda\), we will get the
+          associated eigenvectors for that eigenvalue. For \(\lambda_1 = 3\): \[
+          A - 3I = \begin{pmatrix} 2 & 1\\ 1 & 2 \end{pmatrix} - \begin{pmatrix}
+          3 & 0\\ 0 & 3 \end{pmatrix} = \begin{pmatrix} -1 & 1\\ 1 & -1
+          \end{pmatrix} \] Then, \[ \begin{pmatrix} -1 & 1\\ 1 & -1
+          \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} 0
+          \\ 0 \end{pmatrix} \] Using matrix multiplication we get: \[
+          \begin{pmatrix} -x+y \\ x-y \end{pmatrix} = \begin{pmatrix} 0 \\ 0
+          \end{pmatrix} \] This corresponds to the following system of
+          equations: \[ -x+y = 0, \quad x-y=0 \] These are exactly the same
+          equation, but what they simplify to is: \[ x=y \] Whatever our vector
+          is, as long as the \(x\) and \(y\) coordinates of the vector are the
+          same, it is an eigenvector of \(T\). The line \(y=x\) is the
+          \(45^\circ\) line on the \(xy\)-plane, so all the nonzero multiples of
+          the vector \[ \mathbf x_{\lambda_1} = \begin{pmatrix} 1 \\ 1
+          \end{pmatrix} \] are eigenvectors associated with the eigenvalue
+          \(\lambda_1 = 3\).
+        </p>
+        <p>
+          Doing the same for the eigenvalue \(\lambda_2 = 1\), we get the
+          equation \[ x+y = 0 \implies y = -x. \] That means every nonzero
+          multiple of the vector \[ \mathbf x_{\lambda_2} = \begin{pmatrix} 1 \\
+          -1 \end{pmatrix} \] is also an eigenvector for \(T\).
+        </p>
+        <p>
+          Below we show the animation, and you can see how the eigenvector gets
+          just scaled along the line that it spans, which is indeed the line
+          defined by the equation that we got.
+        </p>
+        <div class="Animation">
+          <div class="Cont_ent">
+            <figure class="media">
+              <img
+                src="/Main/Chapters/Chapter-3/Vec_Les_7/Images/eig_2.png"
+                alt="Manim rendering showing linear combination of vectors"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="media">
+              <video
+                controls
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="/Main/Chapters/Chapter-3/Vec_Les_7/Images/eig_2.png"
+              >
+                <source
+                  src="/Main/Chapters/Chapter-3/Vec_Les_7/Videos/eig_2.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </figure>
+          </div>
+        </div>
+        <p>
+          This example should give you core insight into what eigenvectors
+          actually are and how we can calculate them and the eigenvalues
+          associated with them.
+        </p>
+      </div>
+
+      <p>
+        So to compute eigenvalues and eigenvectors, we take the following steps:
+      </p>
+
+      <ul>
+        <li>
+          <p>Find the determinant of \(\mathbf A - \lambda \mathbb I\).</p>
+        </li>
+        <li>
+          <p>
+            <strong>Eigenvalues</strong> Find the roots of the characteristic
+            polynomial which we got from the equation \(\det\left(\mathbf A -
+            \lambda \mathbb I\right) = 0\). The roots that lie in the underlying
+            scalar field are the eigenvalues.
+          </p>
+        </li>
+        <li>
+          <p>
+            <strong>Eigenvectors</strong> Substitute the eigenvalues \(\lambda\)
+            individually into the equation \( \left(\mathbf A - \lambda \mathbb
+            I\right) \mathbf{x} = \mathbf 0\) and solve for \(\mathbf x\) to
+            find the eigenvectors associated with each eigenvalue.
+          </p>
+        </li>
+      </ul>
+
+      <p>
+        These are the main ideas of <strong>Eigenvalues</strong> &
+        <strong>Eigenvectors</strong>. Of course, we can go deeper into this
+        topic, which we will do in the next lesson. Let us first, in this
+        section, build the foundations.
+      </p>
+      <p>
+        I would like to show you a few more examples, but first I need to
+        introduce a few facts about
+        <strong>Eigenvalues</strong> & <strong>Eigenvectors</strong>. They might
+        not seem very obvious at first, but I will try to make sure our proof
+        and explanation help you understand these facts much better.
+      </p>
+
+      <div class="equation-type2">
+        <p>
+          Let \(T: \mathbb V \to \mathbb V\) be a linear transformation on a
+          vector space over \(\mathbb F\), and assume
+          \(\lambda_1,\lambda_2, \dots,\lambda_m\) are the distinct
+          eigenvalues of \(T\). For each \(\lambda_i\), let \(\mathbf v_i\) be
+          an associated eigenvector. Then \(\mathbf v_1,\mathbf v_2,\dots,
+          \mathbf v_m\) are linearly independent vectors.
+        </p>
+        <h4>Proof: Eigenvectors of \(T\) are Linearly Independent.</h4>
+        <p>
+          Assume \(\mathbf v_1,\mathbf v_2,\dots,\mathbf v_m\) are linearly
+          dependent, and let \(k\) be the smallest index for which
+          \(\mathbf v_k\) can be represented as a linear combination of all the
+          previous vectors before it. That means: \[ \mathbf v_k = c_1 \mathbf v_1+c_2\mathbf
+          v_2+\dots+c_{k-1}\mathbf v_{k-1} \] where \(c_i \in \mathbb F\). Or
+          you may also write that \(\mathbf v_k \in \text{span}(\mathbf
+          v_1,\mathbf v_2,\dots,\mathbf v_{k-1})\).
+        </p>
+        <p>
+          If we now multiply both sides of the equation by \(\lambda_k\), we
+          get: \[ \lambda_k \mathbf v_k = c_1 \lambda_k \mathbf v_1+c_2
+          \lambda_k \mathbf v_2+\dots+c_{k-1} \lambda_k \mathbf v_{k-1} \]
+        </p>
+        <p>
+          Now if we apply the linear transformation \(T\) on both sides of the
+          equation, we get: \[ T(\mathbf v_k) = c_1 T(\mathbf v_1)+c_2 T(\mathbf
+          v_2)+\dots+c_{k-1} T(\mathbf v_{k-1}) \] Since each \(\mathbf v_i\) is
+          an eigenvector, this becomes: \[ \lambda_k \mathbf v_k = c_1 \lambda_1
+          \mathbf v_1+c_2 \lambda_2 \mathbf v_2+\dots+c_{k-1}
+          \lambda_{k-1}\mathbf v_{k-1} \]
+        </p>
+        <p>
+          Subtracting both equations gives us: \[ \mathbf 0 = c_1
+          (\lambda_k-\lambda_1) \mathbf v_1+c_2 (\lambda_k-\lambda_2) \mathbf
+          v_2+\dots+c_{k-1} (\lambda_k-\lambda_{k-1})\mathbf v_{k-1} \]
+        </p>
+        <p>
+          Since \(k\) is where the linear dependence first appears, all
+          the vectors before it must be linearly independent. What that means
+          is that the above equation is only possible when the constants \(c_i
+          (\lambda_k-\lambda_i)\) are all zero. But remember, we assumed that
+          all eigenvalues are distinct, so \(\lambda_k-\lambda_i\) cannot be
+          zero. That implies all the \(c_i\)'s are zero. There is one big issue
+          with that: look at the equation of \(\mathbf v_k\). If all \(c_i\)'s
+          are zero, that would mean \(\mathbf v_k = \mathbf 0\), which is not
+          possible since zero vectors cannot be eigenvectors. That implies our
+          original assumption of \(\mathbf v_1, \dots, \mathbf v_m\) being
+          linearly dependent is wrong. Hence,
+          <strong>eigenvectors must be linearly independent</strong>.
+        </p>
+        <span class="qed"></span>
+      </div>
+
+      <p>
+        There are two more things we want to talk about and prove. This might
+        not be very obvious, but the product of the eigenvalues of an \(n \times
+        n\) matrix is the determinant of that matrix, and the sum of all the
+        eigenvalues is the same as the trace of that matrix, when the eigenvalues
+        are counted with algebraic multiplicity and the characteristic polynomial
+        splits over the underlying field. These two facts will be very handy in
+        certain cases. We are now going to prove them.
+      </p>
+
+      <div class="equation-type2">
+        <h4>
+          Proof: Product Of The Eigenvalues Of An \(n \times n\) Matrix Is Equal
+          To The Determinant Of The Matrix, \(\det(\mathbf A)=
+          \prod\limits_{i=1}^{n} \lambda_i\), with eigenvalues counted with
+          algebraic multiplicity.
+        </h4>
+        <p>
+          Assume \(\mathbf A\) is an \(n \times n\) matrix over a field in which
+          its characteristic polynomial splits, and let
+          \(\lambda_1,\dots,\lambda_n\) be its eigenvalues, counted with
+          algebraic multiplicity. Then what we want to prove is:
+          \[ \det(\mathbf A)=\prod\limits_{i=1}^{n} \lambda_i \]
+          Let \(P_A(t)\) be the characteristic polynomial of \(\mathbf A\).
+          We can write it as:
+          \[ P_A(t) = \det(t\mathbb I - \mathbf A) \] Notice \(P_A\) is
+          monic of degree \(n\). What that means is that in this polynomial,
+          \(t\) has the highest power \(n\), which is \(t^n\), and it has
+          coefficient \(1\). Meaning: \[ P_A(t) = t^n + \text{lower degree
+          terms} \] This is because: \[ t\mathbb I-\mathbf A= \begin{pmatrix}
+          t-a_{11} & -a_{12} & \cdots & -a_{1n} \\ -a_{21} & t-a_{22} & \cdots &
+          -a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ -a_{n1} & -a_{n2} &
+          \cdots & t-a_{nn} \end{pmatrix} \] Now if we apply the determinant
+          formula, we get: \[ \det(t\mathbb I - A) = \sum_{\sigma \in S_n}
+          \operatorname{sgn}(\sigma) \prod_{i=1}^n (tI - A)_{i, \sigma(i)} \]
+          Now we need to see where the term \(t^n\) comes from. Notice that in
+          each row, only the diagonal entry has the term \(t\) in it, so to get
+          \(t^n\) we need a contribution from every row's diagonal entry. So to
+          get \(t^n\), we must choose \(t-a_{ii}\), which corresponds to
+          \(\sigma(i)=i\). From that we get: \[ \prod_{i=1}^n (t-a_{ii}) = t^n +
+          \text{lower degree terms} \] Anyway, we know the equation for
+          eigenvalues is: \[ \det(\mathbf A - \lambda \mathbb I) = 0 \] We can
+          write this as: \[ \det(\lambda\mathbb I - A ) = (-1)^n \det(\mathbf A
+          - \lambda \mathbb I) \] We told you that \(P_A(t)\) is a degree \(n\)
+          monic polynomial, and we know it can be factorized as: \[ P_A(t) =
+          \prod_{i=1}^n (t-\lambda_i) \] Now let us choose \(t=0\). We choose
+          that specific value of \(t\) so that we can get rid of \(\mathbb I\).
+          It is alright if we choose some other value of \(t\), but then we will
+          not get the determinant of \(\mathbf A\), which is what we are after.
+          So: \[ P_A(0) = \prod_{i=1}^n (0-\lambda_i) = \prod_{i=1}^n
+          (-\lambda_i) = (-1)^n \prod_{i=1}^n \lambda_i \] Now doing it
+          similarly again: \[ P_A(0) = \det(0 \cdot \mathbb I - \mathbf A) =
+          \det(-\mathbf A) = (-1)^n \det(\mathbf A) \] Equating both, we get: \[
+          (-1)^n \det(\mathbf A) = (-1)^n \prod_{i=1}^n \lambda_i \] Eliminating
+          \((-1)^n\) from both sides, we get: \[ \boxed{\det(\mathbf A) =
+          \prod_{i=1}^n \lambda_i} \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <div class="equation-type2">
+        <h4>
+          Proof: Sum of the Eigenvalues of an \(n \times n\) Matrix Is Equal to
+          the Trace of the Matrix, \(\mathrm{tr}(\mathbf A) =
+          \sum\limits_{i=1}^{n} \lambda_i\), with eigenvalues counted with
+          algebraic multiplicity.
+        </h4>
+
+        <p>
+          Under the same assumption that the characteristic polynomial splits
+          over the underlying field, let \(\lambda_1,\dots,\lambda_n\) denote
+          the eigenvalues counted with algebraic multiplicity.
+        </p>
+        <p>
+          We have seen in previous lessons that the standard determinant
+          expansion is: \[ \det(t\mathbb I - \mathbf A) = t^n -
+          \mathrm{tr}(\mathbf A)t^{n-1} + \dots \] From the previous proof, we
+          can look at the characteristic polynomial and notice that the
+          \(t^{n-1}\) term has coefficient \(-\sum\limits_{i=1}^{n} \lambda_i\).
+          If you do not see how, look at the case with two eigenvalues: \[
+          (t-\lambda_1)(t-\lambda_2)=t^2-(\lambda_1+\lambda_2)t+\lambda_1\lambda_2,
+          \] and then repeat the same idea by multiplying by \(t-\lambda_3\). We
+          then get: \[ (t-\lambda_1)(t-\lambda_2)(t-\lambda_3) = t^3 -
+          (\lambda_1+\lambda_2+\lambda_3)t^2 +
+          (\lambda_1\lambda_2+\lambda_1\lambda_3+\lambda_2\lambda_3)t -
+          \lambda_1\lambda_2\lambda_3. \] This continues for all \(n\).
+        </p>
+
+        <p>
+          So, relating the two equations, we get: \[ \det(t\mathbb I - \mathbf
+          A) = t^n - \mathrm{tr}(\mathbf A)t^{n-1} + \dots = t^n -
+          \left(\sum\limits_{i=1}^{n} \lambda_i\right)t^{n-1} + \dots \] This
+          implies, since both sides are equal as polynomials, that the
+          coefficient of \(t^{n-1}\) must be the same. So that implies: \[
+          \boxed{\mathrm{tr}(\mathbf A) = \sum\limits_{i=1}^{n} \lambda_i} \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        Now that we have everything, let us show a few examples before we finish this lesson and continue
+        about eigenvalues and eigenvectors in the next lesson.
+      </p>
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <p>
+          Let \(T: \mathbb R^2 \to \mathbb R^2\) be the linear transformation that rotates vectors by
+          \(45^{\circ}\). Find the eigenvalues and eigenvectors associated with the transformation \(T\).
+          Notice that a rotation transformation rotates all vectors by some amount, which means that all
+          vectors change direction. This will cause any nonzero real vector to leave the line it spans.
+          Then how are we supposed to get a given vector and eigenvalue? Does it even make sense, and is
+          it even valid? That is what we want to investigate here.
+        </p>
+        <br />
+        <p>
+          Let us choose the basis for \(\mathbb R^2\) to be the standard basis. Then the transformation matrix is, as
+          you may remember from the linear transformation lesson:
+          \[
+          \mathbf A =
+          \begin{pmatrix}
+            \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
+            \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
+          \end{pmatrix}
+          \]
+          Alright then, to find the eigenvalues, we first need to find the characteristic polynomial equation
+          from the eigenvalue equation:
+          \[
+          \det\left(\mathbf A - \lambda \mathbb I \right) = 0
+          \]
+          \[
+          \Rightarrow
+          \det\left(\begin{pmatrix}
+            \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
+            \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
+          \end{pmatrix}
+          -
+          \begin{pmatrix}
+            \lambda & 0 \\
+            0 & \lambda
+          \end{pmatrix}\right) = 0
+          \]
+          \[
+          \Rightarrow
+          \begin{vmatrix}
+            \frac{\sqrt{2}}{2}-\lambda & -\frac{\sqrt{2}}{2} \\
+            \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}-\lambda
+          \end{vmatrix}
+          = 0
+          \]
+          Calculating the determinant gives:
+          \[
+          \left(\frac{\sqrt{2}}{2} - \lambda\right)
+          \left(\frac{\sqrt{2}}{2} - \lambda\right) 
+          -
+          \left(-\frac{\sqrt{2}}{2}\right)
+          \left(\frac{\sqrt{2}}{2}\right) = 0
+          \]
+          Simplifying this, we get:
+          \[
+          \lambda^2 - \sqrt{2}\lambda + 1 = 0
+          \]
+          Now if we solve this characteristic equation, we will get the eigenvalues. Solving the
+          equation gives us:
+          \[
+          \lambda_1 = \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i
+          \quad \text{and} \quad
+          \lambda_2 = \frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i
+          \]
+          Indeed, they are complex. Since \(T\) is a transformation from
+          \(\mathbb R^2\) to \(\mathbb R^2\), these complex roots are not
+          eigenvalues of \(T\) over \(\mathbb R\). Thus \(T\) has no real
+          eigenvalues. What is going on here? Let us try to verify it in case we are wrong.
+          First, let us check the trace of the matrix against the sum of these
+          complex roots. The roots are \(\lambda_1 = \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i\) and
+          \(\lambda_2 = \frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i\). Their sum is \(\sqrt{2}\), and the
+          trace of the matrix \(\mathbf A\) is
+          \(\text{tr}(\mathbf A) = \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2} = \sqrt{2}\).
+        </p>
+        <p>
+          The trace matches the sum of the complex roots, but what about the determinant? The matrix
+          \(\mathbf A\) has determinant \(\det(\mathbf A) = 1\), since a rotation preserves lengths and
+          area and this rotation preserves orientation. It should match the product of the complex roots:
+          \[
+          \lambda_1 \lambda_2 =
+          \left(\frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i\right)
+          \left(\frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i\right)
+          =
+          \left(\frac{\sqrt{2}}{2}\right)^2 - \left(\frac{\sqrt{2}}{2}i\right)^2 = 1.
+          \]
+          So that is also fine. So what happened? We were working on \(\mathbb R^2\), then why are we
+          getting complex solutions? The important point is that the original transformation is
+          \(T:\mathbb R^2\to\mathbb R^2\), so it has no real eigenvalues. However, the same matrix can
+          also be used to define a complex-linear transformation
+          \(T_{\mathbb C}:\mathbb C^2\to\mathbb C^2\). In that complex vector space, the complex
+          numbers we found are eigenvalues, and the corresponding eigenvectors have complex entries.
+          The same numerical matrix is used because the corresponding standard basis is used.
+        </p>
+        <p>
+          Let us now find the complex eigenvectors as well. Let a vector be
+          \(\mathbf v = \begin{pmatrix}x\\y\end{pmatrix}\in\mathbb C^2\), then:
+          \[
+          (\mathbf A - \lambda_1 \mathbb I)\mathbf v = \mathbf 0
+          \]
+          \[
+          \Rightarrow
+          \begin{pmatrix}
+            -\frac{\sqrt{2}}{2}i & -\frac{\sqrt{2}}{2} \\
+            \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2}i
+          \end{pmatrix}
+          \begin{pmatrix}x\\y\end{pmatrix}
+          =
+          \begin{pmatrix}0\\0\end{pmatrix}
+          \]
+          From the first row we get the following equation:
+          \[
+          -\frac{\sqrt{2}}{2}ix - \frac{\sqrt{2}}{2}y = 0
+          \]
+          The second row gives the same condition. Manipulating the equation from the first row, we
+          get:
+          \[
+          y = -ix
+          \]
+          So we can write \(\mathbf v\) as:
+          \[
+          \mathbf v = \begin{pmatrix}x\\y\end{pmatrix}
+          = \begin{pmatrix}x\\-ix\end{pmatrix}
+          = x\begin{pmatrix}1\\-i\end{pmatrix}
+          \]
+          So that means the eigenvector associated with \(\lambda_1\) is:
+          \[
+          \mathbf x_1 = \begin{pmatrix}1\\-i\end{pmatrix}
+          \]
+          Similarly, we find the eigenvector associated with \(\lambda_2\):
+          \[
+          \mathbf x_2 = \begin{pmatrix}1\\i\end{pmatrix}
+          \]
+          So, for \(T_{\mathbb C}\):
+          \[
+          \boxed{\lambda_{1,2} = \frac{\sqrt{2}}{2} \pm \frac{\sqrt{2}}{2}i}
+          \]
+          \[
+          \boxed{\mathbf x_1 = \begin{pmatrix}1\\-i\end{pmatrix}, \quad \mathbf x_2 = \begin{pmatrix}1\\i\end{pmatrix}}
+          \]
+          Feel free to apply \(\mathbf A\) to the complex eigenvectors that we found.
+        </p>
+      </div>
+      <p>
+        In this lesson, we explored the idea of eigenvalues and eigenvectors. In the next lesson, we will
+        go into this topic more deeply, and maybe we will solve a few real-life examples. Meanwhile, it is a
+        good time for you to straighten out the fundamental idea of eigenvalues and eigenvectors, and for
+        that, it is highly recommended for the reader to go back to their textbook and solve problems.
+      </p>
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Linear Algebra Done Right</p>
+              <span class="resource-card__sub">Sheldon Axler — Ch. 1-2</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Introduction to Linear Algebra, 5th edition.</p>
+              <span class="resource-card__sub">Gilbert Strang — Ch.2</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-video"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Video</span>
+              <p class="resource-card__title">Essence of Linear Algebra</p>
+              <span class="resource-card__sub">3Blue1Brown — YouTube</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

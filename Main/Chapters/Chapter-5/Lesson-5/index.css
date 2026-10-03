@@ -1,0 +1,13 @@
+#title {
+  background-image: url('/Main/Chapters/Chapter-7/Lesson-1/Tile/til_3.jpg');
+}
+.title-container #title .tc .inner-box {
+      background: rgba(77, 0, 0, 0.231);
+      color: #000000;
+}
+.Subject {
+  color: #feffa6;
+}
+.title-overlay {
+    background-color: rgba(93, 92, 35, 0);
+}

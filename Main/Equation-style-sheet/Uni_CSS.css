@@ -1,0 +1,816 @@
+
+
+body {
+  margin: 0;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  background-color: rgb(255, 255, 255);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+
+
+
+.Subject {
+  color: #fff200;
+  margin: 5px;
+  padding: 4px 9px;
+  background: #1e0038e7;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-family: "Computer Modern Sans", sans-serif;
+}
+
+
+
+#title {
+  flex: 0 0 auto;
+
+  width: clamp(300px, 50%, 600px);
+  aspect-ratio: 6 / 1;
+
+  padding: 0;
+
+  font-family: "Computer Modern", "Times New Roman", serif;
+  font-size: 1.25rem;
+
+  /* Background image */
+  background-color: #405c54;
+
+  background-image: url('/Main/Chapters/Chapter-3/Vec_Les_1/Tile/tile-48371.png');
+  /*
+     Keep the tile's original aspect ratio.
+     Only the height is scaled; the width is
+     calculated automatically from the image's
+     natural aspect ratio, so it cannot stretch
+     when the screen dimensions change.
+  */
+  background-size: auto 46.153846%;
+  background-position: center;
+  background-repeat: repeat;
+
+  color: #ffa96f;
+
+  text-align: center;
+
+  margin: 20px auto;
+
+  border-radius: 10px;
+
+  box-shadow: 0 4px 15px rgba(0, 51, 105, 0.5);
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  overflow: hidden;
+
+
+  isolation: isolate;
+}
+
+
+
+.title-overlay {
+  position: absolute;
+
+  inset: 0;
+
+ 
+  background-color: rgba(22, 0, 58, 0.6);
+
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(8px);
+
+  z-index: 0;
+
+
+  pointer-events: none;
+}
+
+
+
+
+.title-container #title .Subject {
+  position: relative;
+
+  /*
+     Above the overlay.
+  */
+  z-index: 2;
+}
+
+
+
+
+.tc {
+  display: inline-block;
+
+  padding: 0.5em 1em;
+
+
+  background-color: rgba(22, 0, 58, 0.2);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  border-radius: 7px;
+
+  overflow: visible;
+
+  max-width: 90%;
+
+  word-wrap: break-word;
+
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+
+
+  position: relative;
+
+  z-index: 2;
+}
+
+
+
+.title-container {
+  margin-top: 20px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  width: 100%;
+}
+
+
+
+
+.title-container #title .tc .inner-box {
+  display: inline-block;
+
+  position: relative;
+
+
+  z-index: 3;
+
+  background: rgba(77, 1, 0, 0.61);
+
+  color: #bd8bc7;
+
+  padding: 0.5rem 1rem;
+
+  border-radius: 12px;
+
+  line-height: 1.25;
+
+  max-width: 92%;
+
+  text-align: center;
+
+  word-break: break-word;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+
+  font-weight: 600;
+}
+
+
+#Publication_info {
+  text-align: center;
+  font-family: "Barlow", sans-serif;
+  color: #6b6b6b;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+
+.pub-info {
+  display: inline-block;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 1rem;
+}
+
+
+.pub-info i {
+  margin-right: 8px;
+  color: gray;
+}
+
+
+.pub-info a {
+  color: #6b6b6b;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
+.pub-info a:hover {
+  text-decoration: underline;
+}
+
+
+
+.quote-container {
+  color: #160038;
+
+  padding: 20px;
+
+  margin: 20px auto;
+
+  background-color: #f0f0f0;
+
+  border-left: 5px solid #b0b0b0;
+
+  width: 70%;
+
+  border-radius: 5px;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  text-align: center;
+
+  font-style: italic;
+
+  font-family: 'Courier New', Courier, monospace;
+}
+
+
+blockquote {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+}
+
+
+blockquote span {
+  display: block;
+
+  margin-top: 10px;
+
+  font-size: 1rem;
+
+  font-weight: bold;
+
+  font-style: normal;
+}
+
+
+.content {
+  text-align: left;
+
+  max-width: 1000px;
+
+  margin: 20px auto;
+
+  background-color: #fff;
+
+  padding: 40px;
+
+  border-radius: 0;
+
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.content_1 {
+  text-align: left;
+
+  max-width: 1000px;
+
+  margin: 20px auto;
+
+  background-color: #b4b4b4;
+
+  padding: 40px;
+
+  border-radius: 10px;
+
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+p {
+  font-size: 1.1rem;
+
+  line-height: 1.7;
+
+  margin: 25px 0;
+
+  font-family: "Computer Modern", "Times New Roman", serif;
+
+  font-style: normal;
+
+  font-weight: 500;
+
+  -webkit-text-stroke: 0.3px;
+
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+
+  text-align: left;
+
+  color: #333;
+}
+
+
+strong {
+  font-weight: bold;
+}
+
+h1 {
+  color: #222;
+
+  text-align: left;
+
+  font-size: 1.5rem;
+
+  font-family: "Computer Modern", "Times New Roman", serif;
+
+  font-weight: 700;
+
+  margin: 40px 0 20px 0;
+
+  border-bottom: 1px solid #eee;
+
+  padding-bottom: 8px;
+}
+
+
+h2 {
+  color: #222;
+
+  text-align: left;
+
+  font-size: 1.5rem;
+
+  font-family: "Computer Modern", "Times New Roman", serif;
+
+  font-weight: 700;
+
+  margin: 40px 0 20px 0;
+
+  border-bottom: 1px solid #eee;
+
+  padding-bottom: 8px;
+}
+
+
+h3 {
+  color: #222;
+
+  text-align: left;
+
+  font-size: 1.3rem;
+
+  font-family: "Computer Modern", "Times New Roman", serif;
+
+  font-weight: 700;
+
+  margin: 30px 0 15px 0;
+}
+
+
+h4 {
+  color: #222;
+
+  text-align: left;
+
+  font-size: 1.1rem;
+
+  font-family: "Computer Modern", "Times New Roman", serif;
+
+  font-weight: 700;
+
+  margin: 25px 0 12px 0;
+}
+
+
+.ANIMATION {
+  text-align: center;
+
+  margin: 2em 0;
+
+  font-family: "Computer Modern Sans", sans-serif;
+}
+
+
+.GRAPHREM {
+  text-align: center;
+
+  margin: 2em 0;
+
+  font-family: "Computer Modern Sans", sans-serif;
+
+  color: red;
+}
+
+
+.LINKTEXT a {
+  color: #01064b;
+
+  text-decoration: none;
+}
+
+
+.Animation {
+  background-color: #ffffff;
+
+  border-left: 4px solid #008634d2;
+
+  padding: 0.3em 0.5em;
+
+  margin: 2em 0;
+
+  border-radius: 4px;
+
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  max-width: 100%;
+
+  overflow: hidden;
+
+  margin: 0 auto;
+}
+
+
+.Animation video {
+  width: 100%;
+
+  height: auto;
+
+  display: block;
+}
+
+
+
+@media (max-width: 768px) {
+
+  .content {
+    padding: 20px;
+
+    margin: 10px;
+  }
+
+  #title {
+    width: 90%;
+
+    aspect-ratio: auto;
+
+    padding: 15px 0;
+  }
+
+  .quote-container {
+    width: 90%;
+  }
+}
+
+
+.Manin_draw {
+  background-color: #ffffff;
+
+  border-left: 4px solid #008634d2;
+
+  padding: 0.3em 0.5em;
+
+  margin: 2em 0;
+
+  border-radius: 4px;
+
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  max-width: 100%;
+
+  overflow: hidden;
+
+  margin: 0 auto;
+}
+
+
+
+.Cont_ent {
+  --gap: 1.25rem;
+
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: var(--gap);
+
+  align-items: center;
+
+  justify-items: center;
+
+  width: 100%;
+
+  margin: 0 auto;
+
+  box-sizing: border-box;
+}
+
+
+.Cont_ent .media {
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+
+  border-radius: 8px;
+
+  background: #000;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+.Cont_ent img,
+.Cont_ent video {
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+
+  border: 0;
+}
+
+
+.Cont_ent figcaption {
+  font-size: 0.9rem;
+
+  color: #666;
+
+  margin-top: 0.5rem;
+
+  text-align: center;
+}
+
+
+@media (max-width: 800px) {
+
+  .Cont_ent {
+    grid-template-columns: 1fr;
+  }
+
+  .Cont_ent .media {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+
+.Animation {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 0 1rem;
+
+  overflow-x: hidden;
+}
+
+
+.Animation .media {
+  max-width: 100%;
+
+  margin: 0 auto;
+}
+
+
+.Animation img {
+  display: block;
+
+  max-width: 100%;
+
+  width: 100%;
+
+  height: auto;
+
+  object-fit: contain;
+
+  margin: 0 auto;
+}
+
+
+.cm-example-card {
+  --card-bg: #e6ba4a47;
+
+  box-sizing: border-box;
+
+  margin: 20px auto;
+
+  padding: 18px;
+
+  max-width: 1100px;
+
+  background: var(--card-bg);
+
+  border-radius: 8px;
+
+  border-left: 6px solid #574ae6;
+
+  color: #2b2b2b;
+
+  font-family: "Computer Modern", "Times New Roman", serif;
+
+  line-height: 1.55;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+
+.cm-labels-row {
+  display: flex;
+
+  justify-content: flex-start;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 12px;
+
+  min-height: 1px;
+
+  flex-wrap: nowrap;
+}
+
+
+.cm-badge {
+  display: inline-block;
+
+  box-sizing: border-box;
+
+  padding: 6px 12px;
+
+  border-radius: 8px;
+
+  background: #fff;
+
+  font-weight: 700;
+
+  font-size: 0.86rem;
+
+  line-height: 1;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  box-shadow: 0 6px 18px rgba(11,15,20,0.06);
+
+  border: 1px solid rgba(0,0,0,0.06);
+
+  max-width: 46%;
+}
+
+
+.cm-labels-row > .cm-badge,
+.cm-labels-row .cm-badge {
+  display: inline-flex !important;
+
+  flex: 0 0 auto !important;
+
+  width: auto !important;
+
+  max-width: 46% !important;
+
+  box-sizing: border-box !important;
+
+  white-space: nowrap !important;
+
+  overflow: hidden !important;
+
+  text-overflow: ellipsis !important;
+}
+
+
+.cm-badge--solution,
+.cm-badge--example {
+  order: 0 !important;
+
+  margin: 0 !important;
+}
+
+
+@media (max-width: 720px) {
+
+  .cm-labels-row {
+    display: block !important;
+  }
+
+  .cm-labels-row > .cm-badge {
+    display: inline-block !important;
+
+    width: auto !important;
+
+    max-width: 100% !important;
+
+    margin: 0 0 8px 0 !important;
+  }
+}
+
+
+.Animation .media img.fixed-size {
+  width: 600px;
+
+  max-width: 100%;
+
+  height: auto;
+
+  display: block;
+
+  margin: 0.5rem auto;
+
+  object-fit: contain;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  border: 0;
+}
+
+
+.Animation .media img[src*="Vec_1_ManimCE_v0.19.2.png"] {
+  width: 600px !important;
+
+  max-width: 100% !important;
+
+  height: auto !important;
+
+  display: block !important;
+
+  margin: 0.5rem auto !important;
+
+  object-fit: contain !important;
+
+  border: 0 !important;
+}
+
+
+.Animation {
+  max-width: 100%;
+
+  overflow-x: hidden;
+}
+
+
+.img-clamp {
+  width: 600px;
+
+  max-width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+
+  margin: 0.5rem auto;
+
+  border-radius: 8px;
+
+  background: #000;
+}
+
+
+.img-clamp img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: contain;
+
+  display: block;
+}
+
+
+.Animation .media img.debug-outline {
+  outline: 2px dashed rgba(255,0,0,0.25);
+}
+
+
+.Animation .media img {
+  max-width: 100%;
+
+  height: auto;
+
+  display: block;
+}
+

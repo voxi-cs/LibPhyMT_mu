@@ -1,0 +1,213 @@
+/* 1) Global & background */
+
+body {
+  margin: 0;
+  font-family: "Computer Modern", serif;
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+  color: #fafafa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2) Container for the two cards */
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 1950px;
+  margin: 40px auto;
+  padding: 0 20px;
+  justify-content: center;
+}
+
+/* 3) Card base styles */
+
+.card {
+  flex: 1 1 auto;
+  min-width: 600px;
+  max-width: 800px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 4) Lessons card (white) */
+
+.card-lessons {
+  background: #ffffff;
+  color: #470202;
+}
+
+.card-lessons:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.1),
+    0 0 20px rgb(255, 127, 155);
+}
+
+/* 5) Research card (dark) */
+
+.card-research {
+  background: #1f1f1f;
+  color: #fafafa;
+}
+
+.card-research:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.1),
+    0 0 20px rgba(0, 81, 255, 0.555);
+}
+
+/* 6) Card titles */
+
+.card-title {
+  margin: 0;
+  padding: 22px 24px 18px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.card-research .card-title {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.title-deco {
+  display: block;
+  margin: 8px auto 0;
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+/* 7) Card content list */
+
+.card-content {
+  list-style: none;
+  margin: 0;
+  padding: 12px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.card-content li {
+  margin-bottom: 4px;
+}
+
+/* 8) Each chapter row */
+
+.card-content a,
+.card-content li > span {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s, border-color 0.2s;
+  border: 1px solid transparent;
+}
+
+/* Hover states */
+
+.card-lessons .card-content a:hover {
+  background: #f0edf8;
+  border-color: rgba(46, 2, 71, 0.1);
+}
+
+.card-research .card-content a:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 9) Chapter number badge */
+
+.chapter-num {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-lessons .chapter-num {
+  background: #ede8f7;
+  color: #8a3d3d;
+}
+
+.card-research .chapter-num {
+  background: rgba(255, 255, 255, 0.1);
+  color: #c8c0e8;
+}
+
+/* Keep badge colors even on tbd spans */
+
+.card-lessons .chapter-num.tbd {
+  background: #ede8f7;
+  color: #8a3d47;
+}
+
+.card-research .chapter-num.tbd {
+  background: rgba(255, 255, 255, 0.1);
+  color: #c8c0e8;
+}
+
+/* 10) Chapter text block */
+
+.chapter-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chapter-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.5;
+}
+
+.chapter-name {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+/* 11) "Not yet named" rows — dim the text only, not the badge */
+
+.chapter-text.tbd {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* 12) Responsive breakpoint */
+
+@media (max-width: 768px) {
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}

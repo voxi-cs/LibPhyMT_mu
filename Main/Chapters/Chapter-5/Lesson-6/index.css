@@ -1,0 +1,522 @@
+/* ---------- START: your original CSS ---------- */
+body {
+  margin: 0;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  background-color: rgb(255, 255, 255);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+/* 2) Subject badge */
+.Subject {
+  color: #7fb5b1;
+  margin: 5px;
+  padding: 4px 9px;
+  background: #1e0038e7;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-family: "Computer Modern Sans", sans-serif;
+}
+
+/* 3) Title box itself */
+#title {
+  flex: 0 0 auto;
+  width: clamp(300px, 50%, 600px);
+  aspect-ratio: 6 / 1;
+  padding: 0;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  font-size: 1.25rem;
+
+  /* <-- replace color with image (keep color as fallback) */
+  background-color: #5c4141;              /* fallback if image missing */
+  background-image: url('/Main/Chapters/Chapter-5/Lesson-1/Tile/tile-45466.png');
+  background-size: 7.69230% 46.153846%;  /* stretch/squish */
+  background-position: center;
+  background-repeat: repeat;
+
+  color: #5890b6;
+  text-align: center;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 51, 105, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+/* NEW: add a single rounded black box around the text
+   This intentionally does NOT modify #title or .tc */
+.title-container #title .tc .inner-box {
+  display: inline-block;               /* single box that wraps lines inside */
+  position: relative;                  /* sits above the existing transparent box */
+  z-index: 2;                          /* ensure it's on top of the transparent overlay */
+  background: rgba(54, 40, 0, 0.61);        /* nearly solid black box */                       /* readable text color */
+  padding: 0.5rem 1rem;                /* adjust space around the text */
+  border-radius: 12px;                 /* rounded corners */
+  line-height: 1.25;                   /* good multi-line spacing */
+  max-width: 92%;                      /* keeps it inside the parent on small screens */
+  text-align: center;                  /* center the lines inside the box */
+  word-break: break-word;              /* avoid overflow for long words */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45); /* optional depth */
+}
+/* ===== robust label positioning for the Example card ===== */
+
+/* ---------- Strong override: badges sit reliably inside the card ---------- */
+
+/* make sure .Example is the positioning context and has extra top padding */
+/* ===== Scoped, robust card + badges (no absolute positioning) ===== */
+.cm-example-card {
+  --card-bg: #e6ba4a47;            /* card color */
+  box-sizing: border-box;
+  margin: 20px auto;
+  padding: 18px;                 /* space for the header row */
+  max-width: 1100px;
+  background: var(--card-bg);
+  border-radius: 8px;
+  border-left: 6px solid #574ae6; /* subtle accent like your screenshots */
+  color: #2b2b2b;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  line-height: 1.55;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+/* header row that contains both badges (flex layout avoids absolute issues) */
+.cm-labels-row {
+  display: flex;
+  justify-content: space-between; /* left badge left, right badge right */
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  min-height: 1px; /* works well if badges are small */
+}
+
+/* base badge */
+.cm-badge {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #fff;
+  font-weight: 700;
+  font-size: 0.86rem;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 6px 18px rgba(11,15,20,0.06);
+  border: 1px solid rgba(0,0,0,0.06);
+  max-width: 46%; /* prevents runaway width */
+}
+
+/* ---------- Force solution on left, example on right (robust) ---------- */
+.cm-labels-row {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important; /* we will use auto margins to push */
+  gap: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+}
+
+/* ensure badges never expand to 100% and stay inline */
+.cm-labels-row > .cm-badge,
+.cm-labels-row .cm-badge {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: 46% !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Remove forced separation – both badges stay on the left */
+.cm-badge--solution,
+.cm-badge--example {
+  order: 0 !important;           /* both follow source order (EXAMPLE first, then SOLUTION) */
+  margin: 0 !important;           /* reset any margins that could cause spacing issues */
+}
+
+/* extra safety: if any badge has width:100% from other CSS, clip it */
+.cm-badge--solution[style],
+.cm-badge--example[style] {
+  max-width: 46% !important;
+}
+
+/* responsive fallback (stack on small screens) */
+@media (max-width: 720px) {
+  .cm-labels-row { display: block !important; }
+  .cm-labels-row > .cm-badge { display: inline-block !important; width: auto !important; max-width: 100% !important; margin: 0 0 8px 0 !important; }
+}
+
+/* 4) Wrapper around the actual text to handle padding */
+.tc {
+  display: inline-block;
+  padding: 0.5em 1em;
+  background-color: rgba(22, 0, 58, 0.6); /* adjust alpha */
+  border-radius: 7px;
+  overflow: hidden;
+  max-width: 90%;
+  word-wrap: break-word;
+  backdrop-filter: blur(3px); /* optional nice blur behind the pill */
+}
+
+/* 5) Title container for positioning */
+.title-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Publication info - Max Slater style */
+#Publication_info {
+  text-align: center;
+  font-family: "Barlow", sans-serif;
+  color: #6b6b6b;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.pub-info {
+  display: inline-block;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 1rem;
+}
+
+.pub-info i {
+  margin-right: 8px;
+  color: gray;
+}
+
+.pub-info a {
+  color: #6b6b6b;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.pub-info a:hover {
+  text-decoration: underline;
+}
+
+/* Quote section - Updated colors */
+.quote-container {
+  color: #160038; /* Added from second code */
+  padding: 20px;
+  margin: 20px auto;
+  background-color: #f0f0f0;
+  border-left: 5px solid #b0b0b0;
+  width: 70%;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-style: italic;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+blockquote {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+}
+
+blockquote span {
+  display: block;
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Content area - Max Slater style - WIDER RANGE */
+.content {
+  text-align: left;
+  max-width: 1000px; /* CHANGED FROM 800px TO 1000px FOR WIDER TEXT */
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 0;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Paragraphs - Max Slater style with BOLDER TEXT */
+p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin: 25px 0;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  font-style: normal;
+  font-weight: 500;
+  -webkit-text-stroke: 0.3px; /* Very subtle stroke */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+  color: #333;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.custom-roman-list {
+  /* Apply your specified styles here */
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin: 25px 0;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  font-style: normal;
+  font-weight: 500;
+  -webkit-text-stroke: 0.3px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-align: left;
+  color: #333;
+  
+  /* Reset default list padding */
+  padding-left: 20px;
+}
+
+.custom-roman-list li {
+  list-style-type: lower-roman;
+}
+
+/* This targets the number specifically to add parentheses */
+.custom-roman-list li::marker {
+  content: "(" counter(list-item, lower-roman) ") ";
+}
+
+/* Headings - Max Slater style */
+h1 {
+  color: #222;
+  text-align: left;
+  font-size: 1.5rem;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  font-weight: 700;
+  margin: 40px 0 20px 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+h2 {
+  color: #222;
+  text-align: left;
+  font-size: 1.5rem;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  font-weight: 700;
+  margin: 40px 0 20px 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+h3 {
+  color: #222;
+  text-align: left;
+  font-size: 1.3rem;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  font-weight: 700;
+  margin: 30px 0 15px 0;
+}
+
+h4 {
+  color: #222;
+  text-align: left;
+  font-size: 1.1rem;
+  font-family: "Computer Modern", "Times New Roman", serif;
+  font-weight: 700;
+  margin: 25px 0 12px 0;
+}
+
+/* Your original animation classes - kept but with updated fonts */
+.ANIMATION {
+  text-align: center;
+  margin: 2em 0;
+  font-family: "Computer Modern Sans", sans-serif;
+}
+
+.GRAPHREM {
+  text-align: center;
+  margin: 2em 0;
+  font-family: "Computer Modern Sans", sans-serif;
+  color: red;
+}
+
+.LINKTEXT a {
+  color: #01064b;
+  text-decoration: none;
+}
+
+.Animation {
+  background-color: #ffffff;
+  border-left: 4px solid #008634d2;
+  padding: 0.3em 0.5em;
+  margin: 2em 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.Animation video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .content {
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  #title {
+    width: 90%;
+    aspect-ratio: auto;
+    padding: 15px 0;
+  }
+  
+  .quote-container {
+    width: 90%;
+  }
+}
+.Manim_draw {
+  background-color: #ffffff;
+  border-left: 4px solid #008634d2;
+  padding: 0.3em 0.5em;
+  margin: 2em 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+
+/* CSS for .Cont_ent: two media items side-by-side with gap and responsive stacking */
+.Cont_ent {
+  --gap: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* two equal columns */
+  gap: var(--gap);
+  align-items: center;            /* vertical alignment inside each grid cell */
+  justify-items: center;         /* center items horizontally in their grid cell */
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* wrapper that keeps a consistent aspect ratio and hides overflow */
+.Cont_ent .media {
+  width: 100%;
+  aspect-ratio: 16 / 9;          /* keeps image & video same visual height (works for 1920x1080) */
+  overflow: hidden;
+  border-radius: 8px;
+  background: #000;              /* visible while media loads */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ensure media fills wrapper and keeps correct scaling */
+.Cont_ent img,
+.Cont_ent video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;           /* use "cover" if you prefer crop-to-fill */
+  border: 0;
+}
+
+/* captions (optional) */
+.Cont_ent figcaption {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* stack vertically on narrow screens */
+@media (max-width: 800px) {
+  .Cont_ent {
+    grid-template-columns: 1fr;  /* single column */
+  }
+
+  .Cont_ent .media {
+    aspect-ratio: 16 / 9;        /* keeps mobile height consistent */
+  }
+}
+
+.Animation {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem; /* optional safe padding */
+  overflow-x: hidden; /* prevents horizontal scroll from the container itself */
+}
+
+.Animation .media {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.Animation img {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* keeps aspect ratio */
+  margin: 0 auto;
+}
+/* ---------- END: your original CSS ---------- */
+
+
+/* ---------- START: added overrides / fixes (place at end of file) ---------- */
+
+/* 1) Preferred: target this specific image by adding class="fixed-size" to the <img> element.
+   Example HTML:
+     <img class="fixed-size" src="/Main/.../Vec_1_ManimCE_v0.19.2.png" alt="...">
+*/
+.Animation .media img.fixed-size {
+  width: 600px;        /* fixed desktop width you want (change as needed) */
+  max-width: 100%;     /* responsive cap on narrow screens */
+  height: auto;
+  display: block;
+  margin: 0.5rem auto; /* center and small top/bottom gap */
+  object-fit: contain; /* preserves aspect ratio */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* 2) Fallback: if you cannot change the HTML, target by filename (unique substring).
+   This rule uses !important to defeat the general `.Animation img { width:100% }` rule.
+   Keep this as a fallback only — prefer the class above. */
+.Animation .media img[src*="Vec_1_ManimCE_v0.19.2.png"] {
+  width: 600px !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0.5rem auto !important;
+  object-fit: contain !important;
+  
+}
+
+
+.Animation {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+
+.Animation .media img.debug-outline {
+  outline: 2px dashed rgba(255,0,0,0.25);
+}
+

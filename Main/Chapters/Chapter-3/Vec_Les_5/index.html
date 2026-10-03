@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linear Algebra: Linear Transformation</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <!-- Polyfills and tools -->
+    
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-5</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Linear Transformation.
+          </span>
+        </div>
+
+      </h1>
+    </div>
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "The essential thing is thus the group of transformations; the number of dimensions to be assigned to a manifold is only of secondary importance."
+        <br />
+        <span>— Felix Klein, A Comparative Review of Recent Researches in Geometry (1893)</span>
+      </blockquote>
+    </div>
+    <div class="content">
+      <p>
+        In the lesson we will look into a very important and essential concept
+        of linear algebra. We call it <strong>Linear Transformation</strong>. It
+        is at the core of the study of linear algebra. In our upcoming lessons
+        we will use visualization and concepts and try to make sense of topics
+        in terms of Linear Transformation.
+      </p>
+      <p>
+        The goal of this lesson is to make you comfortable with the topic and
+        give you deeper insight into matrices and vector spaces, and show you
+        how matrices are not just a tool for handling computation but rather how
+        they can encode information into themselves and by applying the matrix
+        on objects can transform the object.
+      </p>
+      <p>
+        It is important that to master this concept you go back to your textbook
+        and solve a few hard problems so that these things are not just a vague
+        idea to you but so that you can actually apply this visualized approach
+        to linear algebra.
+      </p>
+
+      <h2>Transformation of Vectors</h2>
+
+      <p>
+        When we multiply a vector by a matrix it gives us a new vector. It is
+        not necessary that the new vector is going to be totally new from the
+        original vector we had, but the matrix in a way "transforms" our
+        original vector. 
+      </p>
+      <p>
+        We can transform a vector by putting it in a function that takes in our
+        vector and maps it to a new vector, and hence a transformation. There
+        are many possibilities for a function and so there are many possible
+        ways to transform a vector, but in this lesson we will focus on a
+        specific type of transformation, that is what we call a
+        <strong>Linear Transformation</strong>.
+      </p>
+      <p>
+        In linear algebra, to represent a function we will use \(T\) instead of
+        \(f\), \(T\) for transform. A transform that takes in a vector and
+        multiplies with a matrix to produce a new vector can be written as: \[
+        T(\mathbf v) = \mathbf A \mathbf v \] or a transformation that takes in
+        a vector and produces the magnitude of the vector can be written as this
+        is not a linear transformation: \[ T(\mathbf v) = \sqrt{\mathbf v \cdot
+        \mathbf v} \] These are examples of transformations.
+      </p>
+      <p>
+        A transform acts on vectors, and in linear algebra when we study vector
+        transformation we do not just study what happens to a single specific
+        vector but we want to study what happens to a whole vector space when
+        the transformation acts on it. For \(\mathbb F^2 \) and \(\mathbb F^3 \)
+        we can also visualize what happens to the vector. Remember there is no
+        obligation for us to visualize vectors as arrows. We can just visualize
+        them as points and hence as a grid. A vector is not an arrow, it is a
+        mathematical object. While visualizing a 2 or 3 dimensional vector space
+        it gets useless when we draw many vectors and there is nothing to look
+        at, so we will look at points on a grid to better understand what a
+        transformation does to a vector space. Below we show a demonstration of
+        that:
+      </p>
+
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_1.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_1.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_5/Videos/vid_1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <h2>Linear Transformations/Maps</h2>
+
+      <p>
+        We talked about transformation. It is a function that changes a vector
+        to another vector. But a linear transformation is a specific kind of
+        transformation. The word "linear" represents two properties a function
+        must obey. These properties are <strong>Additivity</strong> and
+        <strong>Homogeneity</strong>. A transformation must follow these rules
+        in order to be called linear.
+      </p>
+      <p>
+        The properties <strong>Additivity</strong> and
+        <strong>Homogeneity</strong> make sure two things happen. They make sure
+        any straight line drawn in the space stays straight after we transform
+        the vector space via the transformation, and they also make sure the
+        origin maps into itself and does not move from its place. While we
+        cannot actually visualize these things for \(n>3\) in \(\mathbb F^n\),
+        we can still get some idea by watching an animation on a grid.
+      </p>
+
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_2.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_5/Videos/vid_2.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <p>
+        Here you can see the lines are straight and so is the origin. It is at
+        its original place, so this transformation is what we call linear
+        transformation. Below we show an example of transformation that seems
+        linear but truly is not.
+      </p>
+
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_3.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_3.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_5/Videos/vid_3.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <p>
+        In these two animations the first one shows a linear transformation, and
+        the second one is just a transformation. Even if the origin maps to
+        itself in both transformations, in the second one the vertical and
+        horizontal lines do stay straight but the other lines drawn on the grid
+        curve due to the transformation and hence it was not a linear
+        transformation but just a transformation.
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Linear Transformation</strong>
+          A <strong>Linear Transformation</strong> from a vector space \(\mathbb{V}\) to
+          \(\mathbb{W}\) is a function \(T: \mathbb{V} \to \mathbb{W}\) that
+          obeys the following rules:
+        </p>
+        <h4>Additivity:</h4>
+        <p class="equation">
+          \[ T\left(\mathbf{u}+\mathbf{v}\right) = T\left(\mathbf{u}\right) +
+          T\left(\mathbf{v}\right) \text{ for all } \mathbf{u},\mathbf{v} \in
+          \mathbb{V} \]
+        </p>
+        <h4>Homogeneity:</h4>
+        <p class="equation">
+          \[ T\left(c\mathbf{u}\right) = cT\left(\mathbf{u}\right) \text{ for
+          all } \mathbf{u} \in \mathbb{V} \text{ and } c \in \mathbb{F} \]
+        </p>
+      </div>
+
+      <p>
+        If Linear Transformation is a relatively new concept to you it may be
+        that this definition does not make much sense yet, and the reason why
+        straight lines must stay straight after the linear transformation is
+        also not clear from the definition, but we have shown you a little proof
+        why that is the case. But first let us try to understand what the
+        definition actually says.
+      </p>
+
+      <p>
+        The definition says
+        <strong
+          >A Linear Transformation from a vector space \(\mathbb{V}\) to
+          \(\mathbb{W}\) is a function \(T: \mathbb{V} \to \mathbb{W}\) that
+          obeys Additivity and Homogeneity.</strong
+        >
+      </p>
+
+      <p>
+        What it means is that, let us say we have a linear transformation \(T\),
+        it takes in one vector and gives us another vector. Doing this for all
+        vectors in a vector space called \(\mathbb V\) gives us a new set of
+        vectors. Meaning, the transformed vector space is defined as: \[
+        \mathbb{W} = \{T(\mathbf{v}) : \mathbf{v} \in \mathbb{V}\} \] More
+        precisely you could say \(\mathbb W\) is the <strong>image</strong> or
+        <strong>range</strong> of \(V\) under \(T\).
+      </p>
+
+      <p>
+        A Linear Transformation can be \(\mathbb R^n \to \mathbb R^m\), and
+        could also be \(\mathbb R^n \to \mathbb C^m\) or \(\mathbb C^n \to
+        \mathbb C^m\). Let us say we have a vector \(\begin{pmatrix} x_1 \\ x_2
+        \end{pmatrix}\) in \(\mathbb R^2\), and let us say we have a linear
+        transformation \(T\) that takes vectors in \(\mathbb R^2\) and gives a
+        vector in \(\mathbb R^3\). What it means is that: \[ T:\mathbb R^2 \to
+        \mathbb R^3,\qquad T\!\left(\begin{pmatrix} x_1 \\ x_2
+        \end{pmatrix}\right) = \begin{pmatrix} x_1' \\ x_2' \\ x_3'
+        \end{pmatrix} \]
+      </p>
+
+      <p>
+        Below we can see how a collection of vectors transforms as we apply the
+        linear transformation \(\mathbb R^2 \to \mathbb R^2\).
+      </p>
+
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_4.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_4.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_5/Videos/vid_4.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <p>
+        This animation shows an example of linear transformation and how points
+        and grids transform due to it. Even though we mentioned that we are
+        going to show how vectors transform just by showing how the grids
+        transform since vectors can just be visualized as points on the grid,
+        here we just showed also how vectors transform as well as the grid for
+        you to see more closely.
+      </p>
+
+      <p>
+        Linear transformation keeps the origin and zero vector at its place,
+        meaning it does not move the origin: \[ T(\mathbf 0 ) = 0. \] That means
+        any transformation that shifts the space is not linear. Using this logic
+        we can use the <strong>Additivity</strong> and
+        <strong>Homogeneity</strong> rule to get the following. A linear
+        transformation must obey: \[ T(c_1 \mathbf v + c_2 \mathbf u) = c_1
+        T(\mathbf v) + c_2 T(\mathbf u) \] We can test this for a matrix
+        transformation. Let us say we have the following transformation: \[
+        T(\mathbf v) = \mathbf A \mathbf v \] then, if we put \(T(c_1 \mathbf v
+        + c_2 \mathbf u)\) we get: \[ T(c_1 \mathbf v + c_2 \mathbf u) = \mathbf
+        A (c_1 \mathbf v + c_2 \mathbf u) = \mathbf A(c_1 \mathbf v) + \mathbf
+        A(c_2 \mathbf u) = c_1 \mathbf A(\mathbf v) + c_2 \mathbf A(\mathbf u) =
+        c_1T(\mathbf v) + c_2T(\mathbf u) \] So hence that implies \(T(\mathbf
+        v) = \mathbf A \mathbf v\) is linear.
+      </p>
+
+      <p>
+        Now I believe it is a great time to show a few examples so that these
+        rules make more sense and so that the reader can grasp this concept more
+        strongly.
+      </p>
+
+      <div class="cm-example-card"> <div class="cm-labels-row"> <div class="cm-badge cm-badge--example">EXAMPLE</div> </div> <p> Show that given a <strong>Transformation</strong> \(T : \mathbb R^2 \to \mathbb R^3\) that takes vectors \(\begin{pmatrix} x \\ y\end{pmatrix}\) in \(\mathbb R^2\) and transforms the vector into a vector \(\begin{pmatrix} x \\ y \\ 0\end{pmatrix}\) in \(\mathbb R^3\) is a <strong>Linear Transformation</strong>. </p> <br /> <p> We have seen a transformation to be linear the transformation must obey the <strong>Additivity</strong> and <strong>Homogeneity</strong> rule. To prove that \(T\) is linear we must make sure it obeys these rules. We can do this by showing that for any two vectors and any two scalars \(c_1\) and \(c_2\), \(T(c_1\mathbf v+c_2\mathbf u)=c_1T(\mathbf v)+c_2T(\mathbf u)\). </p> <p> Let us assume we have two vectors \(\begin{pmatrix} x_1 \\ y_1 \end{pmatrix}\) and \(\begin{pmatrix} x_2 \\ y_2 \end{pmatrix}\) in \(\mathbb R^2\). We start with \(T(c_1\mathbf v+c_2\mathbf u)\) and calculate both sides to see if they are equal: \[ T\left(c_1\begin{pmatrix} x_1 \\ y_1 \end{pmatrix} + c_2\begin{pmatrix} x_2 \\ y_2 \end{pmatrix}\right) = T\left(\begin{pmatrix} c_1x_1 + c_2x_2 \\ c_1y_1 + c_2y_2 \end{pmatrix}\right) \] Now if we apply the transformation as \(\begin{pmatrix} x \\ y \end{pmatrix} \to \begin{pmatrix} x \\ y \\ 0\end{pmatrix}\): \[ T\left(\begin{pmatrix} c_1x_1 + c_2x_2 \\ c_1y_1 + c_2y_2 \end{pmatrix}\right) = \begin{pmatrix} c_1x_1 + c_2x_2 \\ c_1y_1 + c_2y_2 \\ 0 \end{pmatrix} = \begin{pmatrix} c_1x_1 \\ c_1y_1 \\ 0 \end{pmatrix} + \begin{pmatrix} c_2x_2 \\ c_2y_2 \\ 0 \end{pmatrix} = c_1\begin{pmatrix} x_1 \\ y_1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} x_2 \\ y_2 \\ 0 \end{pmatrix} = c_1T\left(\begin{pmatrix} x_1 \\ y_1 \end{pmatrix}\right) + c_2T\left(\begin{pmatrix} x_2 \\ y_2 \end{pmatrix}\right) \] and since the two sides are equal for any vectors and any scalars \(c_1,c_2\), \(T\) satisfies the linearity rule. Therefore, \(T\) is a Linear Transformation. </p> </div>
+
+      <div class="equation-type2">
+        <h4>
+          Proof: Linear Transformation Keeps All Straight Lines Straight from
+          \(\mathbb V \to \mathbb W\)
+        </h4>
+        <p>
+          Assume a line \(\mathbf L\) in \(\mathbb V\). A line is defined as: \[
+          \mathbf L = \{\mathbf x_0 + t\mathbf v : t \in \mathbb F\},
+          \quad \text{where } \mathbf x_0,\mathbf v \in \mathbb V
+          \text{ and } \mathbf v \neq \mathbf 0.
+          \] Here \(\mathbf x_0\) is a fixed point on the line and
+          \(\mathbf v\) is a fixed direction vector. As \(t\) varies over
+          \(\mathbb F\), the vector \(t\mathbf v\) moves along the direction
+          of \(\mathbf v\), and adding \(\mathbf x_0\) shifts it to form the
+          line \(\mathbf L\).
+        </p>
+        <p>Below we show how the definition makes sense.</p>
+
+        <div class="Animation">
+          <div class="Cont_ent">
+            <figure class="media">
+              <img
+                src="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_5.png"
+                alt="Manim rendering showing a line formed by a direction vector"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="media">
+              <video
+                controls
+              muted
+              loop
+              playsinline
+              preload="none"
+                poster="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_5.png"
+              >
+                <source
+                  src="/Main/Chapters/Chapter-3/Vec_Les_5/Videos/vid_5.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </figure>
+          </div>
+        </div>
+
+        <p> Now let us apply a Linear Transformation \(T\) on the line \(\mathbf L\), let the new transformed line be \(\mathbf L'\): \[ \mathbf L' = \{T(\mathbf x_0 + t\mathbf v): \mathbf v, \mathbf x_0 \in \mathbb V \text{ and } t \in \mathbb F\} \] so the transformed line is made up of all the vectors \(T(\mathbf x_0 + t\mathbf v)\). For now, we just need to look at that. By Additivity and Homogeneity: \[ T(\mathbf x_0 + t\mathbf v) = T(\mathbf x_0) + T(t\mathbf v) = T(\mathbf x_0) + tT(\mathbf v) \] But look at this, \(T(\mathbf x_0) + tT(\mathbf v)\) is just the parametric equation for a line as we had before, \(\mathbf x_0 + t\mathbf v\). Here \(T(\mathbf x_0)\) is also a vector, and so is \(T(\mathbf v)\). The vectors \(\mathbf x_0\) and \(\mathbf v\) have changed to \(T(\mathbf x_0)\) and \(T(\mathbf v)\). </p> <p> Hence the linearly transformed line is \[ \mathbf L' = \{T(\mathbf x_0) + tT(\mathbf v): \mathbf v, \mathbf x_0 \in \mathbb V \text{ and } t \in \mathbb F\} \] Since this is the parametric equation for a straight line, hence we have proven that: </p> <p> A Linear Transformation maps every line in \(\mathbb V\) to a line or a point in \(\mathbb W\). </p> <span class="qed"></span> </div> <p> Well, till now we have shown you what a linear transformation is and treated \(T\) as a <strong>black box</strong>, and we have not told you yet how we can form a linear transformation. Actually, it is because there are many ways to represent and study a linear transformation. In finite-dimensional vector spaces, we can represent a linear transformation using an \(m\times n\) matrix, but in infinite-dimensional vector spaces, it is not that simple. </p> <p> In an infinite-dimensional vector space, we cannot generally represent a linear transformation using an ordinary finite matrix. In some settings, infinite matrices can be used, but this requires additional structure and is not the general way to describe linear transformations. An example of an infinite-dimensional vector space is a <strong>Function Space</strong>. Putting it simply for now, a function space is a vector space where the elements are functions. In a function space, the vectors are functions, and the vector-space operations are defined on those functions. It is not a good idea to talk about them in too much detail now, mainly because it may misguide you. We will return to these spaces later. </p> <p> A large part of the mathematical framework behind quantum mechanics and QFT involves infinite-dimensional vector spaces. Infinite-dimensional vector spaces are not limited to function spaces; they include many other types of spaces, such as \(l^2\), the space of square-summable sequences. </p> <h2> Linear Transformation of Finite Dimensional Vector Space. </h2> <p> In this section, we will look at how matrices actually form a linear transformation. The main goal of this section is to make a connection between matrices and linear transformations. In the next lesson, we will look into more details about linear algebra such as <strong>change of basis</strong>, <strong>choice of basis</strong>, <strong>isomorphism</strong>, and <strong>isomorphic</strong> transformations. </p> <p> A linear transformation represented by an \(m \times n\) matrix is a transformation that takes vectors from \(\mathbb F^n\) and maps them to \(\mathbb F^m\). If we define it formally, we get: </p> <div class="definition-box"> <p> <strong class="DEF">DEFINITION:</strong> A linear transformation \(T\) represented by an \(m \times n\) matrix \(\mathbf A\) is the transformation: \[ T(\mathbf v) = \mathbf A \mathbf v \] where \(\mathbf v \in \mathbb F^n\) and \(\mathbf A \mathbf v \in \mathbb F^m\). </p> <p> This kind of transformation is called a <strong>matrix transformation</strong>, and \(\mathbf A\) is the <strong>transformation matrix</strong>. </p> </div> <p> It is very easy to show that a matrix transformation is a linear transformation. I will leave that to the reader as homework. </p> <div class="cm-example-card"> <div class="cm-labels-row"> <div class="cm-badge cm-badge--example">EXAMPLE</div> </div> <p> Given a matrix transformation \(T(\mathbf v) = \mathbf A \mathbf v\), where \[ \mathbf A = \begin{pmatrix} \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \end{pmatrix}, \] find what happens to the vector \(\mathbf v\). </p> <br> <p> Let us assume, for instance, \(\mathbf v = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\). Applying the transformation, we get: \[ T \left(\begin{pmatrix} 1 \\ 0 \end{pmatrix}\right) = \begin{pmatrix} \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} \frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} \end{pmatrix} \] </p> <p> Let us look at another example. Let \(\mathbf v = \begin{pmatrix} 0 \\ 1 \end{pmatrix}\). Then, applying the transformation, we get: \[ T \left(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\right) = \begin{pmatrix} \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \end{pmatrix} \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} -\frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} \end{pmatrix} \] </p>
+        <p>
+          Notice something interesting? Calculating the angle between the vector \(\mathbf v\) and the transformed vector seems to always give \(45^\circ\)
+          (using the formula \(\theta = \cos^{-1}\left(\frac{\mathbf a \cdot \mathbf b}{\|\mathbf a\| \|\mathbf b\|}\right)\)).
+          In fact, that is true for any nonzero vector we choose: the vector \(\mathbf v\) and the transformed vector \(\mathbf A\mathbf v\) always make an angle of \(45^\circ\)
+          for this specific choice of matrix \(\mathbf A\).
+        </p>
+
+        <p>
+          Below, we have shown how all vectors rotate by \(45^\circ\) from their original position as we apply the transformation matrix \(\mathbf A\),
+          and how the grid rotates by \(45^\circ\).
+        </p>
+
+        <div class="Animation">
+          <div class="Cont_ent">
+            <figure class="media">
+              <img
+                src="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_6.png"
+                alt="Manim rendering showing vectors rotated by 45 degrees"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="media">
+              <video
+                controls
+              muted
+              loop
+              playsinline
+              preload="none"
+                poster="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_6.png"
+              >
+                <source
+                  src="/Main/Chapters/Chapter-3/Vec_Les_5/Videos/vid_6.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </figure>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="Animation">
+          <div class="Cont_ent">
+            <figure class="media">
+              <img
+                src="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_7.png"
+                alt="Manim rendering showing a grid rotated by 45 degrees"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="media">
+              <video
+                controls
+              muted
+              loop
+              playsinline
+              preload="none"
+                poster="/Main/Chapters/Chapter-3/Vec_Les_5/Images/img_7.png"
+              >
+                <source
+                  src="/Main/Chapters/Chapter-3/Vec_Les_5/Videos/vid_7.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </figure>
+          </div>
+        </div>
+
+        <p>
+          This specific matrix that rotates all vectors in \(\mathbb R^2\) by \(45^\circ\) is called a
+          <strong>45-degree rotation matrix</strong>. In a way, you could say this matrix rotates a vector space by \(45^\circ\)
+          with respect to the “original vector space,” but that does not make sense mathematically, so it is better not to say that;
+          it is just a viewpoint, and that is all it is.
+        </p>
+
+        <p>
+          In general, a rotation matrix \(\mathbb R^2 \to \mathbb R^2\) is:
+          \[
+            \boxed{
+            \mathcal{R}(\theta) =
+            \begin{pmatrix}
+              \cos\theta & -\sin\theta \\
+              \sin\theta & \cos\theta
+            \end{pmatrix}
+            }
+          \]
+        </p>
+
+        <p>
+          In the example with \(\mathbf A\), it was \(\mathcal{R}(45^\circ)\).
+        </p>
+
+        <p>
+          <strong>Note: </strong> The \(\mathcal{R}(\theta)\) shown here is defined with respect to the standard basis.
+          This matrix represents the rotation transformation in standard coordinates. In another basis, the same geometric rotation
+          will generally have a different matrix representation.
+        </p>
+        </div>
+
+        <p>
+          This example shows how a linear transformation works in finite-dimensional vector spaces.
+          In finite-dimensional vector spaces, every linear map between finite-dimensional vector spaces can be represented by a matrix
+          after choosing bases.
+        </p>
+
+        <p>
+          But the question arises: how does one choose the matrix that represents a linear transformation from one vector space \(\mathbb V\) to another \(\mathbb W\)?
+        </p>
+
+        <p>
+          Before we answer that, I believe it is better for me to clear up some confusion some of you may have related to linear transformations,
+          matrices, and bases.
+        </p>
+
+        <p>
+          First of all, a linear transformation \(T\) is not defined by a matrix. A linear transformation \(T\) is uniquely determined by
+          what it does to the vectors in its domain. You might get the impression that a linear transformation \(T\) is defined by a matrix,
+          but that is not true at all; instead, it is the other way around.
+        </p>
+      <p>
+          And as our second part, a matrix is defined by a linear transformation and a choice of basis.
+          As we said, a linear transformation is not defined by a matrix; instead, a matrix is defined by a linear transformation and a choice of basis.
+          A matrix representation works correctly only when the input vectors are expressed in the chosen domain basis and the output vectors are interpreted
+          in the chosen codomain basis. For now, keep that in mind; soon it will all be clear.
+      </p>
+
+      <h4>Computing the Matrix of a Linear Transformation \(T\)</h4>
+
+      <p>
+          Let's say we have a linear transformation \(T\). The matrix of \(T\) is calculated with respect to a basis,
+          let it be \(\mathbf v_1, \dots, \mathbf v_n\) of \(\mathbb V\) and \(\mathbf w_1, \dots, \mathbf w_m\) of \(\mathbb W\).
+          What that means is that we have to decide on a coordinate system to compute the matrix associated with the linear transformation,
+          and the chosen coordinate systems of both \(\mathbb V\) and \(\mathbb W\) are defined by bases.
+          For different bases, we get different coordinate systems and hence different transformation matrices representing the same linear transformation.
+      </p>
+
+      <p>
+          We must choose a basis in both vector spaces \(\mathbb V\) and \(\mathbb W\), where \(T : \mathbb V \to \mathbb W\), so that we can represent the vectors
+          in both vector spaces using the bases. Let \(\mathbf v \in \mathbb V\), and let \(\mathbf v_1, \dots, \mathbf v_n\) be the basis of \(\mathbb V\)
+          and \(\mathbf w_1, \dots, \mathbf w_m\) be the basis of \(\mathbb W\); remember, we choose the bases independently from one another, and there is no restriction on choosing them.
+      </p>
+
+      <p>
+          Now, if we represent our vector \(\mathbf v \in \mathbb V\) using the basis vectors, we get:
+          \[
+              \mathbf v = c_1 \mathbf v_1 + \dots + c_n \mathbf v_n
+          \]
+          And if we apply the linear transformation to \(\mathbf v\), we get something like:
+          \[
+              T(\mathbf v) = c_1 T(\mathbf v_1) + \dots + c_n T(\mathbf v_n)
+          \]
+          Notice here that this suggests that if we know where the basis vectors land when we apply the transformation to all the basis vectors
+          \(\mathbf v_1,\dots, \mathbf v_n\) in \(\mathbb W\), then that will allow us to know, for all vectors \(\mathbf v \in \mathbb V\), how they will
+          transform if we apply the linear transformation. So we should examine how our basis vectors transform from \(\mathbb V\) to \(\mathbb W\).
+      </p>
+
+      <p>
+          Applying the transformation to a basis vector \(\mathbf v_i\) will give a transformed vector in \(\mathbb W\). Assume \(\mathbb V=\mathbb R^n\)
+          and \(\mathbb W=\mathbb R^m\), so the basis vectors transform as:
+          \[
+              T(\mathbf v_i) = a_{1i}\mathbf w_1 + a_{2i}\mathbf w_2 + \dots + a_{mi}\mathbf w_m
+          \]
+          Here, the reason why we wrote \(a_{mi}\) is so that we can put them in a matrix; soon you will see why we want to put them in a matrix.
+          Doing this for all basis vectors gives us something like:
+          \[
+          \begin{aligned}
+              T(\mathbf v_1) &= a_{11}\mathbf w_1 + a_{21}\mathbf w_2 + \dots + a_{m1}\mathbf w_m \\
+              T(\mathbf v_2) &= a_{12}\mathbf w_1 + a_{22}\mathbf w_2 + \dots + a_{m2}\mathbf w_m \\
+              T(\mathbf v_3) &= a_{13}\mathbf w_1 + a_{23}\mathbf w_2 + \dots + a_{m3}\mathbf w_m \\
+              &\vdots \\
+              T(\mathbf v_n) &= a_{1n}\mathbf w_1 + a_{2n}\mathbf w_2 + \dots + a_{mn}\mathbf w_m
+          \end{aligned}
+          \]
+          Now here we would like to solve for the \(a_{ij}\)'s; then we would be able to tell how the basis vectors map to \(\mathbb W\).
+          Alright, there is a slight issue: you might be wondering how we are supposed to know what the left side of the equation is.
+          Yes, we have chosen the domain and codomain bases \(\mathbf v\)'s and \(\mathbf w\)'s, but to solve for the \(a_{ij}\)'s we also need to know
+          what \(T(\mathbf v_i)\) is. And you are totally right.
+          Actually, we calculate \(T(\mathbf v_i)\) from the definition of \(T\).
+          Sometimes you will see \(T\) being defined as \(T \begin{pmatrix} x \\ y\end{pmatrix} = \begin{pmatrix} f(x,y) \\ g(x,y) \end{pmatrix}\),
+          or sometimes its geometric definition, like a rotation: we could just rotate the basis vector \(\mathbf v_i\) by \(\theta\) degrees to find
+          what \(T(\mathbf v_i)\) is. Sometimes it is defined physically. The point is that \(T\) will be defined; after all, a linear transformation
+          is an abstract map, and without defining it first, we won't be able to apply any operation using it. So, using the definition, we can easily deduce the
+          transformation of the basis.
+      </p>
+
+      <p>
+          After we are done solving for \(a_{ij}\), we can put them in a matrix, and we will call it \(\mathcal{M}(T)\):
+          \[
+              \mathcal{M}(T) =
+              \begin{pmatrix}
+                  a_{11} & a_{12} & \dots & a_{1n} \\
+                  a_{21} & a_{22} & \dots & a_{2n} \\
+                  \vdots & \vdots & \ddots & \vdots \\
+                  a_{m1} & a_{m2} & \dots & a_{mn}
+              \end{pmatrix}
+          \]
+          This is our transformation matrix for the linear transformation \(T\) for domain basis
+          \(\mathbf v_1, \dots, \mathbf v_n\) and codomain basis \(\mathbf w_1, \dots, \mathbf w_m\).
+          Because the matrix is also specific to the bases, you may also write it as
+          \(\mathcal{M}(T,(\mathbf v_1, \dots, \mathbf v_n),(\mathbf w_1, \dots, \mathbf w_m))\).
+      </p>
+
+      <p>
+          It may be that we won't always be given a linear transformation defined in the form \(T(x,y)\), but often it is possible from the definition of \(T\),
+          no matter how it is defined, to obtain something in the form \(T(x,y)\) that encodes the information of how the transformation is going to act
+          on vectors in a vector space. Below, we show an example so that all this makes more sense to you.
+          Again, no amount of reading is going to help you if you don't solve problems. You should go back to the textbook you are following and solve a few problems
+          to see how much you understand all of this. Remember, this is just reading material that is meant to be read with a textbook if you truly want to master these concepts.
+      </p>
+
+      <div class="cm-example-card">
+          <div class="cm-labels-row">
+              <div class="cm-badge cm-badge--example">EXAMPLE</div>
+          </div>
+
+          <p>
+              A linear transformation defined as:
+              \[
+              T \begin{pmatrix} x_1 \\ x_2 \\ x_3 \\ x_4 \end{pmatrix}
+              =
+              \begin{pmatrix}
+                  f(x_1,x_2,x_3,x_4) \\
+                  g(x_1,x_2,x_3,x_4) \\
+                  h(x_1,x_2,x_3,x_4)
+              \end{pmatrix}
+              \]
+              where \(f = x_1 + 2x_2 - x_4\), \(g = 3x_1 - x_3\), and \(h = x_2 + x_3 + 4x_4\), is a \(T: \mathbb{R}^4 \to \mathbb{R}^3\) linear transformation.
+          </p>
+
+          <br>
+
+          <p>
+              To find the transformation matrix, recall that we first need to choose a basis for \(\mathbb R^4\), the domain, and a basis for \(\mathbb R^3\), the codomain.
+              Let the basis for \(\mathbb R^4\) be \(\mathbf B = \{ \mathbf v_1,\mathbf v_2,\mathbf v_3,\mathbf v_4 \}\) and for \(\mathbb R^3\) be
+              \(\mathbf C = \{ \mathbf w_1,\mathbf w_2,\mathbf w_3 \}\).
+          </p>
+
+          <p>
+              Let the basis vectors be
+              \(\mathbf v_1 = \begin{pmatrix} 1\\1\\0\\0 \end{pmatrix}\),
+              \(\mathbf v_2 = \begin{pmatrix} 0\\1\\1\\0 \end{pmatrix}\),
+              \(\mathbf v_3 = \begin{pmatrix} 0\\0\\1\\1 \end{pmatrix}\), and
+              \(\mathbf v_4 = \begin{pmatrix} 1\\0\\0\\1 \end{pmatrix}\),
+              so \(\mathbf B = \{(1,1,0,0),(0,1,1,0),(0,0,1,1),(1,0,0,1)\}\).
+          </p>
+
+          <p>
+              And for \(\mathbb R^3\), let the basis be
+              \(\mathbf C = \{(1,1,0),(0,1,1),(1,1,1)\}\).
+          </p>
+
+          <p>
+              Now, if we apply our transformation to the basis \(\mathbf B\), we get:
+              \[
+                  T(\mathbf v_1) = \begin{pmatrix} 3\\3\\1 \end{pmatrix}, \quad
+                  T(\mathbf v_2) = \begin{pmatrix} 2\\-1\\2 \end{pmatrix}, \quad
+                  T(\mathbf v_3) = \begin{pmatrix} -1\\-3\\5 \end{pmatrix}, \quad
+                  T(\mathbf v_4) = \begin{pmatrix} 3\\3\\4 \end{pmatrix}
+              \]
+              Expressing these vectors in terms of the basis \(\mathbf C\), we get:
+              \[
+                  [T(\mathbf v_1)]_{\mathbf C} = \begin{pmatrix} 2\\0\\1 \end{pmatrix}, \quad
+                  [T(\mathbf v_2)]_{\mathbf C} = \begin{pmatrix} -3\\-3\\5 \end{pmatrix}, \quad
+                  [T(\mathbf v_3)]_{\mathbf C} = \begin{pmatrix} -6\\0\\5 \end{pmatrix}, \quad
+                  [T(\mathbf v_4)]_{\mathbf C} = \begin{pmatrix} -1\\0\\4 \end{pmatrix}
+              \]
+              Here \([T(\mathbf v_i)]_{\mathbf C}\) means the coordinate vector of \(T(\mathbf v_i)\) with respect to the basis \(\mathbf C\).
+              This is just to familiarize you with the notation you might see in some places.
+          </p>
+        <p> 
+          Now, if we write the equation which we showed before:
+          \[ 
+              T(\mathbf v_i) = a_{1i}\mathbf{w}_1 + a_{2i}\mathbf{w}_2 + \dots + a_{mi}\mathbf{w}_m 
+          \] 
+          and apply this to all the basis vectors \(\mathbf v_i\), we get:
+          \[ 
+              T(\mathbf v_1) = a_{11}\mathbf{w}_1 + a_{21}\mathbf{w}_2 + a_{31}\mathbf{w}_3 
+          \] 
+          \[ 
+              \Rightarrow 
+              \begin{pmatrix} 2\\0\\1 \end{pmatrix} 
+              = a_{11}\begin{pmatrix} 1\\1\\0 \end{pmatrix} 
+              + a_{21}\begin{pmatrix} 0\\1\\1 \end{pmatrix} 
+              + a_{31}\begin{pmatrix} 1\\1\\1 \end{pmatrix} 
+          \] 
+          \[ 
+              \Rightarrow 
+              \begin{pmatrix} 2\\0\\1 \end{pmatrix} 
+              = 
+              \begin{pmatrix} a_{11}\\a_{11}\\0 \end{pmatrix} 
+              + a_{21}\begin{pmatrix} 0\\1\\1 \end{pmatrix} 
+              + \begin{pmatrix} a_{31}\\a_{31}\\a_{31} \end{pmatrix} 
+          \] 
+          \[ 
+              \Rightarrow 
+              \begin{pmatrix} 2\\0\\1 \end{pmatrix} 
+              = 
+              \begin{pmatrix} 
+                  a_{11}+a_{31} \\ 
+                  a_{11}+a_{21}+a_{31} \\ 
+                  a_{21}+a_{31} 
+              \end{pmatrix} 
+          \] 
+          This is just a system of linear equations. If we solve them, we get:
+          \[ 
+              a_{11} = 2, \quad a_{21} = 0, \quad a_{31} = 1 
+          \] 
+          Doing a similar thing for all the other basis vectors, we get:
+          \[ 
+              \begin{aligned} 
+              a_{11} &= 2  & a_{21} &= 0  & a_{31} &= 1 \\ 
+              a_{12} &= -3 & a_{22} &= -3 & a_{32} &= 5 \\ 
+              a_{13} &= -6 & a_{23} &= 0  & a_{33} &= 5 \\ 
+              a_{14} &= -1 & a_{24} &= 3  & a_{34} &= 1 
+              \end{aligned} 
+          \] 
+          Now, if we put them in the matrix, we will get our transformation matrix \(\mathcal{M}(T,\mathbf B,\mathbf C)\):
+          \[ 
+              \mathcal{M}(T,\mathbf B,\mathbf C) = 
+              \begin{pmatrix} 
+                  2 & -3 & -6 & -1 \\ 
+                  0 & -3 & 0 & 3 \\ 
+                  1 & 5 & 5 & 1 
+              \end{pmatrix} 
+          \] 
+          Sometimes you may see it written as:
+          \[ 
+              [T]_{\mathbf C}^{\mathbf B} = 
+              \begin{pmatrix} 
+                  2 & -3 & -6 & -1 \\ 
+                  0 & -3 & 0 & 3 \\ 
+                  1 & 5 & 5 & 1 
+              \end{pmatrix} 
+          \] 
+          It is important to highlight the bases used for the transformation matrix. 
+          Here, we have seen how we may calculate a transformation matrix. 
+      </p> 
+
+      <p> 
+          Remember, the most important part is to choose the bases first. Then we do our general vector algebra, which gives us our transformation matrix 
+          if we solve the systems of linear equations and put the solutions in the matrix according to the indexing \(ij\). 
+      </p> 
+      </div> 
+
+      <p> 
+          In this section, we have defined and shown how we can represent a linear transformation, and given you a visual understanding of the topic. 
+          But there is much more we can explore from here. Remember that we are free to choose the domain and codomain basis vectors 
+          with no restriction? There is an advantage to this freedom of choice. You might have taken this for granted, but actually, it is very helpful 
+          and often extremely useful if we exploit it. It happens that there are certain bases we can choose to represent a transformation using a matrix 
+          such that the transformation matrix becomes much simpler and easier to work with than when using other bases. 
+          Not only that, choosing a good basis can also make the coordinates much easier to work with, or the geometry can become clearer. 
+          In particular, when a linear transformation has enough linearly independent eigenvectors to form a basis, choosing those eigenvectors as a basis 
+          can make the transformation matrix especially simple.
+      </p> 
+
+      <p> 
+          Till now in this chapter, we have not talked about <strong>Eigenvectors</strong> and <strong>Eigenvalues</strong>. 
+          In the next lesson, we are going to talk about <strong>Eigenvectors</strong> and <strong>Eigenvalues</strong>. 
+          After that, we will discuss how we can choose a <strong>Good Basis</strong> for a linear transformation. 
+      </p>
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Linear Algebra Done Right</p>
+              <span class="resource-card__sub">Sheldon Axler — Ch. 1-2</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Introduction to Linear Algebra, 5th edition.</p>
+              <span class="resource-card__sub">Gilbert Strang — Ch.2</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-video"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Video</span>
+              <p class="resource-card__title">Essence of Linear Algebra</p>
+              <span class="resource-card__sub">3Blue1Brown — YouTube</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

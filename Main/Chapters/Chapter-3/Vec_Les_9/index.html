@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Eigenvalues and Eigenvectors: Diagonalization and Systems of Differential
+      Equations
+    </title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Keep fonts minimal while developing -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome: keep only if this page really uses icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <!-- MathJax: load only if the page actually contains math -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism: load only if this page actually contains code blocks -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"
+    ></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-9</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Diagonalization and Recurrence Relations.
+          </span>
+        </div>
+
+      </h1>
+    </div>
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <div class="quote-container">
+      <blockquote>
+        "The mathematician does not study nature because it is useful; he studies it because he delights in it."
+        <br />
+        <span>— Henri Poincaré</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h2>Introduction</h2>
+      <p>
+        In this lesson we will dive deeper into eigenvalues and eigenvectors.
+        Here we will see, in practice, how eigenvalues and eigenvectors come in
+        handy in many different situations. We will start with
+        diagonalization.
+      </p>
+
+      <h2>Diagonalization</h2>
+      <p>
+        <strong>Diagonalization</strong> is a process in which we represent a
+        matrix \(\mathbf A\), when possible, in a basis made of its
+        eigenvectors. In this form, the matrix becomes diagonal, with its
+        eigenvalues on the diagonal. It may not be obvious yet, but it is going
+        to be extremely useful in computation and in analyzing systems that are
+        complex and hard to study. A matrix \(\mathbf A\) that describes a
+        system, when written in terms of its eigenvalues and eigenvectors, can
+        reveal a lot about the system, often more than we might initially
+        expect. In this section, we are going to do exactly that: first, we will
+        explore what diagonalization means, and then we will show a well-known
+        example where eigenvalues and eigenvectors come in handy.
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">DEFINITION:</strong>
+          Let \(\mathbb V\) be a finite-dimensional vector space over a field
+          \(\mathbb F\), and let \(T: \mathbb V \to \mathbb V\) be a linear
+          operator.
+        </p>
+        <p>
+          We say that \(T\) is <strong>diagonalizable</strong> if there exists a
+          basis of \(\mathbb V\) consisting of eigenvectors of \(T\).
+        </p>
+        <p>
+          Equivalently, if \(\mathbf A \in M_n(\mathbb F)\), then \(\mathbf A\)
+          is
+          <strong>diagonalizable</strong> over \(\mathbb F\) if there exists an
+          invertible matrix \(\mathbf P \in M_n(\mathbb F)\) and a diagonal
+          matrix \(\mathbf \Lambda \in M_n(\mathbb F)\) such that:
+        </p>
+        <p class="equation">
+          \[ \mathbf{P}^{-1} \mathbf A \mathbf P = \mathbf \Lambda \]
+        </p>
+        <p>
+          In this case \(\mathbf A\) is said to be
+          <strong>diagonalized</strong> by \(\mathbf P\).
+        </p>
+      </div>
+
+      <p>
+        Yes, the definition alone does not help. We first introduce the
+        definition so that we can understand it together. First, let us start
+        with an \(n \times n\) matrix \(\mathbf A\). For now, assume \(\mathbf
+        A\) is the matrix representation of some linear transformation \(T: \mathbb V \to
+        \mathbb V\). Also assume that \(\mathbf A\) has \(n\) distinct
+        eigenvalues \(\lambda_i\) and hence \(n\) corresponding eigenvectors
+        \(\mathbf x_i\). It might seem weird, but walk with me: now put all the
+        eigenvectors as columns of a matrix and call that matrix \(\mathbf P\).
+        Then multiplying \(\mathbf A\) by \(\mathbf P\) gives us: \[ \mathbf A
+        \mathbf P = \begin{pmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} &
+        a_{22} & \dots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n1} &
+        a_{n2} & \dots & a_{nn} \end{pmatrix} \begin{pmatrix} |&| &| & |&|\\ |&|
+        &| & |&|\\ \mathbf{x}_1 & \mathbf{x}_2& \dots &\mathbf{x}_{n-1}
+        &\mathbf{x}_n\\ |&| &| & |&|\\ |&| &| & |&| \end{pmatrix} \] The matrix
+        that we get has columns \(\mathbf A\mathbf x_i\), so: \[ \mathbf A
+        \mathbf P = \begin{pmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} &
+        a_{22} & \dots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{n1} &
+        a_{n2} & \dots & a_{nn} \end{pmatrix} \begin{pmatrix} |&| &| & |&|\\ |&|
+        &| & |&|\\ \mathbf{x}_1 & \mathbf{x}_2& \dots &\mathbf{x}_{n-1}
+        &\mathbf{x}_n\\ |&| &| & |&|\\ |&| &| & |&| \end{pmatrix} =
+        \begin{pmatrix} |&| &| & |&|\\ |&| &| & |&|\\ \mathbf A\mathbf{x}_1 &
+        \mathbf A\mathbf{x}_2& \dots & \mathbf A\mathbf{x}_{n-1} & \mathbf
+        A\mathbf{x}_n\\ |&| &| & |&|\\ |&| &| & |&| \end{pmatrix} \] Now it is
+        general knowledge to us that if we multiply the matrix by its
+        eigenvectors, then we just get back the eigenvector but scaled by its
+        eigenvalue, hence: \[ \mathbf A \mathbf P = \begin{pmatrix} |&| &| &
+        |&|\\ |&| &| & |&|\\ \lambda_1\mathbf{x}_1 & \lambda_2\mathbf{x}_2&
+        \dots & \lambda_{n-1}\mathbf{x}_{n-1} & \lambda_n\mathbf{x}_n\\ |&| &| &
+        |&|\\ |&| &| & |&| \end{pmatrix} \] We can now factor out the lambdas
+        into a separate matrix: \[ \mathbf A \mathbf P = \begin{pmatrix} |&| &|
+        & |&|\\ |&| &| & |&|\\ \lambda_1\mathbf{x}_1 & \lambda_2\mathbf{x}_2&
+        \dots & \lambda_{n-1}\mathbf{x}_{n-1} & \lambda_n\mathbf{x}_n\\ |&| &| &
+        |&| \end{pmatrix} = \begin{pmatrix} \,| & | & & |\, \\ \,| & | & & |\,
+        \\ \mathbf{x}_1 & \mathbf{x}_2 & \cdots & \mathbf{x}_n \\ \,| & | & &
+        |\, \\ \,| & | & & |\, \end{pmatrix} \begin{pmatrix} \lambda_1 & 0 &
+        \cdots & 0 \\ 0 & \lambda_2 & \cdots & 0 \\ \vdots & \vdots & \ddots &
+        \vdots \\ 0 & 0 & \cdots & \lambda_n \end{pmatrix} = \mathbf P \mathbf
+        \Lambda \] Indeed, here \(\Lambda = \begin{pmatrix} \lambda_1 & 0 &
+        \cdots & 0 \\ 0 & \lambda_2 & \cdots & 0 \\ \vdots & \vdots & \ddots &
+        \vdots \\ 0 & 0 & \cdots & \lambda_n \end{pmatrix}\). Look carefully:
+        \(\Lambda\) is a diagonal matrix, and we got: \[ \mathbf A \mathbf P =
+        \mathbf P \mathbf \Lambda \] That means we can write \(\mathbf A\) as:
+        \[ \mathbf A = \mathbf P \mathbf \Lambda \mathbf P^{-1} \] Here, if you
+        are worried that \(\mathbf P\) might not be invertible in all cases,
+        then do not worry, because we started by assuming that there are \(n\) distinct eigenvalues,
+        so the corresponding eigenvectors are linearly independent. Hence, \(\mathbf P\) is
+        invertible.
+      </p>
+
+      <p>
+        This is equivalent to the expression in the definition. Here \(\mathbf P\) is
+        the eigenvector matrix, and \(\mathbf \Lambda\) is the eigenvalue
+        matrix. Looking back at our definition, it says, "We say that \(T\) is
+        diagonalizable if there exists a basis of \(\mathbb V\) consisting of
+        eigenvectors of \(T\)." That means that since we mentioned that the
+        eigenvectors of \(T\) must form a basis in \(\mathbb V\), there need to
+        be \(n\) of those eigenvectors. Putting all this together, if \(\mathbf
+        A\) is the transformation matrix for \(T\), then it is
+        <strong>diagonalizable</strong>, meaning we can write \(\mathbf A =
+        \mathbf P \mathbf \Lambda \mathbf P^{-1}\) if it has \(n\) linearly
+        independent eigenvectors.
+      </p>
+
+      <p>
+        Now that we know what diagonalization means, let us look at one of its
+        advantages.
+      </p>
+
+      <h3>Power of Matrix \(\mathbf A\).</h3>
+
+      <p>
+        Let us say \(\mathbf A\) is diagonalizable, then: \[ \mathbf A = \mathbf
+        P \mathbf \Lambda \mathbf P^{-1} \] Let us take the square of \(\mathbf
+        A\), then we get: \[ \mathbf A^2 = \left(\mathbf P \mathbf \Lambda
+        \mathbf P^{-1}\right)\left(\mathbf P \mathbf \Lambda \mathbf
+        P^{-1}\right) \] \[ \Rightarrow \mathbf A^2 = \mathbf P \mathbf \Lambda
+        \mathbf P^{-1}\mathbf P \mathbf \Lambda \mathbf P^{-1} \] Here, look in
+        the middle: \(\mathbf P^{-1}\mathbf P\) is just the identity matrix, so
+        we can write it as: \[ \mathbf A^2 = \mathbf P \mathbf \Lambda^2 \mathbf
+        P^{-1} \] Doing this over and over again will just end up with \(\mathbf
+        P^{-1}\mathbf P\) in the middle, and they will become the identity
+        matrix. The \(\mathbf \Lambda\)'s will multiply together and raise the
+        power each time. So generally we get: \[ \mathbf A^k = \left(\mathbf P
+        \mathbf \Lambda \mathbf P^{-1}\right)\left(\mathbf P \mathbf \Lambda
+        \mathbf P^{-1}\right)\left(\mathbf P \mathbf \Lambda \mathbf
+        P^{-1}\right)\dots\left(\mathbf P \mathbf \Lambda \mathbf P^{-1}\right)
+        = \mathbf P \mathbf \Lambda \mathbf P^{-1}\mathbf P \mathbf \Lambda
+        \mathbf P^{-1}\mathbf P \mathbf \Lambda \mathbf P^{-1}\dots\mathbf P
+        \mathbf \Lambda \mathbf P^{-1} \] This reduces to \[ \boxed{\mathbf A^k
+        = \mathbf P \mathbf \Lambda^k \mathbf P^{-1}} \] This allows us to take
+        powers of a diagonalizable matrix with far fewer
+        multiplications, because if we follow the general rule of multiplication
+        and want to take the power of \(\mathbf A\), and it is \(5 \times 5\),
+        say to the power \(50\), then that would require a lot of scalar
+        multiplications. But using \(\mathbf A^k = \mathbf P \mathbf \Lambda^k
+        \mathbf P^{-1}\), we just need many fewer scalar multiplications,
+        because \(\mathbf \Lambda\) is diagonal, so the only components we need
+        to multiply are the eigenvalues, and the \(\mathbf P\)'s stay the same.
+      </p>
+
+      <p>
+        Next let us talk about something which is very elementary but yet so
+        elegant when studied from the lens of eigenvalues and eigenvectors: the
+        Fibonacci sequence.
+      </p>
+
+      <h2>Fibonacci sequence</h2>
+
+      <p>
+        The Fibonacci sequence is a sequence that starts with \(0\) and \(1\),
+        and the next number of the sequence is defined by the sum of the
+        previous two numbers: \[ (F_n) = (0,1,1,2,3,5,8,13,21,34,\dots) \] We
+        can define this using a recurrence relation: \[ F_{k+2} = F_{k+1} + F_k,
+        \quad \text{where the initial conditions are: } F_0 = 0, \quad F_1 = 1
+        \] It turns out we can formulate a general formula to compute any
+        \(k\)-th Fibonacci number, and it turns out the formula contains the
+        golden ratio \(\phi\), as my neighbor who loves tinfoil hat likes to say
+        it is the "favorite number of God." Although I will not make a relation
+        between \(\phi\) and life, I would like to show you their relation to
+        the Fibonacci sequence.
+      </p>
+      <p>
+        To actually study the Fibonacci sequence we first need to associate it to a matrix. Look back at the recurrence equation:
+        \[
+            F_{k+2} = F_{k+1} + F_k
+        \]
+        We can put this in a matrix like:
+        \[
+        \begin{pmatrix} 1 & 1 \\ ? & ? \end{pmatrix}
+        \begin{pmatrix} F_{k+1} \\ F_k \end{pmatrix}
+        =
+        \begin{pmatrix} F_{k+2} \\ ? \end{pmatrix}
+        \]
+        Yeah, but what is supposed to be at the \(?\) places? Well, we need another equation to fill that space, so we will use the simplest equation, which is \(F_{k+1} = F_{k+1}\). Then we have:
+        \[
+        \begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}
+        \begin{pmatrix} F_{k+1} \\ F_k \end{pmatrix}
+        =
+        \begin{pmatrix} F_{k+2} \\ F_{k+1} \end{pmatrix}
+        \]
+        Here let \(\mathbf A = \begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}\) and
+        \[
+        \mathbf u_k = \begin{pmatrix} F_{k+1} \\ F_k \end{pmatrix},
+        \]
+        so we can write the same equation as:
+        \[
+        \mathbf u_{k+1} = \mathbf A \mathbf u_k
+        \]
+        For the Fibonacci sequence, the initial condition is:
+        \[
+        \mathbf u_0 = \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+        \]
+        So the \(k\)-th Fibonacci number can be found if we just apply \(\mathbf A\):
+        \[
+        \mathbf u_1 = \mathbf A \mathbf u_0 \quad , \quad \mathbf u_2 = \mathbf A \mathbf u_1 = \mathbf A \left(\mathbf A \mathbf u_0\right) = \mathbf A^2 \mathbf u_0 \quad, \quad \dots \quad \mathbf u_k = \mathbf A^k \mathbf u_0
+        \]
+        So if we want to know the \(k\)-th Fibonacci number we just need to find \(\mathbf A^k\), but remember that one of the advantages we had with diagonalization is that we could compute the power of a matrix with relatively small computation, so let us diagonalize \(\mathbf A\). For that, we need to find the eigenvalues and eigenvectors associated with it. First we need the eigenvalues:
+        \[
+        \det(\mathbf A - \lambda \mathbb I ) = 0
+        \]
+        \[
+        \det\left( \begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix} - \begin{pmatrix} \lambda & 0 \\ 0 & \lambda \end{pmatrix}\right)
+        =
+        \begin{vmatrix} 1-\lambda & 1 \\ 1 & -\lambda \end{vmatrix}
+        =
+        \lambda\left(\lambda-1\right) - 1 = 0
+        \]
+        So we get:
+        \[
+        \det\left(\mathbf A - \lambda \mathbb I\right) = \lambda\left(\lambda-1\right) - 1 = 0
+        \]
+        Solving this equation gives us the eigenvalues:
+        \[
+        \lambda_{1,2} = \frac{1\pm \sqrt{5}}{2}
+        \]
+        That is,
+        \[
+        \lambda_1 = \frac{1+\sqrt{5}}{2},
+        \qquad
+        \lambda_2 = \frac{1-\sqrt{5}}{2}
+        \]
+        Notice that \(\lambda_1\) is the golden ratio. And the eigenvectors associated with the eigenvalues are:
+        \[
+        \mathbf x_1 = \begin{pmatrix} \frac{1 + \sqrt{5}}{2} \\ 1 \end{pmatrix},
+        \quad
+        \mathbf x_2 = \begin{pmatrix} \frac{1 - \sqrt{5}}{2} \\ 1 \end{pmatrix}
+        \]
+        Yeah, now that we have this we can indeed apply diagonalization to find \(A^k\) easily, but that is not what we are after. We want to find a general formula for Fibonacci numbers. For that, let us write \(\mathbf u_0\) using the eigenvectors as a basis:
+        \[
+        \mathbf u_0 = c_1\mathbf x_1 + c_2\mathbf x_2
+        \]
+        Now if we apply \(\mathbf A\) on \(\mathbf u_0\) we get:
+        \[
+        \mathbf A \mathbf u_0 = c_1\mathbf A\mathbf x_1 + c_2\mathbf A\mathbf x_2 = c_1\lambda_1\mathbf x_1 + c_2\lambda_2\mathbf x_2
+        \]
+        Now to find the \(k\)-th Fibonacci number we say we just need to apply \(\mathbf A\), \(k\) times. Then we get:
+        \[
+        \mathbf A^k \mathbf u_0 = c_1\lambda_{1}^{k}\mathbf x_1 + c_2\lambda_{2}^{k}\mathbf x_2 = \mathbf u_k = \begin{pmatrix} F_{k+1} \\ F_{k} \end{pmatrix}
+        \]
+        So, now to find \(F_{k+1}\) we just need to find the constants. Well, we can do that using the initial condition:
+        \[
+        \begin{pmatrix}
+        1 \\
+        0
+        \end{pmatrix}
+        =
+        c_1
+        \begin{pmatrix}
+        \frac{1 + \sqrt{5}}{2} \\
+        1
+        \end{pmatrix}
+        +
+        c_2
+        \begin{pmatrix}
+        \frac{1 - \sqrt{5}}{2} \\
+        1
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+        c_1 \left(\frac{1 + \sqrt{5}}{2}\right) \\
+        c_1
+        \end{pmatrix}
+        +
+        \begin{pmatrix}
+        c_2 \left(\frac{1 - \sqrt{5}}{2}\right) \\
+        c_2
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+        c_1 \left(\frac{1 + \sqrt{5}}{2}\right) + c_2 \left(\frac{1 - \sqrt{5}}{2}\right) \\
+        c_1 + c_2
+        \end{pmatrix}
+        \]
+        So we get:
+        \[
+        \begin{pmatrix}
+        1 \\
+        0
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+        c_1 \left(\frac{1 + \sqrt{5}}{2}\right) + c_2 \left(\frac{1 - \sqrt{5}}{2}\right) \\
+        c_1 + c_2
+        \end{pmatrix}
+        \]
+        That means:
+        \[
+        \begin{cases}
+        1 = c_1 \left(\frac{1 + \sqrt{5}}{2}\right) + c_2 \left(\frac{1 - \sqrt{5}}{2}\right) \\
+        0 = c_1 + c_2
+        \end{cases}
+        \]
+        \[
+        \Rightarrow
+        c_2 = -c_1
+        \]
+        \[
+        \Rightarrow
+        1 = c_1 \left(\frac{1 + \sqrt{5}}{2}\right) - c_1\left(\frac{1 - \sqrt{5}}{2}\right)
+        \]
+        \[
+        \Rightarrow
+        1 = c_1 \left[\frac{(1 + \sqrt{5}) - (1 - \sqrt{5})}{2}\right]
+        \]
+        \[
+        \Rightarrow
+        1 = c_1 \sqrt{5}
+        \]
+        So:
+        \[
+        c_1 = \frac{1}{\sqrt{5}}
+        \]
+        and
+        \[
+        c_2 = -\frac{1}{\sqrt{5}}
+        \]
+        Now that we have the values for \(c\)'s we can definitely find the formula for the \(k\)-th Fibonacci number:
+        \[
+        \mathbf A^k \mathbf u_0 = c_1\lambda_{1}^{k}\mathbf x_1 + c_2\lambda_{2}^{k}\mathbf x_2 = \mathbf u_k = \begin{pmatrix} F_{k+1} \\ F_{k} \end{pmatrix}
+        \]
+        Now it can be written as:
+        \[
+        \mathbf u_k
+        =
+        \begin{pmatrix} F_{k+1} \\ F_k \end{pmatrix}
+        =
+        \frac{1}{\sqrt{5}} \lambda_{1}^{k}\mathbf x_1 - \frac{1}{\sqrt{5}} \lambda_{2}^{k}\mathbf x_2
+        \]
+        \[
+        \Rightarrow
+        \begin{pmatrix} F_{k+1} \\ F_k \end{pmatrix}
+        =
+        \begin{pmatrix}
+        \frac{1}{\sqrt{5}} \left(\frac{1 + \sqrt{5}}{2}\right)\lambda_{1}^{k} - \frac{1}{\sqrt{5}} \left(\frac{1 - \sqrt{5}}{2}\right)\lambda_{2}^{k} \\
+        \frac{1}{\sqrt{5}}\lambda_{1}^{k} - \frac{1}{\sqrt{5}}\lambda_{2}^{k}
+        \end{pmatrix}
+        \]
+        So, there we have our formula for the Fibonacci sequence,
+        \[
+        \boxed{ F_k = \frac{1}{\sqrt{5}}\left(\frac{1+\sqrt{5}}{2}\right)^{k} - \frac{1}{\sqrt{5}}\left(\frac{1-\sqrt{5}}{2}\right)^{k}}
+        \]
+        This formula tells us what the \(k\)-th Fibonacci number is. But let's analyze the formula a little bit more and let us see if we 
+        learn something new.
+      </p>
+      <p>
+        \[
+        F_k = \frac{1}{\sqrt{5}}\left(\frac{1+\sqrt{5}}{2}\right)^{k} - \frac{1}{\sqrt{5}}\left(\frac{1-\sqrt{5}}{2}\right)^{k}
+        \]
+        In the formula, the magnitude of the base of the second term is less than one:
+        \[ \left|\frac{1-\sqrt{5}}{2}\right| < 1. \] Therefore, as \(k\) gets large, \(\left(\frac{1-\sqrt{5}}{2}\right)^k\) approaches zero. So for large \(k\) we can write \(F_k\) as:
+        \[
+        F_k \approx \frac{1}{\sqrt{5}}\left(\frac{1+\sqrt{5}}{2}\right)^{k}
+        \]
+        So that means for large \(k\), the Fibonacci sequence grows roughly at an exponential rate determined by the golden ratio. In case you don't see it:
+        \[
+          \text{ exponential rate } = \lim_{k\to\infty}\frac{F_{k+1}}{F_k} = \frac{1+\sqrt{5}}{2}
+        \]
+      </p>
+      <p>
+        In this lesson, we have seen the idea of diagonalization, but there is much more to talk about regarding its applications and consequences, which we will continue in the upcoming lessons. Unfortunately, you will have to wait for them to come out.
+        If you have any feedback or any comments directly for the author, please send them via the feedback option provided at the top. Please be respectful and keep in mind that the author is aware that there is much more to add and discuss about the content that is currently on this site and in this chapter, and the author is working on it. If you have any suggestions or genuine feedback, it is much appreciated.
+      </p>
+
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Linear Algebra Done Right</p>
+              <span class="resource-card__sub">Sheldon Axler — Ch. 1-2</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Introduction to Linear Algebra, 5th edition.</p>
+              <span class="resource-card__sub">Gilbert Strang — Ch.2</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-video"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Video</span>
+              <p class="resource-card__title">Essence of Linear Algebra</p>
+              <span class="resource-card__sub">3Blue1Brown — YouTube</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

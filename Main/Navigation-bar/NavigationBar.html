@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nerko+One&family=Raleway:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+
+    <nav class="navbar">
+
+      <div class="VideoBackground">
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          disablePictureInPicture
+          controlsList="nodownload nofullscreen noremoteplayback"
+          oncontextmenu="return false;"
+        >
+          <source src="/Main/Navigation-bar/LibPhyMTNavBar.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <!-- Left column: hamburger (mobile only) -->
+      <div class="nav-col nav-left">
+        <button class="menu-icon" aria-label="Open navigation menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+
+      <!-- Center column: logo -->
+      <div class="nav-col nav-center">
+        <a class="Logo" href="/index.html">
+          <img src="/Main/Navigation-bar/LOGOS.png" alt="LibPhyMT Logo" />
+        </a>
+      </div>
+
+      <!-- Right column: nav links (desktop) -->
+      <div class="nav-col nav-right">
+        <ul class="nav-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/Main/Contact/index.html">Contact</a></li>
+          <li><a href="/Main/About/index.html">About</a></li>
+          <li><a href="/Main/Support/index.html">Support</a></li>
+        </ul>
+      </div>
+
+    </nav>
+
+    <!-- Mobile dropdown — sibling of navbar so overflow:hidden never clips it -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/Main/Contact/index.html">Contact</a></li>
+        <li><a href="/Main/About/index.html">About</a></li>
+        <li><a href="/Main/Support/index.html">Support</a></li>
+      </ul>
+    </div>
+
+    <!-- Tap-outside-to-close backdrop -->
+    <div class="menu-backdrop" id="menuBackdrop"></div>
+
+  </body>
+</html>

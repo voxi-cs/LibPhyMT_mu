@@ -1,0 +1,1418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lagrangian and Hamiltonians</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+    
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-1</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Introduction To Lagrangian Mechanics.
+          </span>
+        </div>
+
+      </h1>
+    </div>
+
+    <!-- Publication Info -->
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "The path taken by a system between two times and two configurations is the one for which the action is stationary."
+        <br />
+        <span>— William Rowan Hamilton</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h2>Introduction</h2>
+      <p>
+        Throughout this chapter, we shall build a rigorous understanding of
+        <strong>Lagrangian and Hamiltonian Mechanics</strong>. In this specific lesson,
+        we will introduce the <strong>Basics of Classical Mechanics</strong> and <strong>The Lagrangian</strong>, then we will talk about
+        the <strong>Euler-Lagrange</strong> equation and show you how systems that are highly complex from the Newtonian framework become
+        really manageable in <strong>Lagrangian Mechanics</strong> using <strong>The Lagrangian</strong> and <strong>Euler-Lagrange</strong> equation.
+        Then we will also talk about how conservation laws are direct consequences of <strong>Homogeneity of Space</strong>, <strong>Homogeneity of Time</strong>, and <strong>Isotropy of Space</strong>. And each conservation law is associated with a particular symmetry of space.
+      </p>
+      <h2>Coordinates and Coordinate Systems</h2>
+      <p>
+        It may be that thus far while solving a problem in physics you have used
+        different coordinate systems, for example: \((x,y,z)\)
+        <strong>Cartesian Coordinates</strong>, \((r,\theta,\phi)\)
+        <strong>Spherical Coordinates</strong> or maybe with the coordinates
+        \((\rho,\phi,z)\) <strong>Cylindrical Coordinates</strong>. The physics
+        stays the same regardless of which coordinate system we use, yet we
+        choose the specific coordinate system for a specific problem for
+        convenience; maybe the problem becomes easier in that particular
+        coordinate system or for some other reason.
+      </p>
+      <p>
+        The point is the idea of changing coordinate systems for the convenience
+        of the problem is not an alien idea, and by now one should be
+        comfortable with it. While using the
+        <strong>Lagrangian and Hamiltonian</strong>
+        method one will see how valuable it is to use the convenient coordinate
+        system for a specific problem.
+      </p>
+      <p>
+        We will start our study with a point mass, or one can say a particle. If
+        we consider it in Cartesian coordinates then it is specified by the
+        vector \(\mathbf{r}\).
+      </p>
+
+      <p>
+        The vector \(\mathbf r = (x,y,z)\) represents the coordinates of the
+        particle, and its velocity is thus given by: \[ \mathbf v = \frac{d
+        \mathbf r}{dt} = \dot{\mathbf r} \] And the acceleration of the particle
+        is given by: \[ \mathbf a = \frac{d \mathbf v}{dt} = \ddot{\mathbf r} \]
+        Here the equation of \(\mathbf a\) is a function of \(\mathbf r,
+        \dot{\mathbf r}, t\), meaning \(\ddot{\mathbf r} = \mathbf a(\mathbf r,
+        \dot{\mathbf r},t)\), which is also called an
+        <strong>equation of motion</strong>. The equation of motion is a
+        second-order differential equation, the solution to which is \(\mathbf
+        r(t)\). Even if we fail to obtain a general solution for the equation of
+        motion of a certain system, we can still solve the equation of motion
+        numerically and obtain results for specific initial conditions.
+      </p>
+      <p>
+        Assume a particle is moving on a closed loop, or moving in a circle or
+        ellipse on a plane, then it is reasonable for one to use polar
+        coordinates instead to describe the motion of the particle. If the
+        particle is originally in Cartesian coordinates then we can use
+        <strong>transformation equations</strong>: \[ x = r\cos(\theta) \] \[
+        y=r\sin(\theta) \] to get the coordinates of the particle in the polar
+        coordinate system, then the velocity of the particle is: \[ \mathbf v =
+        \dot{r} \hat{r} + r\dot{\theta} \hat{\mathbf{\theta}} \] and
+        acceleration is: \[ \mathbf a = (\ddot{r} - r
+        \dot{\theta}^2)\hat{\mathbf{r}} +(r\ddot{\theta} + 2\dot{r}\dot{\theta})
+        \hat{\mathbf{\theta}} \] Now that we have the equation of motion in the
+        transformed coordinates we can analyze the equation on it.
+      </p>
+      <p>
+        This is how we can change coordinates of a system and analyze the motion
+        of the particle in the transformed coordinate system.
+      </p>
+      <h2>Generalized Coordinates</h2>
+      <p>
+        From now on we will use \((x_1,x_2,x_3)\) instead of \((x,y,z)\) to
+        represent coordinates in the Cartesian coordinate system. Let's say we
+        have a particle in Cartesian coordinates; then to represent its position
+        in three dimensions we need three coordinates \((x_1,x_2,x_3)\), but
+        instead if we had a system of two particles then we would need six
+        coordinates \((x_1,x_2,x_3,x_4,x_5,x_6)\). We can also represent both
+        particles as a single point in a six-dimensional space, although it is
+        not necessary that the space would be Cartesian. So, for a system of
+        \(N\) particles we would need \(3N\) coordinates, and we can represent
+        them all as one single point in \(3N\) space.
+      </p>
+      <p>
+        We know very well by now that we don't have to stick with Cartesian
+        coordinates whatsoever, so to avoid being specific we shall from now on
+        represent coordinates as \(q_i\). It can be that \((q_1,q_2,q_3) =
+        (x,y,z)\) or even \((q_1,q_2,q_3) = (r,\theta,\phi)\). If we are working
+        with Cartesian coordinates \((x_1,x_2,x_3,...)\) there is a set of
+        <strong>transformation equations</strong>: \begin{aligned} q_1 &=
+        q_1(x_1, x_2, x_3, \dots, x_{3N}, t) \\ q_2 &= q_2(x_1, x_2, x_3, \dots,
+        x_{3N}, t) \\ &\vdots \\ q_{3N} &= q_{3N}(x_1, x_2, x_3, \dots, x_{3N},
+        t) \end{aligned}
+      </p>
+      <p>
+        It is usually the case that the generalized coordinates are linearly
+        independent, meaning there is no such coordinate whose value depends on
+        the values of other coordinates in the generalized coordinate system.
+        Assume we have a particle on the surface of a sphere, and it only moves
+        on the surface of the sphere. It is convenient for us to represent the
+        particle's position in spherical coordinates; then we would only need
+        two angles to describe its position on the sphere. But instead, if we
+        want to represent it in Cartesian coordinates we would need three
+        numbers, but since \(x_3\) is dependent, meaning \(x_{3}^{2} = a^{2} -
+        x_{1}^{2} - x_{2}^{2}\), since \(x_3\) is dependent in spherical
+        coordinates we no longer need it as the radius is constant. This kind of
+        relation is what we call a <strong>constraint</strong>, and each such
+        equation reduces the number of independent coordinates by one. Soon we
+        shall talk about constraints in more detail.
+      </p>
+      <p>
+        The inverse transformation exists if the Jacobian determinant is not
+        zero, meaning: \[ \begin{vmatrix} \partial q_1/\partial x_1 & \partial
+        q_1/\partial x_2 & \cdots & \partial q_1/\partial x_n \\ & & \vdots & \\
+        \partial q_n/\partial x_1 & \partial q_n/\partial x_2 & \cdots &
+        \partial q_n/\partial x_n \end{vmatrix} \neq 0. \] Then we can get the
+        inverse transformation: \begin{aligned} x_1 &= x_1(q_1, q_2, q_3, \dots,
+        q_{3N}, t) \\ x_2 &= x_2(q_1, q_2, q_3, \dots, q_{3N}, t) \\ &\vdots \\
+        x_{3N} &= x_{3N}(q_1, q_2, q_3, \dots, q_{3N}, t) \end{aligned} It is
+        not necessary that every time we choose generalized coordinates they
+        need to be invertible. For example: when we work with the central
+        two-body problem we can easily reduce the problem to polar coordinates
+        from the three-dimensional Cartesian coordinates as the motion occurs on
+        a plane and we get circular motion of two bodies. Here we cannot go back
+        to our original coordinates after the transformation, because the
+        Jacobian determinant associated with this transformation is zero.
+      </p>
+
+      <h2>Generalized Velocity</h2>
+      <p>
+        Now that we have some idea of
+        <strong>generalized coordinates</strong> it is reasonable to ask about
+        the components of velocity along the coordinates in the generalized
+        coordinate system, and thus we introduce
+        <strong>generalized velocity</strong>. It is obvious that the
+        generalized velocity has to be: \[ \dot{q_k} = \frac{d q_k}{dt} \] Here
+        we are interested in forming a relation between Cartesian velocity and
+        generalized velocity, and the relation which we will obtain is
+        extendable from Cartesian to other coordinate systems.
+      </p>
+      <p>
+        We have seen the transformation equation from Cartesian coordinates to
+        generalized coordinates is: \[ x_i = x_i(q_1,q_2,\dots,q_n, t) \] The
+        <strong>Cartesian velocity</strong> components are: \[ v_i =
+        \frac{dx_i}{dt} \] Since \(x_i\) are functions of \(q_i\)'s we can use
+        the chain rule to get the following: \[ v_i = \sum_{k = 1}^{n}
+        \frac{\partial x_i}{\partial q_k} \dot{q}_k + \frac{\partial
+        x_i}{\partial t} \] Since a mixed second-order partial derivative does
+        not depend on the order in which the derivatives are taken we can write:
+        \[ \frac{\partial }{\partial \dot{q}_j} \frac{\partial x_i}{\partial t}
+        = \frac{\partial}{\partial t} \frac{\partial x_i}{\partial \dot{q}_j} \]
+        Notice \(x_i\) is not dependent on \(\dot{q}_j\), so we get: \[
+        \frac{\partial x_i}{\partial \dot{q}_j} = 0 \] Now, if we compute the
+        partial derivative of \(v_i\) with respect to \(\dot{q}_j\) we get: \[
+        \frac{\partial v_i}{\partial \dot{q}_j} = \frac{\partial}{\partial
+        \dot{q}_j}\sum_{k = 1}^{n} \frac{\partial x_i}{\partial q_k} \dot{q}_k +
+        \frac{\partial}{\partial t} \frac{\partial x_i}{\partial \dot{q}_j} =
+        \sum_{k=1}^{n} \left(\frac{\partial}{\partial \dot{q}_j} \frac{\partial
+        x_i}{\partial {q}_k}\right) \dot{q}_k + \sum_{k=1}^{n} \frac{\partial
+        x_i}{\partial {q}_k} \frac{\partial \dot{q}_k}{\partial \dot{q}_j} =
+        \sum_{k=1}^{n} \frac{\partial x_i}{\partial {q}_k} \frac{\partial
+        \dot{q}_k}{\partial \dot{q}_j}. \] Notice in the above equation, in the
+        last term we have the differentiation \(\frac{\partial x_i}{\partial
+        {q}_k} \frac{\partial \dot{q}_k}{\partial \dot{q}_j}\). Here the part
+        \(\frac{\partial \dot{q}_k}{\partial \dot{q}_j}\) is
+        <strong>one</strong> when \(k = j\) and <strong>zero</strong> otherwise,
+        so this is just the Kronecker delta: \[ \frac{\partial
+        \dot{q}_k}{\partial \dot{q}_j} = \delta_{kj} = \begin{cases} 1 &
+        \text{if } k = j \\ 0 & \text{if } k \neq j \end{cases} \] So we get: \[
+        \frac{\partial v_i}{\partial \dot{q}_j} = \sum_{k=1}^{n} \frac{\partial
+        x_i}{\partial {q}_k} \frac{\partial \dot{q}_k}{\partial \dot{q}_j} =
+        \sum_{k=1}^{n} \frac{\partial x_i}{\partial {q}_k} \delta_{kj}
+        =\frac{\partial x_i}{\partial {q}_j} \] Therefore we get the relation
+        between Cartesian velocity and the generalized velocity to be: \[
+        \frac{\partial v_i}{\partial \dot{q}_j} = \frac{\partial x_i}{\partial
+        {q}_j} \] What this relation tells us is that, fundamentally,
+        generalized coordinates do not change the physics; they give an
+        equivalent local description of the same dynamics, and Cartesian
+        velocities can be expressed in terms of generalized velocities through
+        the coordinate transformation.
+      </p>
+      <h2>Virtual Displacements, Virtual Work and Generalized Force.</h2>
+      <h3>Virtual Displacements.</h3>
+      <p>
+        A <strong>virtual displacement</strong> is defined to be a displacement
+        along a coordinate such that the displacement is infinitesimal and
+        instantaneous. Assume we have a particle in a Cartesian coordinate
+        system. If we "pause time" and move the particle infinitesimally in the
+        \(x_i\) coordinate, this change is what we call a virtual displacement,
+        \(\delta x_i\). The difference between a real differential displacement
+        \(dx_i\) and a virtual displacement \(\delta x_i\) is that \(dx_i\)
+        represents a small change in \(x_i\) while "time is on." This means that
+        the dynamics of the particle are still occurring; the system naturally
+        evolves over time, resulting in an actual small displacement in the
+        \(x_i\) coordinate. However, when we say a virtual displacement is a
+        small change in the \(x_i\) coordinate while time is "frozen," it means
+        that everything—including the system and its dynamics—is stopped
+        completely. We then make a purely mathematical change in the \(x_i\)
+        coordinate that must be strictly consistent with any constraints acting
+        on the system at that exact frozen instant.
+      </p>
+      <p>
+        It is also worth noting that there is generally not one unique virtual
+        displacement — rather, there is an entire family of them. At any frozen
+        instant, any infinitesimal shift that respects the constraints qualifies
+        as a valid virtual displacement, so we are really talking about a whole
+        space of allowed moves, not a single prescribed one.
+      </p>
+      <p>
+        The distinction between \(\delta x_i\) and \(dx_i\) might feel overly
+        subtle at first, particularly when the constraints do not depend on
+        time. If the constraint is something like \(x_1^2 + x_2^2 = R^2\) — a
+        particle confined to a fixed circle — freezing time or not makes no real
+        difference, since the allowed directions of movement are the same either
+        way. The definition truly earns its keep, however, when constraints are
+        time-dependent. If a bead is constrained to a ring that is itself
+        expanding, the actual displacement \(dx_i\) must account for how the
+        constraint is changing during \(dt\), whereas the virtual displacement
+        \(\delta x_i\) only needs to be consistent with the constraint as it
+        looks at the frozen instant. In such cases, \(\delta x_i\) and \(dx_i\)
+        satisfying the constraint become genuinely different conditions — and
+        conflating them would lead to the wrong equations of motion. Now we will
+        proceed toward mathematically formulating it, then everything should
+        clear up.
+      </p>
+      <p>
+        Let us consider the following transformation equation: \[ x_i =
+        x_i(q_1,q_2,\dots,q_n,t) \quad i = 1,2,\dots,3N \] Now, if we take the
+        differential of the transformation equation, we get: \[ dx_i =
+        \sum_{k=1}^{n} \frac{\partial x_i}{\partial q_k} dq_k + \frac{\partial
+        x_i}{\partial t} dt. \] Since the time is "frozen", \(\frac{\partial
+        x_i}{\partial t} dt\) has to be zero, then we get the
+        <strong>virtual displacement</strong> to be: \[ \boxed{\delta x_i =
+        \sum_{k=1}^{n} \frac{\partial x_i}{\partial q_k} dq_k} \]
+      </p>
+      <h3>Virtual Work and Generalized Force.</h3>
+      <p>
+        Let us assume a system is subjected to \(F_i\) applied force, here
+        \(F_i\) force is along the \(x_i\) coordinate. If we consider the
+        virtual displacement \(\delta x_i\), then the
+        <strong>virtual work</strong> done by the applied force is: \[ \delta W
+        = \sum_{i = 1}^{3N} F_i \delta x_i \] Now if we substitute the
+        expression for virtual displacement, we get: \[ \delta W = \sum_{i =
+        1}^{3N} F_i \left(\sum_{j=1}^{3N} \frac{\partial x_i}{\partial q_j}
+        dq_j\right) =\sum_{j = 1}^{3N} \left(\sum_{i = 1}^{3N} F_i
+        \frac{\partial x_i}{\partial q_j}\right) \delta q_j \] Here notice
+        \(\left(\sum_{i = 1}^{3N} F_i \frac{\partial x_i}{\partial q_j}\right)
+        \delta q_j\) has a similar form of work being equal to force times
+        distance, so we define \(\left(\sum_{i = 1}^{3N} F_i \frac{\partial
+        x_i}{\partial q_j}\right)\) to be the
+        <strong>generalized force</strong>: \[ \boxed{Q_j = \left(\sum_{i =
+        1}^{3N} F_i \frac{\partial x_i}{\partial q_j}\right)} \] And thus the
+        virtual work is: \[ \boxed{\delta W = \sum_{j = 1}^{3N} Q_j \delta q_j}
+        \] One of the consequences of virtual work is, when \(\delta W = 0\),
+        the system is at equilibrium.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-7.001</h4>
+
+        <p>
+          A mechanical system subject to ideal constraints is in equilibrium if
+          and only if the virtual work done by the applied forces is zero for
+          every allowed virtual displacement: \[ \delta W = 0. \]
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          We know that the virtual work done by the applied forces is \[ \delta
+          W = \sum_{i=1}^{N} \mathbf{F}_i \cdot \delta \mathbf{r}_i. \] Let the
+          configuration of the system be described by the independent
+          generalized coordinates \(q_1,q_2,\dots,q_n\). Then the virtual
+          displacement of the \(i\)-th particle can be written as \[
+          \delta\mathbf{r}_i = \sum_{j=1}^{n}
+          \frac{\partial\mathbf{r}_i}{\partial q_j}\delta q_j. \] Therefore,
+          substituting this into the expression for virtual work, we get: \[
+          \delta W = \sum_{i=1}^{N} \mathbf{F}_i\cdot \left( \sum_{j=1}^{n}
+          \frac{\partial\mathbf{r}_i}{\partial q_j}\delta q_j \right). \]
+          Rearranging the summation, we get: \[ \delta W = \sum_{j=1}^{n} \left(
+          \sum_{i=1}^{N} \mathbf{F}_i\cdot \frac{\partial\mathbf{r}_i}{\partial
+          q_j} \right)\delta q_j. \] We define the generalized force
+          corresponding to \(q_j\) as \[ Q_j = \sum_{i=1}^{N} \mathbf{F}_i\cdot
+          \frac{\partial\mathbf{r}_i}{\partial q_j}. \] Hence, the virtual work
+          can be written as: \[ \delta W = \sum_{j=1}^{n}Q_j\,\delta q_j. \]
+          Now, suppose that \[ \delta W=0 \] for every allowed virtual
+          displacement. Since the generalized coordinates are independent, the
+          virtual displacements \(\delta q_1,\delta q_2,\dots,\delta q_n\) can
+          be chosen independently. Therefore, the only way for \[
+          \sum_{j=1}^{n}Q_j\,\delta q_j=0 \] to hold for every allowed choice of
+          the virtual displacements is that \[ Q_j=0 \qquad \text{for
+          }j=1,2,\dots,n. \] Thus, all the generalized forces vanish. This means
+          that there is no unbalanced force in any independent direction in
+          which the system is allowed to move. Therefore, there is no tendency
+          for the system to move from its present configuration, and so the
+          system is in equilibrium. Conversely, if the system is in equilibrium,
+          then all the generalized forces vanish: \[ Q_j=0 \qquad \text{for
+          }j=1,2,\dots,n. \] Hence, \[ \delta W = \sum_{j=1}^{n}0\cdot\delta q_j
+          =0. \] Therefore, the system is in equilibrium if and only if \[
+          \boxed{\delta W=0} \] for every allowed virtual displacement.
+        </p>
+
+        <span class="qed"></span>
+      </div>
+      <h2>Phase Space</h2>
+      <p>
+        Given a system of particles, each particle in the system has a position
+        along the coordinates \(x_1,x_2,\dots,x_n\) and momentum
+        \(p_1,p_2,\dots,p_n\). Then, if we construct a coordinate system with
+        \(2n\) dimensions, for simplicity assume a \(2n\)-dimensional Cartesian
+        coordinate system, and label each of the axes \(x_1,x_2,\dots,x_n\) and
+        \(p_1,p_2,\dots,p_n\), then what we get is a
+        <strong>phase space</strong>. Each particle of the system corresponds to
+        a specific point in that phase space at a specific moment, depending on
+        which coordinates \(x_1,x_2,\dots,x_n\) the particle is at and what
+        momenta it has at those coordinates, \(p_1,p_2,\dots,p_n\), and for an
+        \(N\)-particle system, we get \(N\) points in the phase space. One might
+        wonder what is the point of the phase space. Well, you will see later
+        that in some problems, not just in classical mechanics, phase space
+        gives us insight into the system's behavior that allows us to solve some
+        problems specific to the system. Then, as the system evolves over time,
+        the particles will evolve as well, and thus we get a set of points/lines
+        associated with each particle as they evolve. These are called
+        <strong>phase paths</strong> or sometimes <strong>world lines</strong>.
+        Later, you will see that when we work with generalized coordinates and
+        generalized momentum, we construct phase space using those generalized
+        coordinates and generalized momentum.
+      </p>
+      <p>
+        In this lesson, you will see that we solved the equation of motion for
+        the simple pendulum, which is not very hard to do. Then, we simulated
+        the pendulum for a particular initial condition. Below, you can see the
+        phase space that we get for the simple pendulum for some perticuler
+        intial condition.
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-7/Lesson-1/images/final_snapshot_1_1.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-7/Lesson-1/images/final_snapshot_1_1.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-7/Lesson-1/Videos/SimplePendulum_ps.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        After the simple pendulum, you will see in this lesson that we computed
+        the equation of motion of the double pendulum, and using
+        <strong>RK4</strong>, simulated a particular initial condition. Below,
+        you can see the phase space of both pendulums for some perticuler
+        initial condition. Here \(\omega_1\) and \(\theta_1\) are for the first
+        pendulum, and \(\omega_2\) and \(\theta_2\) are for the second pendulum.
+      </p>
+      <p>For the first pendulum:</p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-7/Lesson-1/images/final_snapshot_2.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-7/Lesson-1/images/final_snapshot_2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-7/Lesson-1/Videos/DoublePendulum_6_ps.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>For the second pendulum:</p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-7/Lesson-1/images/final_snapshot_1.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-7/Lesson-1/images/final_snapshot_1.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-7/Lesson-1/Videos/DoublePendulum_5_ps.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <h2>The Lagrangian</h2>
+      <p>
+        A Lagrangian is a mathematical function associated with a particular
+        system or physical model. In this section we will talk about the
+        Lagrangian and solve some particular systems and prove some physical
+        properties that we take as granted in our fundamental studies of
+        physics, which will give you insight into why the Lagrangian is so
+        integrated into modern physics and will work as a motivation.
+      </p>
+      <p>
+        Given a system or physical model, let's say a system of \(N\) particles
+        that are subjected to their mutual interactions such as gravity, or
+        electromagnetic force or some other interaction&mdash;then the system
+        has a kinetic energy described by a function \(T\) of the generalized
+        velocities and a potential energy described by a function \(V\) of the
+        generalized coordinates. Thus, for generalized coordinates \(q_i\), the
+        Lagrangian of the system is written as: \[ \mathcal L(q_i,\dot{q}_i,t) =
+        T - V \] Here \(T\) or \(V\), or both in some cases, may depend on
+        \(t\).
+      </p>
+      <p>
+        You will see below how we solve, or should I say approximate, some of
+        the most complex systems using only the Lagrangian and something called
+        the <strong>Euler-Lagrange</strong> equation. \[ \frac{d}{dt}
+        \frac{\partial \mathcal L}{\partial \dot q_i}- \frac{\partial \mathcal
+        L}{\partial q_i} =0 \] We will not be deriving or proving the
+        Euler-Lagrange equation in this section; we will do that in the next
+        lesson. But what the Euler-Lagrange equation does is that it allows us
+        to find the <strong>equation of motion</strong> of the particular system
+        for which we have the Lagrangian. And as you should know, that is
+        essentially solving the whole system. Notice here we are only working
+        with functions and scalars; we don't have to do messy free-body vector
+        diagrams like in the Newtonian method. Instead, we find the Lagrangian
+        of the system, and by putting it into the Euler-Lagrange equation, we
+        can find the equation of motion of the system and we are done; the
+        system is solved. Although there are some cases where things can get
+        complicated, we will not talk about those cases here.
+      </p>
+      <p>
+        One of the great advantages of using the
+        <strong>Euler-Lagrange</strong> equation and the
+        <strong>Lagrangian</strong> is that we get to avoid much of the
+        complexity that we need to deal with in the Newtonian approach using
+        vectors and diagrams. It doesn't mean that the Newtonian approach is not
+        useful or that it gives the wrong result; it's just that in certain
+        cases it is much more convenient to use the Euler-Lagrange equation and
+        the Lagrangian to avoid the messiness. Now let us solve some systems
+        using the Lagrangian and Euler-Lagrange equation.
+      </p>
+      <h2>Equation of Motion</h2>
+      <p>
+        Given a Newtonian system, we can follow the elementary procedure like
+        drawing the free body diagram and analyzing the system and then finally
+        reaching a second-order differential equation: \[ \ddot{\mathbf{r}} =
+        \frac{\mathbf F}{m} \] This is what we call an equation of motion. For
+        example, we get the equation of motion for a simple pendulum to be: \[
+        \frac{d^2\theta}{dt^2} + \frac{g}{L}\sin\theta = 0 \] We obtain this by
+        analyzing the system, but some systems are far more complicated to be
+        analyzed using force and vectors. Thinking of force and vector diagrams
+        of such systems is not impossible but it indeed is unnecessary and too
+        complicated to deal with. To analyze such systems we use the
+        <strong>Euler-Lagrange</strong> equation, which is: \[ \frac{d}{dt}
+        \frac{\partial \mathcal L}{\partial \dot q_i}- \frac{\partial \mathcal
+        L}{\partial q_i} =0 \] Where \(\mathcal L\) is called a Lagrangian,
+        \(\mathcal L = T - V\). Here \(T\) is kinetic energy of the system and
+        \(V\) is the potential energy. When we compute the Euler-Lagrange
+        equation we get the differential equation along each coordinate \(q_i\).
+      </p>
+      <p>
+        In this section we will not be talking about derivation of the
+        Euler-Lagrange equation, but we will show a few examples of how systems
+        that are overwhelmingly critical to study using free body diagrams
+        become quite simple to study when we use the Euler-Lagrange equation.
+      </p>
+      <h3>
+        Finding the equation of motion for a simple pendulum using
+        Euler-Lagrange equation.
+      </h3>
+      <p>
+        A simple pendulum is a system that consists of a mass \(m\) attached to
+        a string of length \(L\) and the other end of the string is attached to
+        a fixed point (as you can see in the animation bellow). The mass is free
+        to move under the influence of gravity. To find the equation of motion
+        for the simple pendulum using the Euler-Lagrange equation we first need
+        to define the generalized coordinate that is best suited for the system
+        so that we can avoid much complication. The best suited generalized
+        coordinate for the simple pendulum is the angle \(\theta\) that the
+        string makes with the vertical. As you can see below.
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-7/Lesson-1/images/SimplePendulum_ManimCE_v0.21.0.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-7/Lesson-1/images/SimplePendulum_ManimCE_v0.21.0.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-7/Lesson-1/Videos/SimplePendulum.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        Using the generalized coordinate \(q, \dot{q}= \theta, \dot{\theta}\) we
+        can write the kinetic energy of the system to be: \[ T(\theta) =
+        \frac{1}{2} m L^2 \dot{\theta}^2 \] And the potential energy of the
+        system is: \[ V(\theta) = mgL(1 - \cos\theta) \]
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-7/Lesson-1/images/SimplePendulum_ManimCE_v0.21.1.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-7/Lesson-1/images/SimplePendulum_ManimCE_v0.21.1.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-7/Lesson-1/Videos/SimplePendulum_1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        Now we are ready to apply the Euler-Lagrange equation. The Lagrangian
+        is: \[\mathcal{L} = T(\theta) - V(\theta) = \frac{1}{2} m L^2
+        \dot{\theta}^2 - mgL(1 - \cos\theta)\] The Euler-Lagrange equation is:
+        \[\frac{d}{dt} \frac{\partial \mathcal L}{\partial \dot \theta}-
+        \frac{\partial \mathcal L}{\partial \theta} =0\] Now we compute the
+        partial derivatives: \[\frac{\partial \mathcal L}{\partial \dot \theta}
+        = m L^2 \dot{\theta}\] \[\frac{d}{dt} \frac{\partial \mathcal
+        L}{\partial \dot \theta} = m L^2 \ddot{\theta}\] \[\frac{\partial
+        \mathcal L}{\partial \theta} = mgL \sin\theta\] Now we substitute these
+        into the Euler-Lagrange equation: \[\frac{d}{dt} \frac{\partial \mathcal
+        L}{\partial \dot \theta}- \frac{\partial \mathcal L}{\partial \theta} =
+        m L^2 \ddot{\theta} - mgL \sin\theta = 0\] Dividing through by \(m L^2\)
+        gives us the equation of motion for the simple pendulum: \[\ddot{\theta}
+        + \frac{g}{L} \sin\theta = 0\]
+      </p>
+      <p>
+        We can write a simple Python code to solve the equation of motion for
+        the simple pendulum using numerical methods. Here is a simulation using
+        the Runge-Kutta (RK4) method for initial conditions \(\theta(0) =
+        35^\circ\) and \(\dot{\theta}(0) = 0\):
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-7/Lesson-1/images/SimplePendulum_ManimCE_v0.21.2.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-7/Lesson-1/images/SimplePendulum_ManimCE_v0.21.2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-7/Lesson-1/Videos/SimplePendulum_sim.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        It wasn't that difficult to find the equation of motion for the simple
+        pendulum, and by now you should already know how to find the equation of
+        motion for a simple pendulum using vectors and free body diagrams. As we
+        said before, it is not always wise to solve a system using vectors and
+        free body diagrams, and we will see how the Euler-Lagrange equation
+        makes it easier to solve a system that is otherwise very difficult to
+        solve using vectors and free body diagrams. We shall now find the
+        equation of motion for a double pendulum using the Euler-Lagrange
+        equation. Feel free to email me if you find a way to find the equation
+        of motion for a double pendulum using vectors and free body diagrams, I
+        would love to see it.
+      </p>
+      <h3>Find the Equation of Motion for a Double Pendulum</h3>
+      <p>
+        A double pendulum is a system that consists of two simple pendulums, one
+        attached to the end of the other. The first pendulum has a mass \(m_1\)
+        and length \(L_1\), and the second pendulum has a mass \(m_2\) and
+        length \(L_2\). The first pendulum swings from a fixed pivot point,
+        while the second pendulum swings from the end of the first pendulum. The
+        motion of the double pendulum is more complex than that of a simple
+        pendulum, and it exhibits chaotic behavior for certain initial
+        conditions.
+      </p>
+      <!--ADD ANIMATION-->
+      <p>
+        Above in the diagram and animation you can see the set up of the double
+        pendulum. The generalized coordinates for the double pendulum are the
+        angles \(q_1 = \theta_1, \dot{q_1} = \dot{\theta_1}\) and \(q_2 =
+        \theta_2, \dot{q_2} = \dot{\theta_2}\) that the two pendulums make with
+        the vertical. The kinetic energy of the double pendulum is given by: \[
+        T = \frac{1}{2} m_1 L_1^2 \dot{\theta_1}^2 + \frac{1}{2} m_2 \left(
+        L_1^2 \dot{\theta_1}^2 + L_2^2 \dot{\theta_2}^2 + 2 L_1 L_2
+        \dot{\theta_1} \dot{\theta_2} \cos(\theta_1 - \theta_2) \right) \] The
+        potential energy of the double pendulum is given by: \[ V = -m_1 g L_1
+        \cos(\theta_1) - m_2 g \left( L_1 \cos(\theta_1) + L_2 \cos(\theta_2)
+        \right) \] Now we can write the Lagrangian for the double pendulum as:
+        \[ \mathcal{L} = T - V = \frac{1}{2} m_1 L_1^2 \dot{\theta_1}^2 +
+        \frac{1}{2} m_2 \left( L_1^2 \dot{\theta_1}^2 + L_2^2 \dot{\theta_2}^2 +
+        2 L_1 L_2 \dot{\theta_1} \dot{\theta_2} \cos(\theta_1 - \theta_2)
+        \right) + m_1 g L_1 \cos(\theta_1) + m_2 g \left( L_1 \cos(\theta_1) +
+        L_2 \cos(\theta_2) \right) \] Now we can apply the Euler-Lagrange
+        equation to find the equations of motion for the double pendulum. We
+        will have two equations, one for each generalized coordinate
+        \(\theta_1\) and \(\theta_2\): \[ \frac{d}{dt} \frac{\partial \mathcal
+        L}{\partial \dot{\theta_1}} - \frac{\partial \mathcal L}{\partial
+        \theta_1} = 0 \] \[ \frac{d}{dt} \frac{\partial \mathcal L}{\partial
+        \dot{\theta_2}} - \frac{\partial \mathcal L}{\partial \theta_2} = 0 \]
+        For generalized coordinate \(\theta_1\) we have: \[ \frac{\partial
+        \mathcal L}{\partial \dot{\theta_1}} = m_1 L_1^2 \dot{\theta_1} + m_2
+        \left( L_1^2 \dot{\theta_1} + L_1 L_2 \dot{\theta_2} \cos(\theta_1 -
+        \theta_2) \right) \] \[ \frac{d}{dt} \frac{\partial \mathcal L}{\partial
+        \dot{\theta_1}} = m_1 L_1^2 \ddot{\theta_1} + m_2 \left( L_1^2
+        \ddot{\theta_1} + L_1 L_2 \ddot{\theta_2} \cos(\theta_1 - \theta_2) -
+        L_1 L_2 \dot{\theta_2} \left(\dot{\theta_1} - \dot{\theta_2}\right)
+        \sin(\theta_1 - \theta_2) \right) \] So: \[ \frac{d}{dt} \frac{\partial
+        \mathcal L}{\partial \dot{\theta_1}} - \frac{\partial \mathcal
+        L}{\partial \theta_1} = m_1 L_1^2 \ddot{\theta_1} + m_2 \left( L_1^2
+        \ddot{\theta_1} + L_1 L_2 \ddot{\theta_2} \cos(\theta_1 - \theta_2) +
+        L_1 L_2 \dot{\theta_2}^2 \sin(\theta_1 - \theta_2) \right) + m_1 g L_1
+        \sin(\theta_1) + m_2 g L_1 \sin(\theta_1) = 0 \] Similarly for
+        generalized coordinate \(\theta_2\) we have: \[ \frac{d}{dt}
+        \frac{\partial \mathcal L}{\partial \dot{\theta_2}} - \frac{\partial
+        \mathcal L}{\partial \theta_2} = m_2 \left( L_2^2 \ddot{\theta_2} + L_1
+        L_2 \ddot{\theta_1} \cos(\theta_1 - \theta_2) - L_1 L_2 \dot{\theta_1}^2
+        \sin(\theta_1 - \theta_2) \right) + m_2 g L_2 \sin(\theta_2) = 0 \] Now
+        we have the two equations of motion for the double pendulum: \[
+        \boxed{m_1 L_1^2 \ddot{\theta_1} + m_2 \left( L_1^2 \ddot{\theta_1} +
+        L_1 L_2 \ddot{\theta_2} \cos(\theta_1 - \theta_2) + L_1 L_2
+        \dot{\theta_2}^2 \sin(\theta_1 - \theta_2) \right) + m_1 g L_1
+        \sin(\theta_1) + m_2 g L_1 \sin(\theta_1) = 0} \] \[ \boxed{m_2 \left(
+        L_2^2 \ddot{\theta_2} + L_1 L_2 \ddot{\theta_1} \cos(\theta_1 -
+        \theta_2) - L_1 L_2 \dot{\theta_1}^2 \sin(\theta_1 - \theta_2) \right) +
+        m_2 g L_2 \sin(\theta_2) = 0} \]
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-7/Lesson-1/Images/DoublePendulum_ManimCE_v0.21.0.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-7/Lesson-1/Images/DoublePendulum_ManimCE_v0.21.0.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-7/Lesson-1/Videos/DoublePendulum.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        As you can see, the equations of motion for the double pendulum are much
+        more complex than those for the simple pendulum. Finding its equation of
+        motion using vectors and free body diagrams is nothing but utterly
+        troublesome, and there is no general solution to the differential
+        equation of motion for the double pendulum.
+      </p>
+      <p>
+        One might wonder, "Why is it that we have to use the Euler-Lagrange
+        method? Why not stick with Newton's way of calculating force and
+        acceleration?" That is because the Euler-Lagrange method is a more
+        general approach that can be applied to a wider range of systems; the
+        Euler-Lagrange method and something you will see soon that is
+        <strong>action</strong> (we will introduce it in the next lesson) are
+        more fundamental than force and acceleration, and that is why when we
+        are working in QFT and particle physics we use the Euler-Lagrange method
+        and action more often than you might think. As you will see when you
+        learn QFT.
+      </p>
+      <p>
+        In conclusion, the Euler-Lagrange method and action is a powerful tool
+        that doesn't just allow us to find the equation of motion for a complex
+        system but is essential to understand the fundamental nature of the
+        universe, as you will see now how it allows us to explain how symmetry
+        leads to conservation laws.
+      </p>
+      <h2>Conservation Laws and Symmetry Principle</h2>
+      <p>
+        By now you should know the fundamental conservation laws of classical
+        physics are conservation of energy, conservation of linear momentum,
+        conservation of angular momentum, and conservation of charge. Here we
+        will just talk about the first three of them, as conservation of charge
+        is beyond the scope of this chapter. Soon we will see these three
+        conservation laws are consequences of certain symmetries; more
+        specifically these symmetries are called
+        <strong>homogeneity of space</strong>,
+        <strong>homogeneity of time</strong>, and
+        <strong>isotropy of space</strong>.
+      </p>
+      <h3>Homogeneity of Space</h3>
+      <p>
+        Homogeneity of space means that the laws of physics are the same at all
+        points in space. This implies a system that is isolated from non-zero
+        external influences (force) will behave the same way regardless of where
+        it is located in space. If a system is in a certain state at a certain
+        point in space, the state of the system will be unchanged regardless of
+        where we put it in space. The state of the system will evolve
+        independently of where it is located in space. This is what we call
+        <strong>homogeneity of space</strong>. Regardless of where you are in
+        space, it is the same at all points.
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-7/Lesson-1/images/HomogeneityOfSpace_ManimCE_v0.21.0.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-7/Lesson-1/images/HomogeneityOfSpace_ManimCE_v0.21.0.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-7/Lesson-1/Videos/HomogeneityOfSpace.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        In the animation you can see we have a system S, and its state vector
+        \(\mathcal{S}\) tells us everything the state is doing and since it is a
+        classical system we know exactly what it will do in the future, and thus
+        regardless of which point it is at in space, the state vector
+        \(\mathcal{S}\) will evolve in the same way. This is what we call
+        <strong>homogeneity of space</strong>.
+      </p>
+      <h3>Homogeneity of Time</h3>
+      <p>
+        Homogeneity of time means that the laws of physics are the same at all
+        points in time. Similarly to homogeneity of space, this implies a system
+        that is isolated from non-zero external influences (force) will behave
+        the same way regardless of when it is located in time. If a system
+        behaves in a certain way at a certain point in time, regardless of when
+        we restart the system with the same initial conditions, the system's
+        state vector will evolve the exact same way. This is what we call
+        <strong>homogeneity of time</strong>. Regardless of when you are in
+        time, the laws of physics are the same at all points of time.
+      </p>
+      <!--ADD ANIMATION OF HOMOGENEITY OF TIME-- ANI-2-->
+      <h3>Isotropy of Space</h3>
+      <p>
+        Isotropy of space means that the laws of physics are the same in all
+        directions in space from any given point in space. That means if you
+        have a system and then regardless of which orientation you put the
+        system in, the system will behave and evolve in the same way governed by
+        the equation of motion.
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-7/Lesson-1/images/iosp.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-7/Lesson-1/images/iosp.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-7/Lesson-1/Videos/iosp.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <p>
+        When we say that a system has a certain symmetry, we mean that the
+        system is invariant under a change in one of its coordinates \(q_i\). If
+        we move a system from one point in space to another along the direction
+        of the \(q_i\) coordinate and the system remains unchanged, then we say
+        that the system has <strong>translational symmetry</strong> along
+        \(q_i\). But time is not a coordinate in the same sense (at least in
+        classical mechanics). However, if a system remains invariant as time
+        changes, then we say that the system has
+        <strong>time translational symmetry</strong> or
+        <strong>temporal symmetry</strong>.
+      </p>
+
+      <p>
+        A system is symmetric under a change in a coordinate \(q_i\) if the
+        Lagrangian of the system does not explicitly depend on that coordinate
+        \(q_i\). If this is the case, then changing the coordinate \(q_i\) does
+        not change the Lagrangian of the system, and thus the system is
+        symmetric under a change in that coordinate \(q_i\).
+      </p>
+      <h3>Generalized Momentum and Cyclic Coordinates</h3>
+
+      <p>
+        Assume a lagrangian of a particle: \[ \mathcal{L} = \mathcal{L}(q_1,
+        q_2, \dots, q_n, \dot{q}_1, \dot{q}_2, \dots, \dot{q}_n, t) \] and
+        assume that it is independent of a coordinate \(q_i\), then we say that
+        the coordinate \(q_i\) is a <strong>cyclic coordinate</strong> or
+        <strong>ignorable coordinate</strong>. If we apply the Euler-Lagrange
+        equation to the cyclic coordinate \(q_i\), we get: \[ \frac{d}{dt}
+        \frac{\partial \mathcal L}{\partial \dot{q}_i} - \frac{\partial \mathcal
+        L}{\partial q_i} = 0 \] Here, since the lagrangian is independent of
+        \(q_i\), we have \(\frac{\partial \mathcal L}{\partial q_i} = 0\), and
+        thus we get: \[ \frac{d}{dt} \frac{\partial \mathcal L}{\partial
+        \dot{q}_i} = 0 \] Think of the lagrangian being the lagrangian of a free
+        particle, then: \[ \mathcal L = \frac{1}{2}m
+        \left(\dot{x}^2+\dot{y}^2+\dot{z}^2\right) \] Notice that the lagrangian
+        is independent of \(x, y, z\), and thus \(x, y, z\) are cyclic
+        coordinates. Now according to the Euler-Lagrange equation, we have: \[
+        \frac{d}{dt} \frac{\partial \mathcal L}{\partial \dot{x}} = \frac{d}{dt}
+        \left( m \dot{x} \right) = 0, \quad \frac{d}{dt} \frac{\partial \mathcal
+        L}{\partial \dot{y}} = \frac{d}{dt} \left( m \dot{y} \right) = 0, \quad
+        \frac{d}{dt} \frac{\partial \mathcal L}{\partial \dot{z}} = \frac{d}{dt}
+        \left( m \dot{z} \right) = 0 \] Here \(m\dot{x}\), \(m\dot{y}\), and
+        \(m\dot{z}\) are the momentum of the particle along \(x, y, z\)
+        respectively, and thus we see that the momentum of a free particle is
+        constant over time, as the derivative with respect to time is zero.
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-7/Lesson-1/Images/R_m.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-7/Lesson-1/Images/R_m.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-7/Lesson-1/Videos/R_m.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        Now, lets look at another example, consider a system of two particles
+        which are isolated from the outside, so there is no external force
+        acting on the system. We can describe the system using the center of
+        mass coordinate \(\mathbf{R}\) and the relative coordinate
+        \(\mathbf{r}\), where: \[ \mathbf{R} = \frac{m_1\mathbf{r}_1 +
+        m_2\mathbf{r}_2}{m_1+m_2}, \qquad \mathbf{r} = \mathbf{r}_1-\mathbf{r}_2
+        \] The lagrangian of the system can then be written as: \[ \mathcal L =
+        \frac{1}{2}M\dot{\mathbf{R}}^2 + \frac{1}{2}\mu\dot{\mathbf{r}}^2 -
+        V(\mathbf{r}), \] where \(M=m_1+m_2\) is the total mass and
+        \(\mu=\frac{m_1m_2}{m_1+m_2}\) is the reduced mass, also \(V(\mathbf
+        r)\) is the potential energy of the intarection forece between the
+        particle. Notice that the lagrangian is independent of \(\mathbf{R}\),
+        which means that the coordinates of \(\mathbf{R}\) are cyclic
+        coordinates. Therefore, according to the Euler-Lagrange equation: \[
+        \frac{d}{dt}\frac{\partial \mathcal L}{\partial \dot{\mathbf{R}}}=0 \]
+        and since \[ \frac{\partial \mathcal L}{\partial \dot{\mathbf{R}}} =
+        M\dot{\mathbf{R}}, \] we have: \[
+        \frac{d}{dt}\left(M\dot{\mathbf{R}}\right)=0. \] But
+        \(M\dot{\mathbf{R}}\) is just the total momentum of the two-particle
+        system, so we again see that the momentum is constant when there is no
+        external force acting on the system. So here again we have the same
+        thing: a cyclic coordinate gives us a conserved momentum.
+      </p>
+
+      <!-- In both examples the conserved quantity was of the form -->
+      <p>
+        In both examples the momentum was \(\frac{\partial \mathcal L}{\partial
+        \dot{q}_i}\), and thus we define the
+        <strong>generalized momentum</strong> \(p_i\) to be: \[ p_i =
+        \frac{\partial \mathcal L}{\partial \dot{q}_i} \] for all systems.
+      </p>
+
+      <p>
+        Since for a given lagrangian of a system we have the cyclic coordinates
+        \(q_i\), then: \[ \frac{d}{dt}\frac{\partial \mathcal L}{\partial
+        \dot{q}_i} = \frac{d}{dt}p_i = 0 \] So therefore we say generalized
+        momentum associated with each cyclic coordinate is constant. It kind of
+        makes sense, as kinetic energy does not explicitly depend on the
+        generalized coordinate, but the potential is what depends on the
+        coordinates, and if the potential function is independent of a
+        coordinate then the force along that coordinate has to be zero. At least
+        that is the intuition behind why generalized momentum conjugate to each
+        cyclic coordinate is constant.
+      </p>
+      <h3>Conservation of linear momentum</h3>
+      <p>
+        Now we will see how the conservation of momentum is a direct consequence
+        of homogeneity of space. For that, consider a system of \(N\)-particles,
+        and the displacement vector \(\mathbf{r}_\alpha\), \((\alpha =
+        1,\ldots,N)\), represents the position of each particle in the 3D space.
+        The mutual interaction between the particles is allowed, but the system
+        as a whole must be isolated from any external influence. Now assume we
+        freeze the time and translate the system all together by a small
+        displacement \(\mathbf{\epsilon}\). Then the new position of the
+        particle is \(\mathbf{r}_\alpha + \mathbf{\epsilon}\). This is just the
+        virtual displacement of the whole system by the vector
+        \(\mathbf{\epsilon}\).
+      </p>
+
+      <!-- Add the animation showing the system being moved -->
+
+      <p>
+        We know if there is a function \(f(q_i,\dot{q}_i,t)\), then the
+        differential of the function is: \[ df = \sum_{i=1}^{n}\frac{\partial
+        f}{\partial q_i}dq_i + \sum_{i=1}^{n}\frac{\partial f}{\partial
+        \dot{q}_i}d\dot{q}_i + \frac{\partial f}{\partial t}dt \] For a virtual
+        displacement \(\delta f\), time is frozen, so: \[ \delta f =
+        \sum_{i=1}^{n}\frac{\partial f}{\partial q_i}\delta q_i \] Since time is
+        frozen, the velocities do not change under this translation, so
+        \(\delta\dot{q}_i=0\). Therefore, the variation of the Lagrangian is: \[
+        \delta \mathcal{L} = \sum_{\alpha} \frac{\partial \mathcal{L}}{\partial
+        \mathbf{r}_\alpha} \cdot \delta\mathbf{r}_\alpha \] Here the variation
+        is \(\delta\mathbf{r}_\alpha=\mathbf{\epsilon}\). So: \[ \delta
+        \mathcal{L} = \sum_{\alpha} \frac{\partial \mathcal{L}}{\partial
+        \mathbf{r}_\alpha} \cdot \mathbf{\epsilon} \] If space is homogeneous,
+        the Lagrangian does not change under a translation of the whole system,
+        and thus \(\delta\mathcal{L}=0\). Therefore: \[ \sum_{\alpha}
+        \frac{\partial \mathcal{L}}{\partial \mathbf{r}_\alpha} =0 \] The
+        Euler-Lagrange equation tells us: \[ \frac{\partial
+        \mathcal{L}}{\partial \mathbf{r}_\alpha} = \frac{d}{dt} \frac{\partial
+        \mathcal{L}}{\partial \mathbf{v}_\alpha} \] Since \[ \frac{\partial
+        \mathcal{L}}{\partial \mathbf{v}_\alpha} = \mathbf{p}_\alpha, \] we
+        have: \[ \sum_{\alpha} \frac{d\mathbf{p}_\alpha}{dt} = \frac{d}{dt}
+        \sum_{\alpha}\mathbf{p}_\alpha = \frac{d\mathbf{P}_{\mathrm{tot}}}{dt} =
+        0 \] Therefore, the total momentum of the system is conserved. Because
+        the space was homogeneous, changing the system's location in space did
+        not change the Lagrangian of the system, and thus the variation of the
+        Lagrangian was zero, \(\delta\mathcal{L}=0\). That is what made the
+        total momentum of the system conserved.
+      </p>
+
+      <h3>Conservation of angular momentum</h3>
+
+      <p>
+        Now we will see how the conservation of angular momentum is a direct
+        consequence of isotropy of space. For that, consider a system of
+        \(N\)-particles, and the displacement vector \(\mathbf{r}_\alpha\),
+        \((\alpha = 1,\ldots,N)\), represents the position of each particle in
+        the 3D space. The mutual interaction between the particles is allowed,
+        but the system as a whole must be isolated from any external influence.
+        Now assume we freeze the time and rotate the system all together by a
+        small angle \(\delta\boldsymbol{\phi}\) around some axis. Then the new
+        position of the particle is slightly displaced from its original
+        position. From the figure, this virtual displacement is: \[
+        \delta\mathbf{r}_\alpha = \delta\boldsymbol{\phi}\times\mathbf{r}_\alpha
+        \] This is just the virtual rotation of the whole system by the small
+        angle \(\delta\boldsymbol{\phi}\).
+      </p>
+
+      <!-- Add the animation showing the system being rotated -->
+
+      <p>
+        In the case of rotation, the velocity of each particle also changes
+        because when we rotate the whole system, the direction of the velocity
+        vector also changes. From the figure, we have: \[
+        \delta\mathbf{v}_\alpha = \delta\boldsymbol{\phi}\times\mathbf{v}_\alpha
+        \] We know if there is a function \(f(q_i,\dot{q}_i,t)\), then the
+        differential of the function is: \[ df = \sum_{i=1}^{n}\frac{\partial
+        f}{\partial q_i}dq_i + \sum_{i=1}^{n}\frac{\partial f}{\partial
+        \dot{q}_i}d\dot{q}_i + \frac{\partial f}{\partial t}dt \] For a virtual
+        displacement \(\delta f\), since time is frozen we have: \[ \delta f =
+        \sum_{i=1}^{n}\frac{\partial f}{\partial q_i}\delta q_i +
+        \sum_{i=1}^{n}\frac{\partial f}{\partial \dot{q}_i}\delta\dot{q}_i \]
+        Here, unlike the translational case, the velocities of the particles are
+        not constant, because the rotation changes the direction of the velocity
+        vectors. So the variation of the Lagrangian is: \[ \delta \mathcal{L} =
+        \sum_{\alpha} \left( \frac{\partial \mathcal{L}}{\partial
+        \mathbf{r}_\alpha} \cdot \delta\mathbf{r}_\alpha + \frac{\partial
+        \mathcal{L}}{\partial \mathbf{v}_\alpha} \cdot \delta\mathbf{v}_\alpha
+        \right) \] Since the space is isotropic, rotating the whole system
+        should have no effect on the Lagrangian, so \(\delta\mathcal{L}=0\).
+        Therefore: \[ 0 = \delta\mathcal{L} = \sum_{\alpha} \left(
+        \frac{\partial \mathcal{L}}{\partial \mathbf{r}_\alpha} \cdot
+        \delta\mathbf{r}_\alpha + \frac{\partial \mathcal{L}}{\partial
+        \mathbf{v}_\alpha} \cdot \delta\mathbf{v}_\alpha \right) \]
+      </p>
+
+      <p>
+        Again, we use Lagrange's equation to replace \( \frac{\partial
+        \mathcal{L}}{\partial \mathbf{r}_\alpha} \) with \[ \frac{d}{dt}
+        \frac{\partial \mathcal{L}}{\partial \mathbf{v}_\alpha} =
+        \dot{\mathbf{p}}_\alpha \] and since \[ \frac{\partial
+        \mathcal{L}}{\partial \mathbf{v}_\alpha} = \mathbf{p}_\alpha, \] we can
+        write: \[ \sum_{\alpha} \left(
+        \dot{\mathbf{p}}_\alpha\cdot\delta\mathbf{r}_\alpha +
+        \mathbf{p}_\alpha\cdot\delta\mathbf{v}_\alpha \right) = 0 \] From the
+        figure, we have: \[ \delta\mathbf{r}_\alpha =
+        \delta\boldsymbol{\phi}\times\mathbf{r}_\alpha \] Similarly: \[
+        \delta\mathbf{v}_\alpha = \delta\boldsymbol{\phi}\times\mathbf{v}_\alpha
+        \] Therefore: \[ \sum_{\alpha} \left( \dot{\mathbf{p}}_\alpha\cdot
+        (\delta\boldsymbol{\phi}\times\mathbf{r}_\alpha) +
+        \mathbf{p}_\alpha\cdot (\delta\boldsymbol{\phi}\times\mathbf{v}_\alpha)
+        \right) = 0 \] Interchanging the dot and the cross products, we obtain:
+        \[ \sum_{\alpha} \left( \delta\boldsymbol{\phi}\cdot
+        (\mathbf{r}_\alpha\times\dot{\mathbf{p}}_\alpha) +
+        \delta\boldsymbol{\phi}\cdot (\mathbf{v}_\alpha\times\mathbf{p}_\alpha)
+        \right) = 0 \] Since for a particle \[
+        \mathbf{p}_\alpha=m_\alpha\mathbf{v}_\alpha, \] we have \[
+        \mathbf{v}_\alpha\times\mathbf{p}_\alpha=0. \] Therefore: \[
+        \sum_{\alpha} \delta\boldsymbol{\phi}\cdot
+        (\mathbf{r}_\alpha\times\dot{\mathbf{p}}_\alpha) = 0 \] or: \[
+        \delta\boldsymbol{\phi}\cdot \sum_{\alpha}
+        (\mathbf{r}_\alpha\times\dot{\mathbf{p}}_\alpha) = 0 \] Using the
+        product rule for the cross product: \[ \frac{d}{dt}
+        (\mathbf{r}_\alpha\times\mathbf{p}_\alpha) =
+        \mathbf{r}_\alpha\times\dot{\mathbf{p}}_\alpha +
+        \dot{\mathbf{r}}_\alpha\times\mathbf{p}_\alpha \] and since \[
+        \dot{\mathbf{r}}_\alpha=\mathbf{v}_\alpha \] and \[
+        \mathbf{v}_\alpha\times\mathbf{p}_\alpha=0, \] we have: \[
+        \mathbf{r}_\alpha\times\dot{\mathbf{p}}_\alpha = \frac{d}{dt}
+        (\mathbf{r}_\alpha\times\mathbf{p}_\alpha) \] Therefore: \[
+        \delta\boldsymbol{\phi}\cdot \sum_{\alpha} \frac{d}{dt}
+        (\mathbf{r}_\alpha\times\mathbf{p}_\alpha) = 0 \] or: \[
+        \delta\boldsymbol{\phi}\cdot \frac{d}{dt} \sum_{\alpha}
+        (\mathbf{r}_\alpha\times\mathbf{p}_\alpha) = 0 \]
+      </p>
+
+      <p>
+        And so, since \(\delta\boldsymbol{\phi}\neq0\), we can say: \[
+        \frac{d}{dt} \sum_{\alpha} (\mathbf{r}_\alpha\times\mathbf{p}_\alpha) =
+        0 \] Let us define the total angular momentum as: \[ \mathbf{L} =
+        \sum_{\alpha} \mathbf{r}_\alpha\times\mathbf{p}_\alpha \] Therefore: \[
+        \frac{d\mathbf{L}}{dt}=0 \] and thus the total angular momentum of the
+        system is conserved. Because the space was isotropic, changing the
+        orientation of the system in space did not change the Lagrangian of the
+        system, and thus the variation of the Lagrangian was zero,
+        \(\delta\mathcal{L}=0\), and that is what made the total angular
+        momentum of the system conserved.
+      </p>
+      <h3>Conservation of energy</h3>
+
+      <p>
+        Now we will see how the conservation of energy is a direct consequence
+        of the homogeneity of time. For that, consider a system of \(N\)
+        particles described by generalized coordinates \(q_i\) and generalized
+        velocities \(\dot{q}_i\), with the Lagrangian \(\mathcal{L} =
+        \mathcal{L}(q_i, \dot{q}_i, t)\) governing its dynamics. The mutual
+        interactions between the particles are allowed, but we will assume that
+        the system is isolated from external influences and that its dynamics
+        can be described by the Lagrangian.
+      </p>
+
+      <p>
+        If time is homogeneous, then no moment in time is preferred over any
+        other. Shifting the entire history of the system forward or backward in
+        time changes nothing physically, so we can choose a Lagrangian that has
+        no explicit dependence on time. That means \(\frac{\partial
+        \mathcal{L}}{\partial t} = 0\). Let us now see what this implies for the
+        system.
+      </p>
+
+      <p>
+        We know that if there is a function \(f(q_i, \dot{q}_i, t)\), then the
+        total time derivative of the function is: \[ \frac{df}{dt} = \sum_i
+        \frac{\partial f}{\partial q_i}\dot{q}_i + \sum_i \frac{\partial
+        f}{\partial \dot{q}_i}\ddot{q}_i + \frac{\partial f}{\partial t} \]
+        Applying this to the Lagrangian itself: \[ \frac{d\mathcal{L}}{dt} =
+        \sum_i \frac{\partial \mathcal{L}}{\partial q_i}\dot{q}_i + \sum_i
+        \frac{\partial \mathcal{L}}{\partial \dot{q}_i}\ddot{q}_i +
+        \frac{\partial \mathcal{L}}{\partial t} \] The Euler-Lagrange equation
+        tells us: \[ \frac{\partial \mathcal{L}}{\partial q_i} =
+        \frac{d}{dt}\frac{\partial \mathcal{L}}{\partial \dot{q}_i} \]
+        Substituting this into the first term: \[ \frac{d\mathcal{L}}{dt} =
+        \sum_i \dot{q}_i \frac{d}{dt}\!\left( \frac{\partial
+        \mathcal{L}}{\partial \dot{q}_i}\right) + \sum_i \frac{\partial
+        \mathcal{L}}{\partial \dot{q}_i}\ddot{q}_i + \frac{\partial
+        \mathcal{L}}{\partial t} \] Now notice that by the product rule: \[
+        \frac{d}{dt}\sum_i \dot{q}_i \frac{\partial \mathcal{L}}{\partial
+        \dot{q}_i} = \sum_i \dot{q}_i \frac{d}{dt}\!\left(\frac{\partial
+        \mathcal{L}}{\partial \dot{q}_i}\right) + \sum_i \ddot{q}_i
+        \frac{\partial \mathcal{L}}{\partial \dot{q}_i} \] The right-hand side
+        here is precisely the first two terms in our expression for
+        \(\frac{d\mathcal{L}}{dt}\). So we can replace them: \[
+        \frac{d\mathcal{L}}{dt} = \frac{d}{dt}\sum_i \dot{q}_i \frac{\partial
+        \mathcal{L}}{\partial \dot{q}_i} + \frac{\partial \mathcal{L}}{\partial
+        t} \] Rearranging: \[ \frac{\partial \mathcal{L}}{\partial t} =
+        -\frac{d}{dt}\!\left(\sum_i \dot{q}_i \frac{\partial
+        \mathcal{L}}{\partial \dot{q}_i} - \mathcal{L}\right) \]
+      </p>
+
+      <p>
+        The quantity inside the parentheses appears naturally enough that we
+        give it its own name. We define the
+        <strong>energy function</strong> \(h\) as: \[ h = \sum_i \dot{q}_i
+        \frac{\partial \mathcal{L}}{\partial \dot{q}_i} - \mathcal{L} \] so
+        that: \[ \frac{\partial \mathcal{L}}{\partial t} = -\frac{dh}{dt} \] If
+        the Lagrangian has no explicit dependence on time, then \(\frac{\partial
+        \mathcal{L}}{\partial t} = 0\), and therefore: \[ \frac{dh}{dt} = 0 \]
+        The energy function \(h\) is conserved. But we should ask: is \(h\) the
+        same as the total mechanical energy \(E = T + V\)? That depends on the
+        form of the kinetic and potential energies, and we need to examine this
+        carefully.
+      </p>
+
+      <p>
+        In generalized coordinates, the kinetic energy of a system of particles
+        undergoing ordinary nonrelativistic motion can be expressed as a sum of
+        terms that are homogeneous of degrees zero, one, and two in the
+        generalized velocities: \[ T = T_0 + T_1 + T_2 \] where \(T_0\) does not
+        depend on the generalized velocities, \(T_1\) is a homogeneous function
+        of degree one in the generalized velocities, and \(T_2\) is a
+        homogeneous function of degree two in the generalized velocities. Since
+        \(\mathcal{L} = T - V\), provided that the potential energy does not
+        depend on the generalized velocities, the Lagrangian inherits this
+        structure: \(\mathcal{L} = L_0 + L_1 + L_2\), where \(L_0 = T_0 - V\),
+        \(L_1 = T_1\), and \(L_2 = T_2\).
+      </p>
+
+      <p>
+        Recall that a function \(f(x_1, \ldots, x_n)\) is homogeneous of degree
+        \(k\) if: \[ f(\alpha x_1, \ldots, \alpha x_n) = \alpha^k f(x_1, \ldots,
+        \alpha x_n) \] Euler's theorem on homogeneous functions states that if
+        \(f(x_i)\) is differentiable and homogeneous of degree \(k\), then: \[
+        \sum_i x_i \frac{\partial f}{\partial x_i} = kf \] Since \(L_0\),
+        \(L_1\), and \(L_2\) are homogeneous of degrees zero, one, and two in
+        the generalized velocities, respectively, Euler's theorem gives: \[
+        \sum_i \dot{q}_i \frac{\partial L_0}{\partial \dot{q}_i} = 0, \qquad
+        \sum_i \dot{q}_i \frac{\partial L_1}{\partial \dot{q}_i} = L_1, \qquad
+        \sum_i \dot{q}_i \frac{\partial L_2}{\partial \dot{q}_i} = 2L_2 \]
+        Therefore: \[ \sum_i \dot{q}_i \frac{\partial \mathcal{L}}{\partial
+        \dot{q}_i} = L_1 + 2L_2 \] and the energy function becomes: \[ h = (L_1
+        + 2L_2) - (L_0 + L_1 + L_2) = L_2 - L_0 \]
+      </p>
+
+      <p>
+        Now, if the coordinate transformation equations do not involve time
+        explicitly, then \(T_0 = T_1 = 0\), and so \(T = T_2\), which means
+        \(L_2 = T\). If the potential energy does not depend on the generalized
+        velocities, then \(L_0 = -V\). Therefore: \[ h = T - (-V) = T + V = E \]
+        So, under these conditions, the energy function is exactly the total
+        mechanical energy of the system. Because the Lagrangian has no explicit
+        dependence on time, the energy function is conserved, and consequently
+        the total mechanical energy is conserved as well.
+      </p>
+
+      <p>
+        Notice that in the energy function \(h\), we can replace
+        \(\frac{\partial \mathcal{L}}{\partial \dot{q}_i}\) with the generalized
+        momentum \(p_i\), defined as: \[ p_i = \frac{\partial
+        \mathcal{L}}{\partial \dot{q}_i} \] This gives us: \[ h = \sum_i
+        \dot{q}_i p_i - \mathcal{L} \] However, there is an important
+        distinction here. The energy function \(h\) is initially expressed in
+        terms of the generalized coordinates \(q_i\), generalized velocities
+        \(\dot{q}_i\), and time \(t\). The
+        <strong>Hamiltonian</strong> \(\mathcal{H}\), on the other hand, is
+        expressed in terms of the generalized coordinates \(q_i\), generalized
+        momenta \(p_i\), and time \(t\). When the Legendre transformation is
+        well-defined, we can express the Hamiltonian as: \[
+        \mathcal{H}(q_1,\dots,q_N,p_1,\dots,p_N,t) = \sum_{i=1}^{N} \dot{q}_i
+        p_i - \mathcal{L}(q_1,\dots,q_N,\dot{q}_1,\dots,\dot{q}_N,t) \] where
+        the generalized velocities on the right-hand side are expressed in terms
+        of the generalized coordinates, momenta, and time. The Hamiltonian is
+        therefore the phase-space representation of this energy function. Under
+        the conditions we discussed above, it equals the total mechanical energy
+        and is conserved when the Lagrangian has no explicit time dependence.
+      </p>
+      <p>
+        In quantum mechanics, you will see the Hamiltonian a lot. There, the
+        Hamiltonian is written as an operator, usually denoted by
+        \(\hat{\mathcal H}\). It acts on the quantum state of the system and
+        represents the total energy of the system. In the position
+        representation, for a particle with mass \(m\) moving in a potential
+        \(V\), the Hamiltonian operator is written as: \[ \hat{\mathcal H} =
+        -\frac{\hbar^2}{2m}\nabla^2 + V \] You will see where this expression
+        comes from later when we develop the connection between classical
+        mechanics and quantum mechanics. For now, it is enough to notice that
+        the Hamiltonian has made its way from classical mechanics into quantum
+        mechanics, where it becomes one of the most important operators in the
+        theory.
+      </p>
+    </div>
+    <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">A Student's Guide to Lagrangians and Hamiltonians.</p>
+              <span class="resource-card__sub">Patrick Hamill. Ch-1.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Classical Mechanics.</p>
+              <span class="resource-card__sub">John R. Taylor. Ch-7.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Classical Mechanics.</p>
+              <span class="resource-card__sub">Herbert Goldstein, Charles P. Poole, and John Safko. Ch-1,2.</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

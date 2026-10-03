@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculus: The Study Of Change</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+    <!-- Chapter Title -->
+    <div class="title-container">
+      <h1 id="title">
+        <span class="Subject" data-mini="false">Lesson-3</span>
+        <div class="tc">
+          <!-- only change this line: add the inner span -->
+          <span class="inner-box">Introduction to Bases, Dimension, and Solving Systems of Linear Equations</span>
+        </div>
+      </h1>
+    </div>
+
+    <!-- Publication Info -->
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 26 Sep 2024
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 26 Sep 2024
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="#">Monjurul Hasan Nabil</a>
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Text adaptation by
+        <a href="#">Monjurul Hasan Nabil</a>
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-code"></i> <a href="#">Source Code</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "Somewhere, something incredible is waiting to be known."
+        <br/>
+        <span>- Carl Sagan</span>
+      </blockquote>
+    </div>
+
+        <!-- Resources Section -->
+        <div class="resources-section">
+        <div class="resources-header">
+            <span class="resources-label">Resources</span>
+        </div>
+        <div class="resources-outer">
+            <div class="resources-grid">
+
+            <div class="resource-card">
+                <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+                <div class="resource-card__body">
+                <span class="resource-card__type">Textbook</span>
+                <p class="resource-card__title">Linear Algebra Done Right</p>
+                <span class="resource-card__sub">Sheldon Axler — Ch. 1-2</span>
+                </div>
+            </div>
+            <div class="resource-card">
+                <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+                <div class="resource-card__body">
+                <span class="resource-card__type">Textbook</span>
+                <p class="resource-card__title">Introduction to Linear Algebra, 5th edition.</p>
+                <span class="resource-card__sub">Gilbert Strang — Ch.2</span>
+                </div>
+            </div>
+            <div class="resource-card">
+                <div class="resource-card__icon"><i class="fas fa-video"></i></div>
+                <div class="resource-card__body">
+                <span class="resource-card__type">Video</span>
+                <p class="resource-card__title">Essence of Linear Algebra</p>
+                <span class="resource-card__sub">3Blue1Brown — YouTube</span>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+
+       <div class="content">
+            <h2>
+                Linear Equation
+            </h2>
+            <p> 
+                We are somewhat familiar with linear equations of the form \(2x = 6\), or \(2x + 3y = 5\), or maybe \(x + 2y + 7z = 12\). These are examples of linear equations. 
+                Usually, we use them to describe a system, and they hold valuable information in their structure. The \(x\), \(y\), and \(z\) are unknowns in these equations. 
+                The unknowns in a linear equation may represent many things, such as populations in different cities, volumes of different systems, or some other quantity. 
+                The general definition of a linear equation is:
+            </p> 
+            <div class="definition-box"> 
+                <p> 
+                    <strong class="DEF">Definition: Linear Equation</strong> 
+                    A <strong>linear equation</strong> is a specific type of equation that has the following general form:
+                </p> 
+                <p class="equation"> 
+                    \[ 
+                        c_1x_1 + c_2x_2 + c_3x_3 + \dots + c_ix_i + \dots + c_nx_n = b 
+                    \] 
+                </p> 
+                <p> 
+                    Where \(c_1, c_2, \dots, c_i, \dots, c_n\) are called the <strong>coefficients</strong>, and the variables \(x_1, x_2, \dots, x_i, \dots, x_n\) are the 
+                    <strong>unknowns</strong>. The constant \(b\) is referred to as the <strong>constant term</strong>. 
+                </p> 
+            </div> 
+            <p> 
+                We are very much familiar with linear equations. For example:
+                \[ 
+                    3x + 4y = 0 
+                \] 
+                is a linear equation, so is:
+                \[ 
+                    x + y + z = 0 
+                \] 
+                but the equation
+                \[ 
+                    6xy + 28z + 496y = 0 
+                \] 
+                is not a linear equation because of the \(xy\) term. Nor is the equation:
+                \[ 
+                    2x^2 + y + 3z = 8 
+                \] 
+                A linear equation has <strong>degree one</strong>, meaning every variable has a power of at most <strong>one</strong>, and no variable is multiplied or divided by another variable in the same term.
+            </p> 
+            <p> 
+                We can graph our linear equations as long as they have at most 3 unknowns. More than that, we cannot visualize the dimension, let alone the hyperplane that they produce. 
+                Below, we show how various linear equations with two or three unknowns produce a line or a plane.
+            </p> 
+            <div class="Animation"> 
+                <div class="Cont_ent"> 
+                    <figure class="media"> 
+                        <img 
+                            src="/Main/Chapters/Chapter-3/Vec_Les_4/Images/img_1.png" 
+                            alt="Manim rendering showing linear equation in two variables" 
+                            loading="lazy" 
+                        /> 
+                    </figure> 
+
+                    <figure class="media"> 
+                        <img 
+                            src="/Main/Chapters/Chapter-3/Vec_Les_4/Images/img_2.png" 
+                            alt="Manim rendering showing linear equation in three variables" 
+                            loading="lazy" 
+                        /> 
+                    </figure> 
+                </div> 
+            </div>
+            <p> 
+                In the above images, you can see how a linear equation with three unknowns forms a plane in 3D space. 
+            </p> 
+            <div class="Animation"> 
+                <div class="Cont_ent"> 
+                    <figure class="media"> 
+                        <img 
+                            src="/Main/Chapters/Chapter-3/Vec_Les_4/Images/img_3.png" 
+                            alt="Manim rendering showing a linear equation in three variables" 
+                            loading="lazy" 
+                        /> 
+                    </figure> 
+
+                    <figure class="media"> 
+                        <video 
+                            controls 
+                            autoplay 
+                            muted 
+                            loop 
+                            playsinline 
+                            preload="metadata" 
+                            poster="/Main/Chapters/Chapter-3/Vec_Les_4/Images/img_3.png" 
+                        > 
+                            <source 
+                                src="/Main/Chapters/Chapter-3/Vec_Les_4/Videos/vid_1.mp4" 
+                                type="video/mp4" 
+                            /> 
+                            Your browser does not support the video tag. 
+                        </video> 
+                    </figure> 
+                </div> 
+            </div> 
+            <p> 
+                The above animation shows what it looks like when we plot an equation with two unknowns; it produces a line. 
+            </p> 
+
+            <h3>System of Linear Equations</h3> 
+
+            <p> 
+                We told you about linear equations, but a system of linear equations is equally simple. What a system of equations 
+                tells us is how the unknowns are related in different ways, allowing us to narrow down to a simple, singular solution, 
+                assuming there is just a single solution for the unknowns. 
+            </p> 
+
+            <p> 
+                A system of linear equations is defined as:
+            </p> 
+
+            <div class="definition-box"> 
+                <p> 
+                    <strong class="DEF">Definition: System Of Linear Equations</strong> 
+                    A set or collection of linear equations is called a <strong>system of linear equations</strong>. 
+                    For \(m\) equations with \(n\) unknowns, a system of linear equations can generally be written as:
+                </p> 
+
+                <p class="equation"> 
+                    \[ 
+                    \text{System of Linear Equations}\quad 
+                    \begin{cases} 
+                    c_{11}x_1 + c_{12}x_2 + \cdots + c_{1n}x_n = b_1, \\ 
+                    c_{21}x_1 + c_{22}x_2 + \cdots + c_{2n}x_n = b_2, \\ 
+                    \vdots \\ 
+                    c_{m1}x_1 + c_{m2}x_2 + \cdots + c_{mn}x_n = b_m. 
+                    \end{cases} 
+                    \] 
+                </p> 
+            </div> 
+
+            <p> 
+                Having this system of equations, we would like to solve it. Even if we can't solve a system of linear equations, 
+                we can still get insight into the system that these equations describe, but here we will talk about solving the system of linear equations. 
+            </p> 
+
+            <h2>Solving a System of Linear Equations</h2> 
+
+            <p> 
+                Before we jump deep, let's start with a simple exercise. Given the system of linear equations below, let's solve for \(x\) and \(y\). 
+                \[ 
+                    6x+y=6 
+                \] 
+                \[ 
+                    2x+3y=6 
+                \] 
+            </p> 
+
+            <p> 
+                We can easily solve them using the method of substitution, but we can solve them if we just plot them:
+            </p> 
+
+            <div class="Animation"> 
+                <div class="Cont_ent"> 
+                    <figure class="media"> 
+                        <img 
+                            src="/Main/Chapters/Chapter-3/Vec_Les_4/Images/img_4.png" 
+                            alt="Manim rendering showing the graphical solution of a system of linear equations" 
+                            loading="lazy" 
+                        /> 
+                    </figure> 
+
+                    <figure class="media"> 
+                        <video 
+                            controls 
+                            autoplay 
+                            muted 
+                            loop 
+                            playsinline 
+                            preload="metadata" 
+                            poster="/Main/Chapters/Chapter-3/Vec_Les_4/Images/img_4.png" 
+                        > 
+                            <source 
+                                src="/Main/Chapters/Chapter-3/Vec_Les_4/Videos/vid_3.mp4" 
+                                type="video/mp4" 
+                            /> 
+                            Your browser does not support the video tag. 
+                        </video> 
+                    </figure> 
+                </div> 
+            </div> 
+
+            <p> 
+                We see that the intersection of the two lines defined by the equations gives us the solution to the system of linear equations. 
+                There is another way to make sense of the solution of a system of linear equations, and that is by using column vectors. 
+            </p> 
+
+            <p> 
+                We have the system of linear equations:
+                \[ 
+                    6x+y=6 
+                \] 
+                \[ 
+                    2x+3y=6 
+                \] 
+                Look carefully: we can turn this into a linear combination as below:
+                \[ 
+                    x\begin{pmatrix} 6 \\ 2\end{pmatrix} + y \begin{pmatrix} 1 \\ 3\end{pmatrix} = \begin{pmatrix} 6 \\ 6\end{pmatrix} 
+                \] 
+                This linear combination asks a kind of different question from the structure of the system of linear equations we are familiar with. 
+                This form asks the question: for what specific values of the coefficients (of the linear combination) does the linear combination produce a certain vector? 
+                And it is rather easier to visualize the question that it poses geometrically. 
+            </p>
+            <p>
+                The exact vector construction of the solution of the system of linear equations is:
+            </p>
+            <div class="Animation">
+                <div class="Cont_ent">
+                    <figure class="media">
+                        <img
+                            src="/Main/Chapters/Chapter-3/Vec_Les_4/Images/img_5.png"
+                            alt="Manim rendering showing the vector construction of a solution to a system of linear equations"
+                            loading="lazy"
+                        />
+                    </figure>
+
+                    <figure class="media">
+                        <video
+                            controls
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            poster="/Main/Chapters/Chapter-3/Vec_Les_4/Images/img_5.png"
+                        >
+                            <source
+                                src="/Main/Chapters/Chapter-3/Vec_Les_4/Videos/vid_4.mp4"
+                                type="video/mp4"
+                            />
+                            Your browser does not support the video tag.
+                        </video>
+                    </figure>
+                </div>
+            </div>
+
+            <p>
+                This way of picturing the solution of a system of linear equations is called the <strong>column picture</strong>, and it is a very useful thing to know about.
+            </p>
+
+            <p>
+                Similarly, in the case of three vectors, it is the same reasoning and poses the same question, and so on for any number of vectors. It is
+                so much easier to think of \(n\)-dimensional vectors being linearly combined than imagining hyperplanes in an \(n\)-dimensional space intersecting at a
+                particular point, like a coordinate, which is our solution. We will make use of the geometrical and mathematical advantages of vectors to
+                solve systems of equations or simplify the systems of equations in ways that will allow us to solve them much more easily than in their general form.
+            </p>
+
+            <p>
+                Soon, when we study <strong>Linear Transformation</strong>, you will see once again that our way of asking the question to find a solution to the system of linear equations changes.
+                There, our question will change from the linear combination to the question: "Under the Linear Transformation by the transformation matrix \(\mathbf{T}\), which vector
+                \(\mathbf{x}\) lands on the vector \(\mathbf{b}\)?" Which is a much more interesting way of looking at a system of linear equations.
+            </p>
+
+            <p>
+                It's a beautiful thing how we can look at a simple problem from different directions and explore it and figure things out with no restriction, but with
+                the limitations that we may have. The only thing we can do is keep exploring, hoping for a lead. Even if everything turns void, it's important to keep
+                exploring and keep looking from different angles, till the void shatters and crumbles to pieces, leaving nothing except pure light.
+            </p>
+
+            <p>
+                Our linear combination form of the simple system of linear equations:
+                \[
+                    x\begin{pmatrix} 6 \\ 2\end{pmatrix} + y \begin{pmatrix} 1 \\ 3\end{pmatrix} = \begin{pmatrix} 6 \\ 6\end{pmatrix}
+                \]
+                can be compressed further. Look carefully: it's just a matrix multiplication:
+                \[
+                    \begin{pmatrix} 6 & 1 \\ 2 & 3\end{pmatrix} \begin{pmatrix} x \\ y\end{pmatrix} = \begin{pmatrix} 6 \\ 6\end{pmatrix}
+                \]
+                Here, the matrix \(\begin{pmatrix} 6 & 1 \\ 2 & 3\end{pmatrix}\) is what we call a <strong>coefficient matrix</strong>, because it contains
+                the coefficients. This equation, for the general case of any system of linear equations, can be written as:
+                \[
+                    \mathbf{A}\mathbf{x} = \mathbf{b}
+                \]
+                \[
+                    \begin{pmatrix}
+                    c_{11} & c_{12} & \cdots & c_{1n} \\
+                    c_{21} & c_{22} & \cdots & c_{2n} \\
+                    \vdots & \vdots & \ddots & \vdots \\
+                    c_{m1} & c_{m2} & \cdots & c_{mn}
+                    \end{pmatrix}
+                    \begin{pmatrix} x_1 \\ x_2 \\ \dots \\ x_n \end{pmatrix}
+                    =
+                    \begin{pmatrix} b_1 \\ b_2 \\ \dots \\ b_m \end{pmatrix}
+                \]
+                Where
+                \[
+                    \mathbf{A} =
+                    \begin{pmatrix}
+                    c_{11} & c_{12} & \cdots & c_{1n} \\
+                    c_{21} & c_{22} & \cdots & c_{2n} \\
+                    \vdots & \vdots & \ddots & \vdots \\
+                    c_{m1} & c_{m2} & \cdots & c_{mn}
+                    \end{pmatrix},
+                    \quad
+                    \mathbf{x} =
+                    \begin{pmatrix} x_1 \\ x_2 \\ \dots \\ x_n \end{pmatrix},
+                    \quad
+                    \mathbf{b} =
+                    \begin{pmatrix} b_1 \\ b_2 \\ \dots \\ b_m \end{pmatrix}.
+                \]
+                If any of this confuses you, go back to the definition of a system of linear equations. In the equation, the vector \(\mathbf{b}\) contains
+                the right-hand sides of the system of linear equations in a vector accordingly. It may sometimes appear that we write such a system of linear equations in the form:
+                \[
+                    \left(
+                    \begin{array}{cccc|c}
+                    c_{11} & c_{12} & \cdots & c_{1n} & b_1 \\
+                    c_{21} & c_{22} & \cdots & c_{2n} & b_2 \\
+                    \vdots & \vdots & \ddots & \vdots & \vdots \\
+                    c_{m1} & c_{m2} & \cdots & c_{mn} & b_m
+                    \end{array}
+                    \right)
+                    =
+                    \left(\mathbf{A}\mid\mathbf{b}\right)
+                \]
+                They are essentially the same thing, but in different forms, carrying the same necessary information that is truly important to solve for the
+                unknowns.
+            </p>
+
+            <p>
+                Alright, but what is the point of any of this? Why are we doing this? Why should we care about the matrices? And why in this form?
+                Well, now we will explore the idea of solving the system of linear equations using the method of <strong>elimination</strong>. For this method, the matrix is
+                an essential tool that we must have.
+            </p>
+
+            <p>
+                Remember, the only time we will have exactly one set of values as a solution to a system of linear equations is not necessarily when \(m=n\).
+                However, in the special case \(m=n\), where the number of variables is equal to the number of equations, we may have a unique solution, provided the
+                coefficient matrix is invertible. This is just a reminder; we will explore these ideas more carefully as we continue.
+            </p>
+
+            <h3>
+                Solving a System Using the Method of Elimination
+            </h3>
+        </div>
+
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

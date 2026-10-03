@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculus: The Study Of Change</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+    <!-- Chapter Title -->
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-1</span>
+
+        <div class="tc">
+          <span class="inner-box">An Introduction to Vectors.</span>
+        </div>
+
+      </h1>
+    </div>
+
+    <!-- Publication Info -->
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "Now Quaternions, or the doctrine of Vectors, is a mathematical method, but it is a method of thinking..."
+        <br />
+        <span>- James Clerk Maxwell</span>
+      </blockquote>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+      <h1>Introduction</h1>
+      <p>
+        In this section we want to introduce you to vectors without being too
+        rigorous; we will talk about what vectors actually are, their
+        properties, and how to visualize them. This is an introduction to
+        vectors.
+      </p>
+
+      <h2>What is a Scalar Quantity?</h2>
+      <p>
+        We are very familiar with scalar quantities. A scalar quantity allows us
+        to describe a quantity with just a single number — thus, a quantity that
+        can be described with a single number is called a
+        <em>scalar quantity</em>. There are several examples of scalar
+        quantities, such as temperature, density, pressure, and the number of
+        some abstract or physical objects. All of these — and many other
+        quantities — can be described with a single number, so we call them
+        scalar quantities. Well, life is not always that easy. Throughout our
+        evolution, we realized there are things or quantities we can't exactly
+        describe with just one number. We sometimes need two or more numbers to
+        describe some quantities, so we, the <em>homo sapiens</em> of infinite
+        wisdom, invented a new type of quantity to survive the wildness of
+        nature and we named it: <strong>Vector</strong>.
+      </p>
+
+      <h2>What is a Vector Quantity?</h2>
+      <p>
+        A quantity that needs more than a single number to describe is called a
+        <em>vector quantity</em>, and the object we use to describe a vector
+        quantity is called a <em>vector</em>. Not every quantity that requires
+        more than one number is a vector — there are more general objects called
+        <em>tensor quantities</em> that are more abstract concepts and also
+        require more than a single number to describe. We will ignore tensors
+        and tensor quantities in this section.
+      </p>
+
+      <p>
+        By convention, vectors are introduced with a very simple definition:
+        <br />
+        <strong
+          >A vector is a mathematical object that has both magnitude and
+          direction.</strong
+        >
+        Usually, a scalar quantity has only magnitude. For example, the
+        temperature in this room is \(25^{\circ}\text{C}\) — the temperature has
+        only a magnitude. A vector quantity, in addition to magnitude, also has
+        a direction.
+      </p>
+
+      <p>
+        Examples of vector quantities are velocity, force, momentum, and
+        displacement. When we move in some direction, we move by a certain
+        amount and in a certain direction; to describe this we need multiple
+        numbers. In 2D we need two numbers, and in 3D we need three numbers —
+        that is why displacement is a vector quantity, and for the same reason
+        so are the others.
+      </p>
+
+      <h2>Representation of Vectors</h2>
+      <p>
+        Vectors are usually represented by their components enclosed in
+        brackets. Below \(V_C\) is an example of how we commonly represent a
+        <strong>column vector</strong>: \[ V_C = \begin{pmatrix} x_1 \\ x_2 \\
+        x_3 \\ \vdots \\ x_n \end{pmatrix} = \begin{bmatrix} x_1 \\ x_2 \\ x_3
+        \\ \vdots \\ x_n \end{bmatrix} \] and we usually represent a
+        <strong>row vector</strong> as: \[ V_R = \left(x_1, x_2, \dots,
+        x_n\right) = \left[x_1, x_2, \dots, x_n\right] = \langle x_1, x_2,
+        \dots, x_n\rangle. \]
+      </p>
+
+      <p>
+        There is also a widely used convention for representing vectors, usually
+        written as: \[ V = a_1\hat{\mathbf{e}}_1 + a_2\hat{\mathbf{e}}_2 + \dots
+        + a_n\hat{\mathbf{e}}_n \] This is called the
+        <strong>unit-vector component notation</strong>. Here
+        \(\hat{\mathbf{e}}_i\) are the basis vectors of the coordinate system we
+        are working in. In 2D and 3D Cartesian coordinates you will often see
+        \(\hat{\mathbf{i}}\), \(\hat{\mathbf{j}}\), and \(\hat{\mathbf{k}}\)
+        used for the basis vectors — this makes it explicit which coordinate
+        system is being used.
+      </p>
+
+      <p>
+        Another convention is <strong>Bra–Ket notation</strong>, where a column
+        vector (an \(n\times1\) matrix) is written as \(\ket{\psi}\) and the
+        corresponding row vector as \(\bra{\psi}\). This notation is widely used
+        in <strong>quantum mechanics</strong>.
+      </p>
+
+      <h3>Drawing Vectors</h3>
+      <p>
+        We can draw vectors by choosing an origin \(\mathcal{O}(0,0)\) as a
+        reference point. Below is an example showing how we represent vectors by
+        drawing — we have three vectors:
+      </p>
+
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2.png"
+              alt="Manim rendering showing a vector illustration"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_1/Videos/Vec_1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <p>
+        The first component in the column vector represents how many steps to
+        take in the \(x\)-direction and the second component represents how many
+        steps to take in the \(y\)-direction. In 3D the third component
+        represents how many steps to take in the \(z\)-direction. Unfortunately,
+        we can only draw vectors up to 3D — beyond that we cannot represent them
+        visually in the usual way.
+      </p>
+
+      <h2>Vector Operations</h2>
+      <p>
+        Since vectors are physical quantities, it is natural for us to want to
+        perform operations on them. We can perform vector addition, vector
+        subtraction, and scalar multiplication. There are other vector
+        operations like the dot product and the cross product, but we will
+        discuss those later.
+      </p>
+
+      <h3>Vector Addition</h3>
+      <p>
+        Given two \(n\)-dimensional vectors \(\vec{v}\) and \(\vec{w}\), vector
+        addition is defined as:
+      </p>
+
+      \[ \vec{v} + \vec{w} = \begin{pmatrix} v_1 \\ v_2 \\ v_3 \\ \vdots \\ v_n
+      \end{pmatrix} + \begin{pmatrix} w_1 \\ w_2 \\ w_3 \\ \vdots \\ w_n
+      \end{pmatrix} = \begin{pmatrix} v_1 + w_1 \\ v_2 + w_2 \\ v_3 + w_3 \\
+      \vdots \\ v_n + w_n \end{pmatrix} \]
+
+      <p>
+        For example, if \(\vec{v} = \begin{pmatrix}2 \\ 4\end{pmatrix}\) and
+        \(\vec{w} = \begin{pmatrix}3 \\ 2\end{pmatrix}\), then their vector sum
+        is:
+      </p>
+
+      \[ \vec{v} + \vec{w} = \begin{pmatrix}2 \\ 4\end{pmatrix} +
+      \begin{pmatrix}3 \\ 2\end{pmatrix} = \begin{pmatrix}5 \\ 6\end{pmatrix}.
+      \]
+
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2 _2.png"
+              alt="Manim rendering showing vector addition"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2 _2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_1/Videos/Vec_1_add_1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <p>
+        When we compute \(\vec{v}+\vec{w}\), the resultant vector of the
+        addition is the diagonal of the parallelogram formed when we translate
+        \(\vec{v}\) and \(\vec{w}\) along each other.
+      </p>
+
+      <h3>Scalar Multiplication</h3>
+
+      <p>
+        Another vector operation is <strong>scalar multiplication</strong>. This
+        operation scales a vector by a scalar number. Let \(c\) be a scalar and
+        \(\vec{v}\) a vector. Scalar multiplication is written \[ \vec{w} =
+        c\,\vec{v}. \] Scalar multiplication can and does change the direction
+        of \(\vec{v}\) when \(c\) is negative — then it reverses the direction.
+        It rescales the magnitude of \(\vec{v}\) by a factor of \(|c|\). If
+        \(c=0\), the result is the zero vector.
+      </p>
+
+      <p>
+        For example, if \(\vec{v} = \begin{pmatrix}2 \\ 4\end{pmatrix}\), then
+        multiplying by \(c\) gives \[ c\vec{v} = \begin{pmatrix} 2c \\ 4c
+        \end{pmatrix}. \] So: \[ 2\vec{v} = \begin{pmatrix}4 \\ 8\end{pmatrix},
+        \qquad -1\vec{v} = \begin{pmatrix}-2 \\ -4\end{pmatrix}, \qquad 0\vec{v}
+        = \begin{pmatrix}0 \\ 0\end{pmatrix}. \]
+      </p>
+
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_sc_ManimCE_v0.19.2.png"
+              alt="Manim rendering showing scalar multiplication of a vector"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_sc_ManimCE_v0.19.2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_1/Videos/Vec_1 sm.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <h3>Linear Combination</h3>
+
+      <p>
+        Given some vectors \(\vec{v}_1,\vec{v}_2,\dots,\vec{v}_n\), their linear
+        combination is defined as: \[ L = c_1\vec{v}_1 + c_2\vec{v}_2 + \dots +
+        c_n\vec{v}_n. \] Where \(c_i \in \mathbb{F}\), meaning the \(c\)'s can
+        be real or complex numbers, depending on the field \(\mathbb{F}\) we are
+        working over.
+      </p>
+
+      <p>
+        We can show an example. Let there be three vectors \(\vec{v}_1 =
+        \begin{pmatrix}2 \\ 4\end{pmatrix}\), \(\vec{v}_2 = \begin{pmatrix}3 \\
+        2\end{pmatrix}\), and \(\vec{v}_3 = \begin{pmatrix}2 \\
+        2\end{pmatrix}\), and let there be three numbers \(c_1 = 0.5\), \(c_2 =
+        2\), and \(c_3 = 1.5\). So their linear combination is: \[ c_1\vec{v}_1
+        + c_2\vec{v}_2 + c_3\vec{v}_3 = 0.5\begin{pmatrix}2 \\ 4\end{pmatrix} +
+        2\begin{pmatrix}3 \\ 2\end{pmatrix} + 1.5\begin{pmatrix}2 \\
+        2\end{pmatrix} = \begin{pmatrix}10 \\ 9\end{pmatrix}. \]
+      </p>
+
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_lc.png"
+              alt="Manim rendering showing a linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_lc.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_1/Videos/Vec_1_lc.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <p>
+        Above we can see a linear combination for three vectors. There is
+        another important concept about linear combinations;
+        <strong>span</strong>. We are not going to talk about span yet, but in
+        an upcoming lesson we will.
+      </p>
+
+      <h3>Linear Independence</h3>
+
+      <p>
+        Given a list \(\vec{v}_1,\dots,\vec{v}_m\), we call them linearly
+        independent if the only way to write their linear combination equal to
+        zero: \[ c_1\vec{v}_1 + c_2\vec{v}_2 + \dots + c_m\vec{v}_m = \vec{0} \]
+        is when all the \(c\)'s are zero, that is: \[ c_1 = c_2 = \dots = c_m =
+        0. \] This means there is no vector in the list that can be written as a
+        linear combination of the others: \[ \vec{v}_i = -\frac{1}{c_i} \left(
+        c_1\vec{v}_1 + \dots + c_{i-1}\vec{v}_{i-1} + c_{i+1}\vec{v}_{i+1} +
+        \dots + c_m\vec{v}_m \right). \] If such a vector did exist, and we had
+        a non-trivial linear combination equal to zero, then we would say the
+        vectors are <em>linearly dependent</em> — meaning at least one vector
+        depends on the others. Otherwise, when no such relationship exists, we
+        call the list <em>linearly independent</em>.
+      </p>
+
+      <h2>Matrix</h2>
+
+      <p>
+        Matrices can be defined in many ways, but as this is just a basic
+        introduction to what is to come next, let us define a matrix as an array
+        of numbers arranged in rows and columns. For example, a matrix can look
+        like: \[ A = \begin{pmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21}
+        & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\
+        a_{m1} & a_{m2} & \cdots & a_{mn} \end{pmatrix}. \] Here \(A\) is an
+        \(m\times n\) matrix, meaning that it has \(m\) rows and \(n\) columns.
+        Each number \(a_{ij}\) is an entry of the matrix, where \(i\) tells us
+        which row the entry is in and \(j\) tells us which column it is in. So,
+        for example, \(a_{23}\) means the entry in the second row and third
+        column. We will usually use capital letters such as \(A\), \(B\), and
+        \(C\) to represent matrices or even bold capital letters.
+      </p>
+
+      <p>
+        At first, a matrix might look like nothing more than a rectangular
+        arrangement of numbers. But matrices are much more than that. They give
+        us a way to organize and work with many quantities at once, and later we
+        will see that they can also represent linear transformations, systems of
+        equations, and many other mathematical objects. For now, this basic idea
+        of a matrix as an array of numbers is enough for what we are going to do
+        next.
+      </p>
+
+      <h3>Matrix Algebra</h3>
+
+      <h4>Matrix Addition</h4>
+
+      <p>
+        Two matrices can be added together only when they have the same
+        dimensions. To add two matrices, we simply add the corresponding entries
+        of the two matrices. For example, if \[ A = \begin{pmatrix} a_{11} &
+        a_{12} \\ a_{21} & a_{22} \end{pmatrix}, \qquad B = \begin{pmatrix}
+        b_{11} & b_{12} \\ b_{21} & b_{22} \end{pmatrix}, \] then their sum is:
+        \[ A+B = \begin{pmatrix} a_{11}+b_{11} & a_{12}+b_{12} \\ a_{21}+b_{21}
+        & a_{22}+b_{22} \end{pmatrix}. \] So, matrix addition is basically just
+        adding the corresponding entries of the two matrices.
+      </p>
+
+      <h4>Matrix Multiplication</h4>
+
+      <p>
+        Matrix multiplication is a little different from matrix addition. Two
+        matrices do not necessarily need to have the same dimensions to be
+        multiplied. For a matrix \(A\) of dimensions \(m\times n\) and a matrix
+        \(B\) of dimensions \(n\times p\), we can multiply them to get a matrix
+        \(AB\) of dimensions \(m\times p\). The entries of the resulting matrix
+        are found by taking the dot product of the corresponding row of \(A\)
+        with the corresponding column of \(B\). That is: \[ (AB)_{ij} =
+        \sum_{k=1}^{n} a_{ik}b_{kj}. \] For example, if \[ A = \begin{pmatrix} a
+        & b \\ c & d \end{pmatrix}, \qquad B = \begin{pmatrix} e & f \\ g & h
+        \end{pmatrix}, \] then: \[ AB = \begin{pmatrix} ae+bg & af+bh \\ ce+dg &
+        cf+dh \end{pmatrix}. \] Notice that, unlike ordinary multiplication of
+        numbers, matrix multiplication is generally not commutative. In general,
+        \[ AB \neq BA. \] This difference will become important later when we
+        start using matrices to represent transformations and other mathematical
+        structures.
+      </p>
+
+      <p>I think it is enough as a lesson to brush up on some concepts.</p>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

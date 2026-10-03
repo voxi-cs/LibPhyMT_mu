@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction to Measure Theory-II</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+    <!-- Chapter Title -->
+    <div class="title-container">
+      <h1 id="title">
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-3</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Introduction to Measure Theory-\(\text{II}\): Lebesgue Measure.
+          </span>
+        </div>
+      </h1>
+    </div>
+
+    <!-- Publication Info -->
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "The measurement of sets in any space, with the fundamental conditions that it must fulfil…"
+        <br />
+        <span>— Henri Lebesgue</span>
+      </blockquote>
+    </div>
+
+    <div class="content">
+      <h2>Introduction</h2>
+      <p>
+        In this lesson, we will mainly discuss
+        <strong>Lebesgue measure</strong>. We have seen that the outer measure
+        is not a measure on all subsets of \(\mathbb{R}\), as it violates the
+        third property, and the most desirable property of a measure, which is
+        <a
+          href="/Main/Chapters/Chapter-5/Lesson-1/index.html#:~:text=For%20every%20sequence,."
+          >countable additivity</a
+        >. In this lesson, we will show that the outer measure is a measure when
+        restricted to the Borel \(\sigma\)-algebra \(\mathcal B\) on \((\mathbb
+        R,\mathcal B)\), and that the outer measure restricted to the borel
+        \(\sigma\)-algebra gives the <strong>Lebesgue measure</strong>. Although
+        the notion of Lebesgue measure is not restricted to Borel sets of
+        \(\mathbb R\), as we will see in the lesson on
+        <strong>Product Measure</strong>, the idea of Lebesgue measure extends
+        naturally to \(\mathbb R^n\) and, in a more general setting, to smooth
+        <strong>manifolds</strong> embedded in \(\mathbb R^n\), using tools such
+        as charts and appropriate notions of induced measure. Said all this, we
+        will introduce Lebesgue measure here on \(\mathbb R\). Later, you will
+        see that extending the idea to much larger spaces will not be much more
+        difficult.
+      </p>
+      <h3>Outer Measure is a Measure on Borel Sets</h3>
+      <p>
+        In this section, we will prove that the outer measure is indeed a
+        measure when it is restricted to the Borel \(\sigma\)-algebra, that is,
+        we will prove that
+        <a
+          href="/Main/Chapters/Chapter-5/Lesson-1/index.html#:~:text=For%20every%20sequence,."
+          >countable additivity</a
+        >
+        holds for Borel sets. This proof is not going to be a direct one. Before
+        proving that countable additivity holds for the outer measure on Borel
+        sets, we need to prove some other properties of the outer measure when
+        applied to Borel sets. Below, the proofs build upon one another, and the
+        proof of each theorem should give you better insights into outer measure
+        , \(\sigma\)-algebra, and Borel sets.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.015</h4>
+
+        <p>
+          Suppose \(A\) and \(B\) are disjoint subsets of \(\mathbb R\), and
+          \(B\) is open then: \[ |A \cup B| = |A| + |B| \]
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          In the case when \(|B| = \infty\) then both sides of \(|A \cup B| =
+          |A| + |B|\) become equal to \(\infty\), so now assume that \(|B| <
+          \infty\), then subadditivity tells us that \(|A \cup B| \le |A| +
+          |B|\). So in order to prove that \(|A \cup B| = |A| + |B|\) we need to
+          prove the reverse inequality, that is \(|A \cup B| \ge |A| + |B|\). We
+          proceed proving \(|A \cup B| \ge |A| + |B|\) by first assuming that
+          \(B\) is an open interval then later we will generalize it to all open
+          sets of \(\mathbb R\).
+        </p>
+
+        <p>
+          Assume \(B = (a,b)\) for \(a,b \in \mathbb R\) and \(a < b\). We can
+          assume that \(a,b \notin A\), because changing a set by at most two
+          points does not change its outer measure. Let \(I_1,I_2,\dots\) be the
+          sequence of open intervals whose union contains \(A \cup B\). Now for
+          each \(n \in \mathbb Z^{+}\), let us define the following sets: \[ J_n
+          = I_n \cap (-\infty, a) \] Here each \(J_n\) tells us what elements of
+          \(A\) are in \(I_n\) on the interval \((-\infty, a)\), and since some
+          \(I_n\) might contain extra elements other than elements of \(A\), so
+          will \(J_n\). \[ K_n = I_n \cap (a, b) \] Here each \(K_n\) will only
+          contain elements of \(B\), and the union of all \(K_n\) will contain
+          \(B\). \[ L_n = I_n \cap (b,\infty) \] Here each \(L_n\) will contain
+          elements of \(A\) that are in \(I_n\) on the interval \((b,\infty)\),
+          and some other elements.
+        </p>
+
+        <p>
+          Now let us think about \(K_n\) and \(L_n\) only, since \(B\) and \(A\)
+          are disjoint and \(K_n\) is only a cover of \(B\), then we can say the
+          union of \(L_n\) and \(J_n\) will contain all the elements of \(A\)
+          and some more, hence: \[ A \subseteq \bigcup_{n=1}^{\infty} (J_n \cup
+          L_n) \]
+          <a
+            href="/Main/Chapters/Chapter-5/Lesson-1/index.html#:\~:text=%7C-,Theorem%2D5.003,-Suppose"
+            >Theorem-5.003</a
+          >
+          then implies: \[ |A| \le \sum_{n=1}^{\infty} (\ell(J_n) + \ell(L_n))
+          \] Similarly for \(B\): \[ B \subseteq \bigcup_{n=1}^{\infty} K_n
+          \implies |B| \le \sum_{n=1}^{\infty} \ell(K_n) \] Now if we add
+          \(|A|\) and \(|B|\) together we can say: \[ |A| + |B| \le
+          \sum_{n=1}^{\infty} (\ell(J_n) + \ell(L_n)) + \sum_{n=1}^{\infty}
+          \ell(K_n) = \sum_{n=1}^{\infty} \ell(I_n) \] Which is the same as: \[
+          \sum_{n=1}^{\infty} \ell(I_n) = \sum_{n=1}^{\infty} (\ell(J_n) +
+          \ell(L_n)) + \sum_{n=1}^{\infty} \ell(K_n) \ge |A| + |B| \] Notice we
+          choose the cover of \(A \cup B\) to be arbitrary, hence \(I_n\) are
+          arbitrary and thus \(\sum_{n=1}^{\infty} \ell(I_n) \ge |A| + |B|\) is
+          true for all collections of \(I_n\)'s whose union contains \(A \cup
+          B\), therefore we can say: \[ |A \cup B| \ge |A| + |B| \] Hence
+          completing the proof for the case when \(B\) is an open interval: \[
+          |A \cup B| = |A| + |B| \]
+        </p>
+
+        <p>
+          Now consider the case where \(B\) is a union of open intervals that
+          are disjoint from \(A\), meaning: \[ B = I_1 \cup I_2 \cup \dots \cup
+          I_n \] where \(I_n\) are pairwise disjoint open intervals, and \(n \in
+          \mathbb N\), then we can apply induction on \(n\) with the base case
+          \(n=1\) and induction hypothesis \[ \boxed{\text{If } B = I_1 \cup I_2
+          \cup \dots \cup I_n,\text{ then } |A \cup B| = |A| + |B|.} \] For the
+          induction step, let \(B'=I_1\cup\cdots\cup I_{n-1}\). By the induction
+          hypothesis, \(|A\cup B'|=|A|+|B'|\). Since the \(I_n\)'s are pairwise
+          disjoint and \(I_n\) is disjoint from \(A\), \(I_n\) is disjoint from
+          \(A\cup B'\), so by the open-interval case, \[ |A\cup B|=|A\cup B'\cup
+          I_n| =|A\cup B'|+\ell(I_n) =|A|+|B'|+\ell(I_n) =|A|+|B|. \]
+        </p>
+
+        <p>
+          Now assume that \(B\) is an arbitrary open subset of \(\mathbb R\),
+          then: \[ B = \bigcup_{n=1}^{\infty} I_n \] Here \(I_n\) are pairwise
+          disjoint open intervals of \(\mathbb R\) and are disjoint from \(A\).
+          Then: \[ |A \cup B| \ge \left| A \cup \left( \bigcup_{n=1}^{m}
+          I_n\right)\right| = |A| + \sum_{n=1}^{m} \ell(I_n) \] Then: \[ |A \cup
+          B| \ge |A| + \lim_{m\to\infty} \sum_{n=1}^{m} \ell(I_n) \implies |A
+          \cup B| \ge |A| + \sum_{n=1}^{\infty} \ell(I_n) = |A| + |B| \] And so
+          we get for arbitrary open subsets of \(\mathbb R\), \(B \subset
+          \mathbb R\): \[ \boxed{|A \cup B| \ge |A| + |B| \implies |A \cup B| =
+          |A| + |B| } \]
+        </p>
+
+        <p>Hence this is the proof of Theorem-5.010.</p>
+
+        <span class="qed"></span>
+      </div>
+
+      <p>
+        We now have seen that when \(A\) is arbitrary subset of \(\mathbb R\)
+        and \(B\) is an open subset of \(\mathbb R\), then outer measure on the
+        union of \(A\) and \(B\) obeys \(|A \cup B| = |A| + |B|\). Now we shall
+        look at the case when \(B\) is closed.
+      </p>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.016</h4>
+
+        <p>
+          Suppose \(A\) and \(B\) are disjoint subsets of \(\mathbb R\), and
+          \(B\) is closed then: \[ |A \cup B| = |A| + |B| \]
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          In this proof, like in the proof of 5.010, we need to prove that \(|A
+          \cup B| \ge |A| + |B|\), as the reverse is proven by
+          <a
+            href="/Main/Chapters/Chapter-5/Lesson-1/index.html#:\~:text=%7C-,Theorem%2D5.003,-Suppose"
+            >Theorem-5.003</a
+          >.
+        </p>
+
+        <p>
+          Suppose \(I_1, I_2, \dots\) are a sequence of open intervals whose
+          countable union contains \(A \cup B\), \[ A \cup B \subseteq
+          \bigcup_{n=1}^{\infty} I_n \] Let us say: \[ G =
+          \bigcup_{n=1}^{\infty} I_n \] That means \(G\) is an open subset of
+          \(\mathbb R\). Since \(A \cup B \subseteq \bigcup_{n=1}^{\infty}
+          I_n\), we can say \[ A \subseteq G \setminus B \implies |A| \le |G
+          \setminus B| \] Here we can write \(G \setminus B\) as \(G \cap
+          (\mathbb R \setminus B)\), since \(B\) is closed by the definition of
+          closed sets we can say \(\mathbb R \setminus B\) must be open. Also
+          notice that \(B \subseteq G\), so: \[ G = B \cup (G \setminus B) \]
+          Since \(B\) and \(G \setminus B\) are disjoint and \(G \setminus B\)
+          is open, by Theorem-5.010 we can say: \[ |G| = |B| + |G \setminus B|
+          \] Adding \(|B|\) to \(|A| \le |G \setminus B|\) gives us \[ |A| + |B|
+          \le |G \setminus B| + |B| \implies |A| + |B| \le |G| \] Also, by
+          countable subadditivity: \[ |G| \le \sum_{n=1}^{\infty} \ell(I_n) \]
+          Therefore: \[ |A| + |B| \le |G| \le \sum_{n=1}^{\infty} \ell(I_n) \]
+          Since the covers were arbitrary covers of \(A \cup B\): \[ |A| + |B|
+          \le |A \cup B| \implies |A \cup B| \ge |A| + |B| \] And so therefore,
+          since we already had \(|A \cup B| \le |A| + |B|\), we now have proved:
+          \[ \boxed{|A \cup B| = |A| + |B| \quad \forall A \subset \mathbb
+          R,\text{ and closed sets } B \subset \mathbb R}. \]
+        </p>
+
+        <span class="qed"></span>
+      </div>
+
+      <p>
+        Note, in this Theorem-5.011 \(A\) is arbitrary; it can be closed, open,
+        Borel and even non-Borel set. But we haven't proved yet that there
+        indeed exists such things as sets that are not Borel, and hence the
+        following Theorem-5.013.
+      </p>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.017</h4>
+
+        <p>
+          Suppose \(B \subset \mathbb R\) is a Borel set, then for every
+          \(\epsilon > 0\) there exists a closed set \(E \subseteq B\) such
+          that: \[ |B \setminus E | \lt \epsilon \]
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          Let us define the collection of sets: \[ \mathcal{L} = \left\{ D
+          \subset \mathbb R : \text{for every } \epsilon>0,\text{ there exists a
+          closed set } F\subseteq D \text{ such that } |D\setminus F|\lt
+          \epsilon \right\}. \] We will show that \(\mathcal{L}\) is a
+          \(\sigma\)-algebra. Since every closed subset of \(\mathbb R\) belongs
+          to \(\mathcal{L}\), this will show that every Borel set belongs to
+          \(\mathcal{L}\), which proves the theorem. First, let us show that
+          \(\mathcal{L}\) is closed under countable intersections. Suppose
+          \(D_1,D_2,\dots\in\mathcal{L}\) and let \(\epsilon>0\). Since every
+          \(D_k\in\mathcal{L}\), for each \(k\in\mathbb Z^+\) we can choose a
+          closed set \(F_k\subseteq D_k\) such that: \[ |D_k\setminus
+          F_k|\lt\frac{\epsilon}{2^k}. \] Now consider the set: \[
+          F=\bigcap_{k=1}^{\infty}F_k. \] Since every \(F_k\) is closed, \(F\)
+          is also closed. Also, \[ F\subseteq\bigcap_{k=1}^{\infty}D_k. \] On
+          the other hand, if a point belongs to
+          \(\left(\bigcap_{k=1}^{\infty}D_k\right)\setminus F\), then it cannot
+          belong to at least one of the sets \(F_k\). Therefore: \[
+          \left(\bigcap_{k=1}^{\infty}D_k\right)\setminus F \subseteq
+          \bigcup_{k=1}^{\infty}(D_k\setminus F_k). \] Hence, by countable
+          subadditivity: \[ \left|
+          \left(\bigcap_{k=1}^{\infty}D_k\right)\setminus F \right| \leq
+          \sum_{k=1}^{\infty}|D_k\setminus F_k| \lt
+          \sum_{k=1}^{\infty}\frac{\epsilon}{2^k} =\epsilon. \] Thus: \[
+          \bigcap_{k=1}^{\infty}D_k\in\mathcal{L}. \] Therefore, \(\mathcal{L}\)
+          is closed under countable intersections. Now we show that
+          \(\mathcal{L}\) is closed under complements. Suppose
+          \(D\in\mathcal{L}\) and \(\epsilon>0\). First consider the case when
+          \(|D|\lt \infty\). Since \(D\in\mathcal{L}\), we can choose a closed
+          set \(F\subseteq D\) such that: \[ |D\setminus F|\lt
+          \frac{\epsilon}{2}. \] Since \(|D|\lt \infty\), from the definition of
+          outer measure we can also choose an open set \(G\) containing \(D\)
+          such that: \[ |G| \lt |D|+\frac{\epsilon}{2}. \] Let: \[ H=\mathbb
+          R\setminus G. \] Since \(G\) is open, \(H\) is closed. Also,
+          \(D\subseteq G\), so: \[ H\subseteq\mathbb R\setminus D. \] Moreover:
+          \[ (\mathbb R\setminus D)\setminus H = G\setminus D \subseteq
+          G\setminus F. \] Therefore: \[ |(\mathbb R\setminus D)\setminus H|
+          \leq |G\setminus F|. \] Since \(F\) is closed and \(F\subseteq G\), by
+          Theorem-5.011: \[ |G| = |G\setminus F|+|F|. \] So: \[ |G\setminus F| =
+          |G|-|F|. \] Also, because \(D=(D\setminus F)\cup F\), by
+          subadditivity: \[ |D| \leq |D\setminus F|+|F|. \] Hence: \[ |F| \geq
+          |D|-|D\setminus F|. \] Combining these inequalities gives: \[
+          |G\setminus F| \lt \left(|D|+\frac{\epsilon}{2}\right) -
+          \left(|D|-|D\setminus F|\right) = \frac{\epsilon}{2}+|D\setminus F|
+          \lt \epsilon. \] Therefore: \[ |(\mathbb R\setminus D)\setminus H|\lt
+          \epsilon, \] and so: \[ \mathbb R\setminus D\in\mathcal{L}. \] Now
+          consider the case where \(|D|=\infty\). For each \(k\in\mathbb Z^+\),
+          define: \[ D_k=D\cap[-k,k]. \] Since \(D\in\mathcal{L}\) and
+          \([-k,k]\) is closed, we have \(D_k\in\mathcal{L}\). Also, each
+          \(D_k\) is bounded, and therefore \(|D_k|<\infty\). By the case we
+          have already proved: \[ \mathbb R\setminus D_k\in\mathcal{L}. \]
+          Notice that: \[ D=\bigcup_{k=1}^{\infty}D_k. \] Taking complements
+          gives: \[ \mathbb R\setminus D = \bigcap_{k=1}^{\infty}(\mathbb
+          R\setminus D_k). \] Since we have already shown that \(\mathcal{L}\)
+          is closed under countable intersections, it follows that: \[ \mathbb
+          R\setminus D\in\mathcal{L}. \] Thus, \(\mathcal{L}\) is closed under
+          complements as well. Finally, every closed set \(C\subseteq\mathbb R\)
+          belongs to \(\mathcal{L}\), because for any \(\epsilon>0\) we can
+          simply choose \(F=C\). Then: \[ |C\setminus F|=|C\setminus C|=0 \lt
+          \epsilon. \] Therefore, \(\mathcal{L}\) is a \(\sigma\)-algebra
+          containing every closed subset of \(\mathbb R\). Since the Borel sets
+          are generated by the closed sets, every Borel set belongs to
+          \(\mathcal{L}\). Hence, for every Borel set \(B\subset\mathbb R\) and
+          every \(\epsilon>0\), there exists a closed set \(E\subseteq B\) such
+          that: \[ \boxed{|B\setminus E|\lt epsilon}. \]
+        </p>
+
+        <span class="qed"></span>
+      </div>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.018</h4>
+
+        <p>
+          Suppose \(A\) and \(B\) are disjoint subsets of \(\mathbb R\) and
+          \(B\) is a Borel set, then: \[ |A \cup B| = |A| + |B| \]
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          In the case when \(|B|=\infty\), since \(B\subseteq A\cup B\), we
+          immediately have \[ |A\cup B|=\infty=|A|+|B|. \] So now assume that
+          \(|B|<\infty\). From Theorem-5.012 we have seen for the Borel set
+          \(B\), for every \(\epsilon \gt 0\), we can find a closed set call it
+          \(E \subseteq B\) such that: \[ |B \setminus E| < \epsilon. \] So
+          since \(E \subseteq B\) and \(A\) and \(B\) are disjoint, we can
+          write: \[ |A \cup B| \ge |A \cup E| = |A| + |E| \] where the equality
+          follows from Theorem-5.011. Also, since \[ B = E \cup (B\setminus E),
+          \] by subadditivity we have: \[ |B| \le |E| + |B\setminus E| \] and
+          therefore: \[ |E| \ge |B| - |B\setminus E| > |B|-\epsilon. \] Thus: \[
+          |A \cup B| \ge |A|+|E| > |A|+|B|-\epsilon. \] Since \(\epsilon\) is
+          arbitrarily small, we have: \[ |A \cup B| \ge |A| + |B|. \] Like
+          before we already know \(|A \cup B| \le |A| + |B|\), thus we have: \[
+          |A \cup B| = |A| + |B|. \]
+        </p>
+
+        <span class="qed"></span>
+      </div>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.019</h4>
+
+        <p>
+          There exists a set \(E \subset \mathbb R\) such that \(|E| < \infty\)
+          and \(E\) is not a Borel set.
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          We have seen in Theorem-507 that there exists disjoint subsets of
+          \(\mathbb R\), let them be \(A\) and \(B\), such that \(|B| < \infty\)
+          and \[ |A \cup B| \neq |A| + |B|. \] But we know from Theorem-5.013
+          that, for disjoint subsets of \(\mathbb R\), let them be \(A\) and
+          \(B\), and \(B\) is a Borel set and \(|B| < \infty\): \[ |A \cup B| =
+          |A| + |B|. \] So it can't be that \(|A \cup B| \neq |A| + |B|\) can
+          follow if \(B\) is Borel, so there has to be sets that are not Borel,
+          as Theorem-507 proves there indeed are sets such that \[ |A \cup B|
+          \neq |A| + |B|, \] and hence there are subsets of \(\mathbb R\) that
+          are not Borel sets.
+        </p>
+
+        <span class="qed"></span>
+      </div>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.020</h4>
+
+        <p>
+          Outer measure is a measure on the measure space \((\mathbb R, \mathcal
+          B)\), where \(\mathcal B\) is the \(\sigma\)-algebra of Borel subsets
+          of \(\mathbb R\).
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          Assume we have a sequence of Borel subsets of \(\mathbb R\), \(B_1,
+          B_2, \dots\), where each \(B_k\) is pairwise disjoint. Then for \(n
+          \ge 1\) we can say: \[ \left| \bigcup_{k=1}^{\infty} B_k \right| \ge
+          \left| \bigcup_{k=1}^{n} B_k \right| \] From Theorem-5.013 we can say:
+          \[ \left| \bigcup_{k=1}^{n} B_k \right| = \sum_{k=1}^{n} \left|B_k
+          \right| \implies \left| \bigcup_{k=1}^{\infty} B_k \right| \ge
+          \sum_{k=1}^{n} \left|B_k \right| \] Now if we take the limit \(n \to
+          \infty\) then we get: \[ \left| \bigcup_{k=1}^{\infty} B_k \right| \ge
+          \lim_{n \to \infty} \sum_{k=1}^{n} \left|B_k \right| \implies \left|
+          \bigcup_{k=1}^{\infty} B_k \right| \ge \sum_{k=1}^{\infty} \left|B_k
+          \right| \] And from countable subadditivity of outer measure we have:
+          \[ \left| \bigcup_{k=1}^{\infty} B_k \right| \le \sum_{k=1}^{\infty}
+          \left|B_k \right| \] Since we have proven both inequalities, we can
+          say outer measure on Borel sets obeys
+          <a
+            href="/Main/Chapters/Chapter-5/Lesson-1/index.html#:\~:text=For%20every%20sequence,."
+            >countable additivity</a
+          >
+          \[ \left| \bigcup_{k=1}^{\infty} B_k \right| = \sum_{k=1}^{\infty}
+          \left|B_k \right|. \]
+          <strong
+            >Therefore we have proven outer measure restricted to \((\mathbb R,
+            \mathcal B)\) is a measure.</strong
+          >
+        </p>
+
+        <span class="qed"></span>
+      </div>
+
+      <p>
+        As promised, we have shown that outer measure is indeed a measure when
+        restricted to \((\mathbb R, \mathcal B)\), and we also said that when
+        outer measure is restricted to \((\mathbb R, \mathcal B)\), we call it a
+        Lebesgue measure.
+      </p>
+
+      <p>
+        In upcoming parts we will formally define Lebesgue measure and prove
+        some of its properties, then we will talk about functions being Lebesgue
+        measurable.
+      </p>
+
+      <h2>Lebesgue Measure & Lebesgue Measurable Sets</h2>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">DEFINITION: Lebesgue measure</strong>
+          Lebesgue measure is a measure on the measurable space
+          \((\mathbb{R},\mathcal{B})\), where \(\mathcal{B}\) is the Borel
+          \(\sigma\)-algebra of \(\mathbb{R}\). It assigns to each Borel set its
+          outer measure.
+        </p>
+      </div>
+      <p>
+        Even though we defined Lebesgue measure as a measure that assigns outer
+        measure to the Borel sets, we will also see that outer measure is also a
+        measure on a larger class of sets called Lebesgue measurable sets.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">DEFINITION: Lebesgue measurable set</strong>
+          A set \(A \subset \mathbb R\) is called a Lebesgue measurable set if
+          there exists a Borel set \(B \in \mathcal B\) and \(B \subset A\) such
+          that: \[ |A \setminus B| = 0 \]
+        </p>
+      </div>
+      <p>
+        The subset of \(\mathbb R\) that are Lebesgue measurable forms a
+        \(\sigma\)-algebra, and it is larger than the Borel \(\sigma\)-algebra.
+        To construct the \(\sigma\)-algebra of Lebesgue measurable sets think of
+        taking all the Borel subsets of \(\mathbb R\), then put them all in the
+        set and call it \(\mathcal L\), then we need to take all the sets \(A\)
+        such that we can find a Borel set \(B\) such that \(|B\setminus A| =
+        0\), and after putting in all such subsets of \(\mathbb R\), what we
+        will get is the \(\sigma\)-algebra of Lebesgue measurable sets. We will
+        see the proof that indeed it is a \(\sigma\)-algebra, and we will denote
+        that as \(\mathcal L(\mathbb R)\), and the Lebesgue measurable space is
+        \((\mathbb R, \mathcal L(\mathbb R), \mu)\) (Note: later you will see us
+        using \(\lambda\) instead of \(\mu\) to make it explicit that we are
+        working with Lebesgue measure on Lebesgue measurable sets).
+      </p>
+      <p>
+        There are several definitions of Lebesgue measurable sets, but the
+        definition we used here tells us that a Lebesgue measurable set has a
+        measure difference of zero with some Borel set. As you realize, all such
+        definitions are correct. Starting from any definition, we can reach the
+        other definitions as a result of our chosen definition. Below in the
+        theorem we can see what other statements we could have chosen as the
+        definition, and we will prove that choosing any of them as the
+        definition, the others follow as theorems from the chosen definition.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.021</h4>
+
+        <p>
+          Suppose \(A \subset \mathbb R\). Then the following are equivalent:
+        </p>
+        <ol class="custom-roman-list">
+          <li>\(A\) is a Lebesgue measurable set.</li>
+          <li>
+            For each \(\epsilon \gt 0\), there exists a closed set \(F\subset
+            A\), with \(|A \setminus F| \lt \epsilon\).
+          </li>
+          <li>
+            There exists a sequence of closed sets \(F_1,F_2, \dots \subset A\),
+            such that: \[ \left| A \setminus \bigcup_{k=1}^{\infty} F_k \right|
+            = 0 \]
+          </li>
+          <li>
+            There exists a Borel set \(B \subset A\) such that \(|A \setminus B|
+            = 0\).
+          </li>
+          <li>
+            For every \(\epsilon \gt 0\), there exists an open set \(G \supset
+            A\) such that \(|G \setminus A| \lt \epsilon\).
+          </li>
+          <li>
+            There exists a sequence of open sets \(G_1,G_2,\dots\), and \(A
+            \subset G_k\), such that: \[ \left|\left(\bigcap_{k=1}^{\infty}
+            G_k\right) \setminus A \right| = 0 \]
+          </li>
+          <li>
+            There exists a Borel set \(B\), such that \(|B \setminus A| = 0\)
+          </li>
+        </ol>
+        <h4>Proof:</h4>
+        <p>
+          To prove that these statements are all equivalent to each other, we
+          need to prove the following chain of implications: \[ (ii) \iff (iii)
+          \iff (iv) \quad \text{ and } \quad (ii) \iff (v) \iff (vi) \iff (vii)
+          \] Here, to prove this implication chain, we don't need to do both-way
+          implications individually; if we just show the forward implication
+          chain \((ii) \implies (iii) \implies (iv)\) and then at last if we
+          show \((iv) \implies (ii)\), the both-way implication chain will be
+          proven, same for the other chain. So therefore we need to prove: \[
+          (ii) \implies (iii) \implies (iv) \implies (ii)\quad \text{ and }
+          \quad (ii) \implies (v) \implies (vi) \implies (vii) \implies (ii) \]
+        </p>
+
+        <p>
+          From Theorem-5.012 we can bring the Lebesgue \(\sigma\)-algebra, which
+          is: \[ \mathcal L = \{ A \subset \mathbb R: \text{ for every }
+          \epsilon \gt 0 , \text{ there exists a closed set } F \subset A \text{
+          such that } |A \setminus F| \lt \epsilon\} \] Notice this is based on
+          \((ii)\) from the theorem. We also have seen that \(\mathcal L\)
+          contains all Borel subsets of \(\mathbb R\) as well as sets with
+          measure zero. Now we will start showing how the implication chain
+          follows, starting with:
+        </p>
+        <p>
+          \((ii) \implies (iii):\) Let us start by assuming that \((ii)\) holds,
+          so we can find a sequence of closed subsets \(F_n \subset A\) such
+          that: \[ |A \setminus F_n| \lt \frac{1}{n} \] Also we can say: \[ A
+          \setminus \bigcup_{k=1}^{\infty} F_k \subset A \setminus F_n \] for
+          each \(n \in \mathbb Z^+\). Therefore we can say: \[ |A \setminus
+          \bigcup_{k=1}^{\infty} F_k| \le |A \setminus F_n| \le \frac{1}{n} \]
+          Since the above is true for each \(n \in \mathbb Z^+\), it follows
+          that: \[ |A \setminus \bigcup_{k=1}^{\infty} F_k| = 0 \] which is the
+          result from \((iii)\).
+        </p>
+        <p>
+          \((iii) \implies (iv):\) The set: \[ B = \bigcup_{k=1}^{\infty} F_k \]
+          is a countable union of closed subsets of \(\mathbb R\), which means
+          \(B\) is a Borel set. From \((iii)\) we got \(|A \setminus
+          \bigcup_{k=1}^{\infty} F_k| = 0\). Now, if we just let the set be as
+          shown above, that immediately follows \((iv)\).
+        </p>
+        <p>Therefore, \((iii) \implies (iv)\).</p>
+        <p>
+          \((iv) \implies (ii):\) Let us assume \((iv)\) holds, so there is a
+          Borel set \(B \subset A\) such that \(|A \setminus B| = 0\). Then we
+          can write: \[ A = B \cup (A \setminus B) \] Notice since \(B\) is a
+          Borel set, it belongs to \(\mathcal L\), and because \(|A \setminus B|
+          = 0\), that implies \(A \setminus B \in \mathcal L\). Since \(B\) and
+          \(A \setminus B\) are both in \(\mathcal L\) and \(\mathcal L\) is a
+          \(\sigma\)-algebra, we can say \(A \in \mathcal L\). This proves
+          exactly what we expect for a set \(A\) such that \(|A \setminus B| =
+          0\), according to our definition of a Lebesgue measurable set and
+          \((i)\), thus \((iv)\implies (i)\).
+        </p>
+        <p>
+          Now we have proven the implication chain: \[ (ii) \iff (iii) \iff (iv)
+          \] Now similarly, let us follow the next implication chain.
+        </p>
+        <p>
+          \((ii) \implies (v):\) Since \(A \in \mathcal L\) and \(\mathcal L\)
+          is closed under complementation, \(\mathbb R \setminus A \in \mathcal
+          L\). Given \(\epsilon \gt 0\), pick a closed subset \(F \subset
+          \mathbb R \setminus A\) with \(|(\mathbb R \setminus A) \setminus F|
+          \lt \epsilon\). Set \(G = \mathbb R \setminus F\); then \(G\) is open,
+          \(G \supset A\), and: \[ G \setminus A = (\mathbb R \setminus F)
+          \setminus A = (\mathbb R \setminus A) \setminus F \] So, \[ |G
+          \setminus A| \lt \epsilon. \]
+        </p>
+        <p>
+          \((v) \implies (vi):\) Assuming \((v)\) holds, then for each \(n \in
+          \mathbb Z^+\) we can choose an open \(G_n \supset A\) with \(|G_n
+          \setminus A| \lt \frac{1}{n}\), since: \[ \left(\bigcap_{k=1}^{\infty}
+          G_k \right) \setminus A \subset G_n \setminus A \implies
+          \left|\left(\bigcap_{k=1}^{\infty} G_k \right) \setminus A \right| \le
+          |G_n \setminus A| \le \frac{1}{n} \] Since it holds for each \(n \in
+          \mathbb Z^+\) we get: \[ \left|\left(\bigcap_{k=1}^{\infty} G_k
+          \right) \setminus A \right| = 0 \]
+        </p>
+        <p>
+          \((vi) \implies (vii):\) Assuming \((vi)\) holds, so there are \(G_n\)
+          for each \(n \in \mathbb Z^+\) such that: \[
+          \left|\left(\bigcap_{k=1}^{\infty} G_k \right) \setminus A \right| = 0
+          \] Since \(\bigcap_{k=1}^{\infty} G_k\) is a countable intersection of
+          open sets, it follows that \(\bigcap_{k=1}^{\infty} G_k\) is a Borel
+          set, and hence, if we let the Borel set \(B\) be: \[ B =
+          \bigcap_{k=1}^{\infty} G_k \] then by \((vi)\) we get: \[
+          \left|\left(\bigcap_{k=1}^{\infty} G_k \right) \setminus A \right| =
+          |B \setminus A| = 0 \] Hence, proving that \((vi) \implies (vii)\).
+        </p>
+        <p>
+          \((vii) \implies (ii):\) Assuming \((vii)\) holds, we can say there
+          exists a Borel set \(B \supset A\) such that \(|B \setminus A| = 0\).
+          Let us write \(A\) as: \[ A = B \cap (\mathbb R \setminus (B \setminus
+          A)) \] We know \(B\) is Borel, and thus \(B \in \mathcal L\), and
+          since \(|B \setminus A| = 0\), that implies \(B \setminus A \in
+          \mathcal{L}\), so by the definition of a \(\sigma\)-algebra, \(\mathbb
+          R \setminus (B \setminus A) \in \mathcal{L}\), which implies \(A \in
+          \mathcal L\).
+        </p>
+        <p>
+          Now we have proven the implication chain: \[ (ii) \iff (v) \iff (vi)
+          \iff (vii) \] Finally proving the theorem, that all statements \((i)
+          \to (vii)\) are equivalent.
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        Now that we have seen the above theorem, it is time for another
+        important step, that is to show that outer measure is a measure on
+        \((\mathbb R, \mathcal L)\). In Theorem-5.012 we have proven that
+        \(\mathcal L\) is a \(\sigma\)-algebra on \(\mathbb R\), but now we will
+        see outer measure is a measure on all Lebesgue subsets of \(\mathbb R\).
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.022</h4>
+        <ol class="custom-roman-list">
+          <li>
+            The set \(\mathcal L\) of Lebesgue measurable subsets of \(\mathbb
+            R\) is a \(\sigma\)-algebra.
+          </li>
+          <li>
+            Outer measure is a measure on the measure space \((\mathbb R,
+            \mathcal L)\).
+          </li>
+        </ol>
+        <h4>Proof:</h4>
+        <p>
+          \((i):\) We have seen that \(\mathcal L\) is the set that contains
+          sets that satisfy \((ii)\) of Theorem-5.015, and since \((a) \iff
+          (b)\), we can say all the sets in \(\mathcal L\) are measurable. And
+          we have seen in Theorem-5.012 that \(\mathcal L\) is a sigma algebra.
+          Therefore, all this together proves \((i)\)
+        </p>
+        <p>
+          \((ii):\) Let there be a sequence of disjoint Lebesgue measurable sets
+          \(A_1,A_2,\dots\). We have seen in Theorem-5.015 \((iv)\) there exists
+          a Borel set \(B_k \subset A_k\) with \(|A_k \setminus B_k| = 0\).
+          Since \(B_k \subset A_k\) for each \(k \in \mathbb Z^+\), we can say:
+          \[ \left|\bigcup_{k=1}^{\infty} A_k \right| \ge
+          \left|\bigcup_{k=1}^{\infty} B_k \right| \] Since \(A_k\)'s are
+          disjoint, then that implies so are \(B_k\)'s, so we can write
+          \(\left|\bigcup_{k=1}^{\infty} B_k \right| = \sum_{k=1}^{\infty}
+          |B_k|\), so: \[ \left|\bigcup_{k=1}^{\infty} A_k \right| \ge
+          \left|\bigcup_{k=1}^{\infty} B_k \right| = \sum_{k=1}^{\infty} |B_k|
+          \] Now notice we can write \(A_k = B_k \cup (A_k \setminus B_k)\),
+          since \(B_k\) and \(A_k\setminus B_k\) are disjoint, we can write: \[
+          |A_k| \le |B_k| + |A_k \setminus B_k| = |B_k| + 0 = |B_k| \implies
+          |A_k| \le |B_k| \] It is because we already know \(|A_k \setminus B_k|
+          = 0\), and we also know \(|B_k| \le |A_k|\). Therefore: \[
+          \left|\bigcup_{k=1}^{\infty} A_k \right| \ge
+          \left|\bigcup_{k=1}^{\infty} B_k \right| = \sum_{k=1}^{\infty} |B_k| =
+          \sum_{k=1}^{\infty} |A_k| \] From countable subadditivity of outer
+          measure we know that: \[ \left|\bigcup_{k=1}^{\infty} A_k \right| \le
+          \sum_{k=1}^{\infty} |A_k| \] And we got: \[
+          \left|\bigcup_{k=1}^{\infty} A_k \right| \ge \sum_{k=1}^{\infty} |A_k|
+          \] These two together give us: \[ \left|\bigcup_{k=1}^{\infty} A_k
+          \right| = \sum_{k=1}^{\infty} |A_k| \] This finally proves the
+          countable additivity, and thus proves \((ii)\).
+        </p>
+      </div>
+      <p>
+        Now we are ready to define what Lebesgue measure means. Notice a set
+        call it \(A\) with outer measure zero belongs to \(\mathcal L\) as \(B =
+        \varnothing \in \mathcal B\), so \(|A \setminus B| = 0\), which implies
+        \(A \in \mathcal L\). The Lebesgue \(\sigma\)-algebra is the smallest
+        sigma algebra that contains all open sets of \(\mathbb R\) and sets with
+        outer measure zero. Therefore we can say \[ \mathcal L = \sigma\left(
+        \{A \subset \mathbb R: |A| = 0 \text{ or } A \in \mathcal B\}\right). \]
+        There are subsets of \(\mathbb R\) that are not Lebesgue measurable like
+        in the case of Borel measure, as outer measure is not finitely additive.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">DEFINITION: Lebesgue measure</strong> The
+          <strong>Lebesgue measure</strong> is the measure on \((\mathbb
+          R,\mathcal L)\) that assigns each Lebesgue measurable set its outer
+          measure.
+        </p>
+      </div>
+      <p>
+        We have established the idea of Lebesgue measure and Lebesgue measurable
+        sets as well as Lebesgue \(\sigma\)-algebra. To some, this lesson may
+        seem too abstract and irrelevant, but remember, Lebesgue measure assigns
+        measure to sets. In this case, we have seen and constructed the
+        foundation of Lebesgue measurability of subsets of \(\mathbb R\). We
+        have also seen there are sets that are not simply Lebesgue measurable.
+        In the proceeding lesson on product measure, we will see how Lebesgue
+        measure generalizes to \(\mathbb R^n\), and we will see an example that
+        shows how Lebesgue measure gives us the volume of a hypersphere in \(n\)
+        dimensions. Lebesgue measure is going to be used to define Lebesgue
+        integration of functions, as you may remember in the case of the Riemann
+        integral we had to find the length of the interval \(b-a\) as \(b\) and
+        \(a\) get closer to each other, in other words \(\delta x \to 0\), and
+        we multiply \(\delta x\) with \(f(x)\) to get the rectangle's area and
+        sum them up, in the case of Lebesgue measure we use Lebesgue measure
+        that would be different as it generalizes to larger sets than just
+        intervals. For now, keep in mind as we proceed in the next lesson that
+        even if it all seems abstract, the best way to truly understand and
+        grasp these concepts is to play around with concepts and play around
+        with problems and exercises that are given in your textbook. In my case,
+        it was the referenced book at the top.
+      </p>
+      <p>
+        In the next section, we will cover the foundation of measurable
+        functions and what converges of measurable functions.
+      </p>
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+      <div class="resources-section">
+        <div class="resources-header">
+          <span class="resources-label">Resources</span>
+        </div>
+        <div class="resources-outer">
+          <div class="resources-grid">
+            <div class="resource-card">
+              <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+              <div class="resource-card__body">
+                <p class="resource-card__title">
+                  Measure, Integration & Real Analysis.
+                </p>
+                <span class="resource-card__sub">Sheldon Axler. Ch-2:2D.</span>
+              </div>
+            </div>
+            <div class="resource-card">
+              <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+              <div class="resource-card__body">
+                <p class="resource-card__title">
+                  Methods of Modern Mathematical Physics, Vol. 1: Functional
+                  Analysis.
+                </p>
+                <span class="resource-card__sub"
+                  >Michael Reed & Barry Simon. Ch-\(\text{I}\).</span
+                >
+              </div>
+            </div>
+            <div class="resource-card">
+              <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+              <div class="resource-card__body">
+                <p class="resource-card__title">
+                  An Introduction to Measure Theory.
+                </p>
+                <span class="resource-card__sub">Terence Tao.</span>
+              </div>
+            </div>
+            <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

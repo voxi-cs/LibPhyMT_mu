@@ -1,0 +1,1449 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction to Measure Theory-I</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+    <!-- Chapter Title -->
+    
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-1</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Introduction to Measure Theory-\(\text{I}\).
+          </span>
+        </div>
+
+      </h1>
+    </div>
+    <!-- Publication Info -->
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "The successive modifications and enrichments of the concept of the integral."
+        <br />
+        <span>— Henri Lebesgue</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h2>Introduction</h2>
+      <p>
+        The idea of measure theory is to generalize the notions of length, area,
+        and volume from Euclidean geometry to much more general spaces. For a
+        given space \(X\), we can assign a measure to certain subsets of \(X\);
+        these subsets \(E \subset X\) are called measurable sets. As you will
+        see later, the collection of measurable subsets of \(X\) is called a
+        \(\sigma\)-algebra. In \(\mathbb R^1\), we can assign lengths to
+        intervals, in \(\mathbb R^2\), we can assign areas to rectangles
+        (\(A \times B\) for \(A,B \subseteq \mathbb R\)), and in \(\mathbb R^3\),
+        we can assign volumes to cubes. But in higher dimensions \(\mathbb R^n\),
+        \(n>3\), and more complicated subsets of not only \(\mathbb R^n\) for
+        \(n>3\), but even when \(1\le n\leq 3\), if our subsets are anything
+        other than intervals, rectangles, or cubes, it is not that obvious how
+        we can assign a measure to a more complicated subset of \(\mathbb R^n\),
+        let alone a more general space \(X\).
+      </p>
+      <p>
+        If we want to define a measure on any space \(X\), it is important to
+        ask what properties a measure must obey so that it is reasonable and
+        meaningful to call it a measure and so that we can carry out analysis
+        with it. So before we define a measure on a space \(X\), we also need to
+        understand what properties we would like it to have for analysis to be
+        possible, and then choose those properties as the axioms of a
+        measure.
+      </p>
+      <p>
+        All this together, the idea of assigning a measure to a subset of a
+        space \(X\) needs to be formalized, and this is the
+        <strong>problem of measure</strong>, and the study of this problem is
+        called <strong>measure theory</strong>.
+      </p>
+
+      <p>
+        In this lesson, we will start by introducing measurability and measure
+        on the real number line \(\mathbb R\). In a later lesson, we will
+        formally introduce <strong>Lebesgue Measure</strong> on \(\mathbb R\).
+      </p>
+      <h2>Outer Measure On \(\mathbb R\)</h2>
+      <p>
+        Let's say we have an open interval \((a,b)\) for \(a \lt b\) in
+        \(\mathbb R\). It is tempting to define the measure (length) to be
+        \(b-a\). In fact, that is what we call the outer measure of an open
+        interval of \(\mathbb R\) when both \(a\) and \(b\) are finite. So if
+        we have an open interval \((0,1)\), then its length or outer measure
+        is \(1-0=1\). But what about when either \(a\) or \(b\) is \(\infty\)?
+        Well, in that case, we define the outer measure to be \(\infty\). It is
+        not really difficult to see why we do that; as one endpoint stretches to
+        infinity, it is reasonable to define the length of the open interval to
+        be infinity. And so here is the formal definition of the outer measure
+        of an open interval:
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong> The outer measure of an open
+          interval, or the length of an open interval \(I\), \(\ell(I)\), is
+          defined as:
+        </p>
+        <p class="equation">
+          \[ |I| = \ell(I)= \begin{cases} b-a & \text{if } I=(a,b) \text{ and }
+          a,b\in\mathbb{R} \text{ such that } a \lt b,\\ 0 & \text{if }
+          I=\varnothing,\\ \infty & \text{if } I=(-\infty,a) \text{ or }
+          I=(a,\infty) \text{ for some } a\in\mathbb{R},\\ \infty & \text{if }
+          I=(-\infty,\infty). \end{cases} \]
+        </p>
+      </div>
+      <p>
+        Alright, we know how to assign a measure (length) to an open interval of
+        \(\mathbb R\), but \(\mathbb R\) is not just made up of open intervals;
+        it has closed intervals, and much more complex subsets that are unions
+        of subsets of \(\mathbb R\). So we need to find a way to assign a
+        measure to subsets of \(\mathbb R\) that are other than open intervals.
+        Assume we have a subset \(E \subset \mathbb R\), then we find a sequence
+        of open intervals \(I_k\) on \(\mathbb R\) such that \(E\) is contained
+        in the countable union of \(I_k\), that is
+        \[
+        E \subset \bigcup_{k=1}^{\infty} I_k
+        \]
+      </p>
+      <!---Add Animation-1--->
+      <p>
+        Then, since \(I_k\)'s are open intervals, we can measure each of them and
+        add them up. So, to assign an outer measure to \(E\), we take all the
+        possible ways we can "cover" \(E\) with such open intervals \(I_k\) and
+        sum up the outer measure of each \(I_k\), each of which, if we take the
+        countable union, would contain \(E\). Then we put the results of the sum
+        in a set for each collection of \(I_k\) such that
+        \(E \subset \bigcup_{k=1}^{\infty} I_k\), and then take the infimum of the
+        set, and that is the outer measure of \(E\).
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong> Suppose \(E \subset \mathbb
+          R\), then the outer measure of \(E\), denoted by \(|E|\), is defined
+          as:
+        </p>
+        <p class="equation">
+          \[ |E| = \inf \left\{ \sum_{k=1}^{\infty} |I_k| : E \subset
+          \bigcup_{k=1}^{\infty} I_k, I_1, I_2, \dots \text{ are open intervals
+          of } \mathbb R \right\} \]
+        </p>
+      </div>
+      <p>
+        Before going further, let me give you two simple examples that should
+        make the definition of outer measure clear.
+      </p>
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <p>
+          <strong
+            >Find the outer measure of the set \(E = (0,1)\).</strong
+          >
+        </p>
+        <!--Add Animation 2-->
+        <p>
+          We have the subset of \(\mathbb R\) as \(E = (0,1)\), and it is not
+          really difficult to see that there are a lot of ways we can cover
+          \(E\) with open intervals, as we can see above. But what we need to
+          find the outer measure is the infimum, and intuitively we can say that
+          the collection that gives the outer measure of \(E\) is the collection
+          of open intervals \(\{(0,1), \varnothing, \varnothing, \varnothing,
+          \dots\}\). If we take the sum \(\sum_{k=1}^{\infty} |I_k|\) for this
+          particular collection of open intervals, we get:
+          \[
+          \sum_{k=1}^{\infty} |I_k|
+          = |(0,1)| + |\varnothing| + |\varnothing| + \dots
+          = 1 + 0 + 0 + \dots = 1
+          \]
+          This shows that the infimum of the sums of the lengths of all possible
+          covers is at most \(1\). On the other hand, no collection of open
+          intervals that covers \(E=(0,1)\) can have a total length less than
+          \(1\). Therefore, the set of all possible sums
+          \(\sum_{k=1}^{\infty} |I_k|\) is bounded below by \(1\), and hence the
+          outer measure of the subset \(E = (0,1)\) is its length
+          \(\ell(E)= |E| = 1\).
+        </p>
+      </div>
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <p>
+          <strong
+            >Find the outer measure of the set \(E = (1,2) \cup (6,9)\).</strong
+          >
+        </p>
+
+        <!--Add Animation 3-->
+        <p>
+          Like before, we can see the collection of open intervals that gives
+          the infimum is \(\{(1,2), (6,9), \varnothing, \varnothing, \dots\}\),
+          and if we take the sum \(\sum_{k=1}^{\infty} |I_k|\) for this
+          particular collection of open intervals, we get:
+          \[
+          \sum_{k=1}^{\infty} |I_k|
+          = |(1,2)| + |(6,9)| + |\varnothing| + \dots
+          = 1 + 3 + 0 + \dots = 4
+          \]
+          This shows that the infimum of the sums of the lengths of all possible
+          covers is at most \(4\). On the other hand, no collection of open
+          intervals that covers \(E=(1,2)\cup(6,9)\) can have a total length less
+          than \(4\). Thus, the set of all possible sums
+          \(\sum_{k=1}^{\infty} |I_k|\) is bounded below by \(4\), and so the
+          outer measure of the subset \(E = (1,2) \cup (6,9)\) is
+          \(\ell(E)= |E| = 4\).
+        </p>
+      </div>
+      <p>
+        <strong>Attention:</strong> The examples we showed above are procedures
+        used, and the logic that was used was nothing but a simplification of
+        the much broader picture. As we continue with measure theory, we will
+        be able to grasp these concepts more accurately and abstractly. But
+        here, these examples were shown just so the definition is clear to you
+        and to give you a sense of what the definition of outer measure is
+        trying to say. If you take the examples and the procedure used in the
+        examples too literally, thinking that this is how we work in measure
+        theory in general, then you will be misguided. So therefore, take these
+        examples as nothing but an oversimplified version of the much broader
+        picture of measure theory. So remember, there is much more to it than
+        what we have shown in these examples, which we are going to see now.
+      </p>
+      <p>
+        Outer measure has some useful and desirable properties that allow us to
+        carry out analysis with it. One such property is that every countable
+        subset of \(\mathbb R\) has an outer measure of \(0\).
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.001</h4>
+        <p>Every countable subset of \(\mathbb R\) has outer measure \(0\).</p>
+        <h4>Proof:</h4>
+        <p>
+          Assume \(E \subset \mathbb R\) is countable. If \(E=\varnothing\),
+          then clearly \(|E|=0\). Otherwise, enumerate the elements of \(E\) as
+          \(E=\{x_1,x_2,x_3,\dots\}\). Then, for any \(\epsilon > 0\), we can
+          cover \(E\) with a collection of open intervals:
+          \[
+          I_k = \left(x_k -
+          \frac{\epsilon}{2^{k}}, x_k + \frac{\epsilon}{2^{k}}\right)
+          \]
+          for \(k=1,2,3,\dots\). The reason why we choose these specific
+          intervals is that their lengths become arbitrarily small as \(k\)
+          increases, while each interval contains the corresponding point
+          \(x_k\). Then the sum \(\sum_{k=1}^{\infty} |I_k|\) for this
+          collection of open intervals is:
+          \[
+          \sum_{k=1}^{\infty} |I_k|
+          = \sum_{k=1}^{\infty} \frac{2\epsilon}{2^{k}}
+          = 2\epsilon \sum_{k=1}^{\infty} \frac{1}{2^{k}}
+          = \epsilon \cdot 2
+          = 2\epsilon
+          \]
+          Since outer measure is defined as the infimum, it follows that:
+          \[
+          |E| \leq 2\epsilon
+          \]
+          Because \(\epsilon\) is an arbitrary positive number, we can make it
+          as small as we want, and so we can conclude that \(|E| = 0\).
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        What <strong>Theorem-5.001</strong> tells us is that any countable
+        subset of the set of real numbers has an outer measure of zero. One of
+        the most crucial of those countable subsets of \(\mathbb R\) is the set
+        of rational numbers \(\mathbb Q\), which is a countable subset of
+        \(\mathbb R\). Therefore, we can conclude that the outer measure of the
+        set of rational numbers is \(0\).
+        \[
+        |\mathbb Q| = 0
+        \]
+      </p>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.002</h4>
+        <p>
+          Let \(A\) and \(B\) be subsets of \(\mathbb R\). If \(A \subset B\),
+          then \(|A| \leq |B|\).
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          Let the sequence of open intervals \(I_1, I_2, \dots\) be a cover of
+          \(B\). Then, since \(A \subset B\), it is also true that
+          \[
+          A \subset \bigcup_{k=1}^{\infty} I_k.
+          \]
+          Hence, we can say:
+          \[
+          |A| \leq \sum_{k=1}^{\infty} |I_k|
+          \]
+          If we now take the infimum over all possible covers of \(B\), we get:
+          \[
+          |A| \leq \inf \left\{
+          \sum_{k=1}^{\infty} |I_k| : B \subset \bigcup_{k=1}^{\infty} I_k,
+          I_1, I_2, \dots \text{ are open intervals of } \mathbb R
+          \right\} = |B|
+          \]
+        </p>
+        <span class="qed"></span>
+      </div>
+
+      <p>
+        Now let us prove another theorem which will be of great use in our analysis.
+      </p>
+
+      <div class="theo-type1">
+
+        <h4>Theorem-5.003</h4>
+
+        <p>
+          Suppose \(A_1,A_2,\dots\) are subsets of \(\mathbb R\). Then:
+          \[
+          \left|\bigcup_{k=1}^{\infty} A_k\right| \leq
+          \sum_{k=1}^{\infty} |A_k|
+          \]
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          If \(|A_k|=\infty\) for some \(k\in\mathbb Z^+\), then
+          \(\sum_{k=1}^{\infty}|A_k|=\infty\), and the inequality holds
+          trivially. Therefore, we need to consider the case where
+          \(|A_k| \lt \infty\) for all \(k\in\mathbb Z^+\). Let
+          \(\epsilon>0\). For each \(k\in\mathbb Z^+\), since \(|A_k|\) is the
+          infimum over the sums of lengths of all open interval covers of
+          \(A_k\), we can choose a sequence of open intervals
+          \(I_{1,k},I_{2,k},\dots\) whose union contains \(A_k\) such that
+          \[
+          \sum_{j=1}^{\infty}\ell(I_{j,k})
+          \leq |A_k|+\frac{\epsilon}{2^k}.
+          \]
+          Now, by summing over all \(k\), we get:
+          \[
+          \sum_{k=1}^{\infty}\sum_{j=1}^{\infty}\ell(I_{j,k})
+          \leq \sum_{k=1}^{\infty}
+          \left(|A_k|+\frac{\epsilon}{2^k}\right)
+          =\sum_{k=1}^{\infty}|A_k|+\epsilon.
+          \]
+
+          Now arrange all the intervals \(I_{j,k}\) into one sequence by
+          grouping together the intervals whose two indices have the same
+          sum. In other words, we list them according to
+          \(j+k=2,3,4,\dots\):
+          \[
+          I_{1,1},\ I_{1,2},\ I_{2,1},\ I_{1,3},\ I_{2,2},\ I_{3,1},\dots
+          \]
+          Since every \(A_k\) is contained in the union of the intervals
+          \(I_{1,k},I_{2,k},\dots\), this rearranged sequence of intervals
+          covers \(\bigcup_{k=1}^{\infty}A_k\). Also, since all the terms are
+          nonnegative, rearranging the intervals does not change the sum of
+          their lengths. Hence:
+          \[
+          \left|\bigcup_{k=1}^{\infty}A_k\right|
+          \leq \sum_{k=1}^{\infty}\sum_{j=1}^{\infty}\ell(I_{j,k})
+          \leq \epsilon+\sum_{k=1}^{\infty}|A_k|.
+          \]
+          Since \(\epsilon\) is an arbitrary positive number, we can make it
+          as small as we want, and therefore we conclude that:
+          \[
+          \left|\bigcup_{k=1}^{\infty}A_k\right|
+          \leq \sum_{k=1}^{\infty}|A_k|.
+          \]
+        </p>
+
+        <span class="qed"></span>
+
+      </div>
+
+      <p>
+        We can take the first \(n\) sets of the sequence of sets
+        \(A_1,A_2,\dots,A_n\) that are nonempty, and let the rest of the sets be
+        empty, \(A_k=\varnothing\) for \(k\gt n\). Then, by Theorem-5.003, we can
+        say that:
+        \[
+        |A_1 \cup A_2 \cup \dots \cup A_n| \leq |A_1| + |A_2| +
+        \dots + |A_n|
+        \]
+        These were some of the properties of outer measure that are quite
+        important in analysis.
+      </p>
+
+      <h3>Outer Measure of Closed Bounded Interval</h3>
+
+      <p>
+        So far, we have seen the outer measure of open intervals; here we will
+        discuss the outer measure of closed bounded intervals. In this
+        subsection, we will show that the outer measure of a closed bounded
+        interval is equal to \(|[a,b]|= b-a\), where \(b\gt a\). Before doing
+        that, we need to introduce some concepts so that we may prove the
+        outer measure of the closed bounded interval.
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: open cover</strong> Suppose \(A
+          \subset \mathbb R\).
+        </p>
+        <div class="equation_1">
+          A collection \(\mathcal{C}\) of open subsets of \(\mathbb{R}\) is
+          called an open cover of \(A\) if \(A\) is contained in the union of
+          all the sets in \(\mathcal{C}\).
+          <div class="equation_inscribed">
+            \[ A \subset \bigcup_{U \in \mathcal{C}} U \]
+          </div>
+        </div>
+        <div class="equation_1">
+          An open cover \(\mathcal{C}\) of \(A\) is called a finite open cover
+          if \(\mathcal{C}\) contains only finitely many sets.
+        </div>
+      </div>
+
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <p>
+          <strong>
+            Show that the following are true:
+            <ol class="custom-roman-list">
+              <li>
+                Let the open set \(E_1 = (0,1)\). The following is an open cover
+                of \(E_1\):
+                \[
+                \mathcal C_1 = \left\{\left(-\frac{1}{n}, 1+
+                \frac{1}{n}\right): n \in \mathbb N\right\}
+                \]
+              </li>
+              <li>
+                Let the set \(E_2 = [2,\infty)\). The following is an open cover
+                of \(E_2\):
+                \[
+                \mathcal C_2 = \left\{ \left(k ,k+2\right) : k \in
+                \mathbb Z^+ \right\}
+                \]
+              </li>
+            </ol>
+          </strong>
+        </p>
+        <br>
+        <p>
+          \((\text{i}):\) Here we have the set \(E_1 = (0,1)\), and we claim
+          that \(\mathcal C_1 = \left\{\left(-\frac{1}{n}, 1+
+          \frac{1}{n}\right): n \in \mathbb N\right\}\) is a cover for \(E_1\).
+          We can confirm this if we compute the set we get for \(n=1\) in the
+          collection \(\mathcal C_1\). We have
+          \(\left(-\frac{1}{n}, 1+ \frac{1}{n}\right)\) for
+          \(n \in \mathbb N\). If we set \(n=1\), we get:
+          \[
+          \left(-\frac{1}{1}, 1+\frac{1}{1}\right)
+          = \left(-1, 1+1\right)
+          = \left(-1, 2\right)
+          \]
+          As you can see, \(E_1\) is already a subset of \((-1,2)\).
+          Thus, we can say \(\{(-1,2)\}\) is a finite subcover of \(E_1\).
+        </p>
+        <p>
+          And so we can say:
+          \[
+          E_1 \subseteq \bigcup_{U \in \mathcal C_1} U
+          \]
+          And therefore \(\mathcal C_1\) is an open cover of \(E_1\), and
+          \(\{(-1,2)\} \subset \mathcal C_1\) is a finite subcover of \(E_1\).
+        </p>
+        <br>
+        <p>
+          \((\text{ii}):\) We have the set \(E_2 = [2,\infty)\) and the
+          collection of sets
+          \(\mathcal C_2 = \left\{ \left(k ,k+2\right) : k \in \mathbb Z^+
+          \right\}\). Let us look at what we get for \(k=1\), we get:
+          \[
+          (k, k+2) = (1,3)
+          \]
+          for \(k=2\):
+          \[
+          (k, k+2) = (2,4)
+          \]
+          for \(k=3\):
+          \[
+          (k, k+2) = (3,5)
+          \]
+          and so on. Eventually, as \(k\) increases, these intervals cover all
+          the positive numbers from \(1\) onward, and thus:
+          \[
+          [2,\infty) \subseteq \bigcup_{U \in \mathcal C_2} U
+          \implies E_2 \subseteq \bigcup_{U \in \mathcal C_2} U
+          \]
+          But notice there is no finite subcover for \(E_2\).
+        </p>
+      </div>
+
+      <p>
+        Now we will see some important proof from real analysis. Unfortunately,
+        our real analysis chapter was not complete yet, but we hope to get it
+        done soon. The proof we will show now proves that every closed bounded
+        subset of \(\mathbb R\) is compact. That is, it says every open cover of
+        a closed bounded subset of \(\mathbb R\) has a finite subcover. Here we
+        mean by subcover that the finite cover is obtained from the given cover
+        of the closed subset, meaning that given a closed subset and given any
+        cover of it, you can choose finitely many elements of the cover and
+        form a finite cover for the closed subset of \(\mathbb R\).
+      </p>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.004: Heine-Borel Theorem</h4>
+        <p>
+          Every open cover of a closed bounded subset of \(\mathbb R\) has a
+          finite subcover.
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          Let us first consider the case where we have a closed bounded
+          interval, let us call it \(B = [a,b]\). Here \(a,b \in \mathbb R\)
+          and \(a \lt b\). We claim that given an open cover \(\mathcal C\) of
+          \(B\), we can find a finite subcover of \(B\) from \(\mathcal C\).
+          To prove this theorem, we will first prove that the closed bounded
+          interval \(B\) indeed obeys the theorem by considering the set that
+          contains all the points \(d\) such that we can find a finite subcover
+          of \([a,d]\) from \(\mathcal C\), and then show that \(b\) also
+          belongs to that set. We define that set as:
+          \[
+          D = \left\{d \in [a,b]: [a,d] \text{ has a finite subcover from }
+          \mathcal C\right\}.
+          \]
+          Here we define an interval \([a,b]\) as:
+          \[
+          [a,b] = \{x: a \le x \le b\}
+          \]
+          So here
+          \[
+          [a,a] = \{a\}
+          \]
+          is just a singleton. Notice \(\{a\} \in D\). This is because if
+          \(a \in G\) and \(G \in \mathcal C\), then \(\{G\}\) is a finite
+          subcover of \(\{a\}\). Thus \(D\) is nonempty, and then it allows us
+          to take the supremum of \(D\). Let
+          \[
+          s = \sup D.
+          \]
+          Since \(s\in [a,b]\), that implies there is an open set, call it
+          \(G\), in \(\mathcal C\) such that \(s \in G\). We know from the
+          definition of an open set that a set \(G\) is open if for all
+          \(x \in G\), there exists a \(\delta \gt 0\) such that:
+          \[
+          (x-\delta, x+\delta) \subseteq G
+          \]
+          Now let \(\delta \gt 0\) be such that:
+          \[
+          (s-\delta, s+\delta) \subseteq G.
+          \]
+          Now since \(s\) is the supremum of \(D\), we know from the
+          <a href="/Main/Chapters/Chapter-4/Lesson-1/index.html#:~:text=Lemma%2D4.001%3A%20Characterization%20of%20the%20Supremum">characterization of the supremum</a>
+          that there is a \(d \in (s-\delta,s]\cap D\). So, since \(d \in D\),
+          we can say for some \(n \in \mathbb Z^+\) there are
+          \(G_1,G_2,\dots,G_n \in \mathcal C\) such that:
+          \[
+          [a,d] \subseteq G_1 \cup \dots \cup G_n.
+          \]
+          Since \(d \leq s\) and \(d > s-\delta\), we have:
+          \[
+          [a,d] \subseteq G_1 \cup \dots \cup G_n
+          \]
+          and
+          \[
+          [d,s+\delta/2] \subseteq G.
+          \]
+          Therefore:
+          \[
+          [a,s+\delta/2] \subseteq G \cup G_1 \cup \dots \cup G_n.
+          \]
+          This shows that \(s+\delta/2 \in D\), provided that
+          \(s+\delta/2 \leq b\). But since \(s=\sup D\), this is only possible if
+          \[
+          s+\delta/2 > b.
+          \]
+          Therefore, \(s\) cannot be strictly less than \(b\), because if
+          \(s \lt b\), we could choose a smaller positive \(\delta\) such that
+          \(s+\delta/2 \lt b\), giving a point larger than \(s\) that still
+          belongs to \(D\), which contradicts the fact that \(s\) is the
+          supremum of \(D\). Hence:
+          \[
+          s=b.
+          \]
+          Since \(s=b\), we have \(b\in D\), and therefore there are
+          \(G_1,G_2,\dots,G_n\in\mathcal C\) such that:
+          \[
+          [a,b] \subseteq G_1 \cup \dots \cup G_n.
+          \]
+          And therefore it proves that the closed bounded interval \(B\) of
+          \(\mathbb R\) has a finite subcover from \(\mathcal C\).
+        </p>
+
+        <p>
+          Now let us consider any closed bounded set \(B\) which is a subset
+          of \(\mathbb R\). Like before, consider that \(\mathcal C\) is an
+          open cover of \(B\). Let \(a,b\in \mathbb R\) such that \(a\lt b\) and
+          \(B \subseteq [a,b]\). Now let us consider a cover that covers the
+          entire \(\mathbb R\), that is
+          \(\mathcal C \cup \{\mathbb R \setminus B\}\). Since
+          \(\mathcal C \cup \{\mathbb R \setminus B\}\) is an open cover of
+          \(\mathbb R\), it is also an open cover of all subsets of
+          \(\mathbb R\), so it is also an open cover of \([a,b]\). We already
+          know that, given any open cover of the closed bounded interval
+          \([a,b]\), we can find a finite subcover. In this case, it is:
+          \[
+          [a,b] \subseteq G_1 \cup \dots \cup G_n \cup
+          (\mathbb R \setminus B).
+          \]
+          Since \(B \subseteq [a,b]\), that implies:
+          \[
+          B \subseteq G_1 \cup \dots \cup G_n.
+          \]
+          Thus we have proved that for any closed bounded subset of
+          \(\mathbb R\), given any open cover \(\mathcal C\), we can always find
+          a finite subcover.
+        </p>
+        <span class="qed"></span>
+      </div>
+
+      <p>
+        Let us put this theorem to use. We defined the outer measure on open
+        intervals, but even though it is intuitive that the outer measure on a
+        closed interval will be the same, that is \(|[a,b]| = b-a\), we have no
+        proof whatsoever. Here we will prove it now.
+      </p>
+      <div class="theo-type1"> <h4>Theorem-5.005: \(|[a,b]| = b-a\)</h4> <p> Given a closed interval \([a,b]\) such that \(a\lt b\) and \(a,b \in \mathbb R\), the outer measure on this set is: \[ |[a,b]| = b-a \] </p> <h4>Proof:</h4> <p> Let us first prove that \(|[a,b]| \leq b-a\). Consider the open intervals for some \(\epsilon \gt 0\): \[ (a-\epsilon, b+\epsilon), \varnothing, \varnothing, \dots \] Here we can see that \((a-\epsilon, b+\epsilon) \cup \varnothing \cup \varnothing \cup \dots\) contains \([a,b]\). Therefore: \[ |[a,b]| \leq |(a-\epsilon, b+\epsilon)| + |\varnothing| + |\varnothing| + \dots = b-a + 2\epsilon. \] Since this is true for every \(\epsilon\gt 0\), we get: \[ |[a,b]| \leq b-a. \] Now we need to prove the other way around, that is, to prove that \(|[a,b]| \geq b-a\). To do that, we need to use the <strong>Heine-Borel Theorem</strong>. </p> <p> Suppose we have a sequence of arbitrary open intervals \(I_1,I_2,\dots\) such that: \[ [a,b] \subseteq \bigcup_{k=1}^{\infty} I_k. \] We know, since \([a,b]\) is a closed bounded interval, there are a finite number of \(I_k\)'s such that: \[ [a,b] \subseteq I_1 \cup I_2 \cup \dots \cup I_n \] for some \(n \in \mathbb Z^+\). To prove that \[ \sum_{k=1}^{\infty} \ell(I_k) \geq b-a, \] it is enough to prove that \[ \sum_{k=1}^{n} \ell(I_k) \geq b-a, \] since \[ \sum_{k=1}^{\infty} \ell(I_k) \geq \sum_{k=1}^{n} \ell(I_k). \] To prove this, we will use induction. </p> <h4>Base case: \(k=1\)</h4> <p> The base case \(k=1\) means that \(I_1\) covers the whole \([a,b]\). Since \(I_1\) is an open interval, we can write \(I_1=(c,d)\). Since \([a,b]\subseteq(c,d)\), we must have \(c\lt a\) and \(d \gt b\). Therefore: \[ \ell(I_1)=d-c>b-a. \] </p> <h4>Inductive step:</h4> <p> The induction hypothesis is that for any \(n\in\mathbb Z^+\), if any closed interval \([a,x]\) is covered by \(n\) open intervals, then: \[ [a,x] \subseteq I_1 \cup I_2 \cup \dots \cup I_n \implies \sum_{k=1}^{n} \ell(I_k) \geq x-a. \] </p> <p> Suppose now: \[ [a,b] \subseteq I_1 \cup I_2 \cup \dots \cup I_n \cup I_{n+1}. \] Now notice \(b\) has to be in one of those \(I_k\)'s. We will assume \(b \in I_{n+1}\); if not, we can simply relabel the intervals. Then \(I_{n+1}\) has the form \(I_{n+1}=(c,d)\). Since \(b\in(c,d)\), we have: \[ c \lt b \lt d. \] In this case, two things can happen: either \(c \lt a\), or \(a\leq c \lt b\). The first case is the easiest case to deal with, while in the second case we need to apply the induction hypothesis. </p> <h4>Case, \(c\lt a\):</h4> <p> Since \(b\in(c,d)\), we have \(d>b\). Therefore: \[ \ell(I_{n+1})=d-c>b-a. \] This was quite straightforward since \(d>b\) and \(c\lt a\), so \(d-c\) is certainly greater than \(b-a\). Hence: \[ \sum_{k=1}^{n+1}\ell(I_k) \geq \ell(I_{n+1}) >b-a. \] </p> <h4>Case, \(a\leq c \lt b\):</h4> <p> Here, since \(I_{n+1}=(c,d)\), we know that \(I_{n+1}\) contains none of the points in \([a,c]\). Therefore, the first \(n\) open intervals \(I_1,I_2,\dots,I_n\) have to cover \([a,c]\). Hence, by the induction hypothesis, we get: \[ \sum_{k=1}^{n}\ell(I_k)\geq c-a. \] Now add \(\ell(I_{n+1})\) to both sides. Then we get: \[ \sum_{k=1}^{n+1}\ell(I_k) \geq c-a+\ell(I_{n+1}) =c-a+d-c =d-a. \] Since \(d \gt b\), we get: \[ \sum_{k=1}^{n+1}\ell(I_k) \geq d-a \gt b-a. \] And finally we have: \[ \sum_{k=1}^{n+1}\ell(I_k)\geq b-a. \] </p> <p> Now, putting all this together from both cases, since the \(I_k\)'s were arbitrary, we have proven that: \[ \sum_{k=1}^{\infty}\ell(I_k)\geq b-a. \] Since this is true for every open interval cover of \([a,b]\), we can take the infimum over all such covers and get: \[ |[a,b]|\geq b-a. \] Now putting the first proof of \(|[a,b]|\leq b-a\) together, we get: \[ |[a,b]|=b-a. \] </p> <span class="qed"></span> </div>
+
+      <p>
+        Now we have seen the outer measure on closed bounded subsets of
+        \(\mathbb R\). In the next result, we will prove something that will
+        motivate us to construct a more rigorous study of measure, not just on
+        \(\mathbb R\). The following proves that, in general, not all subsets of
+        \(\mathbb R\) obey additivity. What that means is that there are
+        disjoint subsets of \(\mathbb R\) such that the outer measure of their
+        union is not equal to the sum of their individual outer measures. Soon
+        you will see the mathematical reasoning for why additivity is desired,
+        but even without that, your intuition itself must be screaming that
+        additivity must hold for disjoint sets! And you are right in that way,
+        and to preserve that intuitive sense of measuring things, in the next
+        section of this lesson we are going to build a rigorous method of
+        <strong>measure</strong>, and those ideas will generalize to other
+        spaces such as \(\mathbb R^n\) and other abstract spaces. So let us
+        begin the proof of nonadditivity.
+      </p>
+      <div class="theo-type1">
+
+        <h4>Theorem-5.006</h4>
+
+        <p>
+          There are disjoint subsets \(A\) and \(B\) of \(\mathbb R\) such that:
+          \[
+          |A \cup B| \neq |A| + |B|
+          \]
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          For each \(a \in [-1,1]\), let us define the set:
+          \[
+          \tilde{a} = \{c \in [-1,1] : a - c \in \mathbb{Q}\}
+          \]
+          This is the equivalence class of \(a\) under the relation that
+          declares two numbers equivalent if they differ by a rational. Now we
+          claim that if \(a, b \in [-1,1]\), then either
+          \(\tilde{a} = \tilde{b}\) or \(\tilde{a} \cap \tilde{b} = \varnothing\).
+          Suppose \(\tilde{a} \cap \tilde{b} \neq \varnothing\), so there is
+          some \(d \in \tilde{a} \cap \tilde{b}\). Then \(a-d\) and \(b-d\) are
+          both rational; subtracting, we conclude that \(a-b\) is a rational
+          number. The equation
+          \[
+          a-c = (a-b) + (b-c)
+          \]
+          now implies that if \(c \in [-1,1]\), then \(a-c\) is a rational
+          number if and only if \(b-c\) is a rational number. In other words,
+          \(\tilde{a} = \tilde{b}\).
+        </p>
+
+        <p>
+          Now clearly \(a \in \tilde{a}\) for every \(a \in [-1,1]\), so:
+          \[
+          [-1,1] = \bigcup_{a \in [-1,1]} \tilde{a}
+          \]
+          and the distinct sets in \(\{\tilde{a} : a \in [-1,1]\}\) partition
+          \([-1,1]\) into disjoint equivalence classes. Using the
+          <strong>Axiom of Choice</strong>, let \(V\) be a set that contains
+          exactly one element in each of these distinct equivalence classes. So
+          for every \(a \in [-1,1]\), the set \(V \cap \tilde{a}\) has exactly
+          one element.
+        </p>
+
+        <p>
+          Let \(r_1, r_2, \dots\) be a sequence of distinct rational numbers
+          such that:
+          \[
+          [-2,2] \cap \mathbb{Q} = \{r_1, r_2, \dots\}
+          \]
+          Then:
+          \[
+          [-1,1] \subseteq \bigcup_{k=1}^{\infty}(r_k + V)
+          \]
+          where this inclusion holds because if \(a \in [-1,1]\), then letting
+          \(v\) be the unique element of \(V \cap \tilde{a}\), we have
+          \(a-v \in \mathbb{Q}\), which implies \(a-v \in [-2,2]\). Therefore,
+          \(a-v=r_k\) for some \(k \in \mathbb{Z}^+\), and hence
+          \(a=r_k+v\in r_k+V\).
+        </p>
+
+        <p>
+          The set inclusion above, the order-preserving property of outer
+          measure, and the countable subadditivity of outer measure imply:
+          \[
+          |[-1,1]| \leq
+          \left|\bigcup_{k=1}^{\infty}(r_k + V)\right|
+          \leq \sum_{k=1}^{\infty}|r_k + V|
+          \]
+          We know that \(|[-1,1]| = 2\). The translation invariance of outer
+          measure then allows us to rewrite the inequality above as:
+          \[
+          2 \leq \sum_{k=1}^{\infty}|V|
+          \]
+          Thus \(|V| > 0\).
+        </p>
+
+        <p>
+          Note that the sets \(r_1 + V, r_2 + V, \dots\) are pairwise disjoint.
+          (Proof: Suppose there exists
+          \(t \in (r_j + V) \cap (r_k + V)\). Then
+          \(t = r_j + v_1 = r_k + v_2\) for some \(v_1, v_2 \in V\), which
+          implies
+          \[
+          v_1-v_2 = r_k-r_j \in \mathbb{Q}.
+          \]
+          Our construction of \(V\) now implies that \(v_1=v_2\), which implies
+          \(r_j=r_k\), which implies \(j=k\).)
+        </p>
+
+        <p>
+          Let \(n \in \mathbb{Z}^+\). Clearly:
+          \[
+          \bigcup_{k=1}^{n}(r_k + V) \subseteq [-3,3]
+          \]
+          because \(V \subseteq [-1,1]\) and each \(r_k \in [-2,2]\). The set
+          inclusion above implies:
+          \[
+          \left|\bigcup_{k=1}^{n}(r_k + V)\right| \leq 6
+          \]
+          However:
+          \[
+          \sum_{k=1}^{n}|r_k + V|
+          = \sum_{k=1}^{n}|V|
+          = n\,|V|
+          \]
+          Since \(|V| > 0\), we can choose \(n \in \mathbb{Z}^+\) such that
+          \(n|V| > 6\). Thus:
+          \[
+          \left|\bigcup_{k=1}^{n}(r_k + V)\right|
+          <
+          \sum_{k=1}^{n}|r_k + V|
+          \]
+          If we had \(|A \cup B| = |A| + |B|\) for all disjoint subsets
+          \(A, B\) of \(\mathbb{R}\), then by induction on \(n\) we would have
+          \[
+          \left|\bigcup_{k=1}^{n} A_k\right|
+          = \sum_{k=1}^{n}|A_k|
+          \]
+          for all disjoint subsets \(A_1, \dots, A_n\) of \(\mathbb{R}\).
+          However, the inequality above tells us that no such result holds.
+          Thus there exist disjoint subsets \(A\) and \(B\) of \(\mathbb{R}\)
+          such that
+          \[
+          |A \cup B| \neq |A| + |B|.
+          \]
+        </p>
+
+        <span class="qed"></span>
+
+      </div>
+
+      <h2>Measure and Measure Space</h2>
+
+      <p>
+        In the previous theorem you saw that there are disjoint subsets of
+        \(\mathbb R\) that do not obey additivity, and additivity is a property
+        that we really want for our notion of measure or size of a subset to
+        have. Here in this section we will try to solve this problem. A side
+        note here: the function \(\mu\) is a function that assigns "size" to
+        its input (set). The note was given so you understand what we are going
+        to do with this \(\mu\). I gave you this side note so that you get some
+        comfort as to why we introduced \(\mu\).
+      </p>
+
+      <div class="theo-type1">
+
+        <h4>Theorem-5.007:</h4>
+
+        <p>
+          There is no function \(\mu\) that satisfies all the properties of a
+          measure:
+        </p>
+
+        <ol class="custom-roman-list">
+
+          <li>
+            \(\mu\) is a function from the power set of \(\mathbb{R}\) to
+            \([0,\infty]\),
+            \(\mu: \mathcal{P}(\mathbb{R}) \to [0,\infty]\).
+          </li>
+
+          <li>
+            For every open interval \(I \subset \mathbb R\),
+            \(\mu(I) = \ell(I)\).
+          </li>
+
+          <li>
+            For every sequence \((A_n)\) of pairwise disjoint subsets of
+            \(\mathbb{R}\),
+            \(\mu\left(\bigcup_{n=1}^{\infty} A_n\right)
+            = \sum_{n=1}^{\infty} \mu(A_n)\).
+          </li>
+
+          <li>
+            \(\mu(t+A) = \mu(A)\) for all \(t \in \mathbb{R}\) and
+            \(A \subset \mathbb R\).
+          </li>
+
+        </ol>
+
+        <h4>Proof:</h4>
+
+        <p>
+          Suppose there is a \(\mu\) with all four properties listed above. We
+          will show that \(\mu\) has all the properties of outer measure that we
+          used in the proof of the previous theorem, and once we do that we can
+          run the exact same argument to get a contradiction.
+        </p>
+
+        <p>
+          First let us see \(\mu(\varnothing) = 0\). Notice \(\varnothing\) is
+          an open interval with \(\ell(\varnothing) = 0\), so property (ii)
+          directly gives us \(\mu(\varnothing) = 0\).
+        </p>
+
+        <p>
+          Now let us get monotonicity. Suppose
+          \(A \subseteq B \subseteq \mathbb{R}\). We can write \(B\) as the
+          disjoint union
+          \[
+          B = A \cup (B \setminus A) \cup \varnothing \cup \varnothing \cup \cdots,
+          \]
+          so countable additivity from property (iii) gives:
+          \[
+          \mu(B) = \mu(A) + \mu(B \setminus A) + 0 + 0 + \cdots
+          = \mu(A) + \mu(B \setminus A)
+          \geq \mu(A).
+          \]
+          So \(A \subseteq B\) implies \(\mu(A) \leq \mu(B)\).
+        </p>
+
+        <p>
+          Now let us show \(\mu([a,b]) = b-a\). For any
+          \(\varepsilon > 0\) we have the containment:
+          \[
+          (a,b) \subseteq [a,b] \subseteq (a-\varepsilon,\,b+\varepsilon)
+          \]
+          so by the monotonicity we just got and property (ii):
+          \[
+          b-a = \mu((a,b)) \leq \mu([a,b])
+          \leq \mu((a-\varepsilon,b+\varepsilon))
+          = b-a+2\varepsilon.
+          \]
+          Since \(\varepsilon > 0\) was arbitrary, we get
+          \(\mu([a,b]) = b-a\).
+        </p>
+
+        <p>
+          Now let us get countable subadditivity. For any sequence
+          \(A_1,A_2,\dots\) of subsets of \(\mathbb{R}\), notice the sequence
+          \[
+          A_1,\quad
+          A_2\setminus A_1,\quad
+          A_3\setminus(A_1\cup A_2),\quad \dots
+          \]
+          is pairwise disjoint and has the same union as the original
+          sequence. So by countable additivity and then monotonicity:
+          \[
+          \mu\!\left(\bigcup_{k=1}^{\infty} A_k\right)
+          =
+          \mu(A_1)
+          +\mu(A_2\setminus A_1)
+          +\mu(A_3\setminus(A_1\cup A_2))
+          +\cdots
+          \leq
+          \sum_{k=1}^{\infty}\mu(A_k).
+          \]
+          And translation invariance is just property (iv) directly, so we
+          have it for free.
+        </p>
+
+        <p>
+          So \(\mu\) has monotonicity, countable subadditivity, translation
+          invariance, and the right value on closed intervals — those are
+          exactly all the properties we used when we proved the previous
+          theorem. So we can run the exact same argument and find disjoint
+          subsets \(A, B \subset \mathbb{R}\) such that:
+          \[
+          \mu(A \cup B) \neq \mu(A) + \mu(B).
+          \]
+          But now think about the disjoint sequence
+          \(A, B, \varnothing, \varnothing, \dots\). Countable additivity from
+          property (iii) tells us:
+          \[
+          \mu(A\cup B)
+          = \mu(A)+\mu(B)+\mu(\varnothing)+\mu(\varnothing)+\cdots
+          = \mu(A)+\mu(B)
+          \]
+          which is a contradiction. So no such \(\mu\) can exist.
+        </p>
+
+        <span class="qed"></span>
+
+      </div>
+      <h3>\(\sigma\)-algebras</h3>
+      <p>
+        Theorem 5.007 shows that we cannot define a measure \(\mu\) on
+        \(\mathbb{R}\) such that the function \(\mu\) satisfies all the
+        properties shown in the theorem; we at least need to sacrifice one of
+        the properties. But which one? Well, we can't really abandon (ii), (iii),
+        and (iv), as they are what give our measure its meaning as a notion of
+        length on \(\mathbb R\) that respects translation, so it leaves
+        us with (i). For property (i), we can't sacrifice the fact that \(\mu\)
+        is a positive function, but we can indeed sacrifice some of the elements
+        of \(\mathcal P(\mathbb R)\). And that is where
+        \(\sigma\)-algebra comes in. A \(\sigma\)-algebra is a collection of
+        subsets of \(\mathbb R\) that is closed under complements and countable
+        unions — the structural properties that allow a consistent measure to be
+        defined on its elements. We say elements of the \(\sigma\)-algebra are
+        \(\mathcal S\)-measurable, where \(\mathcal S\) is the \(\sigma\)-algebra
+        that is a subset of \(\mathcal P(\mathbb R)\), or just measurable.
+      </p>
+      <p>
+        One small thing: we call a function \(\mu\) a measure associated with
+        some \(\sigma\)-algebra if the set function \(\mu\) acts on sets in the
+        specific \(\sigma\)-algebra, assigns \(0\) to the empty set, and is
+        countably additive — the latter being property (iii) of
+        Theorem 5.007. Properties (ii) and (iv) additionally characterize the
+        Lebesgue measure specifically, requiring \(\mu\) to agree with length
+        on intervals and to be invariant under translation. Remember, a measure
+        \(\mu\) assigns to each set a sense of size; in the case of an interval,
+        for example, it is length; in the case of an enclosed surface, it is
+        area; in the case of an enclosed space, it is volume.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: \(\sigma\)-algebra</strong>
+          Suppose \(X\) is a set and \(\mathcal S\) is a set of subsets of
+          \(X\), \(\mathcal S \subseteq \mathcal P(X)\). \(\mathcal S\) is
+          called a \(\sigma\)-algebra on \(X\) if the following three conditions
+          are satisfied:
+        </p>
+        <ol class="custom-roman-list">
+          <li>\(\varnothing \in \mathcal S\).</li>
+          <li>
+            If \(E \in \mathcal S\), then \(X \setminus E \in \mathcal S\).
+          </li>
+          <li>
+            If \(E_1\), \(E_2, \dots\) is a sequence of elements of
+            \(\mathcal S\), then \(\bigcup_{k=1}^{\infty} E_k \in \mathcal S\).
+          </li>
+        </ol>
+      </div>
+      <p>
+        So what a \(\sigma\)-algebra on \(X\) is, is a collection of subsets of
+        \(X\) that is closed under the operations needed for a measure to be
+        defined on its elements. In other words, a \(\sigma\)-algebra specifies
+        which subsets of \(X\) are considered measurable, so that we can define
+        a measure \(\mu\) on those sets while requiring \(\mu\) to satisfy the
+        properties in Theorem 5.007. Below are some examples of sigma-algebras.
+        Since \(\varnothing \in \mathcal S\), we can see that according to the
+        second condition, \(X \setminus \varnothing = X\), and hence
+        \(X \in \mathcal S\).
+      </p>
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <p>
+          <strong>
+            Let \(\mathcal{S} = \left\{ \bigcup_{n \in K} [n, n + 1) : K
+            \subseteq \mathbb{Z} \right\}\). Show that it is a
+            \(\sigma\)-algebra on \(\mathbb{R}\).
+          </strong>
+        </p>
+        <p>
+          In order to show that \(\mathcal S\) is a \(\sigma\)-algebra on
+          \(\mathbb R\), we need to show that it meets all three conditions from
+          the definition.
+        </p>
+        <h4>\(\varnothing \in \mathcal S\):</h4>
+        <p>
+          Take \(K = \varnothing\), then we get:
+          \[
+          \bigcup_{n \in \varnothing}
+          [n, n + 1) = \varnothing
+          \implies \varnothing \in \mathcal S
+          \]
+        </p>
+        <h4>\(\mathbb R \setminus E \in \mathcal S\):</h4>
+        <p>
+          Let \(E\in\mathcal S\), and so we can say there exists a
+          \(K \subset \mathbb Z\) such that:
+          \[
+          E = \bigcup_{n \in K} [n, n + 1)
+          \]
+          Notice \(\mathcal S\) contains intervals of the form \([n,n+1)\).
+          If we take such intervals for all integers and union them all
+          together, we would get the real number set:
+          \[
+          \mathbb R = \bigcup_{n \in \mathbb Z} [n, n + 1)
+          \]
+          So:
+          \[
+          \mathbb R \setminus E
+          = \bigcup_{n \in \mathbb Z \setminus K} [n, n + 1)
+          \]
+          Here \(\mathbb Z \setminus K \subset \mathbb Z\), so we can say:
+          \[
+          \bigcup_{n \in \mathbb Z \setminus K} [n, n + 1)
+          = \mathbb R \setminus E \in \mathcal S
+          \]
+        </p>
+        <h4>\(\bigcup_{i=1}^{\infty} E_i \in \mathcal S\):</h4>
+        <p>
+          Let \(E_1,E_2,\dots \in \mathcal S\) be a sequence, then:
+          \[
+          E_i = \bigcup_{n \in K_i} [n, n + 1),\quad K_i \subset \mathbb Z
+          \]
+          Then:
+          \[
+          \bigcup_{i=1}^{\infty} E_i
+          = \bigcup_{i=1}^{\infty}
+          \left(\bigcup_{n \in K_i} [n, n + 1)\right)
+          = \bigcup_{n \in \bigcup_{i=1}^{\infty} K_i} [n, n + 1)
+          \]
+          Define:
+          \[
+          K = \bigcup_{i=1}^{\infty} K_i
+          \]
+          Here \(K \subseteq \mathbb Z\), then we get:
+          \[
+          \bigcup_{i=1}^{\infty} E_i
+          = \bigcup_{n \in \bigcup_{i=1}^{\infty} K_i} [n, n + 1)
+          = \bigcup_{n \in K} [n, n + 1)
+          \in \mathcal S
+          \]
+          Here, since all three conditions are shown to be satisfied by
+          \(\mathcal S\), we can say \(\mathcal S\) is a \(\sigma\)-algebra on
+          \(\mathbb R\).
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        We will now talk about some of the most important and crucial properties
+        of \(\sigma\)-algebras, then after that we shall discuss a specific
+        \(\sigma\)-algebra on \(\mathbb R\).
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.008</h4>
+        <p>
+          Assume \(\mathcal S\) is a \(\sigma\)-algebra on a set \(X\), then:
+        </p>
+        <ol class="custom-roman-list">
+          <li>\(X \in \mathcal S\).</li>
+          <li>
+            If \(A,B \in \mathcal S\), then \(A \cup B \in \mathcal S\),
+            \(A \cap B \in \mathcal S\), and \(A \setminus B \in \mathcal S\).
+          </li>
+          <li>
+            If \(E_1,E_2,\dots\) are a sequence of elements in \(\mathcal S\),
+            then \(\bigcap_{i=1}^{\infty} E_i \in \mathcal S\).
+          </li>
+        </ol>
+        <h4>Proof:</h4>
+        <p>
+          \((a):\) Since \(\varnothing \in \mathcal S\) and we know from the
+          definition of \(\sigma\)-algebra that for \(E \in \mathcal S\),
+          \(X \setminus E \in \mathcal S\), and so we can say
+          \(X \setminus \varnothing = X \in \mathcal S\).
+        </p>
+        <p>
+          \((b):\) Let the sequence \(A, B, \varnothing,\varnothing,\dots\)
+          be in \(\mathcal S\). Then, from the definition of
+          \(\sigma\)-algebra (iii), we can say:
+          \[
+          A \cup B \cup \varnothing \cup \varnothing \cup \dots \in \mathcal S
+          \implies A \cup B \in \mathcal S.
+          \]
+        </p>
+        <p>
+          From De Morgan's Laws we know that:
+          \[
+          X\setminus (A \cap B) = (X \setminus A) \cup (X \setminus B).
+          \]
+          Since \(A, B \in \mathcal S\), we can say
+          \(X \setminus A, X \setminus B \in \mathcal S\), so we can say
+          \((X \setminus A) \cup (X \setminus B) \in \mathcal S\), and that
+          implies, according to the definition (ii), \(A \cap B \in \mathcal S\).
+        </p>
+        <p>
+          Then we have:
+          \[
+          A \setminus B = A \cap (X \setminus B).
+          \]
+          We just saw that for \(A, B \in \mathcal S\),
+          \(A \cap B \in \mathcal S\). Since \(X \setminus B \in \mathcal S\),
+          we can say \(A \cap (X \setminus B) \in \mathcal S\), and therefore
+          \(A \setminus B \in \mathcal S\).
+        </p>
+        <p>
+          \((c):\) Assume \(E_1,E_2,\dots \in \mathcal S\). From De Morgan's
+          Law we get:
+          \[
+          X \setminus \left( \bigcap_{i=1}^{\infty} E_i \right)
+          = \bigcup_{i=1}^{\infty} (X \setminus E_i).
+          \]
+          Here we can see the right-hand side belongs to \(\mathcal S\), and so
+          that means
+          \[
+          X \setminus \left( \bigcap_{i=1}^{\infty} E_i \right) \in \mathcal S,
+          \]
+          which implies
+          \[
+          \left( \bigcap_{i=1}^{\infty} E_i \right) \in \mathcal S.
+          \]
+        </p>
+        <span class="qed"></span>
+      </div>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Measurable Space</strong>
+          A <strong>measurable space</strong> is an ordered pair
+          \((X,\mathcal S)\), where \(X\) is the set and \(\mathcal S\) is the
+          \(\sigma\)-algebra on \(X\). A <strong>measure space</strong> is an
+          ordered triple \((X,\mathcal S,\mu)\), where \(\mu\) is a measure on
+          the elements of \(\mathcal S\), which are subsets of \(X\). Elements
+          of \(\mathcal S\) are called <strong>\(\mathcal S\)-measurable</strong>
+          subsets of \(X\), or simply measurable subsets of \(X\).
+        </p>
+      </div>
+
+      <p>
+        As you can realize by now, there are different sorts of
+        \(\sigma\)-algebras that can be formed on a set \(X\). How these
+        \(\sigma\)-algebras are chosen depends on the context. Depending on the
+        problem we want to deal with, we form the appropriate
+        \(\sigma\)-algebra associated with the appropriate measure \(\mu\). Now
+        we will see one of the \(\sigma\)-algebras, that is called a
+        <strong>Borel</strong> \(\sigma\)-algebra on \(\mathbb R\), which will
+        be associated with the measure we will construct later.
+      </p>
+
+      <h2>Borel \(\sigma\)-algebra, \(\mathcal B\).</h2>
+      <p>
+        Let's say we have \(X=\mathbb R\). In that case, there is a specific
+        \(\sigma\)-algebra called the <strong>Borel</strong> \(\sigma\)-algebra,
+        denoted as \(\mathcal B\), and the measurable space formed by
+        \(\mathbb R\) and \(\mathcal B\) is called a Borel measurable space
+        \((\mathbb R, \mathcal B)\).
+      </p>
+      <p>
+        The Borel \(\sigma\)-algebra is the smallest \(\sigma\)-algebra
+        containing all the open subsets of \(\mathbb R\). Here what we mean by
+        smallest is, think like this: First put all the open subsets of
+        \(\mathbb R\) in a collection, then in order to make that collection a
+        \(\sigma\)-algebra we would need to make sure that all the conditions
+        \((i)\), \((ii)\), and \((iii)\) are met. So to do that, we can think of
+        a machine that takes in all the open sets and computes all the sets by
+        taking countable unions and complements to meet \((i)\), \((ii)\), and
+        \((iii)\), then putting them into the same collection. So after adding
+        all the new sets, we get a \(\sigma\)-algebra that meets all three
+        conditions and is the smallest one containing the original collection.
+        What we mean by smallest is that no proper smaller \(\sigma\)-algebra
+        can still contain the original collection. This way of creating the
+        smallest \(\sigma\)-algebra containing some collection of sets, call the
+        collection \(A\), is called the \(\sigma\)-algebra generated by the
+        collection \(A\), and is denoted by \(\sigma(A)\).
+      </p>
+      <p>
+        But first we need to prove that indeed it is possible to generate a
+        smallest \(\sigma\)-algebra containing a set \(A\).
+      </p>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.009</h4>
+        <p>
+          Suppose \(X\) is a set and \(\mathcal A\) is a set of subsets of
+          \(X\). Then the intersection of all the \(\sigma\)-algebras on \(X\)
+          containing \(\mathcal A\) is a \(\sigma\)-algebra on \(X\).
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          First let us make sure we are not taking the intersection of an empty
+          collection. Notice that \(\mathcal{P}(X)\), the set of all subsets of
+          \(X\), is a \(\sigma\)-algebra on \(X\), and it certainly contains
+          \(\mathcal{A}\). So there is at least one \(\sigma\)-algebra on \(X\)
+          containing \(\mathcal{A}\), which means we have something to
+          intersect.
+        </p>
+        <p>
+          Now let \(\mathcal{S}\) be the intersection of all
+          \(\sigma\)-algebras on \(X\) that contain \(\mathcal{A}\). We want to
+          show that \(\mathcal{S}\) is itself a \(\sigma\)-algebra on \(X\), so
+          we just need to check the three conditions.
+        </p>
+        <p>
+          Starting with the first condition, we need
+          \(\varnothing \in \mathcal{S}\). Since \(\varnothing\) is an element
+          of every \(\sigma\)-algebra on \(X\), in particular it is in every
+          \(\sigma\)-algebra on \(X\) that contains \(\mathcal{A}\). So since
+          \(\mathcal{S}\) is the intersection of all of them, we get
+          \(\varnothing \in \mathcal{S}\).
+        </p>
+        <p>
+          For the second condition, suppose \(E \in \mathcal{S}\). That means
+          \(E\) lives in every \(\sigma\)-algebra on \(X\) that contains
+          \(\mathcal{A}\). Since each of those is a \(\sigma\)-algebra, each one
+          is closed under complements, so each one also contains
+          \(X \setminus E\). Therefore \(X \setminus E\) is in every
+          \(\sigma\)-algebra on \(X\) that contains \(\mathcal{A}\), which means
+          \(X \setminus E \in \mathcal{S}\).
+        </p>
+        <p>
+          For the third condition, suppose \(E_1, E_2, \dots\) is a sequence of
+          elements of \(\mathcal{S}\). So each \(E_k\) lives in every
+          \(\sigma\)-algebra on \(X\) that contains \(\mathcal{A}\). Since each
+          of those is a \(\sigma\)-algebra, each one is also closed under
+          countable unions, so each one contains
+          \(\bigcup_{k=1}^{\infty} E_k\) as well. Therefore
+          \(\bigcup_{k=1}^{\infty} E_k\) is in every \(\sigma\)-algebra on \(X\)
+          that contains \(\mathcal{A}\), which gives us
+          \[
+          \bigcup_{k=1}^{\infty} E_k \in \mathcal{S}.
+          \]
+        </p>
+        <p>
+          So \(\mathcal{S}\) satisfies all three conditions, and therefore it
+          is a \(\sigma\)-algebra on \(X\).
+        </p>
+        <span class="qed"></span>
+      </div>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Borel \(\sigma\)-algebra</strong>
+          The smallest \(\sigma\)-algebra on \(\mathbb R\) containing all open
+          subsets of \(\mathbb R\) is called the
+          <strong>Borel</strong> \(\sigma\)-algebra on \(\mathbb R\). An element
+          of the Borel \(\sigma\)-algebra is called a
+          <strong>Borel set</strong>.
+        </p>
+      </div>
+      <p>
+        Even though many subsets of \(\mathbb R\) are in the Borel
+        \(\sigma\)-algebra, there exist subsets of \(\mathbb R\) that are not
+        Borel sets. Every closed subset of \(\mathbb R\) is a Borel set since
+        the complement of an open set is closed, and so is every countable
+        subset of \(\mathbb R\), since every singleton is closed and a
+        countable set is a countable union of singletons. So we will see some
+        examples of subsets of \(\mathbb R\) that are not Borel sets.
+      </p>
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <p>
+          <strong>
+            Show that the set of real numbers that have a decimal expansion with
+            the digit \(5\) appearing infinitely often — infinitely often means
+            there is always another \(5\) after the previous one — is a Borel set.
+          </strong>
+        </p>
+        <br />
+        <p>
+          Let us define \(E_n\) to be the set of real numbers whose \(n\)-th
+          decimal digit is \(5\). We can write this set as:
+          \[
+          E_n=
+          \bigcup_{m\in\mathbb Z}
+          \bigcup_{k=0}^{10^{n-1}-1}
+          \left[
+          m+\frac{10k+5}{10^n},
+          m+\frac{10k+6}{10^n}
+          \right).
+          \]
+          Here \(m\) chooses the integer part of the number, while \(k\)
+          accounts for all the possible choices of the \(n-1\) decimal digits
+          before the \(n\)-th digit. The interval
+          \[
+          \left[
+          m+\frac{10k+5}{10^n},
+          m+\frac{10k+6}{10^n}
+          \right)
+          \]
+          consists of the numbers for which the \(n\)-th decimal digit is
+          \(5\). Since \(E_n\) is a countable union of intervals, \(E_n\) is a
+          Borel set.
+        </p>
+        <p>
+          Now we need to express the condition that the digit \(5\) appears
+          infinitely often. Notice that \(x\in E_n\) means that the \(n\)-th
+          decimal digit of \(x\) is \(5\). If the digit \(5\) appears infinitely
+          often, then no matter how far we go into the decimal expansion, there
+          must always be another \(5\) after that point. Therefore, for every
+          \(N\in\mathbb Z^+\), there must be some \(n\ge N\) such that
+          \(x\in E_n\). In terms of sets, this means:
+          \[
+          x\in\bigcup_{n=N}^{\infty}E_n.
+          \]
+          Since this must be true for every \(N\), we take the intersection
+          over all \(N\). Thus, if we call the set in the question \(A\), we
+          have:
+          \[
+          A= \bigcap_{N=1}^{\infty} \bigcup_{n=N}^{\infty}E_n.
+          \]
+        </p>
+        <p>
+          Since each \(E_n\) is a Borel set, the countable union
+          \[
+          \bigcup_{n=N}^{\infty}E_n
+          \]
+          is also a Borel set. Since this is true for every \(N\), and Borel
+          sets are closed under countable intersections, we get:
+          \[
+          A= \bigcap_{N=1}^{\infty}
+          \bigcup_{n=N}^{\infty}E_n
+          \]
+          is a Borel set. Therefore, the set of real numbers whose decimal
+          expansion has the digit \(5\) appearing infinitely often is a Borel
+          set.
+        </p>
+      </div>
+      <br />
+      <p>
+        I think it is time to stop this lesson here. In this lesson, even
+        though we got an intuitive sense of what a measure is, we haven't
+        mathematically defined it yet. In the next lesson, we will define what
+        a measure is, and then we will see some of its key properties. Then,
+        after that, we will talk about the <strong>Lebesgue Measure</strong>
+        and discuss the <strong>Borel Measure</strong> in more detail.
+      </p>
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Measure, Integration & Real Analysis.</p>
+              <span class="resource-card__sub">Sheldon Axler. Ch-2:2A,2B.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Methods of Modern Mathematical Physics, Vol. 1: Functional Analysis.</p>
+              <span class="resource-card__sub">Michael Reed & Barry Simon. Ch-\(\text{I}\).</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">An Introduction to Measure Theory.</p>
+              <span class="resource-card__sub">Terence Tao.</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

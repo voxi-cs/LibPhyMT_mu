@@ -1,0 +1,1241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>N-Body Problem</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Configure MathJax for automatic equation numbering -->
+    <script>
+      window.MathJax = {
+        tex: {
+          tags: "ams", // number AMS environments (equation, align, etc.)
+          tagSide: "right", // place numbers on the right
+          tagIndent: "0.8em", // indent numbers slightly
+          // define macros here
+          macros: {
+            // JS string needs backslash escaped, so use "\\hspace{1.5em}"
+            customquad: "\\hspace{0.4em}",
+          },
+        },
+      };
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          // allow AMS tags like \begin{equation} and numbering
+          packages: { "[+]": ["ams"] },
+          tags: "ams",
+          tagSide: "right",
+          tagIndent: "0.8em",
+          macros: {
+            customquad: "\\hspace{0.4em}",
+          },
+        },
+        // optional: ensure MathJax automatically typesets on load
+        startup: {
+          typeset: true,
+        },
+      };
+    </script>
+
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      /* scale the rendered math (instead of \scalebox) */
+      .math-scale {
+        display: inline-block;
+        transform-origin: 0 0;
+        /* top-left */
+        transform: scale(0.88);
+        /* if you need spacing control: */
+        margin: 0.2em 0;
+      }
+
+      /* optional: better font fallback for math */
+      body {
+        font-family: "Computer Modern", serif;
+      }
+    </style>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Max Slater style fonts with better weight support -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/Main/Research & Simulations/The_Structure/Structure.css"
+    />
+    
+    <link
+      rel="stylesheet"
+      href="/Main/Research & Simulations/N-Body Problem/index.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/Main/Research & Simulations/The_Structure/index.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <div id="navbar-container"></div>
+
+    <div class="title-container">
+      <h1 id="title">
+        <span class="Subject" data-mini="false">Subject</span>
+        <div class="tc">
+          Analysis of 2-Body, 3-Body and N-Body Problem &amp; modeling the Solar
+          system.
+        </div>
+      </h1>
+    </div>
+
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Research &amp; Simulations by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+
+    </div>
+
+    <div class="quote-container">
+      <blockquote>
+        "Is it not possible to ask whether one of the bodies will remain forever in some region of the sky or whether it will possibly get away indefinitely?"<br />
+        <span>— Henri Poincaré</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h2>Abstract</h2>
+      <p>
+        Here we study the N-body problem in a gravitational field, gradually
+        going from the two-body problem to the three-body problem and beyond,
+        and then simulate the solar system. Along the way, we will analyze each
+        problem to gain a deeper understanding of the subject, and finally
+        explore how we can find stable periodic orbits for any N-body problem,
+        given sufficient computational power.
+      </p>
+      <p>
+        The purpose of this work is to give the reader a deeper understanding of
+        the topic through simulations and to verify our established
+        understanding of the subject.
+      </p>
+
+      <h2>2-Body Problem</h2>
+      <p>
+        The 2-body central-force problem is an essentially very important topic
+        to study because it gives us a good idea and better intuition about the
+        N-body problem and will help us as we go along.
+      </p>
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/m1tom2.png"
+        alt="Masses m1 and m2"
+        width="380.256"
+        height="275.808"
+      />
+      <p>
+        In a central force the potential function is: \begin{equation}
+        U(\mathbf{r_1},\mathbf{r_2})=
+        \frac{-\gamma}{|\mathbf{r_1}-\mathbf{r_2}|}=U(|\mathbf{r_1}-\mathbf{r_2}|)
+        \end{equation} For gravitational force \(\gamma\) is just \(G m_1 m_2\).
+        We could also apply it to electric charges, then \(\gamma\) is
+        \(\frac{q_1 q_2}{4\pi\epsilon_0}\), and here, \begin{equation} r =
+        |\mathbf{r_1}-\mathbf{r_2}| \end{equation}
+      </p>
+
+      <p>
+        And so the gravitational potential function is, \begin{equation}
+        U(r)=-\frac{G m_1 m_2}{r} \end{equation}
+      </p>
+
+      <p>
+        Therefore the Lagrangian for this system is: \begin{equation}
+        \mathcal{L}=\frac{1}{2} m_1 \dot{\mathbf{r_1}}^2 + \frac{1}{2} m_2
+        \dot{\mathbf{r_2}}^2 - U(r) \end{equation}
+      </p>
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/CMDIG.png"
+        alt="Center of mass diagram"
+        width="437.24"
+        height="397.98"
+      />
+      <p>
+        We can write this Lagrangian in terms of the center-of-mass vector
+        \(\mathbf{R}\) and the relative position vector \(\mathbf{r}\). The
+        center of mass is: \begin{equation} \mathbf{R}=\frac{m_1
+        \mathbf{r_1}+m_2 \mathbf{r_2}}{m_1 + m_2}=\frac{m_1 \mathbf{r_1}+m_2
+        \mathbf{r_2}}{M} \end{equation} and therefore, \begin{equation}
+        \mathbf{r}_1 = \mathbf{R} + \frac{m_2}{M}\mathbf{r} \quad\text{and}\quad
+        \mathbf{r}_2 = \mathbf{R} - \frac{m_1}{M}\mathbf{r} \end{equation} Then
+        the kinetic energy is: \[ T=\frac{1}{2}\bigl(m_1
+        \bigl[\dot{\mathbf{R}}+\frac{m_2}{M} \dot{\mathbf{r}}\bigr]^2 + m_2
+        \bigl[\dot{\mathbf{R}}-\frac{m_1}{M} \dot{\mathbf{r}}\bigr]^2 \bigr) \]
+        \begin{equation} T=\frac{1}{2}M\dot{\mathbf{R}}^2+\frac{1}{2}\mu
+        \dot{\mathbf{r}}^2 \quad\text{where}\quad \mu=\frac{m_1 m_2}{M}
+        \end{equation} So, the Lagrangian becomes: \begin{equation}
+        \mathcal{L}=\frac{1}{2}M\dot{\mathbf{R}}^2+\frac{1}{2}\mu
+        \dot{\mathbf{r}}^2 - U(r) \end{equation} We can choose the center of
+        mass as our reference frame, where \(\dot{\mathbf{R}}=0\). Since
+        \(\mathbf{R}\) is an ignorable coordinate: \begin{equation}
+        \mathcal{L}=\frac{1}{2}\mu \dot{\mathbf{r}}^2 - U(r) \end{equation}
+      </p>
+
+      <p>
+        Now we can use the Euler-Lagrange equation to obtain the equation of
+        motion, \begin{equation} \frac{\partial \mathcal{L}}{\partial
+        q}-\frac{d}{dt}\bigl(\frac{\partial \mathcal{L}}{\partial
+        \dot{q}}\bigr)=0 \end{equation} But before that we have to find what
+        \(U(r)\) is. One might think there is only the gravitational force, so
+        \(U(r)\) is just the gravitational potential: \begin{equation}
+        U(r)=-\frac{G m_1 m_2}{r} \end{equation} However, there is another
+        effect responsible for planetary orbits: the centrifugal force. We can
+        use polar coordinates for our Lagrangian and then we get:
+        \begin{equation} \mathcal{L}= \frac{1}{2}\mu \bigl(\dot{r}^2 + r^2
+        \dot{\phi}^2\bigr) - U(r) \end{equation} Since \(\phi\) is an ignorable
+        coordinate, applying the Euler-Lagrange equation gives: \begin{equation}
+        \frac{\partial \mathcal{L}}{\partial \dot{\phi}}= \mu r^2 \dot{\phi}
+        \end{equation} which is a constant; let this constant be \(l\). Thus:
+        \begin{equation} \mu r^2 \dot{\phi}=l \end{equation} Applying the
+        Euler-Lagrange equation for the radial coordinate yields:
+        \begin{equation} \mu r \dot{\phi}^2 - \frac{dU}{dr}=\mu \ddot{r}
+        \end{equation} Here \(-\frac{dU}{dr}\) is the gravitational force and
+        the \(\mu r \dot{\phi}^2\) term is the centrifugal force. We can
+        associate the centrifugal force with a potential function where:
+        \[\frac{dU_{cf}}{dr}=\mu r \dot{\phi}^2\] and so \(U_{cf}\) is:
+        \begin{equation} U_{cf}(r)=\frac{l^2}{2\mu r^2} \end{equation} Therefore
+        we can introduce a new effective potential: \begin{equation} U_{eff}(r)
+        = U(r) + \frac{l^2}{2\mu r^2} = U(r) + U_{cf}(r) \end{equation} So we
+        can rewrite the r-equation as: \begin{equation} \mu \ddot{r} =
+        -\frac{dU_{eff}}{dr} \end{equation}
+      </p>
+      <p>
+        Here \(l\) is the total angular momentum of the system, which is
+        constant and can be calculated from the initial conditions. The total
+        angular momentum of the system is: \begin{equation}
+        \mathbf{L}=m_1\mathbf{r_1} \times \dot{\mathbf{r_1}} + m_2\mathbf{r_2}
+        \times \dot{\mathbf{r_2}} \end{equation} Since \begin{equation}
+        \mathbf{r_1}=\frac{m_2}{M}\mathbf{r}, \quad
+        \mathbf{r_2}=-\frac{m_1}{M}\mathbf{r} \end{equation} we can substitute
+        into the above expression to obtain: \begin{equation} \mathbf{L}=
+        \mathbf{r} \times \mu\dot{\mathbf{r}} \end{equation}
+      </p>
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/cartvect.png"
+        alt="Cartesian vectors"
+        width="437.24"
+        height="397.98"
+      />
+      <p>
+        In the image we have two masses and their positions from the CM:
+        \(\mathbf{r_1}\) and \(\mathbf{r_2}\). The relative position vector is:
+        \[ \mathbf{r}=\begin{pmatrix}x_1 \\ y_1\end{pmatrix} -
+        \begin{pmatrix}x_2 \\ y_2\end{pmatrix} =\begin{pmatrix}x_1-x_2 \\
+        y_1-y_2\end{pmatrix} \]
+      </p>
+      <p>
+        The relative velocity is: \[ \dot{\mathbf{r}}=\begin{pmatrix}v_{x_1} \\
+        v_{y_1}\end{pmatrix} - \begin{pmatrix}v_{x_2} \\ v_{y_2}\end{pmatrix}
+        =\begin{pmatrix}v_{x_1}-v_{x_2} \\ v_{y_1}-v_{y_2}\end{pmatrix} \]
+      </p>
+      <p>
+        Now we can calculate the total angular momentum for the initial
+        conditions by the cross product: \[ \mathbf{r}\times\dot{\mathbf{r}} =
+        \begin{vmatrix} \mathbf{e}_x & \mathbf{e}_y & \mathbf{e}_z \\ x_1 - x_2
+        & y_1 - y_2 & 0 \\ v_{x_1}-v_{x_2} & v_{y_1}-v_{y_2} & 0 \end{vmatrix} =
+        \bigl[(x_1 - x_2)(v_{y_1}-v_{y_2}) - (y_1 -
+        y_2)(v_{x_1}-v_{x_2})\bigr]\,\mathbf{e}_z. \]
+      </p>
+      <p>
+        Remember that the plane in which we calculate
+        \(\mathbf{r}\times\dot{\mathbf{r}}\) is the cross-sectional plane of the
+        orbits, and \(\mathbf{L}\) is perpendicular to that plane.
+      </p>
+      <p>
+        When we are given the initial conditions \(x_{10}\), \(y_{10}\),
+        \(x_{20}\), \(y_{20}\), \(v_{x_{10}}\), \(v_{y_{10}}\), \(v_{x_{20}}\),
+        and \(v_{y_{20}}\), we can easily calculate the magnitude of the total
+        angular momentum \(l\). So: \begin{equation} \mathbf{L}_0= \mu
+        \bigl[(x_{10} - x_{20})(v_{y_{10}}-v_{y_{20}}) - (y_{10} -
+        y_{20})(v_{x_{10}}-v_{x_{20}})\bigr]\,\mathbf{e}_z\end{equation} and
+        \(l\) is: \begin{equation} l= \mu \bigl[(x_{10} -
+        x_{20})(v_{y_{10}}-v_{y_{20}}) - (y_{10} -
+        y_{20})(v_{x_{10}}-v_{x_{20}})\bigr]\end{equation}
+      </p>
+
+      <h3>
+        Equation Of Orbit: Solving the Radial Equation as a Function of \(\phi\)
+      </h3>
+      <p>
+        We have the radial equation and the \(\phi\) equation; now our goal is
+        to get the solution \(r(\phi)\). First, I will numerically solve it, and
+        later we will simulate the two-body problem to justify our solution.
+        <br /><br />
+        Radial equation:
+        <equation>
+          \(\mu\,\ddot{r} = -\frac{dU}{dr} + \frac{l^2}{\mu\,r^3}\)
+        </equation>
+        \(\phi\) equation:
+        <equation> \(\dot{\phi} = \frac{l}{\mu\,r^2}\) </equation>
+        Here, \(F(r) = -\frac{dU}{dr}\); for gravity, \(F(r) =
+        -\frac{\gamma}{r^2}\). To rewrite the radial equation in terms of
+        \(\phi\), substitute \[ u = \frac{1}{r}, \quad r = \frac{1}{u}, \] and
+        use the chain rule: \[ \frac{d}{dt} = \frac{d\phi}{dt}\,\frac{d}{d\phi}
+        = \dot{\phi}\,\frac{d}{d\phi} = \frac{l}{\mu\,r^2}\,\frac{d}{d\phi} =
+        \frac{l\,u^2}{\mu}\,\frac{d}{d\phi}. \] Substituting into the radial
+        equation gives:
+        <equation>
+          \(-\frac{l^2\,u^2}{\mu}\,\frac{d^2u}{d\phi^2} = F +
+          \frac{l^2\,u^3}{\mu}\).
+        </equation>
+        Hence,
+        <equation>
+          \(\displaystyle u''(\phi) = -u(\phi) - \frac{\mu}{l^2\,u(\phi)^2}\,F.
+          \)
+        </equation>
+        Since \(F = -\gamma/r^2 = \gamma\,u^2\), we get:
+        <equation>
+          \(\displaystyle u''(\phi) = -u(\phi) + \frac{\mu\,\gamma}{l^2}. \)
+        </equation>
+        Notice for an inverse-square force the last term is constant, which
+        simplifies the solution. Set \[ w(\phi) = -u(\phi) +
+        \frac{\mu\,\gamma}{l^2}, \] giving \[ w''(\phi) = -w(\phi). \] Its
+        general solution is:
+        <equation> \(w(\phi) = A \cos(\phi - \delta)\). </equation>
+        By choosing \(\phi=0\) along the periapsis, we take \(\delta=0\). Thus,
+        \[ u(\phi) = \frac{\mu\gamma}{l^2} + A\cos(\phi) =
+        \frac{\mu\gamma}{l^2}\bigl(1 + \epsilon\cos\phi\bigr), \] and therefore
+        <equation>
+          \(\displaystyle r(\phi) = \frac{c}{1 + \epsilon\cos\phi}, \quad c =
+          \frac{l^2}{\mu\gamma} = \frac{l^2}{G\,m_1\,m_2\,\mu}. \)
+        </equation>
+        So we have equation of the orbit is: \begin{equation} \boxed{ r(\phi) =
+        \frac{c}{1 + \epsilon\cos\phi}} \end{equation}
+      </p>
+
+      <p>Notice this is the equation for an ellipce.</p>
+
+      <h3>Conservation of Energy</h3>
+      <p>
+        We have the eq.18 and we can multiply both sides of that equation by
+        \(\dot{r}\) and we obtain: \[
+        \mu\ddot{r}\frac{dr}{dt}=-\frac{dr}{dt}\frac{dU_{eff}}{dr} \] \[
+        \Rightarrow \frac{d}{dt}\left(\frac{1}{2}\mu\dot{r}^2\right)
+        =-\frac{d}{dt}\left(U_{eff}\right) \] \[ \Rightarrow
+        \frac{d}{dt}\left(\frac{1}{2}\mu\dot{r}^2 + U_{eff}\right) =0 \] That
+        means: \[\frac{1}{2}\mu\dot{r}^2 + U_{eff}=constent\] Therefore total
+        energy of the system is: \[ \frac{1}{2}\mu\dot{r}^2 +
+        U_{eff}=\frac{1}{2}\mu\dot{r}^2 + U(r) + \frac{l^2}{2\mu r^2}=E \]
+      </p>
+
+      <p>
+        It is important for us to talk about one more thing before we start
+        setting up and doing our simulation: bounded orbits versus unbounded
+        orbits. Intuitively, two masses will orbit each other if the total
+        energy is not too high or too low. How do we determine whether the orbit
+        will be bounded? Let's draw a plot of the total energy:
+      </p>
+
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Potential_BOUND.png"
+        alt="Effective potential vs. r, showing regions of bounded and unbounded motion."
+        width="669.60"
+        height="390.1916"
+      />
+
+      <p>
+        Here, as you can see, for \(E\lt;0\) we get an unbounded orbit, but for
+        \(E \gt; 0\) we get a bounded orbit. Because total energy is conserved,
+        it cannot suddenly increase, so the motion remains confined. In this
+        case the trajectory is an ellipce for an inverse-square force.
+        \(\textbf{The conclution is: if the total energy is less than zero, it's
+        a bounded orbit and if not then it's unbounded}\)
+      </p>
+      <br />
+
+      <h3>Simulation & Analysis: Two-Body Problem</h3>
+      <p>
+        Here, we present two methods for simulating the two-body problem. The
+        purpose of these simulations is to gain deeper insight into the system's
+        dynamics. First, we will use the one-dimensional reduced two-body
+        Lagrangian to run a simple simulation; then, we will switch to the full
+        two-dimensional (x-y) coordinates to derive and simulate the full
+        Lagrangian, allowing us to explore a wider range of two-body scenarios.
+      </p>
+
+      <h3>Setting Up the Simulation: Equivalent One-Dimensional Problem</h3>
+      <p>
+        Let the two masses be <em>m<sub>1</sub></em> and <em>m<sub>2</sub></em
+        >. In the one-dimensional reduced formulation, we assume that the center
+        of mass is fixed at the origin. Therefore, the Lagrangian we have to
+        work with is: \[ \mathcal{L} = \frac{1}{2}\mu \dot{\mathbf{r}}^2 -
+        U_{\text{eff}}(r) \] where \(U_{\text{eff}}\) is: \[ U_{\text{eff}} =
+        U(r) + \frac{l^2}{2\mu r^2} = \frac{-\gamma}{|\mathbf{r}_1 -
+        \mathbf{r}_2|} + \frac{l^2}{2\mu r^2} = U(r) + U_{\text{cf}}(r) \] So:
+        \[ \mathcal{L} = \frac{1}{2}\mu \dot{\mathbf{r}}^2 +
+        \frac{\gamma}{|\mathbf{r}_1 - \mathbf{r}_2|} - \frac{l^2}{2\mu r^2}
+        \quad\text{where}\quad \boxed{\gamma = G m_1 m_2} \]
+      </p>
+      <p>
+        Before we start the simulation we need some initial conditions. We can
+        choose a set of initial conditions such that the orbit is a perfect
+        ellipse with period \[ T^2 = 4\pi^2 \frac{a^3 \mu}{\gamma}. \] Okay,
+        let's do that.
+      </p>
+      <p>
+        The initial conditions we need are \(\mathbf{r}\) and
+        \(\dot{\mathbf{r}}\). Our simulations are going to be on the Cartesian
+        plane, so first let us represent the initial conditions in terms of
+        (x–y) variables; then we can calculate \(\mathbf{r}\) and
+        \(\dot{\mathbf{r}}\) from there.
+      </p>
+      <p>
+        Let the eccentricity of the orbit be \(e\) and the semi-major axis
+        \(a\). Then the perihelion distance is: \[ r_p = a(1 - e) \] and the
+        relative velocity required for two objects to orbit each other with
+        orbital eccentricity \(e\) is: \[ v_p = \sqrt{G M \!\left(\frac{2}{r_p}
+        - \frac{1}{a}\right)}. \] We have seen that \[ r_1 = \frac{m_2}{M} r
+        \quad\text{and}\quad r_2 = -\frac{m_1}{M} r. \] So on the Cartesian
+        plane, the initial positions are: \[ x_{10} = \frac{m_2}{M} r_p
+        \quad;\quad x_{20} = -\frac{m_1}{M} r_p \] \[ y_{10} = 0 \quad;\quad
+        y_{20} = 0 \] and the velocities are: \[ vx_{10} = 0 \quad;\quad vx_{20}
+        = 0 \] \[ vy_{10} = \frac{m_2}{M} v_p \quad;\quad vy_{20} =
+        -\frac{m_2}{M} v_p. \] We also previously calculated initial anguler
+        momentum is: \[ l_0= \mu \bigl[(x_{10} - x_{20})(v_{y_{10}}-v_{y_{20}})
+        - (y_{10} - y_{20})(v_{x_{10}}-v_{x_{20}})\bigr] \] That's all the
+        initial conditions we need. Now we can start writing the code.
+      </p>
+      <p>Overall librerys I used</p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+ <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+ <span class="kn">import</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smp</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">odeint</span> 
+ <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.integrate</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve_ivp</span>
+ <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">sympy</span><span class="w"> </span><span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">solve</span><span class="p">,</span> <span class="n">det</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">animation</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.animation</span><span class="w"> </span><span class="kn">import</span> <span class="n">PillowWriter</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+ <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.animation</span><span class="w"> </span><span class="kn">import</span> <span class="n">FFMpegWriter</span>
+ <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+</pre>
+        </div>
+      </div>
+
+      <p>
+        Okay, before we start coding, we’ll nondimensionalize (scale) our
+        variables so that all lengths, times, and masses become unitless. We
+        will use Earth’s mass and Earth’s orbital distance as the standard mass
+        and length. Our unitless variables for mass, distance, and time are: \[
+        m'_{i} = \frac{m_i}{M}, \quad\quad r' = \frac{r}{L},
+        \quad\text{and}\quad t' = \frac{t}{t_0} \] Here \(m'_{i}\) is the
+        unitless mass, \(r'\) is the unitless distance, and \(t'\) is the
+        unitless time. We still need to choose \(t_0\) so that the constant (the
+        equivalent of \(G\)) in our dimensionless equations has a value of
+        \(1\). We have: \[
+        \frac{d^2r}{dt^2}=Gm_2\frac{\mathbf{r_1-r_2}}{|\mathbf{r_1-r_2}|^3} \]
+        \[\Rightarrow
+        \frac{L}{t_0^2}\frac{d^2r'}{dt'^2}=GM_sm'_2\frac{L}{L^3}\frac{\mathbf{r'_1-r'_2}}{|\mathbf{r'_1-r'_2}|^3}
+        \] \[\Rightarrow \frac{d^2 \mathbf r'}{dt'^2} =
+        \underbrace{G\,M_s\;\frac{t_0^2}{L^3}}_{=1} \;m'_2\frac{\mathbf{r'_1 -
+        r'_2}}{\lvert\mathbf{r'_1 - r'_2}\rvert^3} \] \[\Rightarrow
+        G\,M_s\;\frac{t_0^2}{L^3}=1 \] So we get: \[
+        \boxed{t_0=\sqrt{\frac{L^3}{GM_s}}} \]
+      </p>
+      <p>
+        Now we are ready to start our simulation. Here we choose two point
+        masses \(m_1\) and \(m_2\). So the first step is to set up the initial
+        conditions. Below is the code for initial conditions:
+      </p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="c1">#Reference mass and distance and gravitational constant </span>
+ <span class="n">G</span> <span class="o">=</span> <span class="mf">6.67404e-11</span>
+ <span class="n">M_s</span> <span class="o">=</span> <span class="mf">5.97219e24</span>
+ <span class="n">AU</span> <span class="o">=</span> <span class="mf">1.496e11</span>  
+ <span class="c1">#Dimensionless mass </span>
+ <span class="n">m1</span><span class="o">=</span><span class="mi">1</span>  <span class="c1">#Dimensionless mass 1</span>
+ <span class="n">m2</span><span class="o">=</span><span class="mi">2</span>  <span class="c1">#Dimensionless mass 2</span>
+ <span class="n">M</span><span class="o">=</span><span class="n">m1</span><span class="o">+</span><span class="n">m2</span> <span class="c1">#Total mass </span>
+ <span class="n">mu</span><span class="o">=</span><span class="p">(</span><span class="n">m1</span><span class="o">*</span><span class="n">m2</span><span class="p">)</span><span class="o">/</span><span class="n">M</span>  <span class="c1">#Reduced mass </span>
+
+ <span class="c1">#Initial Conditions</span>
+ <span class="n">e</span>    <span class="o">=</span> <span class="mf">0.8</span>  <span class="c1">#orbital eccentricity</span>
+ <span class="n">a</span>    <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># semi-major axis (AU)</span>
+ <span class="n">r_p</span>  <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">e</span><span class="p">)</span> <span class="c1"># perihelion distance</span>
+ <span class="c1">#v_p  = np.sqrt(2*M/r_p)-0.01 #escape speed</span>
+
+
+ <span class="n">v_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">M</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">r_p</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">a</span><span class="p">))</span><span class="c1"># speed at perihelion (vis–viva) </span>
+
+ <span class="c1">#v_p=np.sqrt(M/r_p)</span>
+
+ <span class="c1">#Initial position</span>
+ <span class="n">x1_0</span> <span class="o">=</span>  <span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_p</span><span class="p">;</span>  <span class="n">y1_0</span> <span class="o">=</span> <span class="mf">0.0</span>
+ <span class="n">x2_0</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">m1</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_p</span><span class="p">;</span>  <span class="n">y2_0</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+ <span class="c1">#Initial velocities</span>
+ <span class="n">vx1_0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>           <span class="n">vy1_0</span> <span class="o">=</span>  <span class="n">v_p</span> <span class="o">*</span> <span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">M</span><span class="p">)</span>
+ <span class="n">vx2_0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">;</span>           <span class="n">vy2_0</span> <span class="o">=</span> <span class="o">-</span><span class="n">v_p</span> <span class="o">*</span> <span class="p">(</span><span class="n">m1</span><span class="o">/</span><span class="n">M</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+
+      <p>
+        Now that we have the initial conditions, we can numerically solve the
+        two-body problem:
+      </p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="c1">#Time and time steps</span>
+ <span class="n">t_prime</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">M</span><span class="p">))</span>
+ <span class="n">t0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">AU</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">G</span><span class="o">*</span><span class="n">M_s</span><span class="p">))</span> 
+ <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_prime</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+ <span class="c1">#Equation of motion</span>
+ <span class="k">def</span><span class="w"> </span><span class="nf">dSdt</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+     <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">vx1</span><span class="p">,</span> <span class="n">vy1</span><span class="p">,</span> <span class="n">vx2</span><span class="p">,</span> <span class="n">vy2</span> <span class="o">=</span> <span class="n">S</span>
+
+     <span class="c1"># displacement vector from 1 → 2</span>
+     <span class="n">dx</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span>
+     <span class="n">dy</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span>
+     <span class="n">r3</span> <span class="o">=</span> <span class="p">(</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dy</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">1.5</span>
+
+     <span class="c1"># accelerations</span>
+     <span class="n">ax1</span> <span class="o">=</span>  <span class="n">m2</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">r3</span>       <span class="c1"># mass 1 pulled toward mass 2</span>
+     <span class="n">ay1</span> <span class="o">=</span>  <span class="n">m2</span> <span class="o">*</span> <span class="n">dy</span> <span class="o">/</span> <span class="n">r3</span>
+     <span class="n">ax2</span> <span class="o">=</span> <span class="o">-</span><span class="n">m1</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">r3</span>       <span class="c1"># mass 2 pulled toward mass 1</span>
+     <span class="n">ay2</span> <span class="o">=</span> <span class="o">-</span><span class="n">m1</span> <span class="o">*</span> <span class="n">dy</span> <span class="o">/</span> <span class="n">r3</span> 
+
+     <span class="k">return</span> <span class="p">[</span>
+         <span class="n">vx1</span><span class="p">,</span> <span class="n">vy1</span><span class="p">,</span>         <span class="c1"># derivatives of x1, y1</span>
+         <span class="n">vx2</span><span class="p">,</span> <span class="n">vy2</span><span class="p">,</span>         <span class="c1"># derivatives of x2, y2</span>
+         <span class="n">ax1</span><span class="p">,</span> <span class="n">ay1</span><span class="p">,</span>         <span class="c1"># derivatives of vx1, vy1</span>
+         <span class="n">ax2</span><span class="p">,</span> <span class="n">ay2</span>          <span class="c1"># derivatives of vx2, vy2</span>
+     <span class="p">]</span>
+
+ <span class="c1">#Solution</span>
+ <span class="n">y0</span> <span class="o">=</span> <span class="p">[</span><span class="n">x1_0</span><span class="p">,</span> <span class="n">y1_0</span><span class="p">,</span> <span class="n">x2_0</span><span class="p">,</span> <span class="n">y2_0</span><span class="p">,</span> <span class="n">vx1_0</span><span class="p">,</span> <span class="n">vy1_0</span><span class="p">,</span> <span class="n">vx2_0</span><span class="p">,</span> <span class="n">vy2_0</span><span class="p">]</span>
+ <span class="n">sol</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">dSdt</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+
+      <p>
+        We now have the solution. We can plot the orbit using the following
+        code:
+      </p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+ <span class="n">vx1</span><span class="p">,</span> <span class="n">vy1</span><span class="p">,</span> <span class="n">vx2</span><span class="p">,</span> <span class="n">vy2</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">4</span><span class="p">],</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">5</span><span class="p">],</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">6</span><span class="p">],</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">7</span><span class="p">]</span>
+ <span class="c1"># plot trajectories</span>
+
+ <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Mass 1 (m=</span><span class="si">{}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m1</span><span class="p">))</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Mass 2 (m=</span><span class="si">{}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m2</span><span class="p">))</span>
+
+ <span class="c1"># Add point markers at initial positions</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">'ko'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Initial pos Mass 1'</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">'ro'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Initial pos Mass 2'</span><span class="p">)</span>
+
+ <span class="c1"># Add final position markers if desired:</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">y1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">'k*'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Current pos Mass 1'</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">y2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">'r*'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Current pos Mass 2'</span><span class="p">)</span>
+
+ <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Two-Body Gravitational Orbit"</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre>
+        </div>
+      </div>
+      <p>If we plot this, we get a result like this:</p>
+      <img
+        class="plots_type_1"
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/frame_209.png"
+        alt="Orbital Plot"
+      />
+      <p>
+        We can also animate this. We use the following code to animate the
+        orbit, but if you want to use the code, you need to choose a folder
+        directory to save the frames. Put the folder directory at
+        <code class="language-python">out_dir</code>.
+      </p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="c1"># --- PARAMETERS FOR FRAME SAVING ---</span>
+ <span class="n">fps</span> <span class="o">=</span> <span class="mi">30</span>
+ <span class="n">duration</span> <span class="o">=</span> <span class="mi">7</span>                        <span class="c1"># seconds of final animation</span>
+ <span class="n">num_frames</span> <span class="o">=</span> <span class="n">fps</span> <span class="o">*</span> <span class="n">duration</span>        <span class="c1"># 210 frames</span>
+ <span class="n">out_dir</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">""</span>
+ <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+ <span class="c1"># --- COMPUTE REAL-LIFE DAYS FOR TITLE ---</span>
+ <span class="c1"># (from your original definitions of t_prime and t0)</span>
+ <span class="c1"># real time in seconds = t_prime * t0</span>
+ <span class="c1"># convert to days:</span>
+ <span class="n">real_days_total</span> <span class="o">=</span> <span class="n">t_prime</span> <span class="o">*</span> <span class="n">t0</span> <span class="o">/</span> <span class="p">(</span><span class="mi">24</span><span class="o">*</span><span class="mi">3600</span><span class="p">)</span>
+
+ <span class="c1"># --- CONSTANT AXIS LIMITS ---</span>
+ <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.25</span>
+ <span class="n">xmax</span> <span class="o">=</span> <span class="mf">0.75</span>
+ <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.8</span>
+ <span class="n">ymax</span> <span class="o">=</span> <span class="mf">0.8</span>
+
+ <span class="c1"># --- SELECT FRAME INDICES ---</span>
+ <span class="n">frame_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_frames</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+ <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">frame</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">frame_indices</span><span class="p">):</span>
+     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+     <span class="c1"># plot trajectories up to current frame</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">[:</span><span class="n">frame</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">y1</span><span class="p">[:</span><span class="n">frame</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'Mass 1 (m=</span><span class="si">{</span><span class="n">m1</span><span class="si">}</span><span class="s1">)'</span><span class="p">)</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x2</span><span class="p">[:</span><span class="n">frame</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">y2</span><span class="p">[:</span><span class="n">frame</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'Mass 2 (m=</span><span class="si">{</span><span class="n">m2</span><span class="si">}</span><span class="s1">)'</span><span class="p">)</span>
+
+     <span class="c1"># initial-position markers</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">'ko'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Initial pos Mass 1'</span><span class="p">)</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">'ro'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Initial pos Mass 2'</span><span class="p">)</span>
+     <span class="c1"># current-position markers</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">[</span><span class="n">frame</span><span class="p">],</span> <span class="n">y1</span><span class="p">[</span><span class="n">frame</span><span class="p">],</span> <span class="s1">'k*'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Current pos Mass 1'</span><span class="p">)</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="n">frame</span><span class="p">],</span> <span class="n">y2</span><span class="p">[</span><span class="n">frame</span><span class="p">],</span> <span class="s1">'r*'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Current pos Mass 2'</span><span class="p">)</span>
+
+     <span class="c1"># lock axes and fixed aspect</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">,</span> <span class="s1">'box'</span><span class="p">)</span>
+
+     <span class="c1"># Compute current real days</span>
+     <span class="n">current_days</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span> <span class="o">*</span> <span class="n">t0</span> <span class="o">/</span> <span class="p">(</span><span class="mi">24</span><span class="o">*</span><span class="mi">3600</span><span class="p">)</span>
+
+     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'x (AU)'</span><span class="p">)</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'y (AU)'</span><span class="p">)</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Orbit Progress: Day </span><span class="si">{</span><span class="n">current_days</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">real_days_total</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> days"</span><span class="p">)</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+     <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">'upper right'</span><span class="p">)</span>
+
+     <span class="c1"># save frame</span>
+     <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"frame_</span><span class="si">{</span><span class="n">idx</span><span class="si">:</span><span class="s2">03d</span><span class="si">}</span><span class="s2">.png"</span><span class="p">)</span>
+     <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+     <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+ <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Saved </span><span class="si">{</span><span class="n">num_frames</span><span class="si">}</span><span class="s2"> frames to </span><span class="si">{</span><span class="n">out_dir</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+      <p>The animation we get:</p>
+      <video width="720" height="500" controls>
+        <source
+          src="/Main/Research & Simulations/N-Body Problem/videos/0001-0210.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <p>
+        We can calculate the eccentricity of the orbit to be sure if our code
+        works fine:
+      </p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="n">x_rel</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span>
+ <span class="n">y_rel</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span>
+ <span class="n">r_vals</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">x_rel</span><span class="p">,</span> <span class="n">y_rel</span><span class="p">)</span>
+ <span class="n">e_sim</span>    <span class="o">=</span> <span class="p">(</span><span class="n">r_vals</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">r_vals</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_vals</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">r_vals</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+ <span class="nb">print</span><span class="p">(</span><span class="n">e_sim</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+      <p>
+        Because we used \(e=0.8\), we get the output \(e=0.8000003279086282\),
+        which is very close to \(0.8\). The extra digits occur because it's a
+        numerical simulation and we used discrete steps.
+      </p>
+      <p>
+        Previously, we drew an \(\textbf{Energy vs r}\) plot where we saw that
+        for a bounded orbit, energy has to be less than zero. In the simulation
+        we ran, we should also get the same result—or, should I say, a similar
+        plot. Again, we have to write a piece of code that will plot the energy
+        versus radius.
+      </p>
+      <img
+        class="plots_type_1"
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Figure_3.png"
+        alt="Orbital Plot"
+        width="669.60"
+        height="390.1916"
+      />
+      <p>The code we used:</p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+ <span class="n">vx1</span><span class="p">,</span> <span class="n">vy1</span><span class="p">,</span> <span class="n">vx2</span><span class="p">,</span> <span class="n">vy2</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+ <span class="c1"># plot trajectories</span>
+ <span class="n">mu</span><span class="o">=</span><span class="p">(</span><span class="n">m1</span><span class="o">*</span><span class="n">m2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">m1</span><span class="o">+</span><span class="n">m2</span><span class="p">)</span>
+ <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+ <span class="n">l</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">*</span> <span class="p">((</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">vy1</span> <span class="o">-</span> <span class="n">vy2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">vx1</span> <span class="o">-</span> <span class="n">vx2</span><span class="p">))</span>
+ <span class="n">l0</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Initial angular momentum (constant)</span>
+
+ <span class="c1"># Calculate total energy (constant)</span>
+ <span class="n">v_rel_sq</span> <span class="o">=</span> <span class="p">(</span><span class="n">vx2</span> <span class="o">-</span> <span class="n">vx1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">vy2</span> <span class="o">-</span> <span class="n">vy1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+ <span class="n">E_total</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">*</span> <span class="n">v_rel_sq</span> <span class="o">-</span> <span class="p">(</span><span class="n">m1</span> <span class="o">*</span> <span class="n">m2</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span>
+ <span class="n">E0</span> <span class="o">=</span> <span class="n">E_total</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Initial total energy</span>
+
+ <span class="c1"># Calculate effective potential curve</span>
+ <span class="n">r_min_plot</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+ <span class="n">r_max_plot</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+ <span class="n">r_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">r_min_plot</span><span class="p">,</span> <span class="n">r_max_plot</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+ <span class="n">U_eff</span> <span class="o">=</span> <span class="o">-</span> <span class="p">(</span><span class="n">m1</span> <span class="o">*</span> <span class="n">m2</span><span class="p">)</span> <span class="o">/</span> <span class="n">r_vals</span> <span class="o">+</span> <span class="p">(</span><span class="n">l0</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">*</span> <span class="n">r_vals</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+ <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_vals</span><span class="p">,</span> <span class="n">U_eff</span><span class="p">,</span> <span class="s1">'b-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$U_{\mathrm</span><span class="si">{eff}</span><span class="s1">}(r)$'</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">E0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$E_{\mathrm</span><span class="si">{total}</span><span class="s1">}$'</span><span class="p">)</span>
+
+ <span class="c1"># Mark turning points (min/max distances in the orbit)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">':'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">':'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+ <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Distance (r)'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Energy'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+ <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">1.1</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="n">U_eff</span><span class="p">),</span> <span class="mf">1.1</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">U_eff</span><span class="p">[</span><span class="n">r_vals</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">*</span><span class="nb">max</span><span class="p">(</span><span class="n">r</span><span class="p">)]))</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+ <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre>
+        </div>
+      </div>
+      <p>
+        We can change the initial velocities such that we get an unbounded
+        orbit, then replot this and expect to see a similar result as we
+        discussed in the diagram. We change the \(v_p\) to achieve an unbounded
+        orbit, run the simulation again, and get this plot:
+      </p>
+      <img
+        class="plots_type_1"
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/download (1).png"
+        alt="Orbital Plot"
+      />
+      <img
+        class="plots_type_1"
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Figure_4.png"
+        alt="Orbital Plot"
+        width="669.60"
+        height="390.1916"
+      />
+      <p>
+        And indeed, that is exactly what we see. I just added \(1\) to \(v_p\)
+        and re‑ran the same code.
+      </p>
+      <p></p>
+      <p>
+        We don’t really have a good reason why we must stick to the initial
+        conditions we chose. We could play around with different initial
+        conditions, and I encourage you to experiment with the code and initial
+        conditions.
+      </p>
+      <p>
+        Let’s update the initial conditions as if we had a planet or star and a
+        celestial object was caught by its gravitational field. In that case,
+        how would it look? Most importantly, what would the energy versus r plot
+        look like, and what kind of orbit would it form?
+      </p>
+      <p>
+        The escape velocity \(v_{\mathrm{esc}}\) from a spherically symmetric
+        mass \(M\), measured at a distance \(r\) from its center (neglecting any
+        atmosphere or other forces), is given by \begin{equation}
+        v_{\mathrm{esc}} = \sqrt{\frac{2GM}{r}} \ \end{equation} where \(G\) is
+        the gravitational constant, \(M\) is the mass of the body, \(r\) is the
+        radial distance from its center.
+      </p>
+      <p>
+        So, to get a bounded orbit our initial condition for velocity must be
+        less then the escape velocity. Here I use the following initial
+        condition:
+      </p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="n">x_rel</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span>
+ <span class="n">y_rel</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span>
+ <span class="n">r_vals</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">x_rel</span><span class="p">,</span> <span class="n">y_rel</span><span class="p">)</span>
+ <span class="n">e_sim</span>    <span class="o">=</span> <span class="p">(</span><span class="n">r_vals</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">r_vals</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">r_vals</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">r_vals</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+ <span class="nb">print</span><span class="p">(</span><span class="n">e_sim</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+      <p>
+        Here, as you can see, we set one mass at \((0,0)\) and another at
+        \((-10,2)\), and \(r\) is the distance between the two masses. We set \(
+        v_{x2} = \sqrt{\frac{2M}{r}} - 0.1 \) because even a slightly smaller
+        velocity than the escape velocity would lead to mass 2 having a bounded
+        orbit, and of course we can simulate this to confirm that we do in fect
+        get a bounded orbit:
+      </p>
+
+      <img
+        class="plots_type_1"
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/download (3).png"
+        alt="Orbital Plot"
+      />
+      <video width="720" height="500" controls>
+        <source
+          src="/Main/Research & Simulations/N-Body Problem/videos/0001-0630.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <p>
+        Also, here we increased the mass of mass 1 to have a much larger inertia
+        so that it doesn’t move too much under the influence of mass 2; this
+        orbit we got has an eccentricity \(e=0.999755274481359\). But what if we
+        set the initial velocity exactly to the escape velocity? Well, in that
+        case we get:
+      </p>
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/download (4).png"
+        alt="…"
+      />
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/download (5).png"
+        alt="…"
+      />
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/download (6).png"
+        alt="…"
+      />
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/download (7).png"
+        alt="…"
+      />
+
+      <p>
+        So, as we can see, we get an unbounded orbit. Anyways, going back to our
+        previous bounded orbit, let's plot its energy versus radius graph, then
+        we get:
+      </p>
+      <img
+        class="plots_type_1"
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Figure_5.png"
+        alt="Orbital Plot"
+        width="669.60"
+        height="390.1916"
+      />
+      <p>If we zoom into this plot, then we get:</p>
+      <img
+        class="plots_type_1"
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Figure_6.png"
+        alt="Orbital Plot"
+        width="669.60"
+        height="390.1916"
+      />
+      <p>This is exactly what we were expecting.</p>
+      <p>
+        And for the orbit where we used the escape velocity initial condition,
+        we get
+      </p>
+      <img
+        class="plots_type_1"
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Figure_7.png"
+        alt="Orbital Plot"
+        width="669.60"
+        height="390.1916"
+      />
+      <p>zooming in:</p>
+      <img
+        class="plots_type_1"
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Figure_8.png"
+        alt="Orbital Plot"
+        width="669.60"
+        height="390.1916"
+      />
+      <p>
+        Here, we see that \(\textbf{Total Mechanical Energy, E}\) is zero, and
+        that is obvious if you know how we derived the formula for escape
+        velocity.
+      </p>
+
+      <h3>Changes of Orbit</h3>
+      <p>
+        Alright, here we will discuss changing orbits. Imagine a scenario: if we
+        have an object orbiting a planet and need to change its orbit for a
+        certain reason. One example I can give is: let’s say we have a satellite
+        orbiting close to Earth in a circular orbit, and we want the satellite
+        to reach Venus. To do that, we have to alter the satellite’s orbit so
+        that it intersects Venus’s path around the Sun. Here we will consider a
+        satellite that changes from one orbit to another by firing its rocket
+        tangentially—either forward or backward—when it is at the perigee of its
+        initial orbit.
+      </p>
+      <p>
+        We have solved the differential equation, we obtain the orbital equation
+        in the form, \[ r(\phi)=\frac{c}{1+\epsilon\cos(\phi)} \]
+      </p>
+      <p>Here, \(c = \frac{l^2}{\mu\gamma}\).</p>
+      <p>
+        Now consider two orbits with energies \(E_1\) and \(E_2\), as shown
+        below:
+      </p>
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/E1E2.png"
+        alt="Orbital Plot"
+        width="330"
+        height="250"
+      />
+      <p>
+        The equations of the orbits depicted in the image are: \[ r_1
+        \left(\phi\right) = \frac{c_1}{1+\epsilon_1\cos(\phi)} \quad \text{and}
+        \quad r_2 \left(\phi\right) = \frac{c_2}{1+\epsilon_2\cos(\phi+\delta)}
+        \]
+      </p>
+      <h3>Example</h3>
+      <p>
+        Here, I want to discuss a simple example and show how we change orbit.
+        Consider we have a satellite orbiting a planet in a circular orbit, and
+        we would like to change its orbit to an elliptical one so that the
+        planet is at the focus of the orbit.
+      </p>
+
+      <h4>Thrust factor, \(\lambda\)</h4>
+      <p>
+        We shall introduce the \(\textbf{thrust factor,}\lambda\): the ratio of
+        the satellite’s speed immediately before rocket firing to its speed
+        immediately afterward. If the thrust factor \(\lambda \gt 1\) then
+        thrust was forward and the satellite speeds up, but if the thrust factor
+        \(0 \lt \lambda \lt 1\) then then the thrust was backward and the
+        satellite slows down. One thing I should mention is that if we want to
+        go to an orbit with a specific semi-major axis and eccentricity, then we
+        have to at least fire our rocket twice, but there are certain cases
+        where firing the rocket once is enough. For example, if a satellite was
+        orbiting Earth in a circular orbit and wanted to go to a new orbit with
+        eccentricity \(e=0.5\) and semi-major axis \(a=2\) units from a circular
+        orbit with radius \(r=a=1\).
+      </p>
+
+      <p>
+        So, going back to our example, we will be needing two boosts to get to
+        our desired orbit and hence two boost factors. In order to calculate the
+        boost factors we first have to figure out what the velocities should be.
+        Here, I want to consider a simple scenario: we have a satellite orbiting
+        a planet, and after it completes one revolution around the planet it
+        will fire its rocket once to go to the \(\textbf{Transfer Orbit}\) (a
+        transfer orbit is any orbital path specifically chosen to carry a
+        spacecraft or object from one orbit to another). Then, after it
+        completes half of that orbit, we fire the rocket again and proceed to
+        our desired orbit. The diagram below should help you imagine the
+        scenario.
+      </p>
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/dig-1.png"
+        alt="Orbital Plot"
+        width="669.60"
+        height="390.1916"
+      />
+
+      <p>
+        From the diagram one can easily compute \(a\), let \(r_1\) be the radius
+        of the initial (circular) orbit, and let \(r_2\) be the periapsis
+        distance of both the transfer ellipse and the final target orbit. Then
+        for the transfer ellipse we have by definition of an ellipse (with focus
+        at the force center): \[ r_p = a\,(1 - e) = r_2, \qquad r_a = a\,(1 + e)
+        = r_1. \]
+      </p>
+
+      <p>
+        Adding these two equations, \[ r_p + r_a = a\bigl[(1 - e) + (1 +
+        e)\bigr] = 2a \;\;\Longrightarrow\;\; a = \frac{r_p + r_a}{2} =
+        \frac{r_2 + r_1}{2}. \] Hence the semi‐major axis of our transfer orbit
+        is \[ \boxed{a = \frac{r_1 + r_2}{2}.} \]
+      </p>
+
+      <p>
+        If you also need the eccentricity, subtract the two original equations:
+        \[ r_a - r_p = a\bigl[(1 + e) - (1 - e)\bigr] = 2a\,e
+        \;\;\Longrightarrow\;\; e = \frac{r_a - r_p}{2a} = \frac{r_1 - r_2}{r_1
+        + r_2}. \]
+      </p>
+      <p>
+        Alright, so as we said, our satellite would move from a circular orbit
+        to an elliptical one as you can see in the figure. So for that, the
+        initial velocities are going to be — for the circular orbit \[
+        v_1=\sqrt{\frac{GM}{r_1}} \] Since \(e_1=0\) and \(r_1=a_1(1-e_1)\), we
+        just have \(r_1=a_1\) and therefore \[
+        v_1=\sqrt{GM\left(\frac{2}{r_1}-\frac{1}{a_1}\right)}=\sqrt{\frac{GM}{r_1}}.
+        \] Similarly, we can calculate the velocity needed for the transfer
+        orbit, \[ v_t=\sqrt{GM\left(\frac{2}{r_t}-\frac{1}{a_t}\right)} \] where
+        \[ a_t=\frac{r_1+r_2}{2}, \quad e_t=\frac{r_1 - r_2}{r_1 + r_2},
+        \quad\text{and}\quad r_t=r_1. \] The transfer orbit takes us to the
+        point where we fire our rocket for the second (and final) time so that
+        we can acquire the necessary speed to reach our desired orbit. We fire
+        the rocket immediately after we reach halfway between, once the transfer
+        orbit completes its half-revolution. Now that we have all the initial
+        conditions and we somewhat have a good idea how to model and solve the
+        system, we can simulate this numerically to verify our understanding and
+        refine it.
+      </p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="n">G</span> <span class="o">=</span> <span class="mf">6.67404e-11</span>
+ <span class="n">M_s</span> <span class="o">=</span> <span class="mf">5.97219e24</span>
+ <span class="n">AU</span> <span class="o">=</span> <span class="mf">1.496e11</span>  
+
+ <span class="n">m1</span><span class="o">=</span><span class="mf">1e10</span>
+ <span class="n">m2</span><span class="o">=</span><span class="mi">10</span>
+
+ <span class="n">M</span><span class="o">=</span><span class="n">m1</span><span class="o">+</span><span class="n">m2</span>
+ <span class="n">mu</span><span class="o">=</span><span class="p">(</span><span class="n">m1</span><span class="o">*</span><span class="n">m2</span><span class="p">)</span><span class="o">/</span><span class="n">M</span>
+
+ <span class="n">a1</span><span class="o">=</span><span class="mi">1</span>
+ <span class="n">e1</span><span class="o">=</span><span class="mi">0</span>
+ <span class="n">r1</span><span class="o">=</span><span class="n">a1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">e1</span><span class="p">)</span>
+ <span class="n">v1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">r1</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">a1</span><span class="p">))</span>
+
+ <span class="n">a2</span><span class="o">=</span><span class="mi">2</span>
+ <span class="n">e2</span><span class="o">=</span><span class="mf">0.9</span>
+ <span class="n">r2</span><span class="o">=</span><span class="n">a2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">e2</span><span class="p">)</span>
+
+ <span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="n">r2</span><span class="o">+</span><span class="n">r1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+ <span class="n">r</span><span class="o">=</span><span class="n">r1</span>
+
+ <span class="n">v</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">a</span><span class="p">))</span>
+ <span class="n">v2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">r2</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">a2</span><span class="p">))</span>
+
+ <span class="n">T1</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a1</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">m1</span> <span class="o">+</span><span class="n">m2</span><span class="p">))</span>
+ <span class="n">T2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">m1</span> <span class="o">+</span><span class="n">m2</span><span class="p">))</span>
+ <span class="n">T3</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a2</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">m1</span> <span class="o">+</span><span class="n">m2</span><span class="p">))</span>
+ <span class="n">t0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">AU</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">G</span><span class="o">*</span><span class="n">M_s</span><span class="p">))</span>
+
+
+ <span class="k">def</span><span class="w"> </span><span class="nf">dSdt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+     <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">vx1</span><span class="p">,</span> <span class="n">vy1</span><span class="p">,</span> <span class="n">vx2</span><span class="p">,</span> <span class="n">vy2</span> <span class="o">=</span> <span class="n">S</span>
+     <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span>
+     <span class="n">r3</span>     <span class="o">=</span> <span class="p">(</span><span class="n">dx</span><span class="o">*</span><span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span><span class="o">*</span><span class="n">dy</span><span class="p">)</span><span class="o">**</span><span class="mf">1.5</span>
+     <span class="n">ax1</span>    <span class="o">=</span>  <span class="n">m2</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">r3</span>
+     <span class="n">ay1</span>    <span class="o">=</span>  <span class="n">m2</span> <span class="o">*</span> <span class="n">dy</span> <span class="o">/</span> <span class="n">r3</span>
+     <span class="n">ax2</span>    <span class="o">=</span> <span class="o">-</span><span class="n">m1</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">r3</span>
+     <span class="n">ay2</span>    <span class="o">=</span> <span class="o">-</span><span class="n">m1</span> <span class="o">*</span> <span class="n">dy</span> <span class="o">/</span> <span class="n">r3</span>
+     <span class="k">return</span> <span class="p">[</span><span class="n">vx1</span><span class="p">,</span> <span class="n">vy1</span><span class="p">,</span> <span class="n">vx2</span><span class="p">,</span> <span class="n">vy2</span><span class="p">,</span> <span class="n">ax1</span><span class="p">,</span> <span class="n">ay1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ay2</span><span class="p">]</span>
+
+ <span class="c1"># Phase 1 initial conditions</span>
+ <span class="n">x11_0</span><span class="o">=</span><span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">r1</span>
+ <span class="n">y11_0</span><span class="o">=</span><span class="mi">0</span>
+ <span class="n">x21_0</span><span class="o">=</span><span class="p">(</span><span class="n">m1</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">r1</span>
+ <span class="n">y21_0</span><span class="o">=</span><span class="mi">0</span>
+ <span class="n">vx11_0</span><span class="o">=</span><span class="mi">0</span>
+ <span class="n">vy11_0</span><span class="o">=</span><span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">v1</span>
+ <span class="n">vx21_0</span><span class="o">=</span><span class="mi">0</span>
+ <span class="n">vy21_0</span><span class="o">=</span><span class="p">(</span><span class="n">m1</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">v1</span>
+
+ <span class="n">t1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T1</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+ <span class="n">y01</span> <span class="o">=</span> <span class="p">[</span><span class="n">x11_0</span><span class="p">,</span> <span class="n">y11_0</span><span class="p">,</span> <span class="n">x21_0</span><span class="p">,</span> <span class="n">y21_0</span><span class="p">,</span> <span class="n">vx11_0</span><span class="p">,</span> <span class="n">vy11_0</span><span class="p">,</span> <span class="n">vx21_0</span><span class="p">,</span> <span class="n">vy21_0</span><span class="p">]</span>
+ <span class="n">sol1</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">dSdt</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T1</span><span class="p">),</span> <span class="n">y01</span><span class="p">,</span> <span class="n">t_eval</span><span class="o">=</span><span class="n">t1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'DOP853'</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-13</span><span class="p">)</span>
+ <span class="n">x11</span><span class="p">,</span> <span class="n">y11</span><span class="p">,</span> <span class="n">x21</span><span class="p">,</span> <span class="n">y21</span> <span class="o">=</span> <span class="n">sol1</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sol1</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sol1</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">sol1</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+ <span class="c1"># Phase 2 transfer burn</span>
+ <span class="n">x12_0</span><span class="o">=</span><span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span>
+ <span class="n">y12_0</span><span class="o">=</span><span class="mi">0</span>
+ <span class="n">x22_0</span><span class="o">=</span><span class="p">(</span><span class="n">m1</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span>
+ <span class="n">y22_0</span><span class="o">=</span><span class="mi">0</span>
+ <span class="n">vx12_0</span><span class="o">=</span><span class="mi">0</span>
+ <span class="n">vy12_0</span><span class="o">=</span><span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">v</span>
+ <span class="n">vx22_0</span><span class="o">=</span><span class="mi">0</span>
+ <span class="n">vy22_0</span><span class="o">=</span><span class="p">(</span><span class="n">m1</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">v</span>
+
+ <span class="n">t2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+ <span class="n">y02</span> <span class="o">=</span> <span class="p">[</span><span class="n">x12_0</span><span class="p">,</span> <span class="n">y12_0</span><span class="p">,</span> <span class="n">x22_0</span><span class="p">,</span> <span class="n">y22_0</span><span class="p">,</span> <span class="n">vx12_0</span><span class="p">,</span> <span class="n">vy12_0</span><span class="p">,</span> <span class="n">vx22_0</span><span class="p">,</span> <span class="n">vy22_0</span><span class="p">]</span>
+ <span class="n">sol2</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">dSdt</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T2</span><span class="p">),</span> <span class="n">y02</span><span class="p">,</span> <span class="n">t_eval</span><span class="o">=</span><span class="n">t2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'DOP853'</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-13</span><span class="p">)</span>
+ <span class="n">x12</span><span class="p">,</span> <span class="n">y12</span><span class="p">,</span> <span class="n">x22</span><span class="p">,</span> <span class="n">y22</span> <span class="o">=</span> <span class="n">sol2</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sol2</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sol2</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">sol2</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+ <span class="c1"># Prepare Phase 3 initial conditions from end of Phase 2</span>
+ <span class="n">x13_0</span> <span class="o">=</span> <span class="n">x12</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+ <span class="n">y13_0</span> <span class="o">=</span> <span class="n">y12</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+ <span class="n">x23_0</span> <span class="o">=</span> <span class="n">x22</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+ <span class="n">y23_0</span> <span class="o">=</span> <span class="n">y22</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+ <span class="n">vx13_0</span> <span class="o">=</span> <span class="mi">0</span>
+ <span class="n">vy13_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">v2</span>
+ <span class="n">vx23_0</span> <span class="o">=</span> <span class="mi">0</span>
+ <span class="n">vy23_0</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">m1</span><span class="o">/</span><span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">v2</span>
+
+ <span class="c1"># Phase 3 final burn and coast</span>
+
+
+ <span class="n">t3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T3</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+ <span class="n">y03</span> <span class="o">=</span> <span class="p">[</span><span class="n">x13_0</span><span class="p">,</span> <span class="n">y13_0</span><span class="p">,</span> <span class="n">x23_0</span><span class="p">,</span> <span class="n">y23_0</span><span class="p">,</span> <span class="n">vx13_0</span><span class="p">,</span> <span class="n">vy13_0</span><span class="p">,</span> <span class="n">vx23_0</span><span class="p">,</span> <span class="n">vy23_0</span><span class="p">]</span>
+ <span class="n">sol3</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">dSdt</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T3</span><span class="p">),</span> <span class="n">y03</span><span class="p">,</span> <span class="n">t_eval</span><span class="o">=</span><span class="n">t3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'DOP853'</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-13</span><span class="p">)</span>
+ <span class="n">x13</span><span class="p">,</span> <span class="n">y13</span><span class="p">,</span> <span class="n">x23</span><span class="p">,</span> <span class="n">y23</span> <span class="o">=</span> <span class="n">sol3</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sol3</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">sol3</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">sol3</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+ <span class="nb">print</span><span class="p">(</span><span class="s2">"Lambda_1"</span><span class="p">,</span><span class="n">v</span><span class="o">/</span><span class="n">v1</span><span class="p">)</span>
+ <span class="nb">print</span><span class="p">(</span><span class="s2">"Lambda_2"</span><span class="p">,</span><span class="n">v2</span><span class="o">/</span><span class="n">v</span><span class="p">)</span>
+
+ <span class="k">def</span><span class="w"> </span><span class="nf">e_from</span><span class="p">(</span><span class="n">rvec</span><span class="p">,</span><span class="n">vvec</span><span class="p">):</span>
+     <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">rvec</span><span class="p">);</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vvec</span><span class="p">,</span><span class="n">vvec</span><span class="p">);</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(((</span><span class="n">v2</span><span class="o">-</span><span class="n">M</span><span class="o">/</span> <span class="n">r</span><span class="p">)</span><span class="o">*</span><span class="n">rvec</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rvec</span><span class="p">,</span><span class="n">vvec</span><span class="p">)</span><span class="o">*</span><span class="n">vvec</span><span class="p">))</span><span class="o">/</span><span class="n">M</span>
+ <span class="n">r1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x21</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">x11</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y21</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">y11</span><span class="p">[</span><span class="mi">0</span><span class="p">]]);</span> <span class="n">v1rel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sol1</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">sol1</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">sol1</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">sol1</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+ <span class="n">r2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x22</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">x12</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y22</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">y12</span><span class="p">[</span><span class="mi">0</span><span class="p">]]);</span> <span class="n">v2rel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sol2</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">sol2</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">sol2</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">sol2</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+ <span class="n">r3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x23</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">x13</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y23</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">y13</span><span class="p">[</span><span class="mi">0</span><span class="p">]]);</span> <span class="n">v3rel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sol3</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">sol3</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">sol3</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">sol3</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+ <span class="nb">print</span><span class="p">(</span><span class="s2">"e1 ="</span><span class="p">,</span> <span class="n">e_from</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">v1rel</span><span class="p">));</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"e2 ="</span><span class="p">,</span> <span class="n">e_from</span><span class="p">(</span><span class="n">r2</span><span class="p">,</span> <span class="n">v2rel</span><span class="p">));</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"e3 ="</span><span class="p">,</span> <span class="n">e_from</span><span class="p">(</span><span class="n">r3</span><span class="p">,</span> <span class="n">v3rel</span><span class="p">))</span>
+ <span class="nb">print</span><span class="p">(</span><span class="s2">"major axis, a1: "</span><span class="p">,</span><span class="n">x21</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">-</span><span class="n">x21</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+ <span class="nb">print</span><span class="p">(</span><span class="s2">"major axis, a_t: "</span><span class="p">,</span><span class="n">x22</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">-</span><span class="n">x22</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+ <span class="nb">print</span><span class="p">(</span><span class="s2">"major axis, a2: "</span><span class="p">,</span><span class="n">x23</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">-</span><span class="n">x23</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre>
+        </div>
+      </div>
+
+      <p>And we get the output,</p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="n">Lambda_1</span> <span class="mf">0.5773502691896257</span>
+ <span class="n">Lambda_2</span> <span class="mf">5.3385391260156565</span>
+ <span class="n">e1</span> <span class="o">=</span> <span class="mf">5.999999791265137e-09</span>
+ <span class="n">e2</span> <span class="o">=</span> <span class="mf">0.6666666686666667</span>
+ <span class="n">e3</span> <span class="o">=</span> <span class="mf">0.8999999824726989</span>
+ <span class="n">major</span> <span class="n">axis</span><span class="p">,</span> <span class="n">a1</span><span class="p">:</span>  <span class="o">-</span><span class="mf">1.9999999815533838</span>
+ <span class="n">major</span> <span class="n">axis</span><span class="p">,</span> <span class="n">a_t</span><span class="p">:</span>  <span class="o">-</span><span class="mf">1.1999999949550197</span>
+ <span class="n">major</span> <span class="n">axis</span><span class="p">,</span> <span class="n">a2</span><span class="p">:</span>  <span class="o">-</span><span class="mf">3.9999992587954742</span>
+</pre>
+        </div>
+      </div>
+      <p>
+        Here, as you can see, we obtained the expected result: we wanted an
+        orbit with major axis \(4\), and that's what we got, with the expected
+        eccentricity \(e = 0.9\). Now, if we plot the orbit, we get:
+      </p>
+
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/dig-2-2.png"
+        alt="Orbital Plot"
+        width="573.33333"
+        height="353.3333"
+      />
+      <p>If we animate the solution we get:</p>
+      <video width="720" height="500" controls>
+        <source
+          src="/Main/Research & Simulations/N-Body Problem/videos/changeOfOrbit0001-0630.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <p>
+        As shown, the boost factors are \(\lambda_1=0.5777350\) and
+        \(\lambda_2=5.338539\). The satellite fires the first burn opposite its
+        direction of motion and slows by a factor of \(\lambda_1\) It then fires
+        the second burn and speeds up by a factor of \(\lambda_2\).
+      </p>
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Solar System Dynamics.</p>
+              <span class="resource-card__sub">Carl D. Murray. Ch-\(\text{II}\).</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Classical Mechanics.</p>
+              <span class="resource-card__sub">John R. Taylor. Ch-8.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Classical Mechanics.</p>
+              <span class="resource-card__sub">Herbert Goldstein, Charles P. Poole, and John Safko. Ch-3.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Theory of orbits: The Restricted Problem of Three Bodies.</p>
+              <span class="resource-card__sub">Victor Szebehely.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="/Main/Research & Simulations/The_Structure/Structure.js"></script>
+    <script src="/Main/Research & Simulations/The_Structure/index.js"></script>
+</html>

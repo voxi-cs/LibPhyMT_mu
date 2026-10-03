@@ -1,0 +1,1198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction To Real Analysis</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+    <!-- Chapter Title -->
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-1</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Introduction to Real Analysis: A Rigorous Study of \( \mathbb{R}
+            \).
+          </span>
+        </div>
+
+      </h1>
+    </div>
+    <!-- Publication Info -->
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "Mathematics is in its development entirely free and is only bound ... [by] exact relationships ... ordered by definitions."
+        <br />
+        <span>— Georg Cantor</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h2>Introduction</h2>
+      <p>
+        It is true that <strong>Real Analysis</strong> is a pure mathematical
+        subject; nevertheless, it lies at the heart of modern physics. One can say
+        that the purpose of real analysis
+        <strong>
+          is to make precise the ideas of limits, continuity, differentiation,
+          integration, and infinite processes on the real line, and to prove
+          exactly when and why they work.
+        </strong>
+        But one must not undermine the significance of this study. Real analysis
+        did not come into being as the work of one person or one group of
+        individuals. Rather, it slowly emerged over many centuries through the
+        contributions of many mathematicians. The earliest clear precursor can be
+        traced back to the ancient Greeks: ideas such as the method of exhaustion,
+        developed by Eudoxus and used powerfully by Archimedes, already contained
+        the spirit of rigorous limiting arguments. Much later, in the 17th century,
+        Newton and Leibniz created calculus, but the subject still lacked a fully
+        precise foundation. In the 19th century, Bernard Bolzano began to push
+        analysis toward modern rigor, and Augustin-Louis Cauchy, in his 1821
+        <em>Cours d'analyse</em>, gave limits, continuity, and convergence a much
+        firmer logical basis. Then Karl Weierstrass brought the epsilon-delta style
+        of rigor that became the standard language of analysis. After that, Richard
+        Dedekind and Georg Cantor helped clarify the real numbers and completeness,
+        and in the early 20th century Henri Lebesgue expanded integration through
+        measure theory. In this way, real analysis was not born all at once; it was
+        built slowly, through centuries of careful work, until it became the
+        subject we know today. Later, these ideas also helped shape other branches
+        of mathematics, such as functional analysis, which became central in
+        quantum mechanics and quantum field theory (QFT).
+      </p>
+      <p>
+        Nevertheless, in this chapter on real analysis, our goal is to walk
+        together with the reader through the vast and fascinating field of real
+        analysis, hoping to look deeply into the subject.
+      </p>
+
+      <h2>Revisiting The Sets</h2>
+      <p>
+        It is assumed that the reader has a basic understanding of what a set is.
+        Here, we would like to formalize our understanding of sets so that we do
+        not have problems with the upcoming notations and terms that we will be
+        using throughout the chapter.
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong>
+          A <strong>set</strong> is a well-defined collection of distinct objects,
+          called <strong>elements</strong> or <strong>members</strong>, regarded as
+          a single mathematical object.
+        </p>
+        <p>
+          If \(x\) is an element of a set \(\textit{A}\), then we write
+          \(x \in \textit{A}\); otherwise, we write \(x \notin \textit{A}\).
+        </p>
+        <p>
+          Here, \(\in\) reads as <strong>in</strong> or <strong>belongs to</strong>,
+          and \(\notin\) as <strong>not in</strong> or <strong>does not belong to</strong>.
+        </p>
+        <p>
+          To create a set, we write a notational structure as below:
+        </p>
+        <p class="equation">
+          \[ \textit{A} = \{ x : \text{a certain condition on } x \} \]
+        </p>
+        <p>
+          Throughout this chapter, we will use
+          \(\mathbb N = \{1,2,3,\dots\}\) and
+          \(\mathbb N_0 = \{0,1,2,3,\dots\}\).
+        </p>
+      </div>
+
+      <p>
+        The elements of a set can be anything. They could be vectors, and they can form a vector space, or a set can contain
+        alphabets. There is no restriction on what a set can contain, but we can indeed restrict certain sets to contain only
+        certain things.
+      </p>
+
+      <p>
+We can create a set of all even numbers and call it \(\textit{E}\), as:
+        \[
+        \textit{E} = \{x : x = 2n,\ \text{for some } n \in \mathbb{Z}\}
+        \]
+        We can similarly create a set of odd numbers, \(\textit{O}\), as:
+        \[
+        \textit{O} = \{x : x = 2n + 1,\ \text{for some } n \in \mathbb{Z}\}
+        \]
+        Notice that we could also do the same using the \(mod\) notation and the
+        set of all integers \(\mathbb{Z}\). Then the set of even numbers can be
+        written as:
+        \[
+        \textit{E} = \{x \in \mathbb{Z} : x \equiv 0 \pmod{2}\}
+        \]
+        Similarly, for odd numbers:
+        \[
+        \textit{O} = \{x \in \mathbb{Z} : x \equiv 1 \pmod{2}\}
+        \]
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong>
+          Let \(A\) and \(B\) be two sets.
+          The <strong>union</strong> of \(A\) and \(B\), denoted by \(A \cup B\), is the set of all elements that belong to \(A\), or to \(B\), or to both.
+        </p>
+        <p class="equation">
+          \[
+          A \cup B = \{x : x \in A \text{ or } x \in B\}
+          \]
+        </p>
+      </div>
+
+      <p>
+        Let sets \(\textit{A} = \{1,2,3,5,7,11\}\) and \(\textit{B} = \{1,2,4,7,5\}\), then their union is:
+        \[
+        \textit{A} \cup \textit{B} = \{1,2,3,5,7,11\} \cup \{1,2,4,7,5\} = \{1,2,3,4,5,7,11\}
+        \]
+        If we give another example, the union of the set of odd numbers and the set
+        of even numbers is the set of all integers \(\mathbb{Z}\):
+        \[
+        \textit{E} \cup \textit{O} = \{\dots,-6,-4,-2,0,2,4,6,\dots\} \cup \{\dots,-5,-3,-1,1,3,5,\dots\}
+        = \{x \in \mathbb{Z} : x \text{ is even or odd}\} = \mathbb{Z}
+        \]
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong>
+          Let \(A\) and \(B\) be two sets.
+          The <strong>intersection</strong> of \(A\) and \(B\), denoted by \(A \cap B\), is the set of all elements that belong to both \(A\) and \(B\).
+        </p>
+        <p class="equation">
+          \[
+          A \cap B = \{x : x \in A \text{ and } x \in B\}
+          \]
+        </p>
+      </div>
+
+      <p>
+        The intersection of the set \(\textit{A} = \{1,2,3,5,7,11\}\) and
+        \(\textit{B} = \{1,2,4,7,5\}\) is just the set of all elements that are
+        both in \(\textit{A}\) and \(\textit{B}\):
+        \[
+        \textit{A} \cap \textit{B} = \{1,2,3,5,7,11\} \cap \{1,2,4,7,5\} = \{1,2,5,7\}
+        \]
+        The intersection of \(\textit{E}\) and \(\textit{O}\) is the empty set
+        \(\varnothing\); it is because the even set contains all even numbers and
+        the odd set contains all odd numbers, so there is nothing common between
+        them. Hence:
+        \[
+        \mathit{E}\cap\mathit{O} = \varnothing
+        \]
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong>
+          Let \(A\) and \(B\) be two sets. We say that \(A\) is a <strong>subset</strong> of \(B\), written \(A \subseteq B\), if every element of \(A\) is also an element of \(B\).
+        </p>
+        <p class="equation">
+          \[
+          A \subseteq B \iff \forall x,\ (x \in A \Rightarrow x \in B)
+          \]
+        </p>
+        <p>
+          If \(A \subseteq B\) and \(A \neq B\), then \(A\) is called a <strong>proper subset</strong> of \(B\), written \(A \subset B\).
+        </p>
+      </div>
+
+      <p>
+        In case you are unfamiliar with it, here \(\forall\) reads as “for all,”
+        meaning that for all \(x\) that are in \(\textit{A}\), they must also be in
+        \(\textit{B}\).
+      </p>
+
+      <p>
+        The set of all even numbers \(\textit{E}\) is said to be a subset of all
+        integers \(\mathbb{Z}\), and we write it as \(\textit{E} \subseteq \mathbb{Z}\).
+        More specifically, \(\textit{E}\) is a proper subset of \(\mathbb{Z}\), and
+        hence \(\textit{E} \subset \mathbb{Z}\). The same is true for the set
+        \(\textit{O}\). If it is otherwise and \(\textit{A}\) is not a subset of
+        \(\textit{B}\), then we write it as \(\textit{A} \nsubseteq \textit{B}\).
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong>
+          Let \(A\) be a subset of a universal set \(U\). The <strong>complement</strong> of \(A\), denoted by \(A^c\) or \(U - A\), is the set of all elements of \(U\) that do not belong to \(A\).
+        </p>
+        <p class="equation">
+          \[
+          A^c = U - A = \{x \in U : x \notin A\}
+          \]
+        </p>
+        <p>
+          Here, \(A^c\) reads as <strong>A complement</strong>, and \(U - A\) reads as <strong>U minus A</strong> or <strong>the set difference of \(U\) and \(A\)</strong>.
+        </p>
+      </div>
+
+      <p>
+        Let \(\mathbb{Z}\) be the universal set, then \(\textit{E}^c = \mathbb{Z} - \textit{E} = \textit{O}\).
+      </p>
+
+      <p>
+        Now that we are familiar with the notations, let us show some examples and
+        introduce a few more crucial notations that are going to be useful.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-4.001: De Morgan's Laws</h4>
+          <p>
+            Let \(\textit{A}\) and \(\textit{B}\) be subsets of a universal set \(\textit{U}\). Then
+            \[
+            (\textit{A} \cup \textit{B})^c = \textit{A}^c \cap \textit{B}^c
+            \]
+            and
+            \[
+            (\textit{A} \cap \textit{B})^c = \textit{A}^c \cup \textit{B}^c.
+            \]
+          </p>
+          <h4>Proof:</h4>
+            <p>
+            We first show that
+            \[
+            (\textit{A} \cap \textit{B})^c \subseteq \textit{A}^c \cup \textit{B}^c.
+            \]
+            Let \(x \in (\textit{A} \cap \textit{B})^c\). Then \(x \notin \textit{A} \cap \textit{B}\), so \(x \notin \textit{A}\) or \(x \notin \textit{B}\). Hence \(x \in \textit{A}^c \cup \textit{B}^c\). Therefore,
+            \[
+            (\textit{A} \cap \textit{B})^c \subseteq \textit{A}^c \cup \textit{B}^c.
+            \]
+
+            Conversely, suppose \(x \in \textit{A}^c \cup \textit{B}^c\). Then \(x \notin \textit{A}\) or \(x \notin \textit{B}\), so \(x \notin \textit{A} \cap \textit{B}\). Thus \(x \in (\textit{A} \cap \textit{B})^c\). Therefore,
+            \[
+            \textit{A}^c \cup \textit{B}^c \subseteq (\textit{A} \cap \textit{B})^c.
+            \]
+            Hence,
+            \[
+            (\textit{A} \cap \textit{B})^c = \textit{A}^c \cup \textit{B}^c.
+            \]
+
+            Similarly, we show that
+            \[
+            (\textit{A} \cup \textit{B})^c = \textit{A}^c \cap \textit{B}^c.
+            \]
+            Let \(x \in (\textit{A} \cup \textit{B})^c\). Then \(x \notin \textit{A} \cup \textit{B}\), so \(x \notin \textit{A}\) and \(x \notin \textit{B}\). Hence \(x \in \textit{A}^c \cap \textit{B}^c\). Therefore,
+            \[
+            (\textit{A} \cup \textit{B})^c \subseteq \textit{A}^c \cap \textit{B}^c.
+            \]
+
+            Conversely, suppose \(x \in \textit{A}^c \cap \textit{B}^c\). Then \(x \notin \textit{A}\) and \(x \notin \textit{B}\), so \(x \notin \textit{A} \cup \textit{B}\). Thus \(x \in (\textit{A} \cup \textit{B})^c\). Therefore,
+            \[
+            \textit{A}^c \cap \textit{B}^c \subseteq (\textit{A} \cup \textit{B})^c.
+            \]
+            Hence,
+            \[
+            (\textit{A} \cup \textit{B})^c = \textit{A}^c \cap \textit{B}^c.
+            \]
+            <span class="qed"></span>
+            </p>
+      </div>
+      <p>
+        Let us see an example to brush up some basic ideas.
+      </p>
+            <div class="cm-example-card"> 
+        <div class="cm-labels-row"> 
+          <div class="cm-badge cm-badge--example">EXAMPLE</div> 
+        </div> 
+        <p> 
+          Let us consider the sets:
+          \[
+          A_n = \{n,n+1,n+2,\dots\} \quad \forall n \in \mathbb N
+          \]
+          These sets are:
+          \[
+          A_1 = \{1,2,3,4,\dots\}
+          \]
+          \[
+          A_2 = \{2,3,4,5,\dots\}
+          \]
+          \[
+          A_3 = \{3,4,5,6,\dots\}
+          \]
+          And so on.
+        </p>
+        <p>
+          Here notice that \(A_1\) contains all the elements of \(A_2,A_3,\dots\), so we can say:
+          \[
+          A_1 \supseteq A_2 \supseteq A_3 \supseteq \dots
+          \]
+          Here now let us take the union of all such sets, that is:
+          \[
+          \bigcup_{n=1}^{\infty} A_n = A_1.
+          \]
+          Notice that since all the sets \(A_2,A_3,\dots\) are subsets of \(A_1\), if we combine them by union, then we will
+          just get \(A_1\). Therefore, we can say the countable union of \(A_n\) is
+          \[
+          \bigcup_{n=1}^{\infty} A_n = A_1.
+          \]
+        </p>
+        <p>
+          Now let us think about the intersection of all those sets. The countable intersection of all those sets is:
+          \[
+          \bigcap_{n=1}^{\infty} A_n = \varnothing.
+          \]
+          The countable intersection is empty because, suppose there is some \(m\) that is in all such sets. Then \(m\in A_m\),
+          but notice that \(m\notin A_{m+1}\), and therefore we have a contradiction. So there is no such \(m\).
+        </p>
+      </div>
+      <h2>
+        The Real Number set \(\mathbb R\)
+      </h2>
+      <p>
+        To work with the real number set \(\mathbb R\), we first need to define what it is. The early work
+        of real analysis was an attempt to build a rigorous definition of the real number set. Much of the work of
+        real analysis was constructed for this purpose. After building enough mathematical understanding of the real
+        numbers, we were able to construct a rigorous construction of \(\mathbb R\) from the rational number set \(\mathbb Q\).
+        But first we need that mathematical understanding to truly understand that construction, and later in this chapter we shall
+        see that construction of \(\mathbb R\). But for now we will work with the following definition of
+        the real number set \(\mathbb R\).
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: The Real Number System</strong>
+          The <strong>real numbers</strong> are a set \(\mathbb{R}\) containing
+          \(\mathbb{Q}\) as a subfield, equipped with addition, multiplication, and
+          an order such that \(\mathbb{R}\) is an <strong>ordered field</strong> and
+          satisfies the <strong>Axiom of Completeness</strong>.
+        </p>
+
+        <h4>Field Properties:</h4>
+        <p class="equation">
+          Addition and multiplication on \(\mathbb{Q}\) extend to all of
+          \(\mathbb{R}\). Addition and multiplication are commutative and
+          associative, and multiplication distributes over addition:
+          \[
+          a+b=b+a,\qquad ab=ba,
+          \]
+          \[
+          (a+b)+c=a+(b+c),\qquad (ab)c=a(bc),
+          \]
+          \[
+          a(b+c)=ab+ac
+          \]
+          for all \(a,b,c\in\mathbb{R}\).
+        </p>
+
+        <h4>Additive Inverse:</h4>
+        <p class="equation">
+          For every \(a\in\mathbb{R}\), there exists \(-a\in\mathbb{R}\) such that
+          \[
+          a+(-a)=0.
+          \]
+        </p>
+
+        <h4>Multiplicative Inverse:</h4>
+        <p class="equation">
+          For every nonzero \(a\in\mathbb{R}\), there exists \(a^{-1}\in\mathbb{R}\)
+          such that
+          \[
+          aa^{-1}=1.
+          \]
+        </p>
+
+        <h4>Order:</h4>
+        <p class="equation">
+          The familiar ordering on \(\mathbb{Q}\) extends to \(\mathbb{R}\) and is
+          compatible with the field operations. In particular,
+          \[
+          a \lt b \text{ and } c\gt 0 \quad\Longrightarrow\quad ac \lt bc
+          \]
+          for all \(a,b,c\in\mathbb{R}\).
+        </p>
+
+        <h4>Axiom of Completeness(AoC):</h4>
+        <p class="equation">
+          Every nonempty subset of \(\mathbb{R}\) that is bounded above has a
+          least upper bound in \(\mathbb{R}\).
+        </p>
+      </div>
+      <p>
+        In the definition, most of the concepts are quite reasonable and understandable, but the Axiom of
+        Completeness needs a little bit of our time to truly appreciate it.
+      </p>
+      <h3>Supremum and Infimum</h3>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Boundedness</strong>
+          Suppose we have a set \(A \subset \mathbb R\), the set \(A\) is said to be <strong>bounded above</strong> 
+          if there exists a \(b \in \mathbb R\) such that for all \(a \in A \), \(a \le b\). Here \(b\) is called a <strong>upper bound</strong>.
+        </p>
+        <p>
+          And the set is said to be <strong>bounded below</strong> if there exists a \(l \in \mathbb R\) such that for all \(a \in A\), \(a \ge l\). Here \(l\) is called a <strong>lower bound</strong>.
+        </p>
+      </div>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-4/Lesson-1/Images/Bounds_ManimCE_v0.21.0.png"
+              alt="img"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-4/Lesson-1/Images/Bounds_ManimCE_v0.21.0.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-4/Lesson-1/Videos/Bounds.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        In the above animation you can see what we mean by <strong>upper bound</strong> and <strong>lower bound</strong>.
+        When a set is <strong>bounded above</strong>, it just means we can find at least one real number such that it is greater than or
+        equal to all the elements in the set \(A\), and similarly, being <strong>bounded below</strong> means we can find a real number that is less than or equal
+        to all the elements in the set \(A\). It is like being able to draw some boundary around \(A\) on either side when drawn on the number line.
+      </p>
+      <p>
+        Now let us define the most important part of analysis.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Supremum</strong>
+          Suppose we have a set \(A \subset \mathbb R\), a real number \(s \in \mathbb R\) is said to be the <strong>supremum</strong> or <strong>least upper bound</strong> of \(A\) if:
+          <ol class="custom-roman-list">
+            <li>\(s\) is a <strong>upper bound</strong> of \(A\).</li>
+            <li>For any upper bound \(b\) of \(A\), \(s \le b\).</li>
+          </ol>
+        </p>
+        <p>Supremum of a set \(A\subset \mathbb R\) is denoted as:
+          \[
+          s = \sup A.
+          \]
+          Or sometimes as:
+          \[
+          s = \text{lub } A.
+          \]
+        </p>
+      </div>
+      <p>
+        It is easy to see that the <strong>supremum</strong> of a set is <strong>unique</strong>, and it is easy to prove that.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Infimum</strong>
+          Suppose we have a set \(A \subset \mathbb R\), a real number \(i \in \mathbb R\) is said to be the <strong>Infimum</strong> or <strong>greatest lower bound</strong> of \(A\) if:
+          <ol class="custom-roman-list">
+            <li>\(i\) is a <strong>lower bound</strong> of \(A\).</li>
+            <li>For any lower bound \(l\) of \(A\), \(i \ge l\).</li>
+          </ol>
+        </p>
+        <p>Infimum of a set \(A\subset \mathbb R\) is denoted as:
+          \[
+          i = \inf A.
+          \]
+          Or sometimes as:
+          \[
+          i = \text{glb } A.
+          \]
+        </p>
+      </div>
+      <p>Let us show you an example that should clear up any confusion you might have.</p>
+            <div class="cm-example-card"> 
+        <div class="cm-labels-row"> 
+          <div class="cm-badge cm-badge--example">EXAMPLE</div> 
+        </div> 
+        <p>
+          <strong>Give the set below:
+            \[
+            A = \left\{ 2 - \frac{2}{n+1}: n \in \mathbb N_0 \right\}
+            \]
+            Find its <strong>supremum</strong> and <strong>infimum</strong>.
+          </strong>
+        </p>
+        <br>
+        <p>
+          Notice that the set \(A\) is:
+          \[
+          A = \left\{0 , 1, \frac{4}{3}, \frac{3}{2},\dots \right\}.
+          \]
+          And we defined the set such that its elements are:
+          \[
+          2 - \frac{2}{n+1} \quad \text{for } n \in\mathbb N_0.
+          \]
+          Notice what happens as \(n \to \infty\):
+          \[
+          \lim_{n \to \infty} 2 - \frac{2}{n+1} = 2.
+          \]
+          So, \(2\) is approached by the elements of \(A\), but \(2\) itself is not an element of \(A\):
+          \[
+          2\notin A.
+          \]
+        </p>
+        <div class="Animation">
+          <div class="Cont_ent">
+            <figure class="media">
+              <img
+                src="/Main/Chapters/Chapter-4/Lesson-1/Images/ApproachingTwo_ManimCE_v0.21.0.png"
+                alt="img"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="media">
+              <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+                poster="/Main/Chapters/Chapter-4/Lesson-1/Images/ApproachingTwo_ManimCE_v0.21.0.png"
+              >
+                <source
+                  src="/Main/Chapters/Chapter-4/Lesson-1/Videos/ApproachingTwo.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </figure>
+          </div>
+        </div>
+        <p>
+          Now go back to the definitions. We can see that the set \(A\) is <strong>bounded above</strong> by
+          all real numbers \(b \ge 2\), and bounded below by all real numbers \(l\le 0\). Now notice the definition
+          of the supremum says \(\sup A\) has to be an <strong>upper bound</strong> and it has to be the smallest
+          <strong>upper bound</strong>, which in this case we can see is \(2\). It is because \(2\) is an upper bound,
+          while the elements of \(A\) can be made arbitrarily close to \(2\) from below. Therefore, no number smaller
+          than \(2\) can be an upper bound. Thus:
+          \[
+          \sup A = 2.
+          \]
+          Similarly, \(0\) is in \(A\), and every element of \(A\) is greater than or equal to \(0\). Therefore:
+          \[
+          \inf A = 0.
+          \]
+          An important thing to notice here is that \(2\notin A\), which means the <strong>supremum</strong> and
+          <strong>infimum</strong> of a set do not necessarily have to be in the set, as in this example. An example
+          of a set where the infimum and supremum both belong to the set is:
+          \[
+          B = \{1,2,3,4\}.
+          \]
+          Here \(\max B = \sup B = 4 \in B\) and \(\min B = \inf B = 1 \in B\). And in the case of \(A\), even though
+          \(\min\) is defined on \(A\) and \(\min A = \inf A = 0\), \(\max\) is not defined on \(A\).
+        </p>
+      </div>
+      <p>
+        Now we can talk about the <strong>Axiom of Completeness</strong>. It says, "Every nonempty subset of
+        \(\mathbb R\) that is bounded above has a least upper bound in \(\mathbb R\)." What this is saying is that
+        every nonempty subset of \(\mathbb R\) that does not go off without bound in the positive direction has a
+        <strong>supremum</strong>. That is, the set \(A=[0,\infty)\) is not bounded above and thus has no supremum,
+        but the set \(A=\{2\}\cup(4,5)\cup[6,9)\cup(9,12]\cup[15,18]\) is bounded above and thus has a supremum,
+        namely \(\sup A=18\). The <strong>Axiom of Completeness</strong> is an axiom, and thus we accept it as true
+        instead of proving it.
+      </p>
+      <p>
+        The least-upper-bound property holds for the real number set \(\mathbb R\), but it does not hold for
+        \(\mathbb Q\) or for \(\mathbb I\), with the inherited order. Below is an example showing the failure for
+        \(\mathbb I\); it is for you to give an example for \(\mathbb Q\). Take it as a H.W.
+      </p>
+      <div class="cm-example-card"> 
+        <div class="cm-labels-row"> 
+          <div class="cm-badge cm-badge--example">EXAMPLE</div> 
+        </div>
+        <p>
+          <strong>
+            Show that the least-upper-bound property does not hold on \(\mathbb I\), using the set
+            \[
+            A = \{a_n:n\in\mathbb N_0\},
+            \qquad
+            a_0=\sqrt{2},\qquad a_{n+1}=\sqrt{2+a_n}.
+            \]
+          </strong>
+        </p>
+        <br>
+        <p>
+          First, every \(a_n\) is irrational. We know \(a_0=\sqrt{2}\) is irrational. If some \(a_n\) with \(n\ge1\)
+          were rational, then
+          \[
+          a_{n-1}=a_n^2-2
+          \]
+          would also be rational, and repeating this argument would eventually make \(a_0\) rational, which is a
+          contradiction. Therefore \(a_n\in\mathbb I\) for every \(n\), so \(A\subseteq\mathbb I\).
+        </p>
+        <p>
+          Here are the values of the first few elements:
+          \[
+          \begin{aligned}
+            a_0 &= \sqrt{2} \approx 1.41421356237, &
+            a_1 &= \sqrt{2+\sqrt{2}} \approx 1.84775906502,\\
+            a_2 &= \sqrt{2+\sqrt{2+\sqrt{2}}}\approx 1.96157056081, &
+            a_3 &= \sqrt{2+\sqrt{2+\sqrt{2+\sqrt{2}}}}\approx 1.99036945334.
+          \end{aligned}
+          \]
+        </p>
+        <p>
+          Notice that \(a_n \lt 2\) for every \(n\). This can be shown by induction: \(a_0=\sqrt{2} \lt 2\), and if
+          \(a_n \lt 2\), then
+          \[
+          a_{n+1}=\sqrt{2+a_n} \lt \sqrt{4}=2.
+          \]
+          Let
+          \[
+          e_n=2-a_n.
+          \]
+          Then \(e_n>0\), and
+          \[
+          e_{n+1}
+          =2-\sqrt{4-e_n}
+          =\frac{e_n}{2+\sqrt{4-e_n}}
+          \lt \frac{e_n}{2}.
+          \]
+          Therefore,
+          \[
+          0 \lt e_n \lt \frac{e_0}{2^n},
+          \]
+          and hence \(e_n\to0\). Thus \(a_n\to2\).
+        </p>
+        <p>
+          Since every element of \(A\) is less than \(2\), \(2\) is an upper bound of \(A\). Since \(a_n\to2\),
+          the elements of \(A\) can be made arbitrarily close to \(2\) from below. Therefore:
+          \[
+          \sup_{\mathbb R} A=2.
+          \]
+          But \(2\notin\mathbb I\). Moreover, if \(s\in\mathbb I\) were an upper bound of \(A\), then \(s>2\).
+          The number
+          \[
+          t=\frac{s+2}{2}
+          \]
+          is also irrational and satisfies \(2 \lt t \lt s\). Since every \(a_n \lt 2 \lt t\), \(t\) is a smaller irrational upper bound.
+          Therefore, \(A\) has no least upper bound in \(\mathbb I\). Hence the least-upper-bound property does not hold
+          on \(\mathbb I\).
+        </p>
+        <p>
+          The same idea works for \(\mathbb Q\): its least-upper-bound property also fails. It is for you to find an
+          example. Take it as a H.W.
+        </p>
+      </div>
+      <div class="lemma-type1">
+        <h4>Lemma-4.001: Characterization of the Supremum</h4>
+          <p>
+             Suppose \(A \subseteq \mathbb R\), and let \(s\) be an <strong>upper bound</strong> of 
+             \(A\). Then \(s\) is the supremum of \(A\), \(s = \sup A\), if and only if, for every 
+             \(\epsilon \gt 0\) there exists an \(a \in A\) such that
+             \[
+             s - \epsilon \lt a.
+             \]
+          </p>
+          <h4>Proof:</h4>
+          <p>
+            For the forward direction, suppose \(s = \sup A\), and let \(\epsilon \gt 0\) be 
+            arbitrarily chosen. Since \(s - \epsilon \lt s\), \(s - \epsilon\) cannot be an 
+            upper bound of \(A\), because \(s\) is the least upper bound of \(A\). Therefore, 
+            there must be some \(a \in A\) for which
+            \[
+            s - \epsilon \lt a.
+            \]
+            This proves the lemma in one direction.
+          </p>
+          <p>
+            Conversely, suppose \(s\) is an upper bound of \(A\) with the property that for every 
+            \(\epsilon \gt 0\), there exists an \(a \in A\) such that
+            \[
+            s - \epsilon \lt a.
+            \]
+            Notice that this means that if \(b\) is any number less than \(s\), then \(b\) cannot 
+            be an upper bound of \(A\). To see this, let
+            \[
+            \epsilon = s-b.
+            \]
+            Since \(b \lt s\), we have \(\epsilon \gt 0\). Therefore, there exists an \(a \in A\) 
+            such that
+            \[
+            s-\epsilon \lt a.
+            \]
+            But \(s-\epsilon = b\), so:
+            \[
+            b \lt a.
+            \]
+            Hence, \(b\) is not an upper bound of \(A\).
+          </p>
+          <p>
+            Now, since \(s\) is already an upper bound of \(A\), and every number less than \(s\) 
+            is not an upper bound, \(s\) must be the least upper bound of \(A\). Therefore:
+            \[
+            s = \sup A.
+            \]
+          </p>
+          <span class="qed"></span>
+      </div>
+      <div class="lemma-type1">
+        <h4>Lemma-4.002: Characterization of the Infimum</h4>
+          <p>
+             Suppose \(A \subseteq \mathbb R\), and let \(s\) be a <strong>lower bound</strong> of
+             \(A\). Then \(s\) is the infimum of \(A\), \(s = \inf A\), if and only if, for every
+             \(\epsilon \gt 0\) there exists an \(a \in A\) such that
+             \[
+             a \lt s + \epsilon.
+             \]
+          </p>
+          <h4>Proof:</h4>
+          <p>
+            For the forward direction, suppose \(s = \inf A\), and let \(\epsilon \gt 0\) be
+            arbitrarily chosen. Since \(s \lt s + \epsilon\), \(s + \epsilon\) cannot be a
+            lower bound of \(A\), because \(s\) is the greatest lower bound of \(A\). Therefore,
+            there must be some \(a \in A\) for which
+            \[
+            a \lt s + \epsilon.
+            \]
+            This proves the lemma in one direction.
+          </p>
+          <p>
+            Conversely, suppose \(s\) is a lower bound of \(A\) with the property that for every
+            \(\epsilon \gt 0\), there exists an \(a \in A\) such that
+            \[
+            a \lt s + \epsilon.
+            \]
+            Notice that this means that if \(b\) is any number greater than \(s\), then \(b\) cannot
+            be a lower bound of \(A\). To see this, let
+            \[
+            \epsilon = b-s.
+            \]
+            Since \(b \gt s\), we have \(\epsilon \gt 0\). Therefore, there exists an \(a \in A\)
+            such that
+            \[
+            a \lt s+\epsilon.
+            \]
+            But \(s+\epsilon = b\), so:
+            \[
+            a \lt b.
+            \]
+            Hence, \(b\) is not a lower bound of \(A\).
+          </p>
+          <p>
+            Now, since \(s\) is already a lower bound of \(A\), and every number greater than \(s\)
+            is not a lower bound, \(s\) must be the greatest lower bound of \(A\). Therefore:
+            \[
+            s = \inf A.
+            \]
+          </p>
+          <span class="qed"></span>
+      </div>
+      <p>
+        These lemmas are going to be important in analysis. Now let us explore some mathematical properties we get from
+        the real number set \(\mathbb R\) as a consequence of accepting the Axiom of Completeness.
+      </p>
+      <h2>Properties of \(\mathbb R\)</h2>
+      <p>
+        Below this theorem proves an important consequence of completeness. It shows that the real number line has no
+        "gaps" in the sense that bounded sets cannot have a missing least upper bound. This is different from density:
+        \(\mathbb Q\) and \(\mathbb I\) are both dense in \(\mathbb R\), even though neither is complete.
+        The real number set \(\mathbb R\) is an extension of the set of rational numbers, and one way to think about its
+        construction is as filling the missing limits of \(\mathbb Q\). Later, when we discuss topology, you will see
+        that \(\mathbb R\) is the closure of both \(\mathbb Q\) and \(\mathbb I\).
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-4.002: Nested Interval Property(NIP)</h4>
+          <p>
+             Suppose we have a collection of closed intervals
+             \[
+             I_n=[a_n,b_n],
+             \]
+             such that \(I_{n+1} \subseteq I_n\). Then what we get is:
+             \[
+             I_1 \supseteq I_2 \supseteq I_3 \supseteq I_4 \supseteq \dots
+             \]
+             Then the countable&mdash;we haven't talked about what countable means, but soon you will know&mdash;intersection of all these sets is:
+             \[
+             \bigcap_{n=1}^{\infty} I_{n} \neq \varnothing.
+             \]
+          </p>
+
+          <h4>Proof:</h4>
+          <p>
+            In order to prove this theorem we need to use a logical consequence of AoC, so let us consider the following set:
+            \[
+            A = \{a_n: n \in \mathbb N\}.
+            \]
+          </p>
+
+          <div class="Animation">
+          <div class="Cont_ent">
+            <figure class="media">
+              <img
+                src="/Main/Chapters/Chapter-4/Lesson-1/Images/NestedIntervals_ManimCE_v0.21.0.png"
+                alt="img"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="media">
+              <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+                poster="/Main/Chapters/Chapter-4/Lesson-1/Images/NestedIntervals_ManimCE_v0.21.0.png"
+              >
+                <source
+                  src="/Main/Chapters/Chapter-4/Lesson-1/Videos/NestedIntervals.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </figure>
+          </div>
+        </div>
+          <p>
+            In the animation you can see what the set \(A\) represents. For any fixed \(n\), \(b_n\) is an upper bound
+            for the set \(A\). Indeed, if \(m \lt n\), then \(I_n\subseteq I_m\), so \(a_m\le a_n\le b_n\). If \(m\ge n\),
+            then \(I_m\subseteq I_n\), so \(a_m\le b_n\). Therefore, \(A\) is bounded above.
+            Since \(A\) is nonempty and bounded above, we know by AoC that there exists a supremum of \(A\). Let it be \(x\):
+            \[
+            x = \sup A.
+            \]
+            Since \(x\) is an upper bound of \(A\), we have
+            \[
+            a_n\le x
+            \]
+            for every \(n\). And since each \(b_n\) is an upper bound of \(A\), and \(x\) is the least upper bound, we have
+            \[
+            x\le b_n
+            \]
+            for every \(n\). Therefore, for every interval \(I_n=[a_n,b_n]\),
+            \[
+            a_n \le x \le b_n.
+            \]
+            That means \(x\) is in all intervals \(I_n\). And therefore:
+            \[
+            x \in \bigcap_{n=1}^{\infty} I_{n} \implies \bigcap_{n=1}^{\infty} I_{n} \neq \varnothing.
+            \]
+          </p>
+          <span class="qed"></span>
+      </div>
+      <p>
+        Let us now look at a direct consequence of \(AoC\), which will be useful to prove a very important fact about \(\mathbb R\).
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-4.003: Archimedean Property</h4>
+          <p>
+            <ol class="custom-roman-list">
+              <li>Given any real number \(x \in \mathbb R\), there exists an \(n \in \mathbb N\) such that \(n \gt x\).</li>
+              <li>Given any real number \(y \gt 0\), there exists an \(n \in \mathbb N\) such that \(\frac{1}{n} \lt y\).</li>
+            </ol>
+          </p>
+
+          <h4>Proof:</h4>
+          <p>
+            To prove this theorem we need to use AoC, as it is a direct consequence of AoC, so let us first prove
+            the first part.
+            Suppose, for the sake of contradiction, that there is some \(x \in \mathbb R\) such that:
+            \[
+            n \le x
+            \]
+            for every \(n \in \mathbb N\).
+            This means that \(\mathbb N\) is bounded above. Since \(\mathbb N\) is bounded above, we know by AoC that
+            there exists a supremum of \(\mathbb N\). Let it be \(s\):
+            \[
+            s=\sup\mathbb N.
+            \]
+          </p>
+
+          <p>
+            Now \(s-1\) cannot be an upper bound of \(\mathbb N\), because \(s\) is the least upper bound. Therefore,
+            there must exist some \(n \in \mathbb N\) such that:
+            \[
+            n>s-1.
+            \]
+            Adding \(1\) to both sides we get:
+            \[
+            n+1>s.
+            \]
+            But \(n+1 \in \mathbb N\), which means we have found a natural number larger than \(s\). This contradicts
+            the fact that \(s\) is an upper bound of \(\mathbb N\).
+            Therefore, \(\mathbb N\) cannot be bounded above. Hence, given any \(x \in \mathbb R\), there exists an
+            \(n \in \mathbb N\) satisfying:
+            \[
+            n\gt x.
+            \]
+          </p>
+
+          <p>
+            Now for the second part, let \(y\gt 0\). Since \(\frac{1}{y}\in \mathbb R\), by the first part there exists
+            an \(n \in \mathbb N\) such that:
+            \[
+            n>\frac{1}{y}.
+            \]
+            Since \(n\gt 0\) and \(y\gt 0\), taking reciprocals reverses the inequality:
+            \[
+            \frac{1}{n}\lt y.
+            \]
+          </p>
+          <span class="qed"></span>
+      </div>
+            <p>
+        The theorem below is quite important for analysis. It shows that the rational numbers are spread throughout the
+        real number line. That is, choose any real number \(a \lt b\); it doesn't matter how close \(a\) and \(b\) become,
+        you can always find a rational number \(r\) that is in between \(a\) and \(b\) on the real number line. And the
+        same is true of the irrational numbers, as we will prove.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-4.004: Density of \(\mathbb Q\) in \(\mathbb R\)</h4>
+          <p>
+             Given any two real numbers \(a \lt b\), there always exists a rational number \(r\) such that:
+             \[
+             a \lt r \lt b.
+             \]
+          </p>
+
+          <h4>Proof:</h4>
+          <p>
+            We know a rational number has the form:
+            \[
+            \frac{m}{n}\in\mathbb Q
+            \]
+            where \(m\in\mathbb Z\) and \(n\in\mathbb N\). Since \(n\in\mathbb N\), we have \(n>0\).
+            For \(\mathbb Q\) to be dense in \(\mathbb R\) we want the following condition to hold:
+            \[
+            a \lt \frac{m}{n} \lt b \implies na \lt m \lt nb.
+            \]
+          </p>
+
+          <p>
+            We can choose \(n\) such that:
+            \[
+            \frac{1}{n} \lt b-a.
+            \]
+          </p>
+
+          <p>
+            Now, by the standard integer-part property, we can choose an integer \(m\) such that
+            \[
+            m-1\le na \lt m.
+            \]
+            (This property follows from the Archimedean Property together with the well-ordering of \(\mathbb N\).)
+          </p>
+
+          <p>
+            From the right side of the inequality we get:
+            \[
+            na \lt m.
+            \]
+            This implies:
+            \[
+            a \lt \frac{m}{n}.
+            \]
+          </p>
+
+          <p>
+            Now for the upper bound, from the left side of the inequality we have:
+            \[
+            m-1\le na.
+            \]
+            So,
+            \[
+            m\le na+1.
+            \]
+          </p>
+
+          <p>
+            Since \(\frac{1}{n} \lt b-a\), multiplying by \(n\) gives
+            \[
+            1 \lt n(b-a),
+            \]
+            so
+            \[
+            na+1 \lt na+n(b-a)=nb.
+            \]
+            Therefore,
+            \[
+            m \lt nb.
+            \]
+            This implies:
+            \[
+            \frac{m}{n} \lt b.
+            \]
+          </p>
+
+          <p>
+            So we have our upper and lower bounds:
+            \[
+            a \lt \frac{m}{n} \lt b.
+            \]
+            Therefore, \(\mathbb Q\) is <strong>dense</strong> in \(\mathbb R\). That is what we mean when we say a set
+            is <strong>dense</strong> in \(\mathbb R\).
+          </p>
+          <span class="qed"></span>
+      </div>
+      <p>
+        We have said that the irrational number set is also <strong>dense</strong> in \(\mathbb R\), and now we will
+        prove that as well. But my recommendation to you: try to prove it by yourself.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-4.005: Density of the Irrational Numbers in \(\mathbb R\)</h4>
+          <p>
+             Let the set of irrational numbers be \(\mathbb I=\mathbb R \setminus \mathbb Q\), then \(\mathbb I\) is
+             <strong>dense</strong> in \(\mathbb R\).
+          </p>
+
+          <h4>Proof:</h4>
+          <p>
+            Let \(a,b\in\mathbb R\) with \(a \lt b\). Since \(\mathbb Q\) is dense in \(\mathbb R\), there exists
+            a rational number \(q\in\mathbb Q\) such that
+            \[
+            a-\sqrt{2} \lt q \lt b-\sqrt{2}.
+            \]
+          </p>
+
+          <p>
+            Let
+            \[
+            x=q+\sqrt{2}.
+            \]
+          </p>
+
+          <p>
+            Then
+            \[
+            a \lt x \lt b.
+            \]
+          </p>
+
+          <p>
+            Also, \(x\) is irrational. If \(x\) were rational, then
+            \[
+            \sqrt{2}=x-q
+            \]
+            would be rational, which is a contradiction. Therefore \(x\in\mathbb I\).
+          </p>
+
+          <p>
+            Since \(a\) and \(b\) were arbitrary real numbers with \(a\lt b\), we have shown that for every interval
+            \((a,b)\), there exists an \(x\in\mathbb I\) such that \(a\lt x\lt b\). Therefore,
+            \(\mathbb I\) is dense in \(\mathbb R\).
+          </p>
+          <span class="qed"></span>
+      </div>
+      <p>
+        We have finally reached a sweet place to leave things off for the next lesson. In this lesson we have
+        studied the real number set \(\mathbb R\), and given a definition of it. Then, taking the AoC as an axiom,
+        we have proven some important consequences of <strong>AoC</strong>. These are the core ideas of real analysis
+        we have seen here, and things from this lesson will appear over and over again in our next lessons. It is
+        recommended you go back to your books and solve problems so that the ideas of this lesson are clear to you.
+        Remember, <strong>Real Analysis</strong> is a rigorous field of study, and it is the foundation of much of
+        rigorous mathematics, so you better solve quite a lot of problems.
+      </p>
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Understanding Analysis.</p>
+              <span class="resource-card__sub">Stephen Abbott — Ch.1.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Real Analysis: A Long-Form Mathematics Textbook.</p>
+              <span class="resource-card__sub">Jay Cummings— Ch.1, Appendices.A.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Measure, Integration & Real Analysis.</p>
+              <span class="resource-card__sub">Sheldon Axler.</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

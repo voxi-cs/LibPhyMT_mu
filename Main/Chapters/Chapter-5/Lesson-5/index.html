@@ -1,0 +1,1100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Integration-\(\text{I}\)</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+    <!-- Chapter Title -->
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-5</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Integration-\(\text{I}\).
+          </span>
+        </div>
+      </h1>
+    </div>
+    <!-- Publication Info -->
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "The problem of integration is the problem of finding the limit of a sum."
+        <br />
+        <span>— Henri Lebesgue</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h2>Introduction</h2>
+      <p>
+        In this lesson we will construct a rigorous definition of the integral,
+        where we use the ideas of measure theory to deal with the drawbacks of
+        the Riemann integral. We will discuss the Lebesgue integral and how it
+        deals with the drawbacks of the Riemann integral, and we will formalize
+        the definition of the integral in the general case of \(\mathbb R\).
+        Later, in the product measure lesson, we will see how our idea of
+        integration generalizes to higher dimensions.
+      </p>
+
+      <h2>Riemann Integration</h2>
+
+      <p>
+        Let us first look at Riemann integration and its drawbacks so that we
+        can see how measure theory allows us to deal with those drawbacks. Even
+        though you are most likely familiar with the formal definition of
+        Riemann integration, we would still like to put it here just in case.
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Partition \(P\)</strong>
+          Assume \(a < b\), where \(a,b \in \mathbb R\). A
+          <strong>partition</strong> of the closed interval \([a,b]\) is a
+          finite list of the form \(P = \{x_0,x_1,\dots,x_n\}\), such that: \[ a
+          = x_0 < x_1 < \dots < x_n = b. \] Thus, \[ [a,b] = [x_0,x_1] \cup
+          [x_1,x_2] \cup \dots \cup [x_{n-1},x_n]. \]
+        </p>
+      </div>
+
+      <p>Then the upper and lower Riemann sums are defined as:</p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Upper and Lower Riemann Sums</strong>
+          Assume \(f : [a,b] \to \mathbb R\) is a bounded function, and let
+          \(P\) be a
+          <strong>partition</strong> of \([a,b]\). Then the upper and lower
+          Riemann sums are defined as: \[ U(f,P) = \sum_{j=1}^{n} (x_j-x_{j-1})
+          \sup_{[x_{j-1},x_j]} f \] and \[ L(f,P) = \sum_{j=1}^{n} (x_j-x_{j-1})
+          \inf_{[x_{j-1},x_j]} f. \]
+        </p>
+      </div>
+
+      <p>
+        We know that \(U(f,P) \ge L(f,P)\). After this, we define the upper and
+        lower Riemann integrals as:
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF"
+            >Definition: Upper and Lower Riemann Integrals</strong
+          >
+          Assume \(f : [a,b] \to \mathbb R\) is a bounded function. Then the
+          upper and lower Riemann integrals are defined as: \[
+          \overline{\int_a^b} f(x)\,dx = \inf_{P} U(f,P) \] and \[
+          \underline{\int_a^b} f(x)\,dx = \sup_{P} L(f,P). \] Here the
+          <strong>infimum</strong> and <strong>supremum</strong> are taken over
+          all partitions \(P\) of \([a,b]\).
+        </p>
+      </div>
+
+      <p>
+        Finally, a function \(f\) is said to be
+        <strong>Riemann integrable</strong> if and only if its upper and lower
+        Riemann integrals are equal. Thus, we define Riemann integration as:
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF"
+            >Definition: Riemann Integrable and Riemann Integral</strong
+          >
+          A bounded function \(f: [a,b] \to \mathbb R\) is said to be Riemann
+          integrable if and only if \[ \inf_P U(f,P) = \sup_P L(f,P), \] and the
+          Riemann integral is defined as: \[ \int_a^b f(x)\,dx = \inf_P U(f,P) =
+          \sup_P L(f,P). \]
+        </p>
+      </div>
+      <h3>Issues with the Riemann Integral</h3>
+
+      <p>
+        There are three main theoretical limitations of the Riemann integral, as
+        follows:
+      </p>
+
+      <ol class="custom-roman-list">
+        <li>
+          Although the Riemann integral can be generalized to higher dimensions,
+          its formulation becomes increasingly cumbersome for complicated
+          domains and functions. Measure theory provides a more general and
+          systematic framework for integration that works naturally in arbitrary
+          dimensions and beyond.
+        </li>
+        <li>
+          Riemann integration is poorly suited to functions with many
+          discontinuities.
+        </li>
+        <li>
+          The pointwise limit of a sequence of Riemann integrable functions need
+          not be Riemann integrable.
+        </li>
+      </ol>
+
+      <p>
+        As we said, the Riemann integral, when working in general with arbitrary
+        subsets in higher dimensions, can become technical. In \(\mathbb R\), we
+        mainly work with intervals when integrating bounded continuous
+        functions. But in \(\mathbb R^2\), for example, things become more
+        complicated when the region of integration is arbitrary. For example,
+        consider finding the area of a circle with radius \(r\), where \[ D =
+        \{(x,y): x^2 + y^2 \le r^2\}. \] We can certainly handle this using
+        Riemann integration. However, consider a more complicated region, such
+        as \[ D = \left\{(x,y):0 \lt x\le1,\ 0\le y\le 1+\sin(1/x)\right\}, \]
+        and suppose we are given a function \(f:\mathbb R^2\to\mathbb R\) and
+        asked to find the volume under the surface over \(D\). We can indeed
+        calculate this using Riemann integration, but the complicated and
+        infinitely oscillating boundary makes the calculation more cumbersome.
+        In such cases, Lebesgue integration provides a more convenient and
+        general framework, allowing much of this technicality to be avoided.
+      </p>
+
+      <p>
+        As we move to higher dimensions, the subsets of such spaces can become
+        even more complicated, as we will see in the lesson on
+        <strong>product measure</strong>. In such cases, Riemann integration is
+        not always the most convenient choice, and we can instead use the more
+        general framework of Lebesgue integration. Moreover, the framework of
+        measure theory extends naturally beyond \(\mathbb R^n\) altogether — to
+        abstract spaces such as spaces of functions or probability spaces —
+        where the notion of a Riemann integral does not even make sense.
+      </p>
+      <br />
+      <p>
+        Now let us show an example of a function that is discontinuous on
+        \(\mathbb{R}\) everywhere: \[ f(x) = \begin{cases} 1, & x \notin
+        \mathbb{Q} \\ 0, & x \in \mathbb{Q} \end{cases} \]
+        <!--Add animation 1-->
+      </p>
+      <p>
+        It is easy to see that this is not Riemann integrable. Remember
+        \(\mathbb Q\) the set of rational numbers and \(\mathbb I\) the set of
+        irrational numbers are both dense in \(\mathbb R\), that means for all
+        intervals there are always some rational numbers and irrational numbers.
+        Then that means: \[ \inf_{[x_{j-1}, x_j]} f(x) = 0 \] As the lowest
+        possible value of \(f\) is zero and we have at least one rational number
+        in the interval \([x_{j-1}, x_j]\) for arbitrary values of \(x_{j-1},
+        x_j \in \mathbb R\). Similarly: \[ \sup_{[x_{j-1}, x_j]} f(x) = 1 \] As
+        the set of irrational numbers is also dense in \(\mathbb R\), and \(f =
+        1\) on all irrationals.
+      </p>
+      <p>
+        Let us just consider the Riemann integral of this function on \([0,1]\),
+        then the upper Riemann sum is: \[ U(f,P,[0,1]) = \sum_{j=1}^{n}
+        \left(\sup_{I_j} f\right) (x_j -x_{j-1}) = \sum_{j=1}^{n} (x_j -x_{j-1})
+        = (x_1 - x_0) + (x_2 - x_1) + \dots + (x_{n} - x_{n-1}) = x_n - x_0 = 1
+        - 0 = 1. \] Thus the upper Riemann sum is \(\inf_{P} U(f,P,[0,1]) = 1\).
+        And the lower Riemann sum is: \[ L(f,P,[0,1]) = \sum_{j=1}^{n}
+        \left(\inf_{I_j} f\right) (x_j -x_{j-1}) = \sum_{j=1}^{n} 0(x_j
+        -x_{j-1}) = 0. \] For \(f(x)\) to be Riemann integrable we need \[
+        \inf_{P} U(f,P,[0,1]) = \sup_{P} L(f,P,[0,1]) \] But here we have
+        \(\inf_{P} U(f,P,[0,1]) = 1\) and \(\sup_{P} L(f,P,[0,1]) = 0\), since
+        \(\inf_{P} U(f,P,[0,1]) \neq \sup_{P} L(f,P,[0,1])\) we can see that the
+        function \[ f(x) = \begin{cases} 1, & x \notin \mathbb{Q} \\ 0, & x \in
+        \mathbb{Q} \end{cases} \] is not Riemann integrable, this function is
+        also known as the <strong>Dirichlet function</strong>.
+      </p>
+      <p>
+        <strong>Dirichlet function</strong> as we can see is not remine
+        intigrable, but soon we will see lebusge intigral of
+        <strong>Dirichlet function</strong> is \(1\). \[ \int f \, \text{d}\mu =
+        1 \] Thus as we said "Riemann integration is poorly suited to functions
+        with many discontinuities.".
+      </p>
+      <br />
+      <p>
+        Now let us look at another important issue with Riemann integration,
+        consider the function: \[ f_k(x) = \begin{cases} 1, & x = \frac{p}{q}
+        \in [0,1], \, \gcd(p,q) = 1, \, q\le k, \\ 0, & \text{otherwise.}
+        \end{cases} \]
+        <!--Add animation 2-->
+      </p>
+      <p>
+        Let us see for \(k \in \mathbb Z^{+}\) the Riemann integration of
+        \(f_k\), since \(f_k\) only gives points that are discontinuous we get:
+        \[ \int_{0}^{1} f_k(x) \, \text{d}x = 0 \] for all \(k \in \mathbb
+        Z^{+}\), the question we want to ask is what happens if we let \(k\)
+        approach infinity.
+      </p>
+      <p>
+        Notice as \(k \to \infty\) we get the
+        <strong>Dirichlet function</strong>. So can we say: \[ \lim_{k\to
+        \infty} \int_{0}^{1} f_k(x) \, \text{d}x = 0 = \int_{0}^{1} \lim_{k\to
+        \infty} f_k(x) \, \text{d}x \] Unfortunately no, as you can already see
+        \(\lim_{k\to \infty} f_k(x) = f(x)\) which is the
+        <strong>Dirichlet function</strong>, and we have just seen the
+        <strong>Dirichlet function</strong>
+        is not Riemann integrable, thus Riemann integration doesn't necessarily
+        imply that if \(f_k \to f\) then: \[ \lim_{k\to \infty} \int f_k(x) \,
+        \text{d}x = \int \lim_{k\to \infty} f_k(x) \, \text{d}x \] For Riemann
+        integration the above equality holds certainly for a sequence of \(f_k,
+        f\) if they are bounded on the same bounded interval and converge
+        uniformly, but for pointwise convergence the equality above doesn't hold
+        in general.
+      </p>
+
+      <p>
+        Now that we have explored some of the issues with the remine ingigration
+        it is time for us to intrduce to you intigration formalized by the
+        mesaure theory.
+      </p>
+      <h2>Integration with Respect to a Measure</h2>
+      <p>
+        Before we define the intigration we frist need to define partiation as
+        what we did in the case of remine intgration, but ofcouse here the
+        partion are going to be diffrent and each partiation \(A_i\) is not
+        nessecarly a interval or any specifc kind of set, we only need it to be
+        \(\mathcal S\)-measuraable.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: \(\mathcal S\)-Partition</strong>
+          Suppose we have a \(\sigma\)-algbera \(\mathcal S\) on set \(X\), then
+          \(\mathcal S\)-partiation is a finite collection of sets \(A_1,\dots,
+          A_n\) that are in \(\mathcal S\),in other words \(\mathcal
+          S\)-measurable, such that: \[ A_1 \cup \dots \cup A_n = X. \]
+        </p>
+      </div>
+      <p>
+        Note, this definition is for an arbitrary set \(X\), and it does not
+        have to be \(\mathbb R\). In the case when \(X = \mathbb R\) and we have
+        the Lebesgue measure \(\mu\), we do not necessarily need partitions that
+        are closed intervals; the only thing they need to be is measurable so
+        that we can measure them using the Lebesgue measure \(\mu\).
+      </p>
+      <p>
+        Let us now define the lower sum, which was introduced by
+        <strong>Henri Lebesgue</strong> and that is why it is called the Lower
+        Lebesgue Sum. This does not mean we are working specifically with
+        Lebesgue measure; the following is defined on an arbitrary measure space
+        \((X,\mathcal S,\mu)\). It is important to mention here that all the
+        functions we are dealing with are nonnegative functions. Later, we will
+        generalize everything to general functions by writing a function as the
+        difference of its positive and negative parts, \(f = f^+ - f^-\),
+        whenever the difference of their integrals is well-defined. So keep in
+        mind everything here is defined for nonnegative functions.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Lower Lebesgue Sum</strong>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space, and the function
+          \(f: X \to [0,\infty]\) is \(\mathcal S\)-measurable and \(P = \{A_1,
+          A_2,\dots, A_n\}\) is a finite \(\mathcal S\)-partition of \(X\). Then
+          the lower Lebesgue sum is defined as: \[ \mathcal L (f , P ) =
+          \sum_{j=1}^{n} \mu(A_j) \inf_{A_j} f. \]
+        </p>
+      </div>
+      <p>
+        Now we will define the integral of a nonnegative function. Like in the
+        case of Riemann integration, here we will write integration using
+        \(\int\), except we won't use \(\text{d}x\); instead, we will use
+        \(\text{d}\mu\) to specify that the integration is done with respect to
+        the measure \(\mu\) on the measure space \((X,\mathcal S,\mu)\).
+        However, the definition should be such that the following two important
+        conditions are satisfied: \[ \int \chi_{E} \, \text{d}\mu = \mu(E),
+        \quad \forall E\in\mathcal S, \] and \[ \int (f+g)\,\text{d}\mu = \int
+        f\,\text{d}\mu+\int g\,\text{d}\mu. \] The second condition is important
+        because it gives us the additivity of the integral, while the first
+        condition connects integration with measure itself: the integral of the
+        indicator function of a measurable set \(E\) should give the measure of
+        that set. In other words, integrating \(\chi_E\) should simply give us
+        the "size" of \(E\), just as measuring \(E\) with \(\mu\) does. The
+        importance of the first condition may not be immediately apparent at
+        first glance, but it will become much clearer when we define the
+        integral of simple functions. In fact, this condition is what allows us
+        to extend the idea of measuring sets to integrating functions while
+        preserving the essential properties we expect an integral to have.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF"
+            >Definition: Integral of a Nonnegative Function</strong
+          >
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and \(f: X \to
+          [0,\infty]\) is an \(\mathcal S\)-measurable function. Then the
+          integral of \(f\) is defined by: \[ \int f \, \text{d}\mu = \sup \{
+          \mathcal{L}(f, P): P \text{ is a finite } \mathcal S\text{-partition
+          of } X\}. \]
+        </p>
+      </div>
+      <!--ADD REASON WHY DOES THE DEFINITION MAKE SENSE WHEN WE CONSIDER AREA UNDER A FUNCTION OR VOLUME. As well talk about what book says immediately after the definition-->
+      <p>
+        Now we will show you that our definition indeed assures that the first
+        condition \(\int \chi_{E} \, \text{d}\mu = \mu(E), \text{ } \forall
+        E\in\mathcal S\) is satisfied.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.032</h4>
+        <p>
+          Suppose \((X, \mathcal S, \mu)\) is a measure space and \(E \in
+          \mathcal S\), then: \[ \int \chi_{E} \, \text{d}\mu = \mu(E). \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          Let \(P = \{E , X \setminus E \}\) be the \(\mathcal S\)-partition of
+          \(X\). Since \(\chi_E = 1\) on \(E\) and \(\chi_E = 0\) on \(X
+          \setminus E\), we can say: \[ \mathcal L(\chi_E , P ) = \mu(E)\cdot 1
+          + \mu(X \setminus E) \cdot 0 = \mu(E). \] Since \(\int \chi_E \,
+          \text{d}\mu \) is the supremum of \(\mathcal L(\chi_E , P )\) over all
+          finite \(\mathcal S\)-partitions \(P\), then: \[ \int \chi_E \,
+          \text{d}\mu \ge \mu(E). \]
+        </p>
+        <p>
+          Now we need to prove the reverse, that \(\int \chi_E \, \text{d}\mu
+          \le \mu(E)\). For that, let \(P = \{A_1, \dots , A_n\}\) be an
+          arbitrary finite \(\mathcal S\)-partition of \(X\). For each \(A_j\),
+          since \(\chi_E\) is zero at every point outside \(E\), we can say: \[
+          \mu(A_j) \inf_{A_j} \chi_E = \begin{cases} \mu(A_j) & \text{if } A_j
+          \subset E, \\ 0 & \text{otherwise.} \end{cases} \] Therefore: \[
+          \mathcal L(\chi_{E}, P) = \sum_{j: A_j \subset E} \mu(A_j) = \mu\left(
+          \bigcup_{j: A_j \subset E} A_j \right) \le \mu(E). \] Since \(P\) was
+          chosen arbitrarily, that implies: \[ \int \chi_E \, \text{d}\mu \le
+          \mu(E). \] Therefore we can say: \[ \int \chi_E \, \text{d}\mu =
+          \mu(E). \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        Now we have proven that our definition of integration with respect to a
+        measure assures that Theorem-5.0## is satisfied. Now let us go back to
+        the
+        <strong>Dirichlet function</strong>. We said that it is integrable with
+        respect to Lebesgue measure. Now we see in the example below the
+        integration of the Dirichlet function with respect to Lebesgue measure.
+      </p>
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <p>
+          <strong>
+            Given the Dirichlet function below on the interval \([0,1]\), find
+            its integration with respect to Lebesgue measure \(\lambda\). (Note:
+            we represent Lebesgue measure as \(\lambda\)).
+          </strong>
+          \[ f(x) = \chi_{[0,1]\setminus \mathbb Q}(x) = \begin{cases} 1, & x
+          \in [0,1]\setminus \mathbb Q \\ 0, & x \in \mathbb{Q} \end{cases} \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          We know: \[ \int \chi_E \, \text{d}\mu = \mu(E). \] Here we have: \[
+          \int_{[0,1]} f(x) \, \text{d}\lambda = \int_{[0,1]}
+          \chi_{[0,1]\setminus \mathbb Q}(x) \, \text{d}\lambda =
+          \lambda([0,1]\setminus \mathbb Q). \] We can write the interval
+          \([0,1]\) as the union of two disjoint sets: \[ [0,1] = ([0,1] \cap
+          \mathbb Q) \cup ([0,1] \setminus \mathbb Q) \] We know that if we have
+          disjoint sets \(E_1,\dots,E_n\), then: \[ \mu\left(\bigcup_{k=1}^{n}
+          E_k\right) = \sum_{k=1}^{n} \mu(E_k) \] Here we have \(E_1 = ([0,1]
+          \cap \mathbb Q)\) and \(E_2 = ([0,1] \setminus \mathbb Q)\), and
+          Lebesgue measure \(\lambda\). Therefore, since \([0,1] = E_1 \cup
+          E_2\): \[ \lambda([0,1]) = \lambda(E_1) + \lambda(E_2) \] Since
+          \([0,1]\) is Borel and Lebesgue measure is the outer measure
+          restricted to Borel subsets, we have \(\lambda([0,1]) = 1\). \[
+          \Rightarrow 1 = \lambda([0,1] \cap \mathbb Q) + \lambda([0,1]
+          \setminus \mathbb Q) \] Here the set \([0,1] \cap \mathbb Q\) is the
+          set of rational numbers on the interval \([0,1]\), and we know the
+          Lebesgue measure of \(\mathbb Q\) is zero. Therefore, we get
+          \(\lambda([0,1] \cap \mathbb Q) = 0\), so we have: \[ \Rightarrow 0 +
+          \lambda([0,1] \setminus \mathbb Q) = 1 \implies \lambda([0,1]
+          \setminus \mathbb Q) = 1 \] And that is exactly what we need to solve
+          the integral, so we get that the
+          <strong>Dirichlet function</strong> is integrable with respect to
+          Lebesgue measure, and: \[ \int_{[0,1]} f(x) \, \text{d}\lambda =
+          \int_{[0,1]} \chi_{[0,1]\setminus \mathbb Q}(x) \, \text{d}\lambda =
+          \lambda([0,1]\setminus \mathbb Q) = 1 \]
+        </p>
+      </div>
+      <p>
+        The integration with respect to a measure is called Lebesgue
+        integration, and it doesn't necessarily mean we are working with the
+        Lebesgue measure.
+      </p>
+      <p>
+        Let us explore some properties (as theorems) of Lebesgue integration as
+        a result of choosing the first condition \(\int \chi_E \, \text{d}\mu =
+        \mu(E)\) to hold. Then soon it will be clear why we choose that
+        particular condition and, based on that and the other conditions, how we
+        defined the Lebesgue integration.
+      </p>
+      <p>
+        Now let us talk about simple functions. Simple functions are functions
+        of the form \(f(x) = \sum_{k=1}^{n} c_k \chi_{E_k}\). When we let the
+        \(E_k\)'s be disjoint intervals in \(X\) and plot \(f\), we get a bunch
+        of vertical rectangles, with height \(c_k\), and thus we hope to get its
+        integration to be the sum of the heights \(c_k\) times the measure of
+        the intervals \(\mu(E_k)\). But of course, the \(E_k\)'s are not
+        necessarily intervals and can be arbitrary measurable subsets of \(X\),
+        but the idea of integration still holds. Thus, the theorem below assures
+        our expectation.
+      </p>
+      <!--Add aniamtion 3-->
+      <div class="theo-type1">
+        <h4>Theorem-5.033</h4>
+        <p>
+          Suppose \((X, \mathcal S, \mu)\) is a measure space, let
+          \(E_1,\dots,E_n\) be disjoint sets in \(\mathcal S\), and
+          \(c_1,\dots,c_n \in [0,\infty)\). Then: \[ \int \left(\sum_{k=1}^{n}
+          c_k \chi_{E_k}\right) \, \text{d}\mu = \sum_{k=1}^{n} c_k \mu(E_k) \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          Assume we have the \(\mathcal S\)-partition of \(X\): \[ P = \{E_1,
+          \dots, E_n, E_{n+1}\}, \text{ where } E_{n+1} = X \setminus (E_1 \cup
+          \dots \cup E_n) \] Here we can choose \(P\) as a partition because of
+          \(E_{n+1}\), and also because \(E_1,\dots,E_n\) are all measurable,
+          and \(E_{n+1}\) is measurable because we know if \(E \in \mathcal S
+          \implies X \setminus E \in \mathcal S\). Alright, now that we have
+          this particular \(\mathcal S\)-partition, we can say: \[ \mathcal{L}
+          \left(\sum_{k=1}^{n} c_k \chi_{E_k}, P\right) = \sum_{k=1}^{n} c_k
+          \mu(E_k) \] Note: Here we ignored \(E_{n+1}\) by choosing \(c_{n+1} =
+          0\), since we only choose \(E_{n+1}\) for the partition.
+        </p>
+        <p>
+          Since integration is the supremum of \(\mathcal L\), then we can say:
+          \[ \int \left(\sum_{k=1}^{n} c_k \chi_{E_k}\right) \, \text{d}\mu \ge
+          \sum_{k=1}^{n} c_k \mu(E_k) \] Now that we have \(\ge\), we need to
+          prove the other way \(\le\).
+        </p>
+        <p>
+          Choose an arbitrary \(\mathcal S\)-partition \(P = \{A_1,\dots,A_m\}\)
+          of \(X\). Then: \[ \mathcal L\left(\sum_{k=1}^{n} c_k \chi_{E_k},
+          P\right) = \sum_{j=1}^{m} \mu(A_j) \min_{\{i : A_j \cap E_i \neq
+          \varnothing\}} c_i, \] where we include \(E_{n+1}\) with
+          \(c_{n+1}=0\). Thus, more precisely: \[ \mathcal L\left(\sum_{k=1}^{n}
+          c_k \chi_{E_k}, P\right) = \sum_{j=1}^{m} \mu(A_j) \min_{\{i : A_j
+          \cap E_i \neq \varnothing\}} c_i, \] where \(i\) ranges over
+          \(1,\dots,n+1\). Here we had to take \(\min_{\{i : A_j \cap E_i \neq
+          \varnothing\}} c_i\) because we need the infimum of \(\sum_{k=1}^{n}
+          c_k \chi_{E_k}\) over \(A_j\)'s. The function \(\sum_{k=1}^{n} c_k
+          \chi_{E_k}\) takes the value \(c_i\) on \(E_i\) for \(i=1,\dots,n\),
+          and it takes the value \(0=c_{n+1}\) on \(E_{n+1}\). Therefore, by
+          taking the smallest \(c_i\) over all \(E_i\) such that \(A_j \cap E_i
+          \neq \varnothing\), we get the infimum of \(\sum_{k=1}^{n} c_k
+          \chi_{E_k}\) over \(A_j\). Alright, now we can write: \[ \mu(A_j) =
+          \sum_{k=1}^{n+1} \mu(A_j \cap E_k) \] since \(E_1,\dots,E_{n+1}\) form
+          a partition of \(X\). So we get: \[ \implies \mathcal
+          L\left(\sum_{k=1}^{n} c_k \chi_{E_k}, P\right) = \sum_{j=1}^{m}
+          \sum_{k=1}^{n+1} \mu(A_j \cap E_k) \min_{\{i : A_j \cap E_i \neq
+          \varnothing\}} c_i \] \[ \implies \mathcal L\left(\sum_{k=1}^{n} c_k
+          \chi_{E_k}, P\right) \le \sum_{j=1}^{m} \sum_{k=1}^{n+1} \mu(A_j \cap
+          E_k)c_k \] Since \(c_{n+1}=0\), the \(k=n+1\) term is \(0\), so: \[
+          \implies \mathcal L\left(\sum_{k=1}^{n} c_k \chi_{E_k}, P\right) \le
+          \sum_{j=1}^{m} \sum_{k=1}^{n} \mu(A_j \cap E_k)c_k = \sum_{k=1}^{n}
+          c_k \sum_{j=1}^{m}\mu(A_j \cap E_k) = \sum_{k=1}^{n} c_k \mu(E_k) \]
+          since \(A_1,\dots,A_m\) form a partition of \(X\). Therefore: \[
+          \mathcal L\left(\sum_{k=1}^{n} c_k \chi_{E_k}, P\right) \le
+          \sum_{k=1}^{n} c_k \mu(E_k) \] Since the integration is the supremum
+          over all partitions \(P\), we get: \[ \mathcal L\left(\sum_{k=1}^{n}
+          c_k \chi_{E_k}, P\right) \le \sum_{k=1}^{n} c_k \mu(E_k) \implies \int
+          \left(\sum_{k=1}^{n} c_k \chi_{E_k}\right) \, \text{d}\mu \le
+          \sum_{k=1}^{n} c_k \mu(E_k) \] And therefore we have: \[ \int
+          \left(\sum_{k=1}^{n} c_k \chi_{E_k}\right) \, \text{d}\mu =
+          \sum_{k=1}^{n} c_k \mu(E_k) \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        Now it is time to discuss a particular theorem called the
+        <strong>Monotone Convergence Theorem (M.C.T.)</strong>. This theorem is
+        a first step toward addressing the second issue we encountered with the
+        Riemann integral:
+        <em
+          >the pointwise limit of a sequence of Riemann integrable functions
+          need not be Riemann integrable.</em
+        >
+        However, the M.C.T. applies only to sequences of non-negative functions
+        that increase pointwise, meaning \[ 0 \leq f_1(x) \leq f_2(x) \leq
+        \cdots. \] Therefore, it does not apply to every general sequence of
+        functions. Nevertheless, it gives an important result for passing the
+        limit through the Lebesgue integral.
+      </p>
+      <h2>Monotone Convergence Theorem</h2>
+      <p>
+        Before we prove the M.C.T., we need to show the equivalence between the
+        two definitions of the Lebesgue integral. The definition is as follows:
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition</strong>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space, and \(f: X \to
+          [0,\infty]\) is an \(\mathcal S\)-measurable function. Then: \[ \int f
+          \, \text{d}\mu = \sup \left\{ \sum_{j=1}^{n} c_j \mu(A_j) \;:\;
+          \text{disjoint sets } A_1,\dots,A_n \in \mathcal S \text{ and }
+          c_1,\dots,c_n \in [0,\infty) \text{ such that } f(x) \ge
+          \sum_{j=1}^{n} c_j \chi_{A_j}, \ \forall x \in X \right\} \]
+        </p>
+      </div>
+      <p>
+        The definition is saying essentially the same thing as our previous
+        definition of the Lebesgue integral, but this form will be useful when
+        we approach the proof of the M.C.T. What this definition is saying is
+        that we consider all possible combinations of disjoint measurable sets
+        \(A_1,\dots,A_n\) and non-negative constants \(c_1,\dots,c_n\) such that
+        \(f(x) \geq \sum_{j=1}^{n} c_j\chi_{A_j}\), \(\forall x \in X\). Each
+        such combination gives us a simple function \(\sum_{j=1}^{n}
+        c_j\chi_{A_j}\) that lies below \(f\). For each of these simple
+        functions, we calculate \(\sum_{j=1}^{n} c_j\mu(A_j)\). This gives us a
+        set of possible values, and the Lebesgue integral is defined as the
+        supremum of all these values. Notice that we do not need any particular
+        simple function to actually attain the supremum. The supremum is simply
+        the least upper bound of all the values obtained from these possible
+        simple functions.
+      </p>
+      <p>
+        Nevertheless, we still need to prove the equivalence between this
+        definition of the Lebesgue integral and the previous definition. Thus,
+        we have the following:
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.034</h4>
+        <p>
+          \[ \sup\left\{ \sum_{j=1}^{n} c_j \mu(A_j) \, : \, \text{ disjoint
+          sets } A_1,\dots,A_n \in \mathcal S,\ c_1,\dots,c_n \in [0,\infty),\
+          f(x) \ge \sum_{j=1}^{n} c_j \chi(A_j),\ \forall x \in X\right\} = \sup
+          \{ \mathcal{L}(f, P): P \text{ is an } \mathcal S \text{-partition of
+          } X\}. \]
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          First, let \(P\) be an \(\mathcal S\)-partition of \(X\). Suppose
+          first that \(\inf_A f \lt \infty\) for every \(A\in\mathcal S\) with
+          \(\mu(A) \gt 0\). For every nonempty set \(A_j\) in \(P\) with
+          \(\mu(A_j) \gt 0\), take \[ c_j=\inf_{A_j}f, \] and for the sets with
+          \(\mu(A_j)=0\), take \(c_j=0\). Then \[ \sum_{j=1}^{n}c_j\chi(A_j)\leq
+          f \] on \(X\), since \(f\geq0\). Therefore, \[
+          \sum_{j=1}^{n}c_j\mu(A_j) \] is one of the sums allowed on the left
+          side, and this sum is exactly \(\mathcal L(f,P)\). Hence, for every
+          \(\mathcal S\)-partition \(P\), \[ \mathcal L(f,P) \leq \sup\left\{
+          \sum_{j=1}^{n} c_j \mu(A_j) : \text{disjoint sets }
+          A_1,\dots,A_n\in\mathcal S,\ c_1,\dots,c_n\in[0,\infty) \text{
+          satisfying the given condition} \right\}. \] Taking the supremum over
+          all \(\mathcal S\)-partitions \(P\), we obtain that the right side of
+          the theorem is less than or equal to the left side.
+        </p>
+
+        <p>
+          Now suppose there exists \(A\in\mathcal S\) with \[ \mu(A) \gt 0
+          \qquad\text{and}\qquad \inf_A f=\infty. \] Then \(f(x)=\infty\) for
+          every \(x\in A\). For any \(t\in[0,\infty)\), take \(n=1\), \(A_1=A\),
+          and \(c_1=t\). Since \[ f(x)\geq t\chi_A(x) \] for every \(x\in X\),
+          the left side of the theorem is at least \(t\mu(A)\). Because
+          \(\mu(A)\gt0\) and \(t\) can be arbitrarily large, the left side
+          equals \(\infty\). On the other hand, taking the \(\mathcal
+          S\)-partition \[ P=\{A,X\setminus A\}, \] we have \[ \mathcal
+          L(f,P)\geq(\inf_A f)\mu(A)=\infty. \] Thus the right side is also
+          \(\infty\). Therefore, the desired equality holds in this case as
+          well.
+        </p>
+
+        <p>
+          Now we show the reverse inequality. Suppose that \[ \inf_A f \lt
+          \infty \] for every \(A\in\mathcal S\) with \(\mu(A)\gt0\). Take any
+          disjoint sets \(A_1,\dots,A_n\in\mathcal S\) and numbers
+          \(c_1,\dots,c_n\in[0,\infty)\) such that \[
+          f(x)\geq\sum_{j=1}^{n}c_j\chi(A_j) \] for every \(x\in X\). For every
+          \(A_j\) with \(\mu(A_j)\gt0\), evaluating the condition on \(A_j\)
+          gives \[ c_j\leq\inf_{A_j}f. \] Therefore, \[
+          \sum_{\mu(A_j)>0}c_j\mu(A_j) \leq
+          \sum_{\mu(A_j)>0}(\inf_{A_j}f)\mu(A_j). \] Sets with \(\mu(A_j)=0\) do
+          not contribute to either side, so \[ \sum_{j=1}^{n}c_j\mu(A_j) \leq
+          \sum_{\mu(A_j)>0}(\inf_{A_j}f)\mu(A_j). \] We extend \(A_1,\dots,A_n\)
+          to an \(\mathcal S\)-partition \(P\) of \(X\) by adjoining the set \[
+          X\setminus(A_1\cup\cdots\cup A_n) \] as an additional element,
+          whenever it is nonempty. By the definition of \(\mathcal L(f,P)\), \[
+          \sum_{\mu(A_j)>0}(\inf_{A_j}f)\mu(A_j) \leq \mathcal L(f,P). \] Hence,
+          \[ \sum_{j=1}^{n}c_j\mu(A_j) \leq \mathcal L(f,P) \leq \sup\{\mathcal
+          L(f,P):P\text{ is an }\mathcal S\text{-partition of }X\}. \] Since the
+          sets \(A_1,\dots,A_n\) and scalars \(c_1,\dots,c_n\) were arbitrary,
+          taking the supremum over all such choices shows that the left side of
+          the theorem is less than or equal to the right side. Thus equality
+          holds.
+        </p>
+
+        <span class="qed"></span>
+      </div>
+      <p>
+        Now that we have proven that indeed both definitions shown above are
+        equivalent, we are now ready to use this new definition to prove the
+        M.C.T.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.035: Monotone Convergence Theorem(M.C.T)</h4>
+        <p>
+          Suppose \((X,\mathcal S, \mu)\) is a measure sapce, and a sequence of
+          non nagative increasing functions \(0\le f_1 \le f_2 \le \dots\) that
+          are \(\mathcal S\)-measurable. Then: \[ \lim_{k \to \infty} \int f_k
+          \, \text{d}\mu = \int f \, \text{d} \mu \] Where, \(f: X \to
+          [0,\infty]\) a function defined by: \[ f(x) = \lim_{k \to \infty}
+          f_k(x) \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          Since each \(f_k\) satisfies \(f_k(x) \le f(x)\) for every \(x \in X\)
+          — the sequence is non-decreasing and \(f\) is its pointwise limit —
+          the monotonicity of the integral gives us \(\int f_k \, \text{d}\mu
+          \le \int f \, \text{d}\mu\) for every \(k \in \mathbb{Z}^+\). Since
+          this inequality holds for every \(k\), it carries through to the
+          limit, and so we can say that: \[ \lim_{k \to \infty} \int f_k \,
+          \text{d}\mu \le \int f \, \text{d}\mu \] Now we need to establish the
+          inequality in the opposite direction, and this is the part that
+          requires more work. To do so, let \(A_1, \dots, A_m\) be any disjoint
+          collection of sets in \(\mathcal{S}\), and let \(c_1, \dots, c_m \in
+          [0, \infty)\) be any non-negative constants such that: \[ f(x) \ge
+          \sum_{j=1}^{m} c_j \chi_{A_j}(x) \quad \text{for every } x \in X \]
+          Choose any \(t \in (0,1)\), and for each \(k \in \mathbb{Z}^+\),
+          define: \[ E_k = \left\{ x \in X : f_k(x) \ge t\sum_{j=1}^{m} c_j
+          \chi_{A_j}(x) \right\} \] The reason why we define this particular set
+          \(E_k\) is that it collects exactly those points in \(X\) where
+          \(f_k\) has already grown large enough to be at least the fraction
+          \(t\) of the simple function on the right. Because the sequence \(f_1
+          \le f_2 \le \dots\) is non-decreasing, any point that belongs to
+          \(E_k\) will remain in \(E_{k+1}, E_{k+2},\) and all subsequent sets,
+          giving us the increasing chain: \[ E_1 \subset E_2 \subset \cdots \]
+          We also claim that \(\bigcup_{k=1}^{\infty} E_k = X\). To see why,
+          take any point \(x \in X\). Since \(f_k(x) \to f(x)\) as \(k \to
+          \infty\) and \(f(x) \ge \sum_{j=1}^{m} c_j \chi_{A_j}(x)\), and since
+          \(t \lt 1\), we can always find a large enough \(k\) so that
+          \(f_k(x)\) has grown beyond \(t \cdot \sum_{j=1}^{m} c_j
+          \chi_{A_j}(x)\), meaning \(x \in E_k\). Since \(x\) was an arbitrary
+          point of \(X\), we conclude that \(\bigcup_{k=1}^{\infty} E_k = X\).
+          Hence, \(E_1 \subset E_2 \subset \cdots\) is an increasing sequence of
+          measurable sets in \(\mathcal{S}\) whose union is all of \(X\), and
+          therefore for each \(j \in \{1, \dots, m\}\): \[ \lim_{k \to \infty}
+          \mu(A_j \cap E_k) = \mu(A_j) \] Now, for any fixed \(k \in
+          \mathbb{Z}^+\), the definition of \(E_k\) tells us that for every \(x
+          \in X\): \[ f_k(x) \ge \sum_{j=1}^{m} tc_j \chi_{A_j \cap E_k}(x) \]
+          The reason why we can write it this way is that for any \(x \in A_j
+          \cap E_k\), membership in \(E_k\) guarantees \(f_k(x) \ge tc_j\),
+          while for any \(x\) outside of \(E_k\), the right-hand side simply
+          evaluates to zero. Integrating both sides, we get: \[ \int f_k \,
+          \text{d}\mu \ge t\sum_{j=1}^{m} c_j\,\mu(A_j \cap E_k) \] If we now
+          take the limit as \(k \to \infty\) of both sides, and use the fact
+          that \(\mu(A_j \cap E_k) \to \mu(A_j)\) for each \(j\), we get: \[
+          \lim_{k \to \infty} \int f_k \, \text{d}\mu \ge t\sum_{j=1}^{m}
+          c_j\,\mu(A_j) \] Since \(t\) was any number in \((0,1)\), we can now
+          let \(t\) increase towards \(1\). Because the left-hand side does not
+          depend on \(t\) at all, as \(t \to 1\) the right-hand side approaches
+          \(\sum_{j=1}^{m} c_j\,\mu(A_j)\), and therefore we conclude that: \[
+          \lim_{k \to \infty} \int f_k \, \text{d}\mu \ge \sum_{j=1}^{m}
+          c_j\,\mu(A_j) \] Since this holds for every valid choice of disjoint
+          sets \(A_1, \dots, A_m \in \mathcal{S}\) and non-negative constants
+          \(c_1, \dots, c_m\) satisfying \(f(x) \ge \sum_{j=1}^m c_j
+          \chi_{A_j}(x)\), if we now take the supremum over all such choices, we
+          obtain exactly the integral of \(f\) by definition, and so it follows
+          that: \[ \lim_{k \to \infty} \int f_k \, \text{d}\mu \ge \int f \,
+          \text{d}\mu \] Combining this with the very first inequality we
+          showed, we can therefore conclude that: \[ \lim_{k \to \infty} \int
+          f_k \, \text{d}\mu = \int f \, \text{d}\mu \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        Well now we have proven the <strong>M.C.T.</strong>, it is certainly
+        true that we can interchange the limit and the integral for a specific
+        class of sequences of functions, that is, when \(0\le f_1 \le f_2 \le
+        \dots\). But there are stronger theorems, as we will see in the next
+        lesson, such as the <strong>Bounded Convergence Theorem</strong> and
+        <strong>Dominated Convergence Theorem</strong>, which apply to other
+        classes of functions and allow us to interchange the limit and the
+        integration under their respective assumptions. The
+        <strong>Dominated Convergence Theorem</strong> applies to sequences
+        dominated by an integrable function, while the
+        <strong>Bounded Convergence Theorem</strong> applies, under its
+        additional assumptions such as finite measure and uniform boundedness,
+        to another class of sequences. These classes of sequences overlap, but
+        neither theorem simply contains all the sequences covered by the other.
+        So it is better not to think of them as a simple chain such as: \[
+        \text{D.C.T} \supset \text{B.C.T} \supset \text{M.C.T}. \] Instead, we
+        should think of these theorems as giving different conditions under
+        which we are allowed to interchange a limit and an integral.
+      </p>
+      <p>
+        Nevertheless, we won't bother talking about B.C.T and D.C.T. We will
+        talk about them in the next lesson. What we are going to do now is prove
+        additivity of integration, but to do that we need to use M.C.T. But even
+        though in our proof we use the conclusion of M.C.T., it doesn't mean
+        that additivity of integration only works when M.C.T. holds. The only
+        thing we need for the additivity of integration to hold is a valid
+        theorem that allows us to take the limit inside the integration, and as
+        mentioned, the class of sequences of functions for which that is true is
+        much larger than the class of sequences of functions to which M.C.T.
+        applies.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.036</h4>
+        <p>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and \(f,g: X \to
+          [0,\infty]\) are \(\mathcal S\)-measurable functions. Then: \[ \int
+          (f+g) \, \text{d}\mu = \int f \, \text{d}\mu + \int g \, \text{d}\mu
+          \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          Since \(f\) and \(g\) are non-negative measurable functions, we can
+          choose increasing sequences of non-negative simple functions
+          \(f_1,f_2,\dots\) and \(g_1,g_2,\dots\) such that: \[ 0\le f_1(x)\le
+          f_2(x)\le \dots \le f(x), \quad f_k(x)\to f(x) \] and \[ 0\le
+          g_1(x)\le g_2(x)\le \dots \le g(x), \quad g_k(x)\to g(x) \] for every
+          \(x\in X\). Then: \[ f_k(x)+g_k(x)\to f(x)+g(x) \] and, since both
+          sequences are increasing, we also have: \[ 0\le f_1(x)+g_1(x)\le
+          f_2(x)+g_2(x)\le \dots \le f(x)+g(x). \] Therefore, by the M.C.T.: \[
+          \int (f+g) \, \text{d}\mu = \lim_{k\to\infty}\int
+          (f_k+g_k)\,\text{d}\mu. \]
+        </p>
+        <p>
+          We have seen that the sum of two \(\mathcal S\)-measurable functions
+          is \(\mathcal S\)-measurable, and \(f_k\) and \(g_k\) are simple
+          functions. Therefore \(f_k+g_k\) is also a simple function. From the
+          theorem we proved above for simple functions, we have: \[ \int
+          (f_k+g_k)\,\text{d}\mu = \int f_k\,\text{d}\mu+\int g_k\,\text{d}\mu.
+          \] Hence: \[ \implies \int (f+g)\,\text{d}\mu = \lim_{k\to\infty}
+          \left( \int f_k\,\text{d}\mu+\int g_k\,\text{d}\mu \right). \] Since
+          both sequences \(\left\{\int f_k\,\text{d}\mu\right\}\) and
+          \(\left\{\int g_k\,\text{d}\mu\right\}\) are increasing, we can take
+          their limits: \[ \implies \int (f+g)\,\text{d}\mu =
+          \lim_{k\to\infty}\int f_k\,\text{d}\mu + \lim_{k\to\infty}\int
+          g_k\,\text{d}\mu. \] And from M.C.T. we get: \[ \lim_{k\to\infty}\int
+          f_k\,\text{d}\mu = \int f\,\text{d}\mu, \qquad \lim_{k\to\infty}\int
+          g_k\,\text{d}\mu = \int g\,\text{d}\mu. \] Therefore: \[ \int
+          (f+g)\,\text{d}\mu = \int f\,\text{d}\mu + \int g\,\text{d}\mu. \]
+          Therefore, \[ \int (f+g)\,\text{d}\mu = \int f\,\text{d}\mu + \int
+          g\,\text{d}\mu. \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        Now we have one of the important properties of integration that we
+        desired. It proves that for all measurable functions that are
+        non-negative, the additivity of integration holds for the Lebesgue
+        integral. Even though in the case of the Riemann integral the additivity
+        does not hold even for some bounded non-negative functions.
+      </p>
+      <p>
+        So far we have talked about Lebesgue integration of only non-negative
+        functions. Now we will generalize everything we have seen thus far for
+        extended real-valued measurable functions.
+      </p>
+      <h2>Integration of Real-Valued Functions</h2>
+      <p>
+        All this time we have only dealt with functions that are non-negative
+        and hence taken their integral. Here we need to deal with extended
+        real-valued measurable functions \(f: X \to [-\infty,\infty]\). Good
+        thing for us, we don't need to find some new approach to Lebesgue
+        integration. We just need an intuitive approach to represent a
+        real-valued function as a combination of non-negative functions.
+      </p>
+      <p>
+        And thus the following definition formalizes the notation and approach.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong>
+          Suppose \(f: X \to [-\infty, \infty]\) is a function. Then we define
+          the functions \(f^+\) and \(f^-\) from \(X\) to \([0,\infty]\) as: \[
+          f^+(x)= \begin{cases} f(x) & \text{if } f(x)\geq 0,\\ 0 & \text{if }
+          f(x)\lt 0, \end{cases} \] \[ f^-(x)= \begin{cases} 0 & \text{if }
+          f(x)\geq 0,\\ -f(x) & \text{if } f(x)\lt 0. \end{cases} \] Here: \[ f
+          = f^+ - f^- \quad \text{and} \quad |f| = f^+ + f^- \]
+        </p>
+      </div>
+      <!--Add animation 4-->
+      <p>
+        The idea behind why we define these functions is quite intuitive to
+        understand. We only know how to take Lebesgue integration of
+        non-negative functions using the tools we have built so far. So we
+        decompose the extended real-valued function \(f: X \to
+        [-\infty,\infty]\) into two parts. One is \(f^+ : X \to [0,\infty]\),
+        which is positive and takes the values of \(f(x)\) when \(f(x)\geq0\),
+        and gives \(0\) when \(f(x)\lt 0\). And for \(f^- : X \to [0,\infty]\),
+        it takes all the \(x\in X\) such that \(f(x)\lt 0\), and multiplies
+        those negative values by \(-1\) to make the output positive, and gives
+        \(0\) otherwise. Essentially, \(f^-\) takes the negative parts of \(f\)
+        and makes them positive so that we can compute their Lebesgue
+        integration. Then, just as we can write \(f=f^+-f^-\), we can define the
+        Lebesgue integral of \(f\) as the integral of its positive part minus
+        the integral of its negative part. And thus we define the integration of
+        an extended real-valued function as follows:
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF"
+            >Definition: Integral of a Real-Valued Function</strong
+          >
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and \(f: X \to
+          [-\infty,\infty]\) is an \(\mathcal S\)-measurable function such that
+          \(\int |f| \, \text{d}\mu \lt \infty\), that is, \[ \int f^+ \,
+          \text{d}\mu + \int f^- \, \text{d}\mu \lt \infty. \] Then the Lebesgue
+          integral of \(f\) with respect to \(\mu\) is defined as: \[ \int f \,
+          \text{d}\mu = \int f^+ \, \text{d}\mu - \int f^- \, \text{d}\mu \]
+        </p>
+      </div>
+      <!--Add animation 5-->
+      <p>
+        Now that we have defined integration of \(\mathcal S\)-measurable
+        real-valued functions, let us prove that indeed Lebesgue integration is
+        linear.
+      </p>
+      <h3>Linearity of Lebesgue Integration</h3>
+      <div class="theo-type1">
+        <h4>Theorem-5.037: Homogeneity of Integration</h4>
+        <p>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and \(f: X \to
+          [-\infty, \infty]\) is an \(\mathcal S\)-measurable function such that
+          \(\int |f| \, \text{d}\mu \lt \infty\). Then if \(c \in \mathbb R\),
+          we have: \[ \int cf \, \text{d}\mu = c\int f \, \text{d}\mu \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          Let us consider first the case where \(f\) is non-negative and \(c \ge
+          0\). Then, for some particular \(\mathcal S\)-partition \(P\), we get:
+          \[ \mathcal L(cf , P) = \sum_{i = 1}^{n} \mu(A_i) \inf_{A_i} (cf) =
+          c\sum_{i = 1}^{n} \mu(A_i) \inf_{A_i} (f) = c\mathcal L(f , P). \]
+          Taking the supremum over all \(\mathcal S\)-partitions, we get: \[
+          \int cf \, \text{d}\mu = \sup_{P} \mathcal L(cf , P) = \sup_{P}
+          c\mathcal L(f , P) = c \sup_{P} \mathcal L(f , P) = c \int f \,
+          \text{d}\mu. \]
+        </p>
+        <br />
+        <p>
+          Now let us consider the case where \(f\) is an extended real-valued
+          function and \(c > 0\). Since we just saw in the first case for
+          non-negative functions that \(\int cf \, \text{d}\mu = c\int f \,
+          \text{d}\mu\), and here the same result applies to \(f^+\) and
+          \(f^-\), we get: \[ \int cf \, \text{d}\mu = \int (cf)^+ \,
+          \text{d}\mu - \int (cf)^- \, \text{d}\mu = \int cf^+ \, \text{d}\mu -
+          \int cf^- \, \text{d}\mu. \] Therefore: \[ \int cf \, \text{d}\mu =
+          c\int f^+ \, \text{d}\mu - c\int f^- \, \text{d}\mu = c\left(\int f^+
+          \, \text{d}\mu - \int f^- \, \text{d}\mu\right) = c \int f \,
+          \text{d}\mu. \] And therefore we have for an extended real-valued
+          measurable function \(f\) and \(c \gt 0\): \[ \int cf \, \text{d}\mu =
+          c \int f \, \text{d}\mu. \]
+        </p>
+        <br />
+        <p>
+          Now let us consider the case where \(c \lt 0\). Since \(c \lt 0
+          \implies -c \gt 0\), we have: \[ (cf)^+ = (-c)f^-
+          \qquad\text{and}\qquad (cf)^- = (-c)f^+. \] Then we get: \[ \int cf \,
+          \text{d}\mu = \int (-c)f^- \, \text{d}\mu - \int (-c)f^+ \,
+          \text{d}\mu \] \[ = (-c)\int f^- \, \text{d}\mu - (-c)\int f^+ \,
+          \text{d}\mu = (-c)\left(\int f^- \, \text{d}\mu - \int f^+ \,
+          \text{d}\mu\right) \] \[ = c\left(\int f^+ \, \text{d}\mu - \int f^-
+          \, \text{d}\mu\right) = c \int f \, \text{d}\mu. \] Finally, when
+          \(c=0\), we trivially have: \[ \int 0f \, \text{d}\mu = 0 = 0\int f \,
+          \text{d}\mu. \] Therefore, for all \(c \in \mathbb R\) and every
+          measurable \(f\) such that \(\int |f| \, \text{d}\mu \lt \infty\), we
+          get that Lebesgue integration obeys homogeneity: \[ \int cf \,
+          \text{d}\mu = c \int f \, \text{d}\mu. \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <div class="theo-type1">
+        <h4>Theorem-5.038: Additivity of Integration</h4>
+        <p>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and \(f: X \to
+          [-\infty, \infty]\) and \(g: X \to [-\infty, \infty]\) are \(\mathcal
+          S\)-measurable functions such that \(\int |f| \, \text{d}\mu \lt
+          \infty\) and \(\int |g| \, \text{d}\mu \lt \infty\). Then: \[ \int
+          (f+g) \, \text{d}\mu = \int f \, \text{d}\mu + \int g \, \text{d}\mu
+          \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          Let us write: \[ (f+g)^+-(f+g)^- = f+g = f^+-f^-+g^+-g^-. \] If we now
+          rearrange the terms from both sides, we get: \[ (f+g)^+ + f^- + g^- =
+          (f+g)^- + f^+ + g^+. \] Here all terms on both sides are non-negative,
+          so we can use our Theorem-5.0## to apply additivity: \[ \int (f+g)^+
+          \, \text{d}\mu + \int f^- \, \text{d}\mu + \int g^- \, \text{d}\mu =
+          \int (f+g)^- \, \text{d}\mu + \int f^+ \, \text{d}\mu + \int g^+ \,
+          \text{d}\mu. \] \[ \implies \int (f+g)^+ \, \text{d}\mu - \int (f+g)^-
+          \, \text{d}\mu = \int f^+ \, \text{d}\mu - \int f^- \, \text{d}\mu +
+          \int g^+ \, \text{d}\mu - \int g^- \, \text{d}\mu. \] Since \[ (f+g)^+
+          \leq f^+ + g^+ \qquad\text{and}\qquad (f+g)^- \leq f^- + g^-, \] and
+          we already have \[ \int |f| \, \text{d}\mu \lt \infty
+          \qquad\text{and}\qquad \int |g| \, \text{d}\mu \lt \infty, \] all the
+          integrals in the equation above are finite. Therefore: \[ \int (f+g)
+          \, \text{d}\mu = \int f \, \text{d}\mu + \int g \, \text{d}\mu. \] And
+          therefore we have, for measurable functions \(f\) and \(g\) such that
+          \(\int |f| \, \text{d}\mu \lt \infty\) and \(\int |g| \, \text{d}\mu
+          \lt \infty\), that Lebesgue integration obeys additivity: \[ \int
+          (f+g) \, \text{d}\mu = \int f \, \text{d}\mu + \int g \, \text{d}\mu.
+          \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        And now we have proven both additivity and homogeneity of Lebesgue
+        integration, and therefore it is linear.
+      </p>
+      <p>
+        Now let us just give you two more theorems that are important for
+        analysis.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.039: Lebesgue Integration is Order Preserving</h4>
+        <p>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and \(f: X \to
+          [-\infty, \infty]\) and \(g: X \to [-\infty, \infty]\) are \(\mathcal
+          S\)-measurable functions such that \(\int |f| \, \text{d} \mu \lt
+          \infty\) and \(\int |g| \, \text{d} \mu \lt \infty\). Then if \(f(x)
+          \le g(x)\) for all \(x \in X\) then: \[ \int f \, \text{d}\mu \le \int
+          g \, \text{d}\mu \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          Since \(\int |f| \, \text{d}\mu \lt \infty\) and \(\int |g| \,
+          \text{d}\mu \lt \infty\), both integrals \(\int f \, \text{d}\mu\) and
+          \(\int g \, \text{d}\mu\) are finite and therefore well-defined real
+          numbers. Now, the additivity of the Lebesgue integral tells us that
+          the integral of a sum of two functions is the sum of their integrals,
+          and the homogeneity property — applied with the constant \(c = -1\) —
+          tells us that scaling a function by \(-1\) scales its integral by
+          \(-1\) as well. Putting these two properties together, we can write:
+          \[ \int g \, \text{d}\mu - \int f \, \text{d}\mu = \int (g - f) \,
+          \text{d}\mu \] The reason why this is useful is that now we only need
+          to say something about the sign of \(\int (g-f) \, \text{d}\mu\).
+          Since \(f(x) \le g(x)\) holds for every \(x \in X\) by assumption, it
+          follows that \(g(x) - f(x) \ge 0\) for every \(x \in X\). Since the
+          function \(g - f\) is everywhere non-negative, its Lebesgue integral
+          must also be non-negative, and therefore: \[ \int (g - f) \,
+          \text{d}\mu \ge 0 \] Hence \(\int g \, \text{d}\mu - \int f \,
+          \text{d}\mu \ge 0\), from which we can conclude that: \[ \int f \,
+          \text{d}\mu \le \int g \, \text{d}\mu \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <div class="theo-type1">
+        <h4>Theorem-5.040</h4>
+        <p>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and \(f: X \to
+          [-\infty, \infty]\) is an \(\mathcal S\)-measurable function such that
+          \(\int |f| \, \text{d}\mu \lt \infty\). Then: \[ \left| \int f \,
+          \text{d}\mu \right| \le \int |f| \, \text{d}\mu \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          We know that: \[ f = f^+ - f^- \qquad \text{and} \qquad |f| = f^+ +
+          f^-. \] Therefore: \[ \left| \int f \, \text{d}\mu \right| = \left|
+          \int f^+ \, \text{d}\mu - \int f^- \, \text{d}\mu \right| \le \int f^+
+          \, \text{d}\mu + \int f^- \, \text{d}\mu = \int (f^+ + f^-) \,
+          \text{d}\mu = \int |f| \, \text{d}\mu. \] Therefore: \[ \left| \int f
+          \, \text{d}\mu \right| \le \int |f| \, \text{d}\mu. \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        We will conclude this lesson here and hope to release the next ones
+        soon. We highly value your feedback and suggestions, so please feel free
+        to contact us.
+      </p>
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Measure, Integration & Real Analysis.</p>
+              <span class="resource-card__sub">Sheldon Axler. Ch-3:3A.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Methods of Modern Mathematical Physics, Vol. 1: Functional Analysis.</p>
+              <span class="resource-card__sub">Michael Reed & Barry Simon. Ch-\(\text{I}\).</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">An Introduction to Measure Theory.</p>
+              <span class="resource-card__sub">Terence Tao.</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

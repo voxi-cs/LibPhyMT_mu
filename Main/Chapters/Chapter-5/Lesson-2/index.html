@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Measure and Properties of Measure</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-2</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Measure and Properties of Measure.
+          </span>
+        </div>
+
+      </h1>
+    </div>
+    <!-- Publication Info -->
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "A similar necessity appears every time one replaces an experimental notion by a purely logical definition."
+        <br />
+        <span>— Henri Lebesgue</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h2>Introduction</h2>
+      <p>
+        In this lesson we will define what a measure is, which will let us
+        extend our ideas beyond just length to a larger class of measurements
+        such as area, volume, and probability. We did get an intuitive notion of
+        how <strong>measure</strong> can allow us to define areas, volumes, and
+        so on, but we did not really define what exactly a measure is. We only
+        talked about sets in \(\mathbb R\), and how we can assign a size to each
+        set, which is a notion of measure, but the idea of measure can be
+        extended as we said. And thus we need a rigorous definition of what a
+        measure is and what properties it has.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Measure</strong>
+          Suppose \(X\) is a set, and \(\mathcal S\) is a \(\sigma\)-algebra on
+          \(X\). Then a measure is a function \(\mu : \mathcal S \to
+          [0,\infty]\), such that \(\mu(\varnothing) = 0\) and:
+        </p>
+        <div class="equation_inscribed">
+          \[\mu \left(\bigcup_{k=1}^{\infty} E_k\right) = \sum_{k=1}^{\infty}
+          \mu(E_k)\]
+        </div>
+        <p>
+          Where \(E_1,E_2,\dots\) are a sequence of pairwise disjoint sets in
+          \(\mathcal S\).
+        </p>
+      </div>
+      <p>
+        From the definition of <strong>measure</strong> we see that a measure
+        must obey <strong>countable additivity</strong>, and thus we can say
+        that given a finite collection of disjoint sets \(E_1,E_2,\dots,E_n\) in
+        \(\mathcal S\), the following must also be true: \[\mu
+        \left(\bigcup_{k=1}^{n} E_k\right) = \sum_{k=1}^{n} \mu(E_k)\] As, if we
+        choose all the sets after the \(n^{\text{th}}\) to be \(E_m =
+        \varnothing\) for \(m \gt n\), then by definition \(\mu(E_m) = 0\).
+      </p>
+      <p>
+        Now notice that the definition of measure doesn't restrict us on the
+        space nor on the sets \(E \subset X\), except that \(E\) has to be
+        \(\mathcal S\)-measurable—that is, \(E \in \mathcal S\). As long as we
+        have a function that is consistent with the definition of measure, we
+        can assign subsets of \(X\) a measure or size. In the examples below we
+        show some simple examples of measures. One of these measures will allow
+        us to think of \(\mu\) beyond just as a function that assigns some
+        sensible intuition of size. That specific measure is called the Dirac
+        measure, and anybody who has a good understanding of intermediate
+        physics would immediately recognize it.
+      </p>
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <h4>Counting Measure:</h4>
+        <p>
+          Suppose we have a set \(X\), and the \(\sigma\)-algebra on which the
+          <strong>counting measure</strong>
+          is defined is the power set of \(X\), \(\mathcal P(X)\). The measure
+          \(\mu\) takes in a subset of \(X\) and gives a number, which tells us,
+          if the set is finite, how many exactly elements are in it, and if it
+          is not finite, then it gives \(\infty\).
+        </p>
+        <p>
+          Let's say we have \(X = \mathbb R\), then the counting measure is
+          defined on \(\mathcal P(\mathbb R)\). Let us denote the counting
+          measure as \(\Sigma\). Then let the subset of \(\mathbb R\) be: \[ E =
+          \{6,28,496,8128\} \] Then the counting measure on \(E\) is: \[
+          \Sigma(E) = 4. \] Now if we choose: \[ E= (0,1) \] then: \[ \Sigma(E)
+          = \infty. \]
+        </p>
+        <h4>Dirac Measure:</h4>
+        <p>
+          Suppose we have a set \(X\), and \(\mathcal S\) is a
+          \(\sigma\)-algebra on \(X\). Then the measure \(\delta_c\) defined on
+          \((X,\mathcal S)\) is: \[ \delta_c(E) = \begin{cases} 1 & \text{if } c
+          \in E \\ 0 & \text{if } c \notin E \end{cases} \] Where \(E \in
+          \mathcal S\) and \(c \in X\). This particular measure doesn't really
+          give us any intuitive sense of size, but still it is a measure and it
+          is quite useful not just in physics but mathematics as well.
+        </p>
+      </div>
+      <p>
+        Now let us define a notation that will allow us to explicitly mention
+        what space \(X\), \(\sigma\)-algebra, and measure \(\mu\) we are working
+        with.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Measure Space</strong>
+          A measure space is an ordered triple \((X, \mathcal S, \mu)\), where
+          \(X\) is a set, \(\mathcal S\) is a \(\sigma\)-algebra on \(X\), and
+          \(\mu\) is a measure on \((X, \mathcal S)\).
+        </p>
+      </div>
+
+      <h2>Properties of Measures</h2>
+      <p>
+        Now we will talk about properties of measures, these properties are
+        direct consequences of how we define a
+        <strong>measure</strong> and the \(\sigma\)-algebra. Here, when we want
+        a set, let's say \(D\), to have a finite measure, that is \(\mu(D) \lt
+        \infty\), the reason for that is so that we can avoid expressions like
+        \(\infty - \infty\).
+      </p>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.010</h4>
+        <p>
+          Assume \((X,\mathcal S,\mu)\) is a measure space, and let \(E,D \in
+          \mathcal S\) such that \(D \subseteq E\). Then
+        </p>
+        <ol class="custom-roman-list">
+          <li>\(\mu(D)\le \mu(E)\).</li>
+          <li>
+            \(\mu(E \setminus D) = \mu(E) - \mu(D)\), provided that \(\mu(D) \lt
+            \infty\).
+          </li>
+        </ol>
+
+        <h4>Proof:</h4>
+        <p>
+          \((\text{i}):\) Here we have \(D \subseteq E\), and we can write the
+          set \(E\) as the union of two disjoint subsets of \(X\). \[ E = D \cup
+          (E\setminus D). \] Then we know from the definition of measure: \[
+          \mu(E) = \mu(D) + \mu(E\setminus D) \ge \mu(D) \implies \mu(E) \ge
+          \mu(D). \]
+        </p>
+
+        <p>
+          \((\text{ii}):\) Since \(\mu(D) \lt \infty\), we can rearrange
+          \(\mu(E) = \mu(D) + \mu(E\setminus D)\) to get: \[ \mu(E\setminus D) =
+          \mu(E) - \mu(D). \]
+        </p>
+
+        <span class="qed"></span>
+      </div>
+
+      <p>
+        Now we will show that what we got from Theorem-5.003 for outer measure
+        is a general property for all measures.
+      </p>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.011: Countable Subadditivity</h4>
+        <p>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and
+          \(E_1,E_2,\dots\) are \(\mathcal S\)-measurable sets. Then: \[
+          \mu\left(\bigcup_{k=1}^{\infty} E_k \right) \le \sum_{k=1}^{\infty}
+          \mu(E_k). \]
+        </p>
+
+        <h4>Proof:</h4>
+        <p>
+          In order to prove this, we will have to invoke the previous
+          Theorem-5.010, and this proof will follow a similar procedure as that
+          one. For that, let \(D_1 = \varnothing\) and \(D_k = E_1 \cup E_2 \cup
+          \dots \cup E_{k-1}\) for \(k\ge 2\). Then we can say \(E_1\setminus
+          D_1\), \(E_2\setminus D_2\), and so on are pairwise disjoint subsets
+          of \(X\). Also, we have: \[ \bigcup_{k=1}^{\infty} E_k =
+          \bigcup_{k=1}^{\infty} (E_k\setminus D_k). \] This implies, by the
+          definition of a measure, that: \[ \mu\left(\bigcup_{k=1}^{\infty}
+          E_k\right) = \mu\left(\bigcup_{k=1}^{\infty} (E_k\setminus D_k)\right)
+          = \sum_{k=1}^{\infty} \mu(E_k\setminus D_k). \] Remember from
+          Theorem-5.010 (i) that if \(D\subseteq E\), then \(\mu(D)\le\mu(E)\).
+          Since \(E_k\setminus D_k\subseteq E_k\), we therefore have: \[
+          \mu(E_k\setminus D_k)\le\mu(E_k). \] So: \[ \sum_{k=1}^{\infty}
+          \mu(E_k\setminus D_k) \le \sum_{k=1}^{\infty}\mu(E_k). \] Therefore we
+          can say: \[ \mu\left(\bigcup_{k=1}^{\infty} E_k\right) \le
+          \sum_{k=1}^{\infty} \mu(E_k). \] This also proves
+          <strong>finite subadditivity</strong> as well. If we have first
+          \(E_1,\dots,E_n\) non-empty and let all of the rest be empty, then
+          from the definition of measure we see that \(\mu(\varnothing) = 0\).
+          So: \[ \mu\left(\bigcup_{k=1}^{n} E_k\right) \le \sum_{k=1}^{n}
+          \mu(E_k). \]
+        </p>
+        <span class="qed"></span>
+      </div>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.012: Measure of an Increasing Union</h4>
+        <p>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and we have an
+          increasing sequence of \(\mathcal S\)-measurable sets: \[ E_1 \subset
+          E_2 \subset E_3 \subset \dots \] Then: \[
+          \mu\left(\bigcup_{k=1}^{\infty} E_k\right) = \lim_{k \to
+          \infty}\mu(E_k). \]
+        </p>
+
+        <h4>Proof:</h4>
+        <p>
+          If for some \(k \in \mathbb Z^+\), \(\mu(E_k) = \infty\), then since
+          the sequence is increasing, \(\mu(E_j)=\infty\) for every \(j\ge k\).
+          Also, \(E_k\subseteq\bigcup_{j=1}^{\infty}E_j\), so by Theorem-5.010
+          (i), \[ \mu\left(\bigcup_{j=1}^{\infty}E_j\right)=\infty. \]
+          Therefore, in this case both sides of the equation are \(\infty\), and
+          the theorem already holds. So we only need to study the case where
+          \(\mu(E_k)\lt\infty\) for all \(k\in\mathbb Z^+\).
+        </p>
+
+        <p>
+          Let us define \(E_0 = \varnothing\) for the sake of the proof. Then,
+          since each \(E_{j-1}\) is contained in \(E_j\), we can write: \[
+          \bigcup_{k=1}^{\infty} E_k = \bigcup_{j=1}^{\infty} (E_j \setminus
+          E_{j-1}). \] Here each \(E_j \setminus E_{j-1}\) is pairwise disjoint,
+          so the whole union is a union of pairwise disjoint \(\mathcal
+          S\)-measurable sets. Then using countable additivity we can write: \[
+          \mu\left(\bigcup_{k=1}^{\infty} E_k\right) = \sum_{j=1}^{\infty}
+          \mu(E_j \setminus E_{j-1}) = \lim_{k \to \infty} \sum_{j=1}^{k}
+          \mu(E_j \setminus E_{j-1}). \] Using Theorem-5.010 (ii), since
+          \(\mu(E_{j-1})\lt\infty\), we can write: \[ \begin{aligned} \lim_{k
+          \to \infty} \sum_{j=1}^{k} \mu(E_j \setminus E_{j-1}) &= \lim_{k \to
+          \infty} \sum_{j=1}^{k} \left(\mu(E_j) - \mu(E_{j-1})\right) \\ &=
+          \lim_{k \to \infty} \mu(E_k). \end{aligned} \] Therefore: \[
+          \mu\left(\bigcup_{k=1}^{\infty} E_k\right) = \lim_{k \to \infty}
+          \mu(E_k). \]
+        </p>
+
+        <span class="qed"></span>
+      </div>
+
+      <p>
+        This theorem proves that <strong>measure</strong> behaves as expected
+        for an increasing sequence of measurable sets. If we have \(E_1 \subset
+        E_2 \subset E_3 \dots\), then it could be that the sequence approaches a
+        particular subset of \(X\), let us call it \(E\). Then intuitively we
+        can say all of the sets \(E_1,E_2,E_3,\dots\) will be contained in that
+        set \(E\), and the union of those sets will be at most the set \(E\).
+        Thus, using our intuition, we expect the measure of the union of all
+        those sets to be equal to the measure of the set \(E\) as \(E\) contains
+        all those sets and each of the sets contains the previous set in it.
+      </p>
+      <p>
+        Now let us look at another similar property. I will leave it up to you
+        to reason why it is intuitively reasonable to think a measure should
+        obey this.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.013: Measure of a Decreasing Intersection</h4>
+        <p>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and we have a
+          decreasing sequence of \(\mathcal S\)-measurable sets: \[ E_1 \supset
+          E_2 \supset E_3 \supset \dots \] where \(\mu(E_1) \lt \infty\). Then:
+          \[ \mu\left(\bigcap_{k=1}^{\infty} E_k\right) = \lim_{k \to
+          \infty}\mu(E_k). \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          Using De Morgan's Law, we can say that: \[ E_1 \setminus
+          \bigcap_{k=1}^{\infty} E_k = \bigcup_{k=1}^{\infty} (E_1 \setminus
+          E_k). \] Notice here each \(E_1 \setminus E_k\) is a subset in
+          increasing order, that is: \[ E_1 \setminus E_1 \subset E_1 \setminus
+          E_2 \subset E_1 \setminus E_3 \subset \dots \] Then we can apply
+          Theorem-5.011 to it, and then we get: \[ \mu\left( E_1 \setminus
+          \bigcap_{k=1}^{\infty} E_k \right) = \lim_{k \to \infty} \mu(E_1
+          \setminus E_k). \] Now if we apply (ii) from Theorem-5.010, then we
+          get on both sides: \[ \mu(E_1) - \mu\left(\bigcap_{k=1}^{\infty}
+          E_k\right) = \mu(E_1) - \lim_{k \to \infty} \mu(E_k). \] Which
+          implies: \[ \mu\left(\bigcap_{k=1}^{\infty} E_k\right) = \lim_{k \to
+          \infty} \mu(E_k). \] Finally completing the proof.
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        Assume you have two sets \(A\) and \(B\) such that \(A \cap B \neq
+        \varnothing\), and draw a Venn diagram of it. Notice, of course, they
+        will intersect as \(A \cap B \neq \varnothing\). Now ask yourself, if
+        \(A\) and \(B\) are measurable, we know their intersection is also
+        measurable. Is it reasonable to think the measure of \(A \cup B\) is
+        equal to the measure of \(A\) plus the measure of \(B\), minus the
+        measure of the part \(A \cap B\)? Why minus the measure of the part \(A
+        \cap B\)? It is because when we measure \(A\) and \(B\), we already
+        measured that region \(A \cap B\). Since we summed up the measures of
+        both \(A\) and \(B\) together, that region got measured twice, and so by
+        subtracting the measure of the region \(A \cap B\) once, we are supposed
+        to get the measure of \(A \cup B\). Of course, none of it is rigorous
+        and nothing but our intuition, but it is nice to play around with these
+        things and then try to either prove or disprove them. Since our doodling
+        is quite convincing, let us try to prove it.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.014: Measure of a Union of Two Sets</h4>
+        <p>
+          Suppose \((X,\mathcal S, \mu)\) is a measure space and we have two
+          \(\mathcal S\)-measurable sets \(A\) and \(B\), such that \(\mu(A\cap
+          B) \lt \infty\). Then: \[ \mu(A \cup B) = \mu(A) + \mu(B) - \mu(A \cap
+          B). \]
+        </p>
+        <h4>Proof:</h4>
+        <p>
+          We can write \(A \cup B\) as: \[ A \cup B = (A \setminus (A \cap B))
+          \cup (B \setminus (A \cap B)) \cup (A \cap B). \] Notice here the
+          union is of disjoint subsets that are measurable. Then we can say: \[
+          \mu(A \cup B) = \mu(A \setminus (A \cap B)) + \mu(B \setminus (A \cap
+          B)) + \mu(A \cap B). \] Applying Theorem-5.010 (ii) gives: \[ =
+          (\mu(A) - \mu(A \cap B)) + (\mu(B) - \mu(A \cap B)) + \mu(A \cap B) =
+          \mu(A) + \mu(B) - \mu(A \cap B). \] Therefore proving that indeed: \[
+          \mu(A \cup B) = \mu(A) + \mu(B) - \mu(A \cap B). \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>Before clossing this section let us show you a example.</p>
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+
+        <p>
+          <strong>
+            Give an example of a measure space \((X,\mathcal S,\mu)\), then find
+            an example of a decreasing sequence of \(\mathcal S\)-measurable
+            sets such that:
+          </strong>
+          \[ \mu\left(\bigcap_{k=1}^{\infty} E_k\right) \neq
+          \lim_{k\to\infty}\mu(E_k) \]
+        </p>
+
+        <p>
+          First, let us choose a very simple measure space. Let's say we have
+          \(X=\mathbb N\) and let the \(\sigma\)-algebra be the power set of
+          \(\mathbb N\), that is: \[ \mathcal S=\mathcal P(\mathbb N). \] Let
+          the measure \(\mu\) be the counting measure. We know from our
+          definition of counting measure that if a set is not finite, then its
+          measure is \(\infty\).
+        </p>
+
+        <p>
+          Now let's define a decreasing sequence of \(\mathcal S\)-measurable
+          sets. Let: \[ E_k=\{k,k+1,k+2,\dots\}. \] Then we can see that: \[
+          E_1\supset E_2\supset E_3\supset\dots \] so this is indeed a
+          decreasing sequence of \(\mathcal S\)-measurable sets.
+        </p>
+
+        <p>
+          Notice that every \(E_k\) is an infinite set. Therefore, by the
+          definition of counting measure: \[ \mu(E_k)=\infty \] for every
+          \(k\in\mathbb Z^+\). So we can say: \[
+          \lim_{k\to\infty}\mu(E_k)=\infty. \]
+        </p>
+
+        <p>
+          Now let us look at the intersection of all of these sets. There is no
+          natural number that belongs to every \(E_k\), since for any
+          \(n\in\mathbb N\), if we choose \(k>n\), then \(n\notin E_k\).
+          Therefore: \[ \bigcap_{k=1}^{\infty}E_k=\varnothing. \] Hence: \[
+          \mu\left(\bigcap_{k=1}^{\infty}E_k\right)=\mu(\varnothing)=0. \]
+        </p>
+
+        <p>
+          Therefore, in this case we have: \[
+          \mu\left(\bigcap_{k=1}^{\infty}E_k\right) =0 \neq \infty
+          =\lim_{k\to\infty}\mu(E_k). \] So this gives us the required example.
+        </p>
+      </div>
+      <p>
+        In this lesson, we have seen some of the essential properties of a
+        measure \(\mu\). Throughout this chapter, these properties will be used
+        extensively.
+      </p>
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Measure, Integration & Real Analysis.</p>
+              <span class="resource-card__sub">Sheldon Axler. Ch-2:2C.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Methods of Modern Mathematical Physics, Vol. 1: Functional Analysis.</p>
+              <span class="resource-card__sub">Michael Reed & Barry Simon. Ch-\(\text{I}\).</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">An Introduction to Measure Theory.</p>
+              <span class="resource-card__sub">Terence Tao.</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

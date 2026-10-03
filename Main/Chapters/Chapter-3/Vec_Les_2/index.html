@@ -1,0 +1,1196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculus: The Study Of Change</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+    <!-- Chapter Title -->
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-2</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Introduction to Vectors Space, Sub-Space and Matrices.
+          </span>
+        </div>
+
+      </h1>
+    </div>
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 10 Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        “One must be able to say at all times—instead of points, straight lines, and planes—tables, chairs, and beer mugs.”
+        <br />
+        <span>— David Hilbert</span>
+      </blockquote>
+    </div>
+
+    >
+    
+    <div class="content">
+      <h1>Introduction</h1>
+      <p>
+        In this lesson we will introduce you to Vector Space, Sub-Space and
+        Matrices. This lesson is going to be more abstract and rigorous; this is
+        so that it helps the reader in their academics while keeping in mind the
+        reader might want to explore more abstract subjects from their genuine
+        interest, like Differential Geometry and tensors on this site.
+      </p>
+      <p>
+        The idea of Vector Space and Sub-Space can be quite abstract, but here
+        we will try to translate smoothly so that the reader can grasp the
+        fundamental idea of Vector Space and Sub-Space.
+      </p>
+      <p>
+        There are several applications of Vector Space and Sub-Space, directly
+        or indirectly. In this section we won't be discussing these
+        applications, but we will build the foundation first. Later, in other
+        lessons, we will discuss these applications after we have finished our
+        prerequisites so the reader can truly understand them.
+      </p>
+
+      <h1>Vectors</h1>
+      <p>
+        If you don't have a good grasp on the basics of vectors we recommend you
+        first read our
+        <a href="/Main/Chapters/Chapter-3/Vec_Les_1/Vec_Les_1.html">Lesson-1</a>
+        where we discussed basics of vectors and matrices.
+      </p>
+      <p>
+        A vector is a mathematical object that has a
+        <strong>magnitude</strong> and a <strong>direction</strong>. This is the
+        most typical definition of a vector we usually hear, and this definition
+        is not necessarily wrong, but it contains some ambiguity and is not very
+        rigorous. In this section we will walk through various concepts that
+        will allow us to define a rigorous definition of vector.
+      </p>
+      <p>
+        As we said before, vectors are mathematical objects and there is a
+        general definition of them. From the general definition of vector,
+        depending on the context we can re-define vectors such that they match
+        the way we are using vectors in that context. Beyond pure mathematics,
+        vectors are mostly used in <strong>Physics</strong> and
+        <strong>Computer Science</strong>.
+      </p>
+      <p>
+        In <em>Physics</em> vectors are arrows in some N-dimensional space
+        describing properties or quantities of physical or abstract/theoretical
+        objects. For example: a velocity vector is a vector in 2D/3D space, and
+        each <strong>component</strong> of the vector is the velocity along the
+        x, y and z directions (not the scalar speed). It doesn't matter in space
+        where the velocity vector is located — as long as two velocity vectors
+        have the same magnitude and direction (or the same components), they
+        represent the same vector. In physics it's often noticeable that vectors
+        don't always need a well-defined origin; they can be treated as free
+        vectors that may be placed anywhere, and this allows us to geometrically
+        analyse the vector which gives us insight about the system we are
+        working on.
+      </p>
+      <p>
+        In <em>Computer Science</em> vectors are a tuple/list of numbers in an
+        order \( (x_1, x_2, \dots, x_n) \). In computer science vectors are used
+        to solve problems, analyse data, and for machine learning and robotics.
+        Vectors allow us to store data in an orderly pattern that lets us
+        manipulate the data and update it, which helps us solve quite a few
+        problems. A well-known problem solving method in <em>CS</em> is called
+        <em>Dynamic Programming</em>. There are two common approaches to Dynamic
+        Programming: <em>Memoization</em> and <em>Tabulation</em>. It is the
+        <em>Tabulation</em> method where we use vectors (arrays) to solve
+        various different problems.
+      </p>
+      <p>
+        What <em>Dynamic Programming</em> does is: given a problem in hand we
+        divide the problem into small subproblems that are easy to solve, then
+        we solve the subproblems in a particular order. As we gradually solve
+        each subproblem, after solving enough of them we reach the last
+        subproblem which corresponds to the original problem we started with. We
+        solve that final problem using solutions of previous subproblems. Each
+        subproblem's solution is dependent on its own smaller subproblems, so we
+        need a starting point or an initial condition — meaning a base case or
+        the smallest subproblem of the whole problem — otherwise we'd have
+        infinitely many subproblems and no place to start from. Vectors (arrays)
+        — and sometimes matrices (tables) — allow us to perform
+        <em>Tabulation</em> and let us solve problems efficiently most of the
+        time, often improving time complexity.
+      </p>
+      <p>
+        <strong>Note:</strong> Remember that vectors in all contexts share the
+        same fundamental properties. Soon we will show you that vectors obey a
+        set of axioms (the arithmetic properties) that they must satisfy. We may
+        view vectors from different perspectives or think about them differently
+        depending on the context, but if it is a vector it must obey the
+        properties of vectors.
+      </p>
+      <h3>Representation of Vectors</h3>
+      <p>
+        Vectors are represented with some numbers \( (x_1, x_2, \dots, x_n) \)
+        enclosed by brackets such as: \(\begin{bmatrix} 2 \\ 3 \\ 6
+        \end{bmatrix}\), \(\begin{pmatrix} 2 \\ 3 \\ 6 \end{pmatrix}\) or
+        \(\begin{bmatrix} 2 & 3 & 6 \end{bmatrix}\). These numbers can be either
+        <strong>real</strong> or <strong>complex</strong>. From now on, unless
+        we explicitly mention otherwise, we will draw the vector from the origin
+        to the point \( (x_1, x_2, \dots, x_n) \).
+      </p>
+
+      <h3>Column vectors and Row vectors</h3>
+      <p>
+        Column vectors are mainly \(n \times 1\) matrices and row vectors are
+        \(1 \times n\) matrices. (Note: \(n \times 1\) and \(1 \times n\)
+        matrices are vectors.) Even though they are both vectors, column and row
+        vectors have different meanings and applications.
+      </p>
+      <p>
+        Column vectors are written so that the components \(x_1, x_2, \dots,
+        x_n\) appear vertically and are enclosed with brackets, as you can see
+        below, and row vectors are written horizontally.
+      </p>
+      <div class="Animation">
+        <figure class="media">
+          <img
+            width="960"
+            height="540"
+            src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/Vec_1_ManimCE_v0.19.2.png"
+            alt="Manim rendering showing vector addition"
+            loading="lazy"
+          />
+        </figure>
+      </div>
+      <p>
+        Column vectors are used to represent vectors in a
+        <strong>vector space</strong>. We haven't discussed vector spaces yet,
+        but after we do it will be clear what we mean by that.
+      </p>
+      <p>
+        Row vectors often represent linear functionals (elements of the dual
+        space) — they map column vectors to scalars via multiplication. In other
+        words, the dot product is essentially matrix multiplication between a
+        row vector and a column vector, and the result is a scalar (a
+        \(1\times1\) matrix interpreted as a number). So we say row vectors are
+        linear functionals. To truly understand this we will wait until we cover
+        the dual space, but you can think of a row vector as a function \(f\)
+        that takes a column vector as input and maps it to a scalar. Linear
+        functionals are also known as one-forms or linear forms; these ideas
+        play a very important role in differential geometry.
+      </p>
+      <h3>Vectors in 2-Dimension</h3>
+      <p>
+        A vector with two components \( v_1 \) and \( v_2 \) corresponds to a
+        point in the \(xy\)-plane, and the vector can be represented as the
+        directed line from the origin \((0,0)\) to the point \( (v_1, v_2) \).
+        (Note: vectors themselves do not have to start at the origin — any
+        vector can be translated — but a position vector is usually drawn from
+        the origin.) An example of a 2-Dimensional vector is shown below:
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2.png"
+              alt="Manim rendering showing a vector illustration"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_1/Videos/Vec_1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        Vector addition is an operation where if \(\vec{v} = \begin{pmatrix} v_1
+        \\ v_2 \end{pmatrix}\) and \(\vec{w} = \begin{pmatrix} w_1 \\ w_2
+        \end{pmatrix}\), then vector addition is: \[ \vec{v} + \vec{w} =
+        \begin{pmatrix} v_1 \\ v_2 \end{pmatrix} + \begin{pmatrix} w_1 \\ w_2
+        \end{pmatrix} = \begin{pmatrix} v_1 + w_1 \\ v_2 + w_2 \end{pmatrix} \]
+        Let the vectors be \(\vec{v} = \begin{pmatrix} 2 \\ 4 \end{pmatrix}\)
+        and \(\vec{w} = \begin{pmatrix} 3 \\ 2 \end{pmatrix}\). Then the
+        addition of these two vectors is: \[ \vec{v} + \vec{w} = \begin{pmatrix}
+        2 \\ 4 \end{pmatrix} + \begin{pmatrix} 3 \\ 2 \end{pmatrix} =
+        \begin{pmatrix} 5 \\ 6 \end{pmatrix} \] Below shows what it
+        geometrically looks like when we add these two vectors:
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2 _2.png"
+              alt="Manim rendering showing vector addition"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_1/Videos/Vec_1_add_1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        Geometrically, when we add two vectors what basically happens is that
+        the endpoints — meaning the coordinates of each vector — get moved (or,
+        a more proper word, translated) in the same direction and by an amount
+        equal to the magnitude of the other vector. The endpoints of both
+        vectors end up at the same point, as you can see in the animation and
+        the diagram.
+      </p>
+      <h3>Scalar Multiplication</h3>
+      <p>
+        Scalar multiplication is a vector operation: if we have a vector
+        \(\vec{v} = \begin{pmatrix} v_1 \\ v_2 \end{pmatrix}\) then scalar
+        multiplication is the operation \(c\vec{v}\) where \(c\) is a scalar
+        such that: \[ c\vec{v} = c \cdot \begin{pmatrix} v_1 \\ v_2
+        \end{pmatrix} = \begin{pmatrix} cv_1 \\ cv_2 \end{pmatrix} \] What
+        scalar multiplication does is it scales the vector's components by an
+        amount \(c\) and hence the whole vector gets scaled by a factor of
+        \(c\). Below in the animation we can see what happens to a vector when
+        it is being scaled by a scalar \(c\):
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_sc_ManimCE_v0.19.2.png"
+              alt="Manim rendering showing scalar multiplication of a vector"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_sc_ManimCE_v0.19.2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_1/Videos/Vec_1 sm.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <h3>Linear Combination</h3>
+      <p>
+        Given some vectors \(\vec{v}_1,\vec{v}_2,\dots,\vec{v}_n\), their linear
+        combination is defined as: \[ L = c_1 \vec{v}_1 + c_2 \vec{v}_2 + \dots
+        + c_n \vec{v}_n \] Where \(c_i \in \mathbb{F}\) (the \(c\)'s could be
+        real or complex).
+      </p>
+      <p>
+        We can show an example. Let there be three vectors \(\vec{v}_1=
+        \begin{pmatrix} 2 \\ 4\end{pmatrix}\), \(\vec{v}_2 = \begin{pmatrix} 3
+        \\ 2\end{pmatrix}\) and \(\vec{v}_3 = \begin{pmatrix} 2 \\
+        2\end{pmatrix}\), and let the scalars be \(c_1 = 0.5\), \(c_2 = 2\) and
+        \(c_3 = 1.5\). So their linear combination is: \[ c_1 \vec{v}_1 + c_2
+        \vec{v}_2 + c_3 \vec{v}_3 = 0.5\begin{pmatrix} 2 \\ 4\end{pmatrix} +
+        2\begin{pmatrix} 3 \\ 2\end{pmatrix} + 1.5\begin{pmatrix} 2 \\
+        2\end{pmatrix} = \begin{pmatrix} 10 \\ 9\end{pmatrix}. \] (Note: the
+        third term uses \(\vec{v}_3=\begin{pmatrix}2\\2\end{pmatrix}\), not
+        \(\vec{v}_2\).)
+      </p>
+
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_lc.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_lc.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_1/Videos/Vec_1_lc.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <p>
+        Above we can see how a linear combination for three vectors looks. There
+        is another important concept about linear combination: span. We are not
+        going to talk about span yet but in an upcoming lesson we will.
+      </p>
+
+      <h2>Vectors in 3-Dimension</h2>
+      <p>
+        A vector in 3-dimensional space is a vector with three components
+        \(v_1\), \(v_2\) and \(v_3\). Vectors in 3-dimensions are arrows with a
+        starting point and an endpoint in xyz space.
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/TD_vec_ManimCE_v0.19.2.png"
+              alt="Manim rendering showing a 3D vector"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_2/Images/TD_vec_ManimCE_v0.19.2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_2/Videos/TD_vec.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+
+      <h2>Vector Space</h2>
+      <p>
+        <strong>Vector space</strong> is a set of objects called vectors, such
+        that certain axioms are obeyed by the vectors under the addition and scalar
+        multiplication operators defined over the vector space.
+      </p>
+      <p>
+        Vector spaces are sets of tuples
+        \(\mathbb{V} = \{(x_1,x_2,\dots,x_n)\mid x_i\in \mathbb{F}\}\)
+        for some field \(\mathbb{F}\) such as \(\mathbb{R}\) or \(\mathbb{C}\).
+        The elements of a vector space are called <strong>points</strong> or
+        <strong>vectors</strong> and obey certain axioms as shown below in the
+        definition.
+      </p>
+      <p>
+        Such a set, let's call it \(\mathbb{V}\), is called a vector space. Let
+        two vectors \(\mathbf{v},\mathbf{w} \in \mathbb{V}\) meaning
+        \(\mathbf{v}\) and \(\mathbf{w}\) are objects or vectors of the set
+        \(\mathbb{V}\). Then we call \(\mathbb{V}\) a vector space if
+        \[
+        c_1\mathbf{v} + c_2\mathbf{w} \in \mathbb{V} \quad \text{and} \quad
+        c\mathbf{v} \in \mathbb{V}.
+        \]
+        Here \(c,c_1,c_2 \in \mathbb{F}\) is a scalar. We have already defined vector
+        addition and scalar multiplication, so we will not redefine them again here.
+      </p>
+      <p>
+        <strong>Note:</strong> \(\mathbb{F}\) stands for a field, usually
+        \(\mathbb{R}\) or \(\mathbb{C}\).
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">DEFINITION: Vector Space</strong> A
+          <strong>vector space</strong> is a set \(\mathbb{V}\) along with an
+          addition on \(\mathbb{V}\) and scalar multiplication on \(\mathbb{V}\)
+          such that the following properties hold:
+        </p>
+
+        <h4>Commutativity:</h4>
+        <p class="equation">
+          \[ \mathbf{v} + \mathbf{w} = \mathbf{w} + \mathbf{v} \quad \text{for
+          all} \quad \mathbf{v},\mathbf{w} \in \mathbb{V} \]
+        </p>
+
+        <h4>Associativity:</h4>
+        <p class="equation">
+          \[ (\mathbf{v} + \mathbf{w}) + \mathbf{u} = \mathbf{v} + (\mathbf{w} +
+          \mathbf{u}) \quad \text{and} \quad (ab)\mathbf{v} = a(b\mathbf{v})
+          \quad \text{for all} \quad \mathbf{v},\mathbf{w},\mathbf{u} \in
+          \mathbb{V} \text{ and } a,b \in \mathbb{F}. \]
+        </p>
+
+        <h4>Additive Identity:</h4>
+        <p class="equation">
+          There exists an element \(\mathbf{0} \in \mathbb{V}\) such that
+          \(\mathbf{v} + \mathbf{0} = \mathbf{v}\) for all \(\mathbf{v} \in
+          \mathbb{V}\). We call this \(\mathbf{0}\) the zero vector.
+        </p>
+
+        <h4>Additive Inverse:</h4>
+        <p class="equation">
+          For every \(\mathbf{v} \in \mathbb{V}\) there exists \(\mathbf{w} \in
+          \mathbb{V}\) such that \(\mathbf{v} + \mathbf{w} = \mathbf{0}\).
+        </p>
+
+        <h4>Multiplicative Identity:</h4>
+        <p class="equation">
+          \(1\mathbf{v} = \mathbf{v}\) for all \(\mathbf{v} \in \mathbb{V}\).
+        </p>
+
+        <h4>Distributive Properties:</h4>
+        <p class="equation">
+          \(a(\mathbf{v} + \mathbf{w}) = a\mathbf{v} + a\mathbf{w}\) and
+          \((a+b)\mathbf{v} = a\mathbf{v} + b\mathbf{v}\) for all \(a,b \in
+          \mathbb{F}\) and all \(\mathbf{v},\mathbf{w} \in \mathbb{V}\).
+        </p>
+      </div>
+
+      <p>
+        We stated that a <strong>vector</strong> is an object that belongs to a
+        <strong>vector space</strong> \(\mathbb{V}\). We have discussed the idea
+        of vectors before and we have seen vector components can be real or
+        complex, but nothing in our definition of vector space restricts vector
+        components to only real or complex numbers. As long as the axioms of a
+        vector space are satisfied by the elements, the set is a vector space
+        and we call its elements vectors.
+      </p>
+      <p>
+        Even though vectors can be many types, most often you will see vectors
+        that are either real or complex. The vector space of n-dimensional real
+        vectors is denoted by \(\mathbb{R}^n\) and for complex vectors it is
+        denoted by \(\mathbb{C}^n\). Throughout this lecture we will be either
+        working on \(\mathbb{R}^n\) or \(\mathbb{C}^n\), and for the general
+        case when our discussion applies to both real and complex vector spaces
+        we will denote the vector space by \(\mathbb{F}^n\).
+      </p>
+      <p>
+        More casually speaking: the space \(\mathbb{R}^n\) consists of all
+        column vectors \(\mathbf{v}\) with \(n\) real components, and the space
+        \(\mathbb{C}^n\) consists of all column vectors \(\mathbf{v}\) with
+        \(n\) complex components.
+        <strong>Note:</strong> Throughout our lesson when we speak of a vector
+        \(\mathbf{v} \in \mathbb{F}^n\) we mean \(\mathbf{v}\) is a column
+        vector rather than a row vector. A space of row vectors is the
+        coordinate model of the dual space once a basis is fixed. Until we cover
+        dual spaces later in this chapter, we will treat vectors as column
+        vectors unless we explicitly say a vector is a row vector.
+      </p>
+
+      <div class="examples-and-proofs">
+        <p>
+          We can give some examples of \(\mathbb{R}^n\), such as
+          \(\mathbb{R}^2\), \(\mathbb{R}^3\), and \(\mathbb{R}^5\). The set
+          \(\mathbb{R}^2\) can be thought of as a plane — it is the set of all
+          ordered pairs of real numbers: \[ \mathbb{R}^2 = \{(x,y) : x,y \in
+          \mathbb{R}\}. \] Examples of elements of \(\mathbb{R}^2\) are
+          \(\mathbf{v} = \begin{pmatrix}2 \\ 3\end{pmatrix}\) and \(\mathbf{w} =
+          \begin{pmatrix}6 \\ 9\end{pmatrix}\). Similarly, for \(\mathbb{R}^3\):
+          \[ \mathbb{R}^3 = \{(x,y,z) : x,y,z \in \mathbb{R}\}. \] Examples of
+          elements of \(\mathbb{R}^3\) are \(\mathbf{a} = \begin{pmatrix}2 \\ 3
+          \\ 9\end{pmatrix}\) and \(\mathbf{b} = \begin{pmatrix}6 \\ 9 \\
+          2\end{pmatrix}\). In general, \[ \mathbb{R}^n = \{(v_1,v_2,\dots,v_n)
+          : v_i \in \mathbb{R}\ \text{for } i=1,\dots,n\}, \] and \[
+          \mathbb{C}^n = \{(v_1,v_2,\dots,v_n) : v_i \in \mathbb{C}\ \text{for }
+          i=1,\dots,n\}. \] Although the axioms of vector spaces might seem
+          obvious, we want the reader to prove them using pen and paper so that
+          they do not take the axioms for granted and instead think critically
+          about them.
+        </p>
+
+        <div class="equation-type2">
+          <h4>Proof: Unique Additive Identity</h4>
+          <p>
+            We stated the additive identity axiom as \(\mathbf{v} + \mathbf{0} =
+            \mathbf{v}\). One natural question is: what is this \(\mathbf{0}\),
+            and how many such vectors are there in a vector space? Intuitively
+            we call it the zero vector and expect it to be unique. That
+            intuition can be turned into a short, rigorous proof using only the
+            axiom of additive identity.
+          </p>
+          <p>
+            Suppose \(\mathbf{0}_0\) and \(\mathbf{0}_1\) are both additive
+            identities in a vector space \(\mathbb{V}\). Then, using the fact
+            that \(\mathbf{0}_0\) is an identity for every vector and
+            \(\mathbf{0}_1\) is an identity for every vector, we have \[
+            \mathbf{0}_1 = \mathbf{0}_1 + \mathbf{0}_0 \quad\text{(since
+            \(\mathbf{0}_0\) is an identity)} \] and also \[ \mathbf{0}_1 +
+            \mathbf{0}_0 = \mathbf{0}_0 \quad\text{(since \(\mathbf{0}_1\) is an
+            identity)}. \] Combining these equalities gives \(\mathbf{0}_1 =
+            \mathbf{0}_0\). Hence the additive identity is unique.
+            <span class="qed"></span>
+          </p>
+        </div>
+
+        <div class="equation-type2">
+          <h4>Proof: Unique Additive Inverse</h4>
+          <p>Every element of a vector space has a unique additive inverse.</p>
+          <p>
+            Let \(\mathbb{V}\) be a vector space and fix
+            \(\mathbf{v}\in\mathbb{V}\). Suppose \(\mathbf{w}_0\) and
+            \(\mathbf{w}_1\) are both additive inverses of \(\mathbf{v}\); that
+            is, \[ \mathbf{w}_0 + \mathbf{v} = \mathbf{0} \quad\text{and}\quad
+            \mathbf{w}_1 + \mathbf{v} = \mathbf{0}, \] where \(\mathbf{0}\) is
+            the (unique) additive identity. Then \[ \mathbf{w}_0 = \mathbf{w}_0
+            + \mathbf{0} = \mathbf{w}_0 + (\mathbf{w}_1 + \mathbf{v}) =
+            (\mathbf{w}_0 + \mathbf{w}_1) + \mathbf{v} = (\mathbf{w}_0 +
+            \mathbf{v}) + \mathbf{w}_1 = \mathbf{0} + \mathbf{w}_1 =
+            \mathbf{w}_1, \] where we used associativity and the defining
+            equalities of \(\mathbf{w}_0\) and \(\mathbf{w}_1\). Thus
+            \(\mathbf{w}_0 = \mathbf{w}_1\), so the additive inverse of
+            \(\mathbf{v}\) is unique.
+            <span class="qed"></span>
+          </p>
+        </div>
+      </div>
+      <h2>
+        Linear Independence and Span
+      </h2>
+      <p>
+        We have shown that a linear combination is an operation on vectors that belong to a vector space. The vectors are scaled by a scalar and added up, giving us a new vector that also belongs to the vector space.
+        \[
+          \mathbf{L} = c_1\mathbf{v_1} + c_2\mathbf{v_2} + \dots + c_n\mathbf{v_n}
+        \]
+        where \(\mathbf{v_i}, \mathbf{L} \in \mathbb{F}^m\) and \(c_i \in \mathbb{F}\).
+      </p>
+      <p>
+        Below in the animation, we can see a linear combination of some vectors and how the resultant vector changes as we change and try different values of
+        \(c\)'s. We can see that as we change the values of \(c\)'s, the resultant linear combination vector rotates and moves on the \(xy\) plane.
+        But does this happen for every set of vectors? Are there vectors we can linearly combine and get a resultant vector that is restricted to certain regions or
+        points? That is what we are going to explore now.
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_lc.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_lc.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_1/Videos/Vec_1_lc.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <h3>Linear Independence and Dependence</h3>
+      <p>
+        Given a linear combination:
+        \[
+          \mathbf{L} = c_1\mathbf{v_1} + c_2\mathbf{v_2} + \dots + c_n\mathbf{v_n}
+        \]
+        the vectors \(\mathbf{v_1}, \mathbf{v_2}, \dots, \mathbf{v_i} \in \mathbb{V}\) are said to be linearly independent if the only way for \(\mathbf{L}\) to be
+        zero is by making all \(c_i\)'s zero. Otherwise, the vectors are said to be linearly dependent.
+      </p>
+      <p>
+        To understand it better, let's look at the animation below:
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_2.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_2/Videos/vid1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        Here we can see that by changing the values of the constants, our resultant vector has the potential to reach every point on the \(xy\) plane.
+        Our specific choice for the vectors was \(\mathbf{v_1} = \begin{pmatrix} 2\\ 4 \end{pmatrix}\) and \(\mathbf{v_2} = \begin{pmatrix} 3 \\ 2 \end{pmatrix}\).
+        This relation between vectors, where we could reach every possible point by changing the scalar values, is what we call linear independence, and the vectors \(\mathbf{v_1}\)
+        and \(\mathbf{v_2}\) are said to be linearly independent. And in general, given nonzero vectors \(\mathbf{v_1}, \mathbf{v_2}, \dots, \mathbf{v_n} \in \mathbb{F}^m\) and scalars
+        \(c_1, c_2, \dots, c_n\), the vectors are said to be linearly independent if the linear combination:
+        \[
+        \mathbf{L} = c_1 \mathbf{v_1} + c_2 \mathbf{v_2} + \dots + c_n\mathbf{v_n}
+        \]
+        is zero, \(\mathbf{L} = 0\), if and only if all constants are zero, meaning \(c_1 = c_2 = \dots = 0\).
+      </p>
+      <p>
+        If the vectors were not linearly independent, we could write them as:
+        \[
+        \mathbf{v_i} = -\frac{c_1}{c_i}\mathbf{v_1} - \dots - \frac{c_n}{c_i}\mathbf{v_n}
+        \]
+        Since the constants are not zero, we could divide by them, making all vectors dependent on each other, and hence they are linearly dependent.
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_2.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_2.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_2/Videos/vid_2.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        Here above in the animation we can see that these two vectors are scaled by different amounts and are parallel. And for nonzero
+        constants, their linear combination is zero:
+        \[
+          \mathbf{0} = 1 \cdot \begin{pmatrix} 2 \\ 4 \end{pmatrix} - 2 \cdot \begin{pmatrix} 1 \\ 2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}
+        \]
+        thus we call them linearly dependent. We can also see that by changing the values of the constants we can reach every point that lies on the straight line that
+        passes through the origin and has the slope \(\tan^{-1}\left(\frac{4}{2}\right)\). In the \(xy\) plane, vectors that are linearly dependent always produce a vector via
+        linear combination which is strictly restricted to points on a straight line.
+      </p>
+
+      <h3>Span</h3>
+      <p>
+        <strong>Span</strong> is the set of all linear combinations of a list of vectors \(\mathbf{v_1}, \mathbf{v_2}, \dots, \mathbf{v_n}\) in vector space \(\mathbb{V}\).
+        The set span is denoted by \(\mathrm{span}(\mathbf{v_1}, \mathbf{v_2}, \dots, \mathbf{v_n})\).
+        \[
+        \mathrm{span}(\mathbf{v_1}, \mathbf{v_2}, \dots, \mathbf{v_n}) = \{  c_1 \mathbf{v_1} + c_2 \mathbf{v_2} + \dots + c_n\mathbf{v_n} : c_1, \dots, c_n \in \mathbb{F}\}
+        \]
+      </p>
+      <p>
+        We will go back to our previous two animations:
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_1.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_1.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_2/Videos/vid1.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_lc.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_lc.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_1/Videos/Vec_1_lc.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        Notice that the vectors are linearly independent. We saw previously one case where because the vectors were dependent, the resultant vector was strictly
+        restricted to a line, but there is another case. Let's look at 2D vectors first. In the animation we can see our resultant vector is not restricted to
+        a line. That is because our vectors were linearly independent in those animations. One interesting and important property of vectors that are linearly independent
+        is that they can reach every possible 2D point on the plane, letting us access all 2D vectors.
+      </p>
+      <p>
+        In the case of a 3D vector it's simpler. Below in the animation we see two vectors in 3D space. By changing the values of the constants the resultant vector moves around
+        accessing different points:
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_3.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_3.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_2/Videos/LinearCombination3D.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        Notice that it seems our resultant vector is restricted to a plane. Look carefully below, we have shown the plane:
+      </p>
+
+      <p>
+        This is because we have two linearly independent vectors in 3D space. That plane that it is restricted to is obvious if you think of it as the \(xy\) plane.
+        But how do we remove it from the plane? Well, we add another third vector which is also linearly independent to other two previous vectors. That vector moves the plane along its direction, causing our resultant vector to access
+        all points in the 3D space. Below we show that via the animation:
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img6.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img6.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_2/Videos/vid5.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        Going back to <strong>Span</strong>, span is the set of all vectors that are reachable using the linear combination of vectors \(\mathbf{v_1},\mathbf{v_2},\dots \in \mathbb{V}\).
+        And it is denoted by \(\mathrm{span}(\mathbf{v_1}, \mathbf{v_2}, \dots, \mathbf{v_n})\).
+      </p>
+      <p>
+        If a linear combination of vectors \(\mathbf{v_1},\mathbf{v_2},\dots \in \mathbb{V}\) is restricted to a line and reaches every point on the line, then we say:
+        "The vectors \(\mathbf{v_1},\mathbf{v_2},\dots \in \mathbb{V}\) <strong>span</strong> the line \(y = mx\) or  \(\mathbb{F}^1\)." If the vectors' linear combination reaches every point
+        on a plane then we say the vectors span the plane or \(\mathbb{F}^2\), and there is indeed a way to figure out the equation of the plane. And if it spans the whole space then we say the vectors
+        span the whole \(\mathbb{F}^m\).
+      </p>
+      <h2>Subspace</h2>
+      <p>
+        We know what a vector space is. It is a set of vectors such that if we do a linear combination of those vectors, the resultant vector is also an element of that set.
+        A <strong>subspace</strong> is a subset of the vector space that is also a vector space. Note that subset does not necessarily mean it is also a vector space. If it is a
+        subset of a vector space and does not follow the axioms of a vector space, then all it is is just a subset. More formally:
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">DEFINITION: Subspace</strong>
+          A subset \(\mathbb{U}\) of \(\mathbb{V}\) is called a <strong>subspace</strong> if \(\mathbb{U}\) also obeys the axioms of a vector space.
+        </p>
+        <h4>Additive Identity:</h4>
+        <p>
+          \(\mathbf{0} \in \mathbb U\)
+        </p>
+        <h4>Closed Under Addition:</h4>
+        <p>
+          \(u,w \in \mathbb U \implies u+w \in \mathbb U\)
+        </p>
+        <h4>Closed Under Scalar Multiplication:</h4>
+        <p>
+          \(a \in \mathbb F\) and \(u \in \mathbb U \implies au \in \mathbb U\)
+        </p>
+        <p>
+          <strong class="DEF">Example:</strong>
+          \(\{(x_1, x_2,0): x_1,x_2 \in \mathbb{F}\}\) is a subspace of \(\mathbb{F}^3\). It is like having a 3D space and a plane that passes through the origin. Indeed, a plane passing through the origin of a 3D space is a vector space. It is a \(\mathbb{F}^2\)
+          vector space and is a subspace of \(\mathbb{F}^3\).
+        </p>
+      </div>
+      <p>Let's look at a few simple examples:</p>
+      <p>
+        A line passing through the origin is a \(\mathbb{R}^1\) subspace of a vector space. Lines can be defined by a linear equation with no displacement so that it must pass through the origin.
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img5.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img5.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_2/Videos/vid4.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        A plane that passes through the origin is a \(\mathbb{R}^2\) subspace of a vector space. The plane can be defined by an equation of the form \(c_1x+c_2y+c_3z = 0\).
+      </p>
+      <div class="Animation">
+        <div class="Cont_ent">
+          <figure class="media">
+            <img
+              src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_3.png"
+              alt="Manim rendering showing linear combination of vectors"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="media">
+            <video
+              controls
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_3.png"
+            >
+              <source
+                src="/Main/Chapters/Chapter-3/Vec_Les_2/Videos/LinearCombination3D.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </figure>
+        </div>
+      </div>
+      <p>
+        The reason they must pass through the origin is that a subspace is also a vector space, and a vector space must have an origin. Alright, but given the vectors how do
+        we find the space that they span?
+      </p>
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <p>
+          Given the linearly independent vectors \( \mathbf{v_1} = \begin{pmatrix} 2.2 \\ 0.8 \\ 0.5 \end{pmatrix}\) and \( \mathbf{v_2} = \begin{pmatrix} -0.8 \\ 2.0 \\ 1.1 \end{pmatrix}\)
+          what is the plane that they span? Find \(\text{span}(\mathbf{v_1}, \mathbf{v_2})\).
+        </p>
+        <br>
+        <br>
+        <p>
+          We have the vectors \( \mathbf{v_1} = \begin{pmatrix} 2.2 \\ 0.8 \\ 0.5 \end{pmatrix}\) and \( \mathbf{v_2} = \begin{pmatrix} -0.8 \\ 2.0 \\ 1.1 \end{pmatrix}\).
+          The plane they span is the plane they lie on. It is the same reason why two-dimensional vectors that are linearly independent on the \(xy\) plane span the \(xy\)
+          plane.
+        </p>
+        <p>
+          Here is the thing. Now any vector, assume  \(\mathbf{X} = \begin{pmatrix} x \\ y \\ z \end{pmatrix}\), is a vector that lies on the plane \(\text{span}(\mathbf{v_1}, \mathbf{v_2})\).
+          Now assume another vector called \(\mathbf{n}\) that is perpendicular to the plane and so is perpendicular to every vector on the plane.
+        </p>
+        <p>
+          Now that we have a vector \(\mathbf{n}\) perpendicular to the plane, and hence perpendicular to \(\mathbf{X}\), we can use the fact that the dot product between two perpendicular vectors is zero. But for that we first need to know the perpendicular vector
+          \(\mathbf{n}\). To find \(\mathbf{n}\) we just need to take the cross product of \(\mathbf{v_1}\) and \(\mathbf{v_2}\). Then we get:
+          \[
+          \mathbf{n} = \begin{pmatrix} 2.2 \\ 0.8 \\ 0.5 \end{pmatrix} \times \begin{pmatrix} -0.8 \\ 2.0 \\ 1.1 \end{pmatrix} = \begin{pmatrix} -0.12 \\ -2.82 \\ 5.04 \end{pmatrix}
+          \]
+        </p>
+        <div class="Animation">
+          <div class="Cont_ent">
+            <figure class="media">
+              <img
+                src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img4.png"
+                alt="Manim rendering showing linear combination of vectors"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="media">
+              <video
+                controls
+              muted
+              loop
+              playsinline
+              preload="none"
+                poster="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img4.png"
+              >
+                <source
+                  src="/Main/Chapters/Chapter-3/Vec_Les_2/Videos/vid3.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </figure>
+          </div>
+        </div>
+        <p>
+          Now taking the dot product we get:
+          \[
+          \mathbf{n} \cdot \mathbf{X} = 0
+          \]
+          \[
+          \Rightarrow 
+          \mathbf{n} \cdot \mathbf{X} = 0 = \begin{pmatrix} -0.12 \\ -2.82 \\ 5.04 \end{pmatrix} \cdot \begin{pmatrix} x \\ y \\ z \end{pmatrix}
+          \]
+          Taking the dot product, we get:
+          \[
+          \Rightarrow
+          -0.12x - 2.82y + 5.04z = 0 
+          \]
+          and this is the equation of the plane our vectors \(\mathbf{v_1}\) and \(\mathbf{v_2}\) span, and hence the animation below shows it:
+        </p>
+        <div class="Animation">
+          <div class="Cont_ent">
+            <figure class="media">
+              <img
+                src="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_3.png"
+                alt="Manim rendering showing linear combination of vectors"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="media">
+              <video
+                controls
+              muted
+              loop
+              playsinline
+              preload="none"
+                poster="/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_3.png"
+              >
+                <source
+                  src="/Main/Chapters/Chapter-3/Vec_Les_2/Videos/LinearCombination3D.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </figure>
+          </div>
+        </div>
+      </div>
+      <p>
+        So span is basically all points that a linear combination of some vectors gives.
+      </p>
+      <h2>Column space</h2>
+      <p>
+        Column space is a specific type of <strong>subspace</strong>. Given a matrix \(\mathbf{A}\), the column space is the subspace spanned by the column vectors of the
+        matrix.
+      </p>
+      <p>
+        Given an example, assume we have the matrix:
+        \[
+        \mathbf{A} = \begin{bmatrix}
+        1 & 0 & 0 \\
+        0 & 1 & -1 \\
+        2 & 0 & -1
+        \end{bmatrix}
+        \]
+        The column space of this matrix \(\mathbf{A}\) is denoted by \(Ra(A)\) and is:
+        \[
+        Ra(A) = x \begin{pmatrix} 1\\ 0\\ 2 \end{pmatrix} + y \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + z   \begin{pmatrix} 0 \\ -1 \\ -1 \end{pmatrix}
+        \]
+        Column space is a special type of subspace and in upcoming lessons we will see it used often. There are also row space, null space, left null space, etc.
+      </p>
+      <p>
+        In this lesson we have learnt about vector space, subspace, and dived more deep into linear combination, linear independence and dependence. As we progress in
+        lessons we will understand these concepts more. As usual, go to your textbook and use this as a side reference for better understanding and solve a few problems so
+        that you actually understand the material instead of getting the feeling of understanding.
+      </p>
+    </div>
+    <div class="content_1">
+        <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Linear Algebra Done Right</p>
+              <span class="resource-card__sub">Sheldon Axler — Ch. 1-2</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Textbook</span>
+              <p class="resource-card__title">Introduction to Linear Algebra, 5th edition.</p>
+              <span class="resource-card__sub">Gilbert Strang — Ch.2</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-video"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Video</span>
+              <p class="resource-card__title">Essence of Linear Algebra</p>
+              <span class="resource-card__sub">3Blue1Brown — YouTube</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

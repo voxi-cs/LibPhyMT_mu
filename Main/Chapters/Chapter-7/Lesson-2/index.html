@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculus of Variations</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-2</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Introduction To Lagrangian Mechanics-\(\text{II}\):Calculus of Variations.
+          </span>
+        </div>
+
+      </h1>
+    </div>
+
+    <!-- Publication Info -->
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "Nature is thrifty in all its actions."
+        <br />
+        <span>— Pierre-Louis Maupertuis</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h2>Introduction</h2>
+      <p>
+        In Lesson-1, we have seen that the <strong>Euler-Lagrange</strong> equation allows us
+        to find the equation of motion of a system that would otherwise get quite complicated
+        using the Newtonian method. And we saw how symmetry implies \(\delta \mathcal L=0\) and how
+        these two things come together to give us the conserved quantities like momentum, total energy, and angular momentum. In this section, we are going to derive the
+        <strong>Euler-Lagrange</strong> equation and show you exactly why it works, as we did not give any reason whatsoever why the Euler-Lagrange equation works or whether it even works in all cases. Note: in constrained systems, the Euler-Lagrange equation does get slightly modified, which we will see in the next lesson. But the main idea of this
+        section is not just to derive the Euler-Lagrange equation; rather, this
+        section should serve as a good introduction to
+        <strong>calculus of variations</strong>. Here, we will show how we can
+        find the shortest path between two points and how we derive and use the
+        Euler equation in that context. It will also be a mathematically
+        rigorous lesson on solving minimization problems.
+      </p>
+      <h2>Shortest Path Between Two Points On Flat Space</h2>
+      <p>
+        Assume we have a path on the flat (Euclidean) space that connects two
+        points \(p_1\) and \(p_2\), then if \(\text{d}s\) represents the
+        infinitesimal displacement (segment) along the path we get its length to
+        be \[ I = \int_{x_i}^{x_f} \text{d}s = \int_{x_i}^{x_f}
+        \sqrt{\text{d}x^2 + \text{d}y^2} = \int_{x_i}^{x_f} \sqrt{1 +
+        \left(\frac{\text{d}y}{\text{d}x}\right)^2} \, \text{d}x =
+        \int_{x_i}^{x_f} \sqrt{1 + y'^2} \, \text{d}x \] Here \(y\) is the
+        particular path/curve that we were measuring the length of; for
+        different paths we will get different lengths, and thus \(\sqrt{1 +
+        \left(\frac{\text{d}y}{\text{d}x}\right)^2}\) is a function of \(y\).
+        More precisely, we call it a functional: \[ \Phi(y) = \sqrt{1 +
+        \left(\frac{\text{d}y}{\text{d}x}\right)^2} \] Now, to find the shortest
+        path on the flat space we need to find the particular \(y\) for which
+        \(\int_{x_i}^{x_f} \Phi(y) \, \text{d}x\) is minimized. In every
+        variation problem here we will be needing to find the particular
+        functional \(\Phi\) depending on the problem we are solving.
+      </p>
+      <p>
+        Now we face this problem: we know how to minimize a function — we take
+        the first order partial derivative of the function with respect to all
+        coordinates and we set it to zero, then we solve the equations for each
+        coordinate \(x, y, \ldots\) and we get where the function is stationary,
+        then we can take second and third and so on order of derivatives to find
+        whether a particular solution is a maximum or minimum. But here we are
+        not dealing with a function; we are working with a functional (a
+        function of functions) — it takes functions as input — so we cannot
+        apply the direct method; we need to solve this problem of minimizing a
+        functional differently. We shall solve this particular problem now.
+      </p>
+      <h3>Euler-Lagrange Equation</h3>
+      <p>
+        Let us start solving this problem by assuming \(y\) to be the shortest
+        path between two points in the flat space. Now another path starting
+        from \(p_1\) to \(p_2\) can be obtained by: \[ Y(x,\epsilon) = y(x) +
+        \epsilon\eta(x) \] Here \(\eta(x)\) is an arbitrary function of \(x\)
+        and \(\epsilon\) is a small number. Since we want the curve to start
+        from \(p_1\) and end at \(p_2\) we need \(\eta(x_i) = \eta(x_f) = 0\),
+        because \(y(x)\) already passes through \(p_1\) and \(p_2\), and adding
+        anything other than zero would cause the new curve to deviate from these
+        points, as you can see in the animation below. Here \(\eta(x)\) is
+        called a <strong>perturbation function</strong>; associated with each
+        \(\eta(x)\) there is a family of curves, and each curve is produced by a
+        different value of \(\epsilon\).
+        <!--Animation 01 -->
+      </p>
+      <p>
+        Assuming a given \(\eta(x)\), the length of each curve is thus given by:
+        \[ I(\epsilon) = \int_{x_i}^{x_f} \Phi(x, Y, Y') \, \text{d}x \] Where
+        \(\Phi = \sqrt{1+{Y'}^2}\).<br />
+        In order to find the shortest path we need to find the \(y(x)\) that
+        makes \(I\) stationary. Because we are asking about which function
+        rather than a specific value, instead of using \(\text{d}I=0\) we need
+        to use \(\delta I = 0\) and find \(y(x)\) that makes the variation in
+        \(I\) stationary. By using
+        <strong>Maclaurin expansion</strong> we can write: \[ I(\epsilon) = I(0)
+        + \left. \frac{\text{d} I}{\text{d} \epsilon} \right|_{\epsilon=0}
+        \epsilon+ \mathcal{O}(\epsilon^2) \] If we keep the first two terms then
+        we get: \[ \delta I(\epsilon) = I(\epsilon) - I(0) = \left.
+        \frac{\text{d} I}{\text{d} \epsilon} \right|_{\epsilon=0} \epsilon \]
+        Therefore since we want the variation to be zero, \(\delta I = 0\)
+        implies: \[ \delta I(\epsilon) = \left. \frac{\text{d} I}{\text{d}
+        \epsilon} \right|_{\epsilon=0} = 0 \] Now if we substitute the integral
+        of \(I\) we get: \[ \left. \frac{\text{d}}{\text{d} \epsilon}
+        \left[\int_{x_i}^{x_f} \Phi(x, Y, Y') \, \text{d}x\right]
+        \right|_{\epsilon=0} = \int_{x_i}^{x_f}
+        \left[\frac{\text{d}}{\text{d}\epsilon} \Phi(x, Y, Y')
+        \right]_{\epsilon=0} \, \text{d}x = 0 \] Here since \(Y\) and \(Y'\) are
+        dependent on \(\epsilon\) we can use the chain rule, then we get: \[
+        \int_{x_i}^{x_f} \left[\frac{\partial \Phi}{\partial Y} \frac{\partial
+        Y}{\partial \epsilon} + \frac{\partial \Phi}{\partial Y'} \frac{\partial
+        Y'}{\partial \epsilon} \right]_{\epsilon=0} \, \text{d}x = 0 \] Now we
+        need to compute this integral and get a result that will allow us to
+        find \(y(x)\). First we begin by applying integration by parts \( \left(
+        \int_{x_i}^{x_f} u \, \text{d}v = \left. uv \right|_{x_i}^{x_f} -
+        \int_{x_i}^{x_f} v \, \text{d}u\right)\) to the second term in the
+        integral: \[ \int \left( \frac{\partial \Phi}{\partial Y'}
+        \frac{\partial Y'}{\partial \epsilon}\right) \, \text{d}x = \left
+        .\frac{\partial \Phi}{\partial Y'} \frac{\partial Y}{\partial
+        \epsilon}\right|_{x_i}^{x_f} - \int_{x_i}^{x_f}
+        \frac{\text{d}}{\text{d}x} \left(\frac{\partial \Phi}{\partial
+        Y'}\right) \frac{\partial Y}{\partial \epsilon} \, \text{d}x \] Now
+        going back to \(Y\) we had \(Y(x) = y(x) + \epsilon \eta(x)\), so we get
+        \(\frac{\partial Y}{\partial \epsilon} = \eta(x)\), and since
+        \(\eta(x_i) = \eta(x_f) = 0\), the first term becomes \[ \left
+        .\frac{\partial \Phi}{\partial Y'} \frac{\partial Y}{\partial
+        \epsilon}\right|_{x_i}^{x_f} = \frac{\partial \Phi}{\partial Y'}
+        \left(\eta(x_f)-\eta(x_i)\right) = 0 \] If we now substitute our result
+        into the first equation we get: \[ \int_{x_i}^{x_f} \left[\frac{\partial
+        \Phi}{\partial Y} \frac{\partial Y}{\partial \epsilon} + \frac{\partial
+        \Phi}{\partial Y'} \frac{\partial Y'}{\partial \epsilon}
+        \right]_{\epsilon=0} \, \text{d}x = \int_{x_i}^{x_f} \frac{\partial
+        \Phi}{\partial Y} \frac{\partial Y}{\partial \epsilon} \, \text{d}x -
+        \int_{x_i}^{x_f} \frac{\text{d}}{\text{d}x} \left(\frac{\partial
+        \Phi}{\partial Y'}\right) \frac{\partial Y}{\partial \epsilon} \,
+        \text{d}x = \int_{x_i}^{x_f} \left[ \left(\frac{\partial \Phi}{\partial
+        Y} - \frac{\text{d}}{\text{d}x} \left(\frac{\partial \Phi}{\partial Y'}
+        \right)\right) \left( \frac{\partial Y}{\partial \epsilon} \right)
+        \right]_{\epsilon=0} \, \text{d}x = 0 \] Now, since \(\frac{\partial
+        Y}{\partial \epsilon} = \eta(x)\) we get: \[ \int_{x_i}^{x_f} \left[
+        \left(\frac{\partial \Phi}{\partial Y} - \frac{\text{d}}{\text{d}x}
+        \left(\frac{\partial \Phi}{\partial Y'} \right)\right) \left(
+        \frac{\partial Y}{\partial \epsilon} \right) \right]_{\epsilon=0} \,
+        \text{d}x = \int_{x_i}^{x_f} \left[ \left(\frac{\partial \Phi}{\partial
+        Y} - \frac{\text{d}}{\text{d}x} \left(\frac{\partial \Phi}{\partial Y'}
+        \right)\right) \eta(x) \right]_{\epsilon=0} \, \text{d}x = 0 \] Notice
+        that \(\eta(x)\) is arbitrary (except that it must vanish at the
+        endpoints \(x_i\) and \(x_f\)), so this integral being zero for every
+        possible choice of \(\eta(x)\) is a very strong statement. You might
+        think that it forces the bracket term to be zero for all \(x\), but it
+        is not too obvious why that has to be true right away, so let us
+        convince ourselves of it properly. Denote the bracket term by \(g(x)\),
+        so that: \[ g(x) = \left[\frac{\partial \Phi}{\partial Y} -
+        \frac{\text{d}}{\text{d}x} \left(\frac{\partial \Phi}{\partial Y'}
+        \right)\right]_{\epsilon=0} \] and suppose for contradiction that
+        \(g(x)\) is not zero everywhere, but is nonzero at some point \(x =
+        \xi\) between \(x_i\) and \(x_f\). Since \(g(x)\) is continuous, it must
+        also be nonzero (and essentially the same sign and value) in a tiny
+        region around \(\xi\), say from \(x_i = \xi - \varepsilon\) to \(x_f =
+        \xi + \varepsilon\), where \(\varepsilon\) is very small. Now consider
+        the integral just over this tiny region: \[
+        \int_{\xi-\varepsilon}^{\xi+\varepsilon} g(x) \eta(x) \, \text{d}x = 0
+        \] Since \(g(x)\) is essentially constant over this small region, we can
+        denote it by \(g(\xi)\) and pull it outside the integral sign: \[ g(\xi)
+        \int_{\xi-\varepsilon}^{\xi+\varepsilon} \eta(x) \, \text{d}x = 0 \] Now
+        the remaining integral is not zero (we are free to choose an \(\eta(x)\)
+        that is nonzero in this region), so \(g(\xi)\) must be zero. But the
+        point \(x = \xi\) could have been anywhere along the path from \(x_i\)
+        to \(x_f\), so \(g(x)\) must actually be zero at every single point
+        along the path. We can also see this a different way: if
+        \(\int_{x_i}^{x_f} g(x) \eta(x) \, \text{d}x = 0\) and \(\eta(x)\) is
+        arbitrary, then \(g(x)\) has to be zero everywhere. For example, we
+        could try to require that \(g(x)\) is negative wherever \(\eta(x)\) is
+        positive, and that \(g(x)\) is positive wherever \(\eta(x)\) is
+        negative. But then the product \(g(x)\eta(x)\) would end up positive
+        everywhere along the path, and the integral could never be zero. So once
+        again we conclude that \(g(x) = 0\) for all \(x\). Consequently, we get:
+        \[ \left[\frac{\partial \Phi}{\partial Y} - \frac{\text{d}}{\text{d}x}
+        \left(\frac{\partial \Phi}{\partial Y'} \right)\right]_{\epsilon=0} = 0
+        \] which is equivalent to requiring that: \[ \frac{\partial
+        \Phi}{\partial y} - \frac{\text{d}}{\text{d}x} \left(\frac{\partial
+        \Phi}{\partial y'} \right) = 0 \] since at \(\epsilon = 0\) we have \(Y
+        = y\) and \(Y' = y'\). This last equation is the
+        <strong>Euler-Lagrange equation</strong>, and it is the condition that
+        \(y(x)\) must satisfy in order for the integral \(I\) to be stationary,
+        i.e. for \(\delta I = 0\). Therefore the shortest path on the flat space
+        must satisfy this condition. Now we shall use this equation to find the
+        equation of the shortest path between two points \(p_1\) and \(p_2\).
+      </p>
+      <!--Add animation 2-->
+      <p>
+        For flat space we had: \[ \Phi(x,y,y') = \sqrt{1+y'^2} \] Since it is
+        independent of \(y\) we get \(\frac{\partial \Phi}{\partial y} = 0\),
+        and for the second term we get: \[ \frac{\partial \Phi}{\partial y'} =
+        \frac{\partial}{\partial y'} \left(1+y'^2\right)^{\frac{1}{2}} =
+        \frac{1}{2}\left(1+y'^2\right)^{-\frac{1}{2}} \cdot 2y' =
+        \frac{y'}{\sqrt{1+y'^2}} \]
+      </p>
+      <p>
+        Plugging this into the Euler-Lagrange equation we obtain: \[
+        \frac{\partial \Phi}{\partial y} -
+        \frac{\text{d}}{\text{d}x}\left(\frac{\partial \Phi}{\partial y'}\right)
+        = 0 - \frac{\text{d}}{\text{d}x}\left(\frac{y'}{\sqrt{1+y'^2}}\right) =
+        0 \] which means: \[
+        \frac{\text{d}}{\text{d}x}\left(\frac{y'}{\sqrt{1+y'^2}}\right) = 0 \]
+      </p>
+      <p>
+        Now if the derivative of something with respect to \(x\) is zero, that
+        something must be a constant, so we can say: \[ \frac{y'}{\sqrt{1+y'^2}}
+        = c \] where \(c\) is just some constant. Now we solve this for \(y'\).
+        Squaring both sides we get: \[ \frac{y'^2}{1+y'^2} = c^2 \] \[ y'^2 =
+        c^2\left(1+y'^2\right) = c^2 + c^2y'^2 \] \[ y'^2 - c^2y'^2 = c^2 \] \[
+        y'^2\left(1-c^2\right) = c^2 \] \[ y'^2 = \frac{c^2}{1-c^2} \] Since the
+        right hand side is just a bunch of constants divided by each other, the
+        whole thing is still just some constant, so we can call it \(m^2\) and
+        get: \[ y'^2 = m^2 \quad \Rightarrow \quad y' = m \]
+      </p>
+      <p>
+        So \(y'\) is a constant, which makes sense, and now to find \(y(x)\) we
+        just integrate both sides with respect to \(x\): \[ \int y' \, \text{d}x
+        = \int m \, \text{d}x \] \[ y = mx + b \] where \(b\) is just the
+        constant of integration. But \(y = mx+b\) is the equation of a straight
+        line! Which confirms what we already knew intuitively, that the shortest
+        path between two points in flat space is a straight line.
+      </p>
+      <p>
+        There is another form of the Euler-Lagrange equation. The one we derived
+        just now is the one which we will be using often, but in certain cases
+        it is convenient to use the second form. The Euler-Lagrange equation of
+        the form: \[ \frac{\partial \Phi}{\partial y} -
+        \frac{\text{d}}{\text{d}x} \left(\frac{\partial \Phi}{\partial y'}
+        \right) = 0 \] is useful in most cases, when \(\Phi\) depends on \(x\),
+        \(y\), and \(y'\). But when \(\Phi\) is independent of \(x\), that is
+        when we would want to use the second form, because our calculation then
+        becomes much simpler.
+      </p>
+      <p>
+        Let us assume for the particular case \(\Phi = \Phi(y,y')\). Then: \[
+        \frac{\text{d} \Phi}{\text{d} x} = \frac{\partial \Phi}{\partial y}
+        \frac{\text{d} y}{\text{d} x} + \frac{\partial \Phi}{\partial y'}
+        \frac{\text{d} y'}{\text{d} x} \] Then we can note (the partial
+        derivative of \(\Phi\) with respect to \(x\) would be zero, but since
+        \(y\) and \(y'\) may still depend on \(x\), the total derivative is not
+        necessarily zero): \[ \frac{\text{d} y'}{\text{d} x} = y'' \] So now if
+        we change \(\frac{\text{d} y}{\text{d} x}\) to \(y'\) and
+        \(\frac{\text{d} y'}{\text{d} x}\) to \(y''\) then we get: \[
+        \frac{\text{d} \Phi}{\text{d} x} = \frac{\partial \Phi}{\partial y}
+        \frac{\text{d} y}{\text{d} x} + \frac{\partial \Phi}{\partial y'}
+        \frac{\text{d} y'}{\text{d} x} = y' \frac{\partial \Phi}{\partial y}+y''
+        \frac{\partial \Phi}{\partial y'} \] Remember this, we will be needing
+        it later.<br />
+        Now multiplying both sides of the Euler-Lagrange equation by \(y'\) and
+        then adding \(y'' \frac{\partial \Phi}{\partial y'}\) gives us: \[
+        y'\frac{\partial \Phi}{\partial y} - y' \frac{\text{d}}{\text{d}x}
+        \left(\frac{\partial \Phi}{\partial y'} \right) + y'' \frac{\partial
+        \Phi}{\partial y'} = y'' \frac{\partial \Phi}{\partial y'} \] Now if we
+        move \(y' \frac{\text{d}}{\text{d}x} \left(\frac{\partial \Phi}{\partial
+        y'} \right)\) to the other side we get: \[ y'\frac{\partial
+        \Phi}{\partial y} + y'' \frac{\partial \Phi}{\partial y'} = y''
+        \frac{\partial \Phi}{\partial y'} + y' \frac{\text{d}}{\text{d}x}
+        \left(\frac{\partial \Phi}{\partial y'} \right) \] Now look at the left
+        side of the equation — it is exactly what we got for \(\frac{\text{d}
+        \Phi}{\text{d} x}\): \[ y'\frac{\partial \Phi}{\partial y} + y''
+        \frac{\partial \Phi}{\partial y'} = \frac{\text{d} \Phi}{\text{d} x} \]
+        Now we need to deal with the right side of the equation. We know that
+        \(\frac{\text{d} }{\text{d} x}(fg) = f'g+fg'\); we can work backward on
+        the right side to see that it is equal to \(\frac{\text{d} }{\text{d} x}
+        \left(y' \frac{\partial \Phi}{\partial y'} \right)\), as we show below:
+        \[ y'' \frac{\partial \Phi}{\partial y'} + y' \frac{\text{d}}{\text{d}x}
+        \left(\frac{\partial \Phi}{\partial y'} \right) = \frac{\text{d}
+        y'}{\text{d} x} \frac{\partial \Phi}{\partial y'} + y'
+        \frac{\text{d}}{\text{d}x} \left(\frac{\partial \Phi}{\partial
+        y'}\right) = \frac{\text{d}}{\text{d}x}\left(y' \frac{\partial
+        \Phi}{\partial y'}\right) \] Here \(f = y'\) and \(g = \frac{\partial
+        \Phi}{\partial y'}\). So we can now say: \[ \frac{\text{d} }{\text{d} x}
+        \left(\Phi - y' \frac{\partial \Phi}{\partial y'} \right) = 0 \implies
+        \Phi - y' \frac{\partial \Phi}{\partial y'} = \text{constant} \] And
+        thus we get: \[ \boxed{\Phi - y' \frac{\partial \Phi}{\partial y'} = c}
+        \] So in the case where \(\Phi\) is implicitly independent of \(x\) we
+        can use this to solve for \(y(x)\).
+      </p>
+      <p>
+        Now we are going to show a example showing how to use the second
+        variation of Euler Lagrange equation to find shortest different between
+        two point on sphere.
+      </p>
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+        <p>
+          <strong
+            >Find the shortest path between two points on a sphere.</strong
+          >
+        </p>
+        <div class="Animation">
+          <div class="Cont_ent">
+            <figure class="media">
+              <img
+                src="/Main/Chapters/Chapter-7/Lesson-2/Images/geo_1_1.png"
+                alt="Manim rendering showing linear combination of vectors"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="media">
+              <video
+                controls
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="/Main/Chapters/Chapter-7/Lesson-2/Images/geo_1_1.png"
+              >
+                <source
+                  src="/Main/Chapters/Chapter-7/Lesson-2/Videos/GeodesicLesson.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </figure>
+          </div>
+        </div>
+        <p>
+          Now we want to do the same thing, but instead of finding the shortest
+          path between two points in flat space, we want to find the shortest
+          path between two points on a sphere. Here, however, we want to use the
+          second variation of the Euler-Lagrange equation to find the shortest
+          path between two points on a sphere. In this case, the independent
+          variable is \(\phi\).
+        </p>
+        <p>
+          Let us consider a sphere of radius \(R\), and let \(\theta\) be the
+          polar angle and \(\phi\) be the azimuthal angle. The line element on
+          the surface of the sphere is: \[ \text{d}s^2 = R^2\text{d}\theta^2 +
+          R^2\sin^2\theta\,\text{d}\phi^2 \] Therefore: \[ \text{d}s =
+          R\sqrt{\text{d}\theta^2+\sin^2\theta\,\text{d}\phi^2} \] Now, just
+          like before, we need to choose one coordinate as the independent
+          variable. Let us choose \(\phi\), so that \(\theta\) becomes a
+          function of \(\phi\), meaning: \[ \theta=\theta(\phi) \] and
+          therefore: \[ \text{d}\theta =
+          \frac{\text{d}\theta}{\text{d}\phi}\text{d}\phi =\theta'\text{d}\phi
+          \] Substituting this into the expression for \(\text{d}s\), we get: \[
+          \text{d}s = R\sqrt{\theta'^2+\sin^2\theta}\,\text{d}\phi \]
+        </p>
+        <p>
+          Therefore the length of the curve is: \[
+          I=\int_{\phi_i}^{\phi_f}\text{d}s = \int_{\phi_i}^{\phi_f}
+          R\sqrt{\theta'^2+\sin^2\theta}\,\text{d}\phi \] So in this case our
+          functional is: \[ \Phi(\theta,\theta') =
+          R\sqrt{\theta'^2+\sin^2\theta} \] and just like before, we want to
+          find the particular \(\theta(\phi)\) for which: \[ \delta I=0 \]
+        </p>
+        <p>
+          Now notice something important about our \(\Phi\): \[
+          \Phi(\theta,\theta') = R\sqrt{\theta'^2+\sin^2\theta} \] It depends on
+          \(\theta\) and \(\theta'\), but it does not explicitly depend on
+          \(\phi\). This means we can use the second form of the Euler-Lagrange
+          equation that we just derived: \[
+          \Phi-\theta'\frac{\partial\Phi}{\partial\theta'} = \text{constant} \]
+        </p>
+        <p>
+          We now need to calculate \(\frac{\partial\Phi}{\partial\theta'}\). We
+          have: \[ \frac{\partial\Phi}{\partial\theta'} =
+          \frac{\partial}{\partial\theta'} \left[ R\sqrt{\theta'^2+\sin^2\theta}
+          \right] \] \[ = R\frac{1}{2}
+          \left(\theta'^2+\sin^2\theta\right)^{-\frac{1}{2}} \cdot 2\theta' \]
+          \[ = \frac{R\theta'} {\sqrt{\theta'^2+\sin^2\theta}} \]
+        </p>
+        <p>
+          Now we substitute this into: \[
+          \Phi-\theta'\frac{\partial\Phi}{\partial\theta'} = \text{constant} \]
+          which gives: \[ R\sqrt{\theta'^2+\sin^2\theta} - \theta'
+          \frac{R\theta'} {\sqrt{\theta'^2+\sin^2\theta}} = c \] where \(c\) is
+          just some constant. We can factor out \(R\): \[ R\left[
+          \sqrt{\theta'^2+\sin^2\theta} - \frac{\theta'^2}
+          {\sqrt{\theta'^2+\sin^2\theta}} \right] = c \] Putting everything over
+          the same denominator gives: \[ R \frac{
+          \theta'^2+\sin^2\theta-\theta'^2 }{ \sqrt{\theta'^2+\sin^2\theta} } =
+          c \] and therefore: \[ \frac{R\sin^2\theta}
+          {\sqrt{\theta'^2+\sin^2\theta}} = c \] Since \(R\) is itself just a
+          constant, we can absorb it into \(c\) and write: \[
+          \frac{\sin^2\theta} {\sqrt{\theta'^2+\sin^2\theta}} = c \]
+        </p>
+        <p>
+          Now we solve this for \(\theta'\). First we multiply both sides by
+          \(\sqrt{\theta'^2+\sin^2\theta}\): \[ \sin^2\theta =
+          c\sqrt{\theta'^2+\sin^2\theta} \] Then dividing by \(c\): \[
+          \sqrt{\theta'^2+\sin^2\theta} = \frac{\sin^2\theta}{c} \] Squaring
+          both sides we get: \[ \theta'^2+\sin^2\theta =
+          \frac{\sin^4\theta}{c^2} \] Therefore: \[ \theta'^2 =
+          \frac{\sin^4\theta}{c^2} - \sin^2\theta \] and factoring out
+          \(\sin^2\theta\): \[ \theta'^2 = \sin^2\theta \left(
+          \frac{\sin^2\theta}{c^2}-1 \right) \]
+        </p>
+        <p>
+          At this point we could separate the variables and integrate, but there
+          is a simpler way to solve this equation. Let us define: \[
+          u=\cot\theta \] Then: \[ \frac{\text{d}u}{\text{d}\phi} =
+          -\csc^2\theta \frac{\text{d}\theta}{\text{d}\phi} \] and since: \[
+          \csc^2\theta=\frac{1}{\sin^2\theta} \] we get: \[ u' =
+          -\frac{\theta'}{\sin^2\theta} \] Squaring both sides: \[ u'^2 =
+          \frac{\theta'^2}{\sin^4\theta} \]
+        </p>
+        <p>
+          From our previous result: \[ \theta'^2 = \frac{\sin^4\theta}{c^2} -
+          \sin^2\theta \] so dividing everything by \(\sin^4\theta\) gives: \[
+          u'^2 = \frac{1}{c^2} - \frac{1}{\sin^2\theta} \] Now we use: \[
+          \frac{1}{\sin^2\theta} = \csc^2\theta = 1+\cot^2\theta \] and since
+          \(u=\cot\theta\), this becomes: \[ u'^2 = \frac{1}{c^2}-1-u^2 \]
+          Therefore: \[ u'^2+u^2 = \frac{1}{c^2}-1 \]
+        </p>
+        <p>
+          The right hand side is just a bunch of constants, so we can call it
+          \(A^2\), giving: \[ u'^2+u^2=A^2 \] A function whose derivative
+          squared plus the function squared is a constant is: \[
+          u=A\cos(\phi-\phi_0) \] where \(A\) and \(\phi_0\) are constants.
+          Since \(u=\cot\theta\), we get: \[ \boxed{
+          \cot\theta=A\cos(\phi-\phi_0) } \]
+        </p>
+        <p>
+          Now we need to understand what this equation actually represents. To
+          do this, let us write the usual Cartesian coordinates of a point on
+          the sphere: \[ X=R\sin\theta\cos\phi \] \[ Y=R\sin\theta\sin\phi \] \[
+          Z=R\cos\theta \] Starting with: \[ \cot\theta=A\cos(\phi-\phi_0) \] we
+          can expand the cosine: \[ \frac{\cos\theta}{\sin\theta} =
+          A(\cos\phi\cos\phi_0+\sin\phi\sin\phi_0) \] Multiplying both sides by
+          \(\sin\theta\): \[ \cos\theta = A\sin\theta\cos\phi\cos\phi_0 +
+          A\sin\theta\sin\phi\sin\phi_0 \] and multiplying everything by \(R\):
+          \[ R\cos\theta = AR\sin\theta\cos\phi\cos\phi_0 +
+          AR\sin\theta\sin\phi\sin\phi_0 \] Using our Cartesian coordinates,
+          this becomes: \[ Z=AX\cos\phi_0+AY\sin\phi_0 \] or: \[
+          AX\cos\phi_0+AY\sin\phi_0-Z=0 \]
+        </p>
+        <p>
+          But this is the equation of a plane that passes through the origin.
+          The sphere itself is: \[ X^2+Y^2+Z^2=R^2 \] and when a plane passes
+          through the center of a sphere, its intersection with the sphere is a
+          great circle. Therefore the shortest path between two points on a
+          sphere is part of a great circle.
+        </p>
+        <p>
+          Thus we have found from the principle \(\delta I=0\), using the
+          Euler-Lagrange equation, that:
+          <strong>The geodesics on a sphere are great circles</strong>, and
+          shortest path between two points on sphere is the smallest part of the
+          great circle connecting both points.. This is the spherical analogue
+          of what we found for flat space, where the geodesics were straight
+          lines.
+        </p>
+      </div>
+      <h2>
+        Generalization of the Euler-Lagrange Equation for Several Dependent
+        Variables.
+      </h2>
+      <p>
+        In our previous lesson we have derived the Euler-Lagrange equation as a
+        necessary condition for variation \(\delta I=0\), where the functional
+        \(\Phi\) had the form \(\Phi(x,y,y')\). But what if now we were working
+        in a much more general space where we have the coordinates
+        \(y_1,\dots,y_n\) and \(y'_1,\dots,y'_n\) that are \(n\) dependent
+        variables? In that case, do we get a similar equation like the
+        Euler-Lagrange equation? That is what we are going to do here. We will
+        find the stationary value of the integration of the functional
+        \(\Phi(x,y_1,\dots,y_n,y'_1,\dots,y'_n)\) by making the variation of the
+        integration zero, \(\delta I = 0\). In this section we will follow a
+        similar procedure that we used for the single variable case.
+      </p>
+      <p>
+        Our goal is to find the functions \(y_1,\dots,y_n\) that are dependent
+        on \(x\), such that the integration below is stationary. \[ I =
+        \int_{x_i}^{x_f} \Phi(x,y_1,\dots,y_n,y'_1,\dots,y'_n) \, \text{d}x. \]
+        Since we want \(I\) to be stationary, that means the variation of \(I\)
+        is zero: \[ \delta I = 0. \] Like before, we will write the path that is
+        infinitesimally close to the stationary path between the two points
+        \(x_i\) and \(x_f\) as: \[ Y_i(x) = y_i(x) + \epsilon \eta_i(x). \] Here
+        \(y_i(x)\) is the stationary path. Like before, we can write \(I\) as a
+        function of \(\epsilon\), as for different \(\epsilon\) we get different
+        sets of \(Y_i\)'s and \(Y'_i\)'s and thus different
+        \(\Phi(x,Y_1,\dots,Y_n,Y'_1,\dots,Y'_n)\). So mainly \(I\) is a function
+        of \(\epsilon\), \(I(\epsilon)\). Therefore, the variation of \(I\) is:
+        \[ \delta I = \left.\frac{\partial I}{\partial
+        \epsilon}\right|_{\epsilon=0}\delta\epsilon \] Using the chain rule, we
+        can write: \[ \delta I = \left[ \int_{x_i}^{x_f} \sum_i \left(
+        \frac{\partial \Phi}{\partial Y_i} \frac{\partial Y_i}{\partial
+        \epsilon} + \frac{\partial \Phi}{\partial Y'_i} \frac{\partial
+        Y'_i}{\partial \epsilon} \right) \, \text{d}x \right]_{\epsilon=0}
+        \delta\epsilon. \] Now if we think of \(Y_i\) and \(Y'_i\) as functions
+        of \(\epsilon\), then we get, like before: \[ \delta I = \left[
+        \int_{x_i}^{x_f} \sum_i \left( \frac{\partial \Phi}{\partial Y_i}
+        \frac{\partial Y_i}{\partial \epsilon} + \frac{\partial \Phi}{\partial
+        Y'_i} \frac{\partial Y'_i}{\partial \epsilon} \right) \, \text{d}x
+        \right]_{\epsilon=0} \delta\epsilon. \] Here, as you can see, we can
+        apply integration by parts to the second term \(\frac{\partial
+        \Phi}{\partial Y'_i}\frac{\partial Y'_i}{\partial \epsilon}\) like
+        before. Then, using the same procedure, we get: \[ \int_{x_i}^{x_f}
+        \frac{\partial \Phi}{\partial Y_i'} \frac{\partial Y_i'}{\partial
+        \epsilon} \,dx\,\delta\epsilon = \int_{x_i}^{x_f} \frac{\partial
+        \Phi}{\partial Y_i'} \frac{\partial^2 Y_i}{\partial \epsilon\,\partial
+        x} \,dx\,\delta\epsilon = \left. \frac{\partial \Phi}{\partial Y_i'}
+        \frac{\partial Y_i}{\partial \epsilon} \right|_{x_i}^{x_f}
+        \delta\epsilon - \int_{x_i}^{x_f} \frac{\partial Y_i}{\partial \epsilon}
+        \frac{d}{dx} \frac{\partial \Phi}{\partial Y_i'} \,dx\,\delta\epsilon.
+        \] Notice one thing: here all the paths pass through the points \(x_i\)
+        and \(x_f\), and thus changing \(\epsilon\) doesn't change the value of
+        any path at those points, and thus: \[ \left. \frac{\partial
+        Y_i}{\partial \epsilon} \right|_{\epsilon=0} = 0. \] Therefore, the term
+        \[ \left. \frac{\partial \Phi}{\partial Y_i'} \frac{\partial
+        Y_i}{\partial \epsilon} \right|_{x_i}^{x_f} \delta\epsilon \] vanishes,
+        and so we get: \[ \int_{x_i}^{x_f} \frac{\partial \Phi}{\partial Y_i'}
+        \frac{\partial Y_i'}{\partial \epsilon} \,dx\,\delta\epsilon =
+        -\int_{x_i}^{x_f} \frac{\partial Y_i}{\partial \epsilon} \frac{d}{dx}
+        \frac{\partial \Phi}{\partial Y_i'} \,dx\,\delta\epsilon. \] Now putting
+        this into the second term in the integration, we get: \[ \delta I =
+        \left. \frac{\partial I}{\partial \epsilon} \right|_{\epsilon=0}
+        \delta\epsilon = \int_{x_i}^{x_f} \sum_i \left( \frac{\partial
+        \Phi}{\partial Y_i} \frac{\partial Y_i}{\partial \epsilon} -
+        \frac{\partial Y_i}{\partial \epsilon} \frac{d}{dx} \frac{\partial
+        \Phi}{\partial Y_i'} \right) \,d\epsilon\,dx \] \[ = \int_{x_i}^{x_f}
+        \sum_i \left( \frac{\partial \Phi}{\partial Y_i} - \frac{d}{dx}
+        \frac{\partial \Phi}{\partial Y_i'} \right) \frac{\partial Y_i}{\partial
+        \epsilon} \,d\epsilon\,dx. \] We know that \[ \frac{\partial
+        Y_i}{\partial \epsilon}\,d\epsilon = \delta Y_i, \] so we can write: \[
+        \delta I = \int_{x_i}^{x_f} \sum_i \left( \frac{\partial \Phi}{\partial
+        Y_i} - \frac{d}{dx} \frac{\partial \Phi}{\partial Y_i'} \right) \delta
+        Y_i\,dx. \] Now let us go back. We know that \(I\) is stationary along
+        \(y_i\), and then \(\delta I=0\) when \(\epsilon=0\). So we get: \[
+        \left.\delta I\right|_{\epsilon=0} = \int_{x_i}^{x_f} \sum_i \left(
+        \frac{\partial \Phi}{\partial y_i} - \frac{d}{dx} \frac{\partial
+        \Phi}{\partial y_i'} \right) \delta y_i\,dx =0. \] Here, since the
+        \(\delta y_i\)'s are independent, the only way for the integration to be
+        zero is if and only if each \[ \frac{\partial \Phi}{\partial y_i} -
+        \frac{d}{dx} \frac{\partial \Phi}{\partial y_i'} \] is zero. Thus, we
+        get: \[ \frac{\partial \Phi}{\partial y_i} - \frac{d}{dx}\left(
+        \frac{\partial \Phi}{\partial y_i'} \right) =0 \] for \(i=1,\dots,n\).
+      </p>
+      <p>
+        Notice this is exactly the <strong>Euler-Lagrange</strong> equation, and
+        what it is basically saying is that we can find each \(y_i\) by applying
+        the Euler-Lagrange equation independently along each axis or coordinate.
+      </p>
+      <p>
+        Well, now you might wonder and ask, "What does this have anything to do
+        with physics? And how does applying the Euler-Lagrange equation to the
+        Lagrangian allow us to find the equation of motion? It does, as we have
+        seen, but why?" These are questions that we are going to answer now.
+      </p>
+      <h2>Configuration Space, Action and The Hamilton's Principle.</h2>
+      <h4>Configuration Space</h4>
+      <p>
+        Think of a system of \(N\) particles. Then we can describe the whole
+        system in an \(n=3N\)-dimensional Cartesian space as a point in that
+        space. For example, assume we have one particle \(N=1\). Then we can
+        represent that one particle in a general 3D Cartesian space with
+        coordinates \((q_1,q_2,q_3)=(x_1,y_1,z_1)\). For \(N=2\), we can
+        represent the system in a 6-dimensional Cartesian space as a point with
+        coordinates \((q_1,q_2,q_3,q_4,q_5,q_6)=(x_1,y_1,z_1,x_2,y_2,z_2)\), and
+        so on, depending on the number of particles \(N\). And if we have \(k\)
+        constraints, then we can ignore \(k\) coordinates, and we can describe
+        the system in an \((n-k)\)-dimensional Cartesian space. When we describe
+        a system in such an \(n\)-dimensional space, we call that space the
+        <strong>configuration space</strong> of the system, and the
+        <strong>configuration</strong> of the system is the set of coordinates
+        storing the information about the particle coordinates, that is
+        \(\{q_1,q_2,\dots,q_{n-k}\}\).
+      </p>
+      <h4>Action.</h4>
+      <p>
+        Given a system and its Lagrangian \(\mathcal L\), we define the action
+        of the system as: \[ S = \int_{t_1}^{t_2} \mathcal L \, dt. \] You will
+        see in most of modern physics, such as QFT, Quantum Mechanics, String
+        Theory, Particle Physics, and so on, instead of working with forces, we
+        work with things like the Lagrangian and action, as they are much more
+        fundamental.
+      </p>
+      <h4>Hamilton's Principle.</h4>
+      <p>
+        Hamilton's Principle states that, given a system of particles, the
+        actual path which each particle takes from point \(A\) to \(B\) in a
+        given time interval, \(t_1\) to \(t_2\), is such that the action \(S\)
+        is stationary. That is: \[ \delta S = 0 = \delta \int_{t_1}^{t_2}
+        \mathcal L \, dt. \] Where \(\mathcal L\) is the Lagrangian of the
+        system.
+      </p>
+      <p>
+        Think about this. In a system of \(N\) particles, where the particles
+        are evolving over time in space, they move from a point in space to
+        another, let's say \(A\) to \(B\). There are infinitely many paths a
+        particle could take, so why is it that a particle always takes a
+        particular specific path? In the sense that if you rewind time and the
+        particle moves back to \(A\), and let the system evolve again and again,
+        the particle will always take that particular path from \(A\) to \(B\).
+        And that question is answered by Hamilton's Principle. Notice what that
+        principle actually says: it says each particle takes a particular path
+        such that the action is stationary, \(\delta S=0\). And notice the
+        expression: \[ \delta S = 0 = \delta \int_{t_1}^{t_2} \mathcal L \, dt.
+        \] Looks familiar? It is the exact minimization problem we dealt with.
+        Here, instead of minimizing the path to find the geodesic, we are
+        minimizing, or more specifically, finding the stationary value of the
+        action \(S\). And here, the functional, instead of \(\Phi\), is
+        \(\mathcal L\). And we know the Lagrangian \(\mathcal L\) is dependent
+        on: \[ \mathcal L = \mathcal
+        L(q_1,\dots,q_n,\dot{q}_1,\dots,\dot{q}_n,t). \] And thus, since the
+        integral that we are finding the stationary value of has the same form,
+        we can say the <strong>Euler-Lagrange</strong> equation holds here as
+        well. The problem is identical, and the solution then has to be the
+        same. In the case of the shortest path, we solved for \(y_i\)'s, and
+        now, for the dynamical system's evolution over time, we solve for
+        \(q_i\)'s. And that is why we could solve a system using the
+        Euler-Lagrange equation, as we saw in Lesson-1. \[ \frac{\partial
+        \mathcal L}{\partial q_i} - \frac{\text{d}}{\text{d}t} \left(
+        \frac{\partial \mathcal L}{\partial \dot{q}_i} \right) = 0 \] And so,
+        the Euler-Lagrange equation gives us the specific paths taken by the
+        particles in the time interval \(t_1\) to \(t_2\) such that the action
+        is stationary.
+      </p>
+      <p>
+        In this lesson, we have seen the essence of Lagrangian mechanics, but so
+        far we have not dealt with constrained systems in detail. In the next
+        lesson, we will be talking about such systems in detail.
+      </p>
+    </div>
+    <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">A Student's Guide to Lagrangians and Hamiltonians.</p>
+              <span class="resource-card__sub">Patrick Hamill. Ch-1.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Classical Mechanics.</p>
+              <span class="resource-card__sub">John R. Taylor. Ch-7.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Classical Mechanics.</p>
+              <span class="resource-card__sub">Herbert Goldstein, Charles P. Poole, and John Safko. Ch-1,2.</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

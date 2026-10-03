@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction to Measure Theory-II</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="/Main/Equation-style-sheet/Uni_CSS.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="/Main/Equation-style-sheet/Equation_Style.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Computer+Modern+Sans:wght@300;400;500;600;700&family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
+
+    <!-- MathJax -->
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Prism (syntax highlighting) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div id="navbar-container"></div>
+
+    <div class="title-container">
+      <h1 id="title">
+
+        <!-- NEW: full background overlay -->
+        <div class="title-overlay"></div>
+
+        <span class="Subject" data-mini="false">Lesson-4</span>
+
+        <div class="tc">
+          <span class="inner-box">
+            Introduction to Measure Theory-\(\text{III}\): Function, Measurable
+            Function & Convergence of Measurable Functions.
+          </span>
+        </div>
+      </h1>
+    </div>
+    
+    <!-- Publication Info -->
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Lesson by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+    </div>
+
+    <!-- Quote Section -->
+    <div class="quote-container">
+      <blockquote>
+        "Mathematics is the art of giving the same name to different things."
+        <br />
+        <span>— Henri Poincaré</span>
+      </blockquote>
+    </div>
+
+    <div class="content">
+      <h2>Introduction</h2>
+      <p>
+        In this section we will focus on functions, and what happens when we
+        consider the inverse image of a set under a function. As we will see
+        later, we call a function \(f:X\to Y\) \(\mathcal S\)-measurable if the
+        inverse image of a Borel set \(B\) under the function \(f\), which is
+        \(f^{-1}(B)\), gives an \(\mathcal S\)-measurable set, when \(Y\) is
+        equipped with its Borel \(\sigma\)-algebra. Remember, we call a set
+        \(\mathcal S\)-measurable if it belongs to \(\mathcal S\), which is a
+        \(\sigma\)-algebra.
+      </p>
+      <p>
+        Then we will explore certain properties of measurable functions and some
+        clever ways to determine whether a function is measurable or not. Later
+        in this lesson we will talk about sequences of measurable functions that
+        converge to some function, and will prove properties and mathematical
+        facts about such sequences.
+      </p>
+      <h2>Measurable Function</h2>
+      <p>
+        Let us start with some basics so that you, the reader, can move through
+        the lesson smoothly. A function \(f\) is defined as:
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong>
+          If \(X\) and \(Y\) are sets, then a function \(f: X \to Y\) is a
+          function that assigns to each \(x \in X\) exactly one element \(y \in
+          Y\), where \(y = f(x)\). \[ f(E) = \{f(x): x \in E\}, \text{ where } E
+          \subseteq X. \]
+        </p>
+      </div>
+      <!--Add Animation 1-->
+      <p>
+        As you can see in the above animation, we can see the action of a
+        function \(f\) as it acts on a subset \(E\) of \(X\) and transforms
+        \(E\) into a subset \(A\) of \(Y\).
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Inverse Image</strong>
+          If we have a function \(f: X \to Y\) and a set \(A \subseteq Y\), then
+          \(f^{-1}(A)\) is a set defined by: \[ f^{-1}(A) = \{x \in X: f(x) \in
+          A\}. \]
+        </p>
+      </div>
+      <!--Add Animation 1-->
+      <p>
+        Now let us show you some important properties of inverse image, as they
+        are going to be useful when working out inverse image algebra. Note: The
+        proofs of the following are quite elementary, so we will avoid much
+        explanation of the steps. In fact, we prefer you try to prove each claim
+        in Theorem-5.017.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.023</h4>
+        <p>Suppose \(f: X \to Y\) is a function. Then:</p>
+        <ol class="custom-roman-list">
+          <li>
+            \(f^{-1}(Y \setminus A) = X \setminus f^{-1}(A)\) for every \(A
+            \subseteq Y\).
+          </li>
+          <li>
+            \(f^{-1}\left( \bigcup_{A \in \mathcal A} A\right) = \bigcup_{A \in
+            \mathcal A} f^{-1}\left(A\right)\), for every collection \(\mathcal
+            A\) of subsets of \(Y\).
+          </li>
+          <li>
+            \(f^{-1}\left( \bigcap_{A \in \mathcal A} A\right) = \bigcap_{A \in
+            \mathcal A} f^{-1}\left(A\right)\), for every collection \(\mathcal
+            A\) of subsets of \(Y\).
+          </li>
+        </ol>
+        <h4>Proof:</h4>
+        <p>
+          \((i):\) Let us assume \(A \subseteq Y\), then we know that \(f^{-1}(Y
+          \setminus A) \subseteq X\). For some \(x \in X\) we can say: \[ x \in
+          f^{-1}(Y \setminus A) \iff f(x) \in Y \setminus A \iff f(x) \notin A
+          \iff x \in X \setminus f^{-1}(A) \]
+        </p>
+        <p>
+          So we have \(x \in f^{-1}(Y \setminus A)\) if and only if \(x \in X
+          \setminus f^{-1}(A)\), thus: \[ f^{-1}(Y \setminus A) = X \setminus
+          f^{-1}(A) \]
+        </p>
+        <p>
+          \((ii):\) Let \(\mathcal A\) be a collection of subsets of \(Y\), then
+          we can say: \[ x \in f^{-1}\left(\bigcup_{A \in \mathcal A} A\right)
+          \iff f(x) \in \bigcup_{A \in \mathcal A} A \] Since \(f(x) \in
+          \bigcup_{A \in \mathcal A} A\), that implies there has to be some \(A
+          \in \mathcal A\) such that \(f(x) \in A\). Therefore: \[ f(x) \in
+          \bigcup_{A \in \mathcal A} A \iff \exists A \in \mathcal A \text{ such
+          that } f(x) \in A \] and hence: \[ \exists A \in \mathcal A \text{
+          such that } f(x) \in A \iff \exists A \in \mathcal A \text{ such that
+          } x \in f^{-1}(A) \iff x \in \bigcup_{A \in \mathcal A} f^{-1}(A) \]
+          Therefore, we get if \(x \in f^{-1}\left(\bigcup_{A \in \mathcal A}
+          A\right)\), then \(x \in \bigcup_{A \in \mathcal A} f^{-1}(A)\), and
+          vice versa. Therefore we can say: \[ f^{-1}\left(\bigcup_{A \in
+          \mathcal A} A\right) = \bigcup_{A \in \mathcal A} f^{-1}(A) \]
+        </p>
+        <p>
+          \((iii):\) Let \(\mathcal A\) be a collection of subsets of \(Y\),
+          then we can say: \[ x \in f^{-1}\left(\bigcap_{A \in \mathcal A}
+          A\right) \iff f(x) \in \bigcap_{A \in \mathcal A} A \] Since \(f(x)
+          \in \bigcap_{A \in \mathcal A} A\), that means \(\forall A \in
+          \mathcal A\), \(f(x) \in A\). Therefore, we can take any \(A \in
+          \mathcal A\) and get: \[ f(x) \in \bigcap_{A \in \mathcal A} A \iff
+          \forall A \in \mathcal A,\ f(x) \in A \iff \forall A \in \mathcal A,\
+          x \in f^{-1}(A) \iff x \in \bigcap_{A \in \mathcal A} f^{-1}(A) \] So
+          therefore we get: \[ f^{-1}\left(\bigcap_{A \in \mathcal A} A\right) =
+          \bigcap_{A \in \mathcal A} f^{-1}\left(A\right) \]
+        </p>
+        <span class="qed"></span>
+      </div>
+      <p>
+        Now that we have seen these properties, they will help us in carrying
+        out algebra with inverse images in upcoming sections. Let us now define
+        the composition of two functions, and then we will show what it means to
+        take the inverse image of a composition of two functions.
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: COMPOSITION OF FUNCTIONS</strong>
+        </p>
+
+        <p>
+          If \(f:X\to Y\) and \(g:Y\to Z\) are functions, then the composition
+          of \(f\) and \(g\), denoted by \(g\circ f:X\to Z\), is a function
+          defined by: \[ (g\circ f)(x)=g(f(x)), \quad x\in X. \]
+        </p>
+      </div>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.024</h4>
+
+        <p>
+          Suppose \(f: X \to Y\) and \(g: Y \to W\) are functions. Then: \[
+          (g\circ f)^{-1}(A) = f^{-1}(g^{-1}(A)) \] for every \(A \subset W\).
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          Assume \(A \subset W\). For \(x \in X\), we can say: \[ x \in (g\circ
+          f)^{-1}(A) \iff (g\circ f)(x) \in A \iff g(f(x))\in A \iff f(x) \in
+          g^{-1}(A) \iff x \in f^{-1}(g^{-1}(A)). \] Therefore: \[ (g\circ
+          f)^{-1}(A) = f^{-1}(g^{-1}(A)). \]
+        </p>
+
+        <span class="qed"></span>
+      </div>
+
+      <!--add animation 3-->
+
+      <h2>Measurable Functions</h2>
+
+      <p>
+        Now we will define what we mean by a real-valued function being
+        measurable with respect to a \(\sigma\)-algebra.
+      </p>
+
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong>
+        </p>
+
+        <p>
+          Suppose \((X, \mathcal S)\) is a measurable space. A function \(f: X
+          \to \mathbb R\) is called \(\mathcal S\)-measurable, or just
+          measurable, if \[ f^{-1}(B) \in \mathcal S \] for every Borel set \(B
+          \subset \mathbb R\).
+        </p>
+      </div>
+
+      <div class="cm-example-card">
+        <div class="cm-labels-row">
+          <div class="cm-badge cm-badge--example">EXAMPLE</div>
+        </div>
+
+        <p>
+          <strong>
+            Given the \(\sigma\)-algebra \(\mathcal S =\{\varnothing, X\}\),
+            only constant functions are measurable.
+          </strong>
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          In order to prove this, we will first prove that if a function \(f: X
+          \to \mathbb R\) is non-constant, then it is not measurable, and then
+          prove that a constant function is measurable. Let us assume \(f\) is
+          not constant. Then \(f(x_1)=a\) and \(f(x_2)=b\), such that \(a \neq
+          b\). A singleton such as \(\{a\} \subset \mathbb R\) is a Borel set.
+          Therefore, if \(f\) is measurable, then \(f^{-1}(\{a\}) \in \mathcal
+          S\). But since \(f(x_1)=a\), we have \(x_1\in f^{-1}(\{a\})\), while
+          since \(f(x_2)=b\) and \(a\neq b\), we have \(x_2\notin
+          f^{-1}(\{a\})\). Therefore, \(f^{-1}(\{a\})\) is neither
+          \(\varnothing\) nor \(X\), which means that
+          \(f^{-1}(\{a\})\notin\mathcal S\). This contradicts the assumption
+          that \(f\) is measurable. Therefore, \(f\) must be constant. Now let
+          \(f\) be a constant function, so that \(f(x)=a\) for every \(x\in X\).
+          For any Borel set \(B\subset\mathbb R\), if \(a\in B\), then
+          \(f^{-1}(B)=X\), and if \(a\notin B\), then \(f^{-1}(B)=\varnothing\).
+          Since both \(\varnothing\) and \(X\) belong to \(\mathcal S\), \(f\)
+          is measurable. Hence, given the \(\sigma\)-algebra \(\mathcal
+          S=\{\varnothing,X\}\), only constant functions are measurable.
+        </p>
+
+        <span class="qed"></span>
+      </div>
+
+      <p>
+        Now that we have introduced the idea of an \(\mathcal S\)-measurable
+        function, we will state the condition that a measurable function must
+        satisfy in order to be \(\mathcal S\)-measurable.
+      </p>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.025</h4>
+
+        <p>
+          Let \((X, \mathcal S)\) be a measurable space, and let \(f:X\to\mathbb
+          R\) be a function. Then \(f\) is measurable if and only if \[
+          f^{-1}((a,\infty)) \in \mathcal S \] for all \(a\in \mathbb R\).
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          First, suppose \(f\) is measurable. Since \((a,\infty)\) is a Borel
+          set for every \(a\in\mathbb R\), by the definition of measurability we
+          have \[ f^{-1}((a,\infty))\in\mathcal S \] for every \(a\in\mathbb
+          R\).
+        </p>
+
+        <p>
+          Now let us prove the converse. Assume that \[
+          f^{-1}((a,\infty))\in\mathcal S \] for all \(a\in\mathbb R\). Let \[
+          \mathcal T=\{A\subset\mathbb R:f^{-1}(A)\in\mathcal S\}. \] We will
+          show that \(\mathcal T\) is a \(\sigma\)-algebra on \(\mathbb R\).
+          First, \[ f^{-1}(\mathbb R)=X\in\mathcal S, \] so \(\mathbb
+          R\in\mathcal T\). If \(A\in\mathcal T\), then \(f^{-1}(A)\in\mathcal
+          S\), and since \(\mathcal S\) is a \(\sigma\)-algebra, \[
+          f^{-1}(A^c)=X\setminus f^{-1}(A)\in\mathcal S. \] Therefore
+          \(A^c\in\mathcal T\). Finally, if \(A_1,A_2,\ldots\in\mathcal T\),
+          then \[ f^{-1}\left(\bigcup_{n=1}^{\infty}A_n\right) =
+          \bigcup_{n=1}^{\infty}f^{-1}(A_n) \in\mathcal S. \] Therefore, \[
+          \bigcup_{n=1}^{\infty}A_n\in\mathcal T. \] Hence \(\mathcal T\) is a
+          \(\sigma\)-algebra on \(\mathbb R\).
+        </p>
+
+        <p>
+          By assumption, \((a,\infty)\in\mathcal T\) for every \(a\in\mathbb
+          R\). Since the Borel \(\sigma\)-algebra \(\mathcal B(\mathbb R)\) is
+          generated by the intervals \((a,\infty)\), we have \[ \mathcal
+          B(\mathbb R)\subset\mathcal T. \] Therefore, for every Borel set
+          \(B\subset\mathbb R\), \[ f^{-1}(B)\in\mathcal S. \] Hence \(f\) is
+          measurable.
+        </p>
+
+        <span class="qed"></span>
+      </div>
+      <p>
+        This allows us to show whether a function is measurable or not by
+        working with a much smaller number of sets than working with all of the
+        Borel subsets.
+      </p>
+      <p>
+        As one expects, if we call a function Borel measurable, then that
+        implies the inverse image of a Borel set under the function will be a
+        measurable set, and therefore the function is measurable. Thus, the
+        following definition:
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition:</strong>
+        </p>
+        <p>
+          Suppose \((X, \mathcal S)\) is a measurable space. A function \(f: X
+          \to \mathbb R\) is called Borel measurable if \[ f^{-1}(B) \in
+          \mathcal S \] for every Borel set \(B \subset \mathbb R\). Note: Here
+          \(\mathcal S\) is the \(\sigma\)-algebra on \(X\), while \(\mathcal
+          B(\mathbb R)\) is the Borel \(\sigma\)-algebra on \(\mathbb R\).
+        </p>
+      </div>
+      <p>
+        Theorem-5.025 of course still holds for Borel measurable functions. If
+        \(f:X \to \mathbb R\) and \(X \subset \mathbb R\), then \(f\) is Borel
+        measurable if and only if \(f^{-1}((a,\infty))\) is a Borel subset of
+        \(X\), for all \(a \in \mathbb R\).
+      </p>
+
+      <p>
+        One thing we should talk about is that whether a function \(f\) is
+        \(\mathcal S\)-measurable or not depends on which particular
+        \(\sigma\)-algebra we choose. Let's say we choose \(X\) to be a Borel
+        subset of \(\mathbb R\), and it is totally possible for the
+        \(\sigma\)-algebra on \(X\) to be the collection of Borel subsets of
+        \(\mathbb R\) that are also subsets of \(X\). In that case, if a
+        function is \(\mathcal S\)-measurable, it means the same thing as saying
+        that the function \(f\) is Borel measurable. Regardless of that, as the
+        definition says, whether a function is \(\mathcal S\)-measurable or not
+        depends on whether the inverse image of every set in \(\mathcal S\) is
+        measurable in the corresponding \(\sigma\)-algebra.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.027</h4>
+
+        <p>
+          Suppose \(X,\mathcal S\) is a measurable space, and \(f,g: X \to
+          \mathbb R\) are \(\mathcal S\)-measurable functions. Then:
+        </p>
+
+        <ol class="custom-roman-list">
+          <li>
+            \(f+g\), \(f-g\), and \(fg\) are \(\mathcal S\)-measurable
+            functions.
+          </li>
+
+          <li>
+            If \(g(x) \neq 0\) for all \(x \in X\), then \(\frac{f}{g}\) is a
+            \(\mathcal S\)-measurable function.
+          </li>
+        </ol>
+
+        <h4>Proof:</h4>
+
+        <p>
+          Let \(a\in\mathbb R\). To show that \(f+g\) is an \(\mathcal
+          S\)-measurable function, we need to show that
+          \((f+g)^{-1}((a,\infty))\in\mathcal S\). We will first show that: \[
+          (f+g)^{-1}((a,\infty)) =\bigcup_{r\in\mathbb Q}
+          \left(f^{-1}((r,\infty)) \cap g^{-1}((a-r,\infty))\right). \] Suppose
+          \[ x\in(f+g)^{-1}((a,\infty)). \] Then: \[ a\lt f(x)+g(x). \] Hence,
+          the interval \[ (a-g(x),f(x)) \] is nonempty. Since the rational
+          numbers are dense in the real numbers, there exists some \(r\in\mathbb
+          Q\) such that \[ a-g(x)\lt r\lt f(x). \] From \(r\lt f(x)\), we have
+          \[ x\in f^{-1}((r,\infty)), \] and from \(a-g(x) \lt r\), we get \[
+          a-r\lt g(x), \] which gives \[ x\in g^{-1}((a-r,\infty)). \]
+          Therefore, \[ x\in \bigcup_{r\in\mathbb Q} \left(f^{-1}((r,\infty))
+          \cap g^{-1}((a-r,\infty))\right). \] This proves that the left-hand
+          side is contained in the right-hand side.
+        </p>
+
+        <p>
+          To prove the inclusion in the other direction, suppose that for some
+          \(r\in\mathbb Q\), \[ x\in f^{-1}((r,\infty)) \cap
+          g^{-1}((a-r,\infty)). \] Then: \[ r\lt f(x) \] and \[ a-r\lt g(x). \]
+          Adding these two inequalities gives: \[ a\lt f(x)+g(x). \] Hence, \[
+          x\in(f+g)^{-1}((a,\infty)). \] Therefore, we have proved that \[
+          (f+g)^{-1}((a,\infty)) =\bigcup_{r\in\mathbb Q}
+          \left(f^{-1}((r,\infty)) \cap g^{-1}((a-r,\infty))\right). \] Since
+          \(f\) and \(g\) are \(\mathcal S\)-measurable functions, the sets \[
+          f^{-1}((r,\infty)) \quad\text{and}\quad g^{-1}((a-r,\infty)) \] belong
+          to \(\mathcal S\) for every \(r\in\mathbb Q\). Therefore, their
+          intersection belongs to \(\mathcal S\), and since \(\mathbb Q\) is
+          countable, the union over \(r\in\mathbb Q\) also belongs to \(\mathcal
+          S\). Hence, \[ (f+g)^{-1}((a,\infty))\in\mathcal S. \] Thus \(f+g\) is
+          an \(\mathcal S\)-measurable function.
+        </p>
+
+        <p>
+          We already know that if \(g\) is an \(\mathcal S\)-measurable
+          function, then \(-g\) is also an \(\mathcal S\)-measurable function.
+          Therefore, since \[ f-g=f+(-g), \] and we have already proved that the
+          sum of two \(\mathcal S\)-measurable functions is \(\mathcal
+          S\)-measurable, it follows that \(f-g\) is an \(\mathcal
+          S\)-measurable function.
+        </p>
+
+        <p>
+          Now we prove that \(fg\) is an \(\mathcal S\)-measurable function. We
+          use the identity: \[ fg=\frac{(f+g)^2-f^2-g^2}{2}. \] We already know
+          that \(f+g\) is an \(\mathcal S\)-measurable function. Also, squaring
+          an \(\mathcal S\)-measurable function gives an \(\mathcal
+          S\)-measurable function. Therefore, \((f+g)^2\), \(f^2\), and \(g^2\)
+          are all \(\mathcal S\)-measurable functions. Since the difference of
+          two \(\mathcal S\)-measurable functions is \(\mathcal S\)-measurable,
+          we get that \[ (f+g)^2-f^2-g^2 \] is an \(\mathcal S\)-measurable
+          function. Multiplication by the constant \(\frac12\) also preserves
+          measurability. Hence, \[ fg=\frac{(f+g)^2-f^2-g^2}{2} \] is an
+          \(\mathcal S\)-measurable function. This proves part (i).
+        </p>
+
+        <p>
+          Now suppose that \(g(x)\neq0\) for every \(x\in X\). Consider the
+          function \[ h:\mathbb R\setminus\{0\}\to\mathbb R \] defined by \[
+          h(x)=\frac1x. \] The function \(h(x)=\frac1x\) is continuous on
+          \(\mathbb R\setminus\{0\}\), and therefore it is a Borel measurable
+          function. Since \(g(x)\neq0\) for every \(x\in X\), we may regard
+          \(g\) as a function from \(X\) into \(\mathbb R\setminus\{0\}\). Thus,
+          the function \(\frac1g\) can be written as the composition \[
+          \frac1g=h\circ g. \] Therefore, \(\frac1g\) is an \(\mathcal
+          S\)-measurable function. Finally, using the result already proved in
+          part (i), the product of two \(\mathcal S\)-measurable functions is
+          \(\mathcal S\)-measurable. Hence, \[ \frac fg=f\left(\frac1g\right) \]
+          is an \(\mathcal S\)-measurable function. Thus part (ii) is also
+          proved.
+        </p>
+
+        <span class="qed"></span>
+      </div>
+      <p>
+        Let us show a very crucial proof, that the pointwise limit of a sequence
+        of \(\mathcal S\)-measurable functions is \(\mathcal S\)-measurable.
+        This is going to be highly useful when we move to the integration
+        section, where we try to solve the issues of Riemann integration by
+        introducing Lebesgue integration.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.028</h4>
+
+        <p>
+          Suppose \(X,\mathcal S\) is a measurable space, and \(f_1,f_2,\dots\)
+          is a sequence of \(\mathcal S\)-measurable functions from \(X\) to
+          \(\mathbb R\). Suppose \(\lim_{k\to\infty}f_k(x)\) exists for each
+          \(x\in X\). Define \(f:X\to\mathbb R\) by: \[
+          f(x)=\lim_{k\to\infty}f_k(x). \] Then \(f\) is an \(\mathcal
+          S\)-measurable function.
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          Let \(a\in\mathbb R\). We will show that \[ f^{-1}((a,\infty))
+          =\bigcup_{j=1}^{\infty}\bigcup_{m=1}^{\infty} \bigcap_{k=m}^{\infty}
+          f_k^{-1}\left(\left(a+\frac{1}{j},\infty\right)\right). \] Suppose
+          first that \[ x\in f^{-1}((a,\infty)). \] Then: \[ a\lt f(x). \] Since
+          \(f(x)>a\), we can choose some \(j\in\mathbb Z^+\) such that \[
+          f(x)>a+\frac{1}{j}. \] Since \[ \lim_{k\to\infty}f_k(x)=f(x), \] and
+          \[ f(x)-a-\frac{1}{j}>0, \] there exists some \(m\in\mathbb Z^+\) such
+          that \[ \left|f_k(x)-f(x)\right|\lt f(x)-a-\frac{1}{j} \] for all
+          \(k\geq m\). Therefore, for all \(k\geq m\), \[ f_k(x)>a+\frac{1}{j}.
+          \] This means that \[ x\in
+          f_k^{-1}\left(\left(a+\frac{1}{j},\infty\right)\right) \] for all
+          \(k\geq m\). Hence, \[ x\in \bigcap_{k=m}^{\infty}
+          f_k^{-1}\left(\left(a+\frac{1}{j},\infty\right)\right), \] and
+          therefore \(x\) is an element of the right side. Thus, we have shown
+          that the left side is contained in the right side.
+        </p>
+
+        <p>
+          To prove the inclusion in the other direction, suppose that \(x\) is
+          in the right side. Then there exist \(j,m\in\mathbb Z^+\) such that \[
+          x\in \bigcap_{k=m}^{\infty}
+          f_k^{-1}\left(\left(a+\frac{1}{j},\infty\right)\right). \] Hence, \[
+          f_k(x)>a+\frac{1}{j} \] for all \(k\geq m\). Taking the limit as
+          \(k\to\infty\), we get: \[ f(x)\geq a+\frac{1}{j}. \] Since \[
+          a+\frac{1}{j}>a, \] it follows that \[ f(x)>a. \] Thus, \[ x\in
+          f^{-1}((a,\infty)). \] Therefore, \[ f^{-1}((a,\infty))
+          =\bigcup_{j=1}^{\infty}\bigcup_{m=1}^{\infty} \bigcap_{k=m}^{\infty}
+          f_k^{-1}\left(\left(a+\frac{1}{j},\infty\right)\right). \] Since every
+          \(f_k\) is an \(\mathcal S\)-measurable function, we know that \[
+          f_k^{-1}\left(\left(a+\frac{1}{j},\infty\right)\right) \in\mathcal S
+          \] for every \(j,k\in\mathbb Z^+\). Since \(\mathcal S\) is closed
+          under countable intersections, the intersection \[
+          \bigcap_{k=m}^{\infty}f_k^{-1}\left(\left(a+\frac{1}{j},\infty\right)\right)
+          \] belongs to \(\mathcal S\). Also, since \(\mathcal S\) is closed
+          under countable unions, it follows that \[
+          f^{-1}((a,\infty))\in\mathcal S. \] Therefore, \(f\) is an \(\mathcal
+          S\)-measurable function.
+        </p>
+        <span class="qed"></span>
+      </div>
+
+      <p>
+        Now we will move to study the sequence of \(\mathcal S\)-measurable
+        functions, and prove two of the most essential theorems of analysis.
+        These two theorems are known as <strong>Egorov's Theorem</strong> and
+        <strong>Luzin's Theorem</strong>.
+      </p>
+      <h2>Sequence of Measurable Functions</h2>
+      <p>
+        Let us first define two kinds of convergence of a sequence of functions.
+        These definitions are important to understand in order to understand the
+        essence of what is to come.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Pointwise Convergence</strong>
+          Suppose \(X\) is a set, and \(f_1,f_2,\dots\) is a sequence of
+          functions from \(X\) to \(\mathbb R\). The sequence is said to
+          converge pointwise on \(X\) if there exists a function \(f:X\to\mathbb
+          R\) such that:
+        </p>
+        <p class="equation">\[ \lim_{k \to \infty} f_k(x) = f(x) \]</p>
+        <p>for each \(x \in X\).</p>
+      </div>
+
+      <p>
+        Notice that we said for each \(x \in X\). If we go back to the basics of
+        real analysis, we can understand what this definition is actually
+        saying. What it basically says is that the sequence
+        \(f_1,f_2,f_3,\dots\) converges pointwise on \(X\) if, for each \(x \in
+        X\) and every \(\epsilon > 0\), there exists an \(n \in \mathbb Z^+\)
+        such that \[ |f_k(x) - f(x)| \lt \epsilon \] for all \(k \ge n\). Notice
+        one important thing: for each \(x \in X\) and \(\epsilon > 0\), the
+        \(n\) we choose may be different. In other words, \(n\) may depend on
+        both \(x\) and \(\epsilon\). This is important to keep in mind, as it is
+        what distinguishes pointwise convergence from uniform convergence.
+      </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Uniform Convergence</strong>
+          Suppose \(X\) is a set, and \(f_1,f_2,\dots\) is a sequence of
+          functions from \(X\) to \(\mathbb R\). The sequence is said to
+          converge uniformly on \(X\) if there exists a function \(f:X\to\mathbb
+          R\) such that:
+        </p>
+        <p class="equation">\[ \lim_{k \to \infty} f_k(x) = f(x) \]</p>
+        <p>uniformly for \(x \in X\).</p>
+      </div>
+
+      <p>
+        Notice that the main difference here is that the convergence must happen
+        at the same rate across the whole set \(X\). Going back to the basics of
+        real analysis, we can understand what this definition is actually
+        saying. The sequence \(f_1,f_2,f_3,\dots\) converges uniformly on \(X\)
+        if, for every \(\epsilon > 0\), there exists an \(n \in \mathbb Z^+\)
+        such that \[ |f_k(x) - f(x)| \lt \epsilon \] for all \(x \in X\) and all
+        \(k \ge n\). Notice one important thing: here the \(n\) we choose may
+        depend on \(\epsilon\), but it cannot depend on \(x\). The same \(n\)
+        must work for every \(x \in X\). This is what distinguishes uniform
+        convergence from pointwise convergence.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.028</h4>
+
+        <p>
+          Suppose \(B \subset \mathbb R\) and \(f_1,f_2,\dots\) is a sequence of
+          functions from \(B\) to \(\mathbb R\) that converges uniformly on
+          \(B\) to a function \(f:B\to\mathbb R\). Assume \(b\in B\) and \(f_k\)
+          is continuous at \(b\) for each \(k\in\mathbb Z^+\). Then \(f\) is
+          continuous at \(b\).
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          Since the sequence \(f_1,f_2,\dots\) converges uniformly on \(B\), for
+          every \(\epsilon>0\), there exists an \(n\in\mathbb Z^+\) such that \[
+          |f_n(x)-f(x)|\lt \frac{\epsilon}{3} \] for all \(x\in B\). Since
+          \(f_n\) is continuous at \(b\), there exists a \(\delta>0\) such that
+          \[ |f_n(x)-f_n(b)|\lt \frac{\epsilon}{3} \] whenever \(x\in B\) and
+          \(|x-b|\lt \delta\). Therefore, for every \(x\in B\) such that \(|x-b|
+          \lt \delta\), using the triangle inequality, we have \[ |f(x)-f(b)|
+          \leq |f(x)-f_n(x)|+|f_n(x)-f_n(b)|+|f_n(b)-f(b)| \lt
+          \frac{\epsilon}{3}+\frac{\epsilon}{3}+\frac{\epsilon}{3} =\epsilon. \]
+          Therefore, \(f\) is continuous at \(b\).
+        </p>
+
+        <span class="qed"></span>
+      </div>
+      <h2>Egorov's Theorem</h2>
+      <p>
+        Suppose we have a measure space \((X,\mathcal S,\mu)\), where \(\mu(X) <
+        \infty\), and a sequence of measurable functions \(f_1,f_2,\dots\) that
+        converges pointwise on \(X\) to a function \[ f:X\to\mathbb R. \] Then
+        <strong> Egorov's Theorem</strong> tells us that, for any \(\varepsilon
+        > 0\), we can remove a subset of \(X\) with measure less than
+        \(\varepsilon\), and the sequence will converge uniformly on the rest of
+        \(X\). In other words, a pointwise convergent sequence is almost
+        uniformly convergent: it converges uniformly except on a set that can be
+        made arbitrarily small in measure.
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.029: Egorov's Theorem</h4>
+
+        <p>
+          Suppose \((X,\mathcal S,\mu)\) is a measure space with \(\mu(X) \lt
+          \infty\), and \(f_1,f_2,\dots\) is a sequence of \(\mathcal
+          S\)-measurable functions from \(X\) to \(\mathbb R\) that converges
+          pointwise on \(X\) to a function \(f:X\to\mathbb R\). Then for every
+          \(\epsilon \gt 0\) there exists a measurable set \(E \subseteq X\)
+          such that \(\mu(X \setminus E) \lt \epsilon\) and \(f_1,f_2,\dots\)
+          converges uniformly on \(E\).
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          Assume \(\epsilon>0\). For each \(n\in\mathbb Z^+\), let \[ A_{m,n} =
+          \bigcap_{k=m}^{\infty} \left\{ x\in X: |f_k(x)-f(x)|\lt \frac{1}{n}
+          \right\}. \] Since \(f_k\) converges pointwise to \(f\), for every
+          \(x\in X\) and every \(n\in\mathbb Z^+\), there exists some
+          \(m\in\mathbb Z^+\) such that \[ |f_k(x)-f(x)|\lt \frac{1}{n} \] for
+          every \(k\geq m\). Hence, every \(x\in X\) belongs to \(A_{m,n}\) for
+          some \(m\), and therefore: \[ \bigcup_{m=1}^{\infty}A_{m,n}=X. \]
+        </p>
+
+        <p>
+          Also, for a fixed \(n\), we have \[ A_{1,n}\subset A_{2,n}\subset
+          A_{3,n}\subset\cdots. \] Thus, \(\{A_{m,n}\}\) is an increasing
+          sequence of measurable sets whose union is \(X\). Since
+          \(\mu(X)\lt\infty\), it follows that \[
+          \lim_{m\to\infty}\mu(A_{m,n})=\mu(X). \] Therefore, for each
+          \(n\in\mathbb Z^+\), we can choose \(m_n\in\mathbb Z^+\) such that \[
+          \mu(X)-\mu(A_{m_n,n}) \frac{\epsilon}{2^n}. \]
+        </p>
+
+        <p>
+          Now define \[ E=\bigcap_{n=1}^{\infty}A_{m_n,n}. \] Since every
+          \(A_{m_n,n}\) is measurable, \(E\) is also measurable. Furthermore, \[
+          X\setminus E = X\setminus\bigcap_{n=1}^{\infty}A_{m_n,n} =
+          \bigcup_{n=1}^{\infty}(X\setminus A_{m_n,n}). \] Hence, by countable
+          subadditivity of measure, \[ \mu(X\setminus E) \leq
+          \sum_{n=1}^{\infty}\mu(X\setminus A_{m_n,n}) = \sum_{n=1}^{\infty}
+          \left(\mu(X)-\mu(A_{m_n,n})\right) \lt
+          \sum_{n=1}^{\infty}\frac{\epsilon}{2^n} = \epsilon. \] Thus, \[
+          \mu(X\setminus E) \lt \epsilon. \]
+        </p>
+
+        <p>
+          It remains to show that \(f_1,f_2,\dots\) converges uniformly to \(f\)
+          on \(E\). Let \(\epsilon'>0\). Choose \(n\in\mathbb Z^+\) such that \[
+          \frac{1}{n} \lt \epsilon'. \] Since \[ E\subset A_{m_n,n}, \] every
+          \(x\in E\) satisfies \[ |f_k(x)-f(x)| \lt \frac{1}{n}\lt \epsilon' \]
+          for all \(k\geq m_n\). Therefore, \(f_1,f_2,\dots\) converges
+          uniformly to \(f\) on \(E\).
+        </p>
+
+        <span class="qed"></span>
+      </div>
+      <p>
+        A simple function is a function that takes finitely many values. A
+        simple function is written in the form: \[ f = c_1 \chi_{E_1} + c_2
+        \chi_{E_2} + \dots + c_n \chi_{E_n} \] Here \(E_k = f^{-1}(\{c_k\})\).
+        The function \(f\) is \(\mathcal S\)-measurable if and only if
+        \(E_1,E_2,\dots,E_n \in \mathcal S\). We verify both directions.
+      </p>
+      <p>
+        Suppose \(E_1,E_2,\dots,E_n \in \mathcal S\). For any Borel set \(B
+        \subseteq \mathbb R\), since \(f\) takes only the values
+        \(c_1,c_2,\dots,c_n\), we have \[ f^{-1}(B) = \bigcup_{k\,:\,c_k \in B}
+        E_k. \] This is a finite union of sets in \(\mathcal S\), and since
+        \(\mathcal S\) is closed under finite unions, it follows that
+        \(f^{-1}(B) \in \mathcal S\). Hence \(f\) is \(\mathcal S\)-measurable.
+      </p>
+      <p>
+        Now, Suppose \(f\) is \(\mathcal S\)-measurable. Since each singleton
+        \(\{c_k\}\) is a Borel set in \(\mathbb R\), measurability of \(f\)
+        gives \[ E_k = f^{-1}(\{c_k\}) \in \mathcal S \] for each \(k =
+        1,2,\dots,n\). Hence \(E_1,E_2,\dots,E_n \in \mathcal S\).
+      </p>
+      <div class="theo-type1">
+        <h4>Theorem-5.030</h4>
+
+        <p>
+          Suppose \((X,\mathcal S,\mu)\) is a measure space, and \(f:X\to\mathbb
+          R\) is an \(\mathcal S\)-measurable function. Then there exists a
+          sequence of functions \(f_1,f_2,\dots\) from \(X\) to \(\mathbb R\),
+          such that:
+        </p>
+
+        <ol class="custom-roman-list">
+          <li>
+            for each \(k\in\mathbb Z^+\), \(f_k\) is a simple function and
+            \(\mathcal S\)-measurable.
+          </li>
+          <li>
+            for all \(k\in\mathbb Z^+\) and all \(x\in X\), \[ |f_k(x)|\leq
+            |f_{k+1}(x)|\leq |f(x)|. \]
+          </li>
+          <li>\[ \lim_{k\to\infty}f_k(x)=f(x) \] for every \(x\in X\).</li>
+          <li>
+            The sequence \(f_1,f_2,f_3,\dots\) converges uniformly on \(X\) to
+            \(f\), if \(f\) is bounded.
+          </li>
+        </ol>
+
+        <h4>Proof:</h4>
+
+        <p>
+          The main idea of the proof is to divide the range of \(f\) into
+          smaller and smaller intervals and then define \(f_k(x)\) according to
+          the interval in which \(f(x)\) lies. For each \(k\in\mathbb Z^+\),
+          divide every interval \[ [n,n+1),\qquad n\in\mathbb Z, \] into \(2^k\)
+          equally sized half-open intervals. If \(f(x)\in[0,k)\), define
+          \(f_k(x)\) to be the left endpoint of the subinterval into which
+          \(f(x)\) falls. If \(f(x)\in[-k,0)\), define \(f_k(x)\) to be the
+          right endpoint of the subinterval into which \(f(x)\) falls. Finally,
+          if \(f(x)\geq k\), define \(f_k(x)=k\), and if \(f(x)\leq-k\), define
+          \(f_k(x)=-k\). More precisely, let \[ f_k(x)= \begin{cases}
+          \dfrac{m}{2^k}, & \text{if }0\leq f(x)\lt k \text{ and }m\in\mathbb
+          Z\text{ is such that }
+          f(x)\in\left[\dfrac{m}{2^k},\dfrac{m+1}{2^k}\right),\\[10pt]
+          \dfrac{m+1}{2^k}, & \text{if }-k\lt f(x)\lt 0 \text{ and }m\in\mathbb
+          Z\text{ is such that }
+          f(x)\in\left[\dfrac{m}{2^k},\dfrac{m+1}{2^k}\right),\\[10pt] k, &
+          \text{if }f(x)\geq k,\\[6pt] -k, & \text{if }f(x)\leq-k. \end{cases}
+          \]
+        </p>
+
+        <p>
+          For every interval \[ \left[\frac{m}{2^k},\frac{m+1}{2^k}\right), \]
+          the set of points \(x\in X\) for which \(f(x)\) belongs to that
+          interval is measurable because \(f\) is an \(\mathcal S\)-measurable
+          function. Also, there are only finitely many such intervals between
+          \(-k\) and \(k\), together with the two sets where \(f(x)\geq k\) and
+          \(f(x)\leq-k\). Therefore, \(f_k\) takes only finitely many values and
+          is an \(\mathcal S\)-measurable simple function. Hence, (i) holds.
+        </p>
+
+        <p>
+          We now show that (ii) holds. For \(f(x)\geq0\), the value \(f_k(x)\)
+          is chosen to be the left endpoint of the interval containing \(f(x)\),
+          and when \(k\) is increased, these intervals become smaller.
+          Therefore, \[ 0\leq f_k(x)\leq f_{k+1}(x)\leq f(x). \] Similarly, when
+          \(f(x)\lt 0\), the value \(f_k(x)\) is chosen to be the right endpoint
+          of the interval containing \(f(x)\), and hence the absolute value
+          increases as \(k\) increases. Thus, \[ |f_k(x)|\leq |f_{k+1}(x)|\leq
+          |f(x)|. \] Therefore, (ii) holds.
+        </p>
+
+        <p>
+          The definition of \(f_k\) also implies that whenever
+          \(f(x)\in[-k,k]\), \[ |f_k(x)-f(x)|\leq\frac{1}{2^k}. \] Since
+          \(f(x)\in\mathbb R\), for every \(x\in X\) there exists \(k\in\mathbb
+          Z^+\) such that \(f(x)\in[-k,k]\). Therefore, for all sufficiently
+          large \(k\), \[ |f_k(x)-f(x)|\leq\frac{1}{2^k}. \] As \[
+          \lim_{k\to\infty}\frac{1}{2^k}=0, \] we obtain \[
+          \lim_{k\to\infty}f_k(x)=f(x). \] Hence, (iii) holds.
+        </p>
+
+        <p>
+          Finally, suppose that \(f\) is bounded. Then there exists some \(M>0\)
+          such that \[ |f(x)|\leq M \] for every \(x\in X\). Choose
+          \(K\in\mathbb Z^+\) such that \(K>M\). Then \(f(x)\in[-k,k]\) for
+          every \(x\in X\) and every \(k\geq K\). Therefore, \[
+          |f_k(x)-f(x)|\leq\frac{1}{2^k} \] for every \(x\in X\) and every
+          \(k\geq K\). Thus, \[ \sup_{x\in X}|f_k(x)-f(x)| \leq\frac{1}{2^k} \]
+          for every \(k\geq K\). Since \[ \lim_{k\to\infty}\frac{1}{2^k}=0, \]
+          it follows that \(f_1,f_2,f_3,\dots\) converges uniformly on \(X\) to
+          \(f\). Hence, (iv) holds.
+        </p>
+        <span class="qed"></span>
+      </div>
+
+      <h2>Luzin's Theorem</h2>
+
+      <p>
+        What <strong>Luzin's Theorem</strong> tells us is that given a Borel
+        measurable function \(g\), if we restrict it to a very large closed set,
+        then \(g\) is continuous on that closed set. Here, by a large closed set
+        we mean that, assuming we have a closed set \(F\), then for every
+        \(\epsilon \gt 0\) we can make the complement of \(F\) arbitrarily
+        small, that is, \[ |\mathbb R\setminus F| \lt \epsilon. \] And when we
+        restrict \(g\) to \(F\), \(g\) is continuous on \(F\), and the
+        restriction of \(g\) to the set \(F\) is denoted as \(g|_F\). Note that
+        \(g|_F\) being continuous on \(F\) does not mean that \(g\) is
+        continuous at those points as a function on \(\mathbb R\).
+      </p>
+
+      <div class="theo-type1">
+        <h4>Theorem-5.031: Luzin's Theorem</h4>
+
+        <p>
+          Suppose \(g:\mathbb R\to\mathbb R\) is a Borel measurable function.
+          Then for every \(\epsilon \gt 0\), there exists a closed set
+          \(F\subset\mathbb R\) such that \(|\mathbb R\setminus F| \lt
+          \epsilon\) and \(g|_F\) is a continuous function.
+        </p>
+
+        <h4>Proof:</h4>
+
+        <p>
+          We first consider the special case where \[
+          g=d_1\chi_{D_1}+\cdots+d_n\chi_{D_n} \] for some distinct nonzero
+          \(d_1,\dots,d_n\in\mathbb R\) and some disjoint Borel sets
+          \(D_1,\dots,D_n\subset\mathbb R\). Suppose \(\epsilon \gt 0\). For
+          each \(k\in\{1,\dots,n\}\), there exist, by 2.71, a closed set
+          \(F_k\subset D_k\) and an open set \(G_k\supset D_k\) such that \[
+          |G_k\setminus D_k|\lt \frac{\epsilon}{2n} \] and \[ |D_k\setminus
+          F_k|\lt \frac{\epsilon}{2n}. \] Because \[ G_k\setminus
+          F_k=(G_k\setminus D_k)\cup(D_k\setminus F_k), \] we have \[
+          |G_k\setminus F_k|\lt \frac{\epsilon}{n} \] for each
+          \(k\in\{1,\dots,n\}\). Let \[ F=\left(\bigcup_{k=1}^{n}F_k\right)\cup
+          \bigcap_{k=1}^{n}(\mathbb R\setminus G_k). \] Then \(F\) is a closed
+          subset of \(\mathbb R\). Also, \[ \mathbb R\setminus F \subseteq
+          \bigcup_{k=1}^{n}\left(G_k\setminus F_k\right), \] and therefore \[
+          |\mathbb R\setminus F| \leq\sum_{k=1}^{n}|G_k\setminus F_k| \lt
+          \epsilon. \] Because \(F_k\subset D_k\), we see that \(g\) is
+          identically \(d_k\) on \(F_k\). Thus \(g|_{F_k}\) is continuous for
+          each \(k\in\{1,\dots,n\}\). Also, because \[ \bigcap_{k=1}^{n}(\mathbb
+          R\setminus G_k) \subset \bigcap_{k=1}^{n}(\mathbb R\setminus D_k), \]
+          we see that \(g\) is identically \(0\) on \(\bigcap_{k=1}^{n}(\mathbb
+          R\setminus G_k)\). Thus the restriction of \(g\) to this set is
+          continuous. Therefore, using Exercise 9 in this section, we conclude
+          that \(g|_F\) is continuous, completing the proof in this special
+          case.
+        </p>
+
+        <p>
+          Now consider the arbitrary Borel measurable function \(g:\mathbb
+          R\to\mathbb R\). By 2.89, there exists a sequence \(g_1,g_2,\dots\) of
+          functions from \(\mathbb R\) to \(\mathbb R\) that converges pointwise
+          on \(\mathbb R\) to \(g\), where each \(g_k\) is a simple Borel
+          measurable function.
+        </p>
+
+        <p>
+          Suppose \(\epsilon\gt 0\). By the special case already proved, for
+          each \(k\in\mathbb Z^+\), there exists a closed set
+          \(C_k\subset\mathbb R\) such that \[ |\mathbb R\setminus C_k|\lt
+          \frac{\epsilon}{2^{k+1}} \] and \(g_k|_{C_k}\) is continuous. Let \[
+          C=\bigcap_{k=1}^{\infty}C_k. \] Thus \(C\) is a closed set and
+          \(g_k|_C\) is continuous for every \(k\in\mathbb Z^+\). Note that \[
+          \mathbb R\setminus C =\bigcup_{k=1}^{\infty}(\mathbb R\setminus C_k).
+          \] Hence, by Theorem-5.003, \[ |\mathbb R\setminus C|
+          \leq\sum_{k=1}^{\infty}|\mathbb R\setminus C_k| \lt
+          \sum_{k=1}^{\infty}\frac{\epsilon}{2^{k+1}} =\frac{\epsilon}{2}. \]
+          For each \(m\in\mathbb Z\), the sequence \[
+          g_1|_{(m,m+1)},g_2|_{(m,m+1)},\dots \] converges pointwise on
+          \((m,m+1)\) to \(g|_{(m,m+1)}\). Thus, by Egorov's Theorem (2.85), for
+          each \(m\in\mathbb Z\), there is a Borel set \(E_m\subset(m,m+1)\)
+          such that \(g_1,g_2,\dots\) converges uniformly to \(g\) on \(E_m\)
+          and \[ |(m,m+1)\setminus E_m| \lt \frac{\epsilon}{2^{|m|+3}}. \] Thus
+          \(g_1,g_2,\dots\) converges uniformly to \(g\) on \(C\cap E_m\) for
+          each \(m\in\mathbb Z\). Because each \(g_k|_C\) is continuous,
+          \(g_k|_{C\cap E_m}\) is continuous. Therefore, by 2.84, \(g|_{C\cap
+          E_m}\) is continuous for each \(m\in\mathbb Z\). Thus \(g|_D\) is
+          continuous, where \[ D=\bigcup_{m\in\mathbb Z}(C\cap E_m). \] Because
+          \[ \mathbb R\setminus D \subset \mathbb Z\cup
+          \left(\bigcup_{m\in\mathbb Z} ((m,m+1)\setminus E_m)\right)
+          \cup(\mathbb R\setminus C), \] we have \[ |\mathbb R\setminus D| \leq
+          |\mathbb Z| +\sum_{m\in\mathbb Z}|(m,m+1)\setminus E_m| +|\mathbb
+          R\setminus C|. \] Since \(\mathbb Z\) is countable, by Theorem-5.001,
+          \(|\mathbb Z|=0\). Therefore, \[ |\mathbb R\setminus D| \lt
+          \sum_{m\in\mathbb Z}\frac{\epsilon}{2^{|m|+3}} +\frac{\epsilon}{2} \lt
+          \epsilon. \] By 2.65, there exists a closed set \(F\subset D\) such
+          that \[ |D\setminus F|\lt \epsilon-|\mathbb R\setminus D|. \] Now \[
+          |\mathbb R\setminus F| =|(\mathbb R\setminus D)\cup(D\setminus F)|
+          \leq|\mathbb R\setminus D|+|D\setminus F| \lt \epsilon. \] Because the
+          restriction of a continuous function to a smaller domain is also
+          continuous, \(g|_F\) is continuous, completing the proof.
+        </p>
+
+        <span class="qed"></span>
+      </div>
+      <p>
+        Luzin's theorem has another version, but we will leave it here and add
+        it in a future update. So far we have seen some of the crucial
+        properties and theorems that are related to measurable functions. We
+        would like to leave this lesson here, and in the next lesson we will
+        start discussing integration with respect to a measure.
+      </p>
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Measure, Integration & Real Analysis.</p>
+              <span class="resource-card__sub">Sheldon Axler. Ch-2:2B,2E.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Methods of Modern Mathematical Physics, Vol. 1: Functional Analysis.</p>
+              <span class="resource-card__sub">Michael Reed & Barry Simon. Ch-\(\text{I}\).</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">An Introduction to Measure Theory.</p>
+              <span class="resource-card__sub">Terence Tao.</span>
+            </div>
+          </div>
+          <div class="resource-card resource-card--image">
+            <div class="resource-card__icon"><i class="fas fa-image"></i></div>
+            <div class="resource-card__body">
+              <span class="resource-card__type">Image</span>
+              <p class="resource-card__title">Islamic Geometric Art</p>
+              <span class="resource-card__sub">Pattern in Islamic Art — https://patterninislamicart.com/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+    </div>
+    <script src="index.js"></script>
+    <script src="/Main/Chapters/Nav_Load/Nav.js"></script>
+  </body>
+</html>

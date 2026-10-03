@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>N-Body Problem</title>
+    <link rel="icon" href="/Main/Navigation-bar/Tab_log.png" />
+
+    <!-- Configure MathJax for automatic equation numbering -->
+    <script>
+      window.MathJax = {
+        tex: {
+          tags: "ams", // number AMS environments (equation, align, etc.)
+          tagSide: "right", // place numbers on the right
+          tagIndent: "0.8em", // indent numbers slightly
+          // define macros here
+          macros: {
+            // JS string needs backslash escaped, so use "\\hspace{1.5em}"
+            customquad: "\\hspace{0.4em}",
+          },
+        },
+      };
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          // allow AMS tags like \begin{equation} and numbering
+          packages: { "[+]": ["ams"] },
+          tags: "ams",
+          tagSide: "right",
+          tagIndent: "0.8em",
+          macros: {
+            customquad: "\\hspace{0.4em}",
+          },
+        },
+        // optional: ensure MathJax automatically typesets on load
+        startup: {
+          typeset: true,
+        },
+      };
+    </script>
+
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      /* scale the rendered math (instead of \scalebox) */
+      .math-scale {
+        display: inline-block;
+        transform-origin: 0 0;
+        /* top-left */
+        transform: scale(0.88);
+        /* if you need spacing control: */
+        margin: 0.2em 0;
+      }
+
+      /* optional: better font fallback for math */
+      body {
+        font-family: "Computer Modern", serif;
+      }
+    </style>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- Max Slater style fonts with better weight support -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Computer+Modern+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/Main/Research & Simulations/The_Structure/Structure.css"
+    />
+    
+    <link
+      rel="stylesheet"
+      href="/Main/Research & Simulations/N-Body Problem/index.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  </head>
+
+  <body>
+    <div id="navbar-container"></div>
+
+    <div class="title-container">
+      <h1 id="title">
+        <span class="Subject" data-mini="false">Subject</span>
+        <div class="tc">
+          Analysis of 2-Body, 3-Body and N-Body Problem &amp; modeling the Solar
+          system.
+        </div>
+      </h1>
+    </div>
+
+    <div id="Publication_info">
+      <span class="pub-info">
+        <i class="fas fa-calendar-alt"></i> Published 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-clock"></i> Updated 4th Oct 2026
+      </span>
+      <span class="pub-info">
+        <i class="fas fa-feather-alt"></i> Research &amp; Simulations by
+        <a href="/Main/About/index.html">Monjurul Hasan Nabil</a>
+      </span>
+
+    </div>
+
+    <div class="quote-container">
+      <blockquote>
+        "Is it not possible to ask whether one of the bodies will remain forever in some region of the sky or whether it will possibly get away indefinitely?"<br />
+        <span>— Henri Poincaré</span>
+      </blockquote>
+    </div>
+    
+    <div class="content">
+      <h2>The Restricted Three-Body Problem</h2>
+      <h3>Introduction</h3>
+      <p>
+        Here we talk about the \(\textbf{The Restricted Three-Body Problem}\)
+        (\(\textbf{R3BP}\)), The restricted three-body problem is a simplified
+        model in celestial mechanics where two bodies (the primaries) move under
+        their mutual gravity and a third body of negligible mass moves under
+        their gravity but does not affect the motion of the two primaries. There
+        are two commonly used variants of this problem: \(\textbf{ Circular
+        R3BP}\) and \(\textbf{Elliptic R3BP}\), In The Circular R3BP we study
+        the special case where the two primaries move on circular orbits about
+        their barycenter and in Elliptic R3BP primaries move on elliptical
+        orbits which is more realistic though much harder.
+      </p>
+      <p>
+        Here we'll derive the equations of motion for the circular restricted
+        three-body problem, and explore different derivations, Lagrange points,
+        zero-velocity curves / Hill regions, chaos and resonances, etc. Of
+        course, in real life orbits aren't circular, but the circular restricted
+        three-body problem works as a good approximation to explore different
+        properties of the solar system. Studying the R3BP is both practically
+        useful (spacecraft trajectories, asteroid dynamics) and great for
+        building intuition about phase-space structures, transport, and
+        stability. Overall, it gives you a compact place to learn the geometric
+        and dynamical ideas that govern many real systems in astronomy and
+        astrodynamics.
+      </p>
+      <p>
+        Throughout history many people have contributed to this problem. The
+        giants of mathematics who tackled it and made important contributions
+        include Euler, Lagrange, Laplace, Jacobi, Le Verrier, Hamilton,
+        Poincaré, and Birkhoff. A lot has been done since then, Research
+        continues today, and the R3BP remains a fruitful area for both
+        theoretical work and practical applications.
+      </p>
+      <h3>The Equation Of Motion</h3>
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/R3BP_11'.png"
+        alt="Orbital Plot"
+        width="573.33333"
+        height="353.3333"
+      />
+      <p>
+        In the image, \(O\) is the barycenter of \(m_1\) and \(m_2\), and \(n\)
+        is the angular frequency of the two masses (We are assume this for now
+        later we will show proof that n is actually angular frequency of the two
+        masses, rememer we choose such unites so that \(G=1\)) \begin{equation}
+        n=\sqrt{\frac{G\left(m_1+m_2\right)}{a^3}}, \end{equation} Here
+        \((\xi,\eta,\zeta)\) are the barycentric coordinates and \((x,y,z)\) are
+        the coordinates in the rotating frame that rotates with the two bodies
+        (here \(\zeta\) and \(z\) are perpendicular to the screen). Using
+        Newton's law of gravitation, we can derive the equations of motion and
+        we get: \begin{equation} \ddot{\xi}=\mu_1\frac{\xi_1 -
+        \xi}{{r'_{1}}^{3}} + \mu_2\frac{\xi_2 - \xi}{{r'_{2}}^{3}}
+        \end{equation} \begin{equation} \ddot{\eta}=\mu_1\frac{\eta_1 -
+        \eta}{{r'_{1}}^{3}} + \mu_2\frac{\eta_2 - \eta}{{r'_{2}}^{3}}
+        \end{equation} \begin{equation} \ddot{\zeta}=\mu_1\frac{\zeta_1 -
+        \zeta}{{r'_{1}}^{3}} + \mu_2\frac{\zeta_2 - \zeta}{{r'_{2}}^{3}}.
+        \end{equation} Here, \(r_1'\) and \(r_2'\) are: \begin{equation}
+        {r_1'}^2 = (\xi_1 - \xi)^2 + (\eta_1 - \eta)^2 + (\zeta_1 - \zeta)^2
+        \end{equation} \begin{equation} {r_2'}^2 = (\xi_2 - \xi)^2 + (\eta_2 -
+        \eta)^2 + (\zeta_2 - \zeta)^2 \end{equation} In the inertial frame
+        barycentric coordinate at time \(0\) let two masses are at \(\xi_1=
+        -a\bar{\mu}\) and \(\xi_2=a(1- \bar{\mu})\) where
+        \(\bar{\mu}=\frac{m_2}{m_1+m_2}\) (assumeing \(m_1>m_2\)), meaning
+        coordinates of the two bodies (at time \(t=0\)) are
+        \((\xi_1,\eta_1,\zeta_1)=(\xi_1,0,0)=(-\frac{am_2}{m_1+m_2},0,0)\) and
+        \((\xi_2,\eta_2,\zeta_2)=(\xi_2,0,0)=(\frac{am_1}{m_1+m_2},0,0)\). So at
+        any moment of time the coordinates of the two masses are in rotating
+        frame is \((x_1,y_1,z_1)=(x_1,0,0)=(-\frac{am_2}{m_1+m_2},0,0)\) and
+        \((x_2,y_2,z_2)=(x_2,0,0)=(\frac{am_1}{m_1+m_2},0,0)\).From now let's
+        use \(\mu_1=1- \bar{\mu}\) and \(\mu_2=\bar{\mu}\), so
+        \((x_1,y_1,z_1)=(-a\mu_2,0,0)\) and \((x_2,y_2,z_2)=(a\mu_1,0,0)\). So
+        in the rotating frame (we from now on will use \(r_1\) and \(r_2\) to
+        denote the position vectors from \(m_1\) and \(m_2\) to the particle).
+        \begin{equation} {r_1}^2=(x+a\mu_2)^2+y^2+z^2 \end{equation}
+        \begin{equation} {r_2}^2=(x-a\mu_1)^2+y^2+z^2 \end{equation} Here,
+        \((x,y,z)\) are the position of the particle. We can relate the
+        barycentric coordinates with the rotating frame by the following
+        equation — if you are somewhat familiar with linear algebra you will
+        know what I am talking about: \begin{equation} \begin{pmatrix}\xi \\
+        \eta \\ \zeta\end{pmatrix} = \begin{pmatrix} \cos(nt) & -\sin(nt) & 0 \\
+        \sin(nt) & \cos(nt) & 0 \\ 0 & 0 & 1 \end{pmatrix} \begin{pmatrix}x \\ y
+        \\ z\end{pmatrix} = \mathbf{R}(t) \mathbf{X} = \mathbf{\Xi}
+        \end{equation} If we now differentiate it we get: \begin{equation}
+        \dot{\mathbf{\Xi}}=\frac{d}{dt}\left(\mathbf{R}(t)\mathbf{X}\right)=\dot{\mathbf{R}(t)}\mathbf{X}+\mathbf{R}(t)\dot{\mathbf{X}}
+        \end{equation} Here, \[ \dot{\mathbf{R}(t)} = n\begin{pmatrix} -\sin(nt)
+        & -\cos(nt) & 0 \\ \cos(nt) & -\sin(nt) & 0 \\ 0 & 0 & 0 \end{pmatrix}
+        \] We can write it as, \[ \dot{\mathbf{R}(t)} = \mathbf{R}(t) \mathbf{J}
+        \] Where, \[ \mathbf{J} = \begin{pmatrix} 0 & -n & 0 \\ n & 0 & 0 \\ 0 &
+        0 & 0 \end{pmatrix} \] So we can rewrite, \[
+        \dot{\mathbf{\Xi}}=\dot{\mathbf{R}}\mathbf{X}+\mathbf{R}\dot{\mathbf{X}}=\mathbf{R}\left(\mathbf{JX}+\mathbf{\dot{X}}\right)
+        \] and, \[ \mathbf{JX}=\begin{pmatrix}-ny \\ nx \\ 0\end{pmatrix} \]
+        Putting all this together we get, \begin{equation}\boxed{
+        \begin{pmatrix}\dot{\xi} \\ \dot{\eta} \\ \dot{\zeta}\end{pmatrix} =
+        \begin{pmatrix} \cos(nt) & -\sin(nt) & 0 \\ \sin(nt) & \cos(nt) & 0 \\ 0
+        & 0 & 1 \end{pmatrix} \begin{pmatrix}\dot{x}-ny \\ \dot{y}+nx \\
+        \dot{z}\end{pmatrix}} \end{equation} Doing the same thing again we get:
+        \begin{equation} \boxed{ \begin{pmatrix}\ddot{\xi} \\ \ddot{\eta} \\
+        \ddot{\zeta}\end{pmatrix} = \begin{pmatrix} \cos(nt) & -\sin(nt) & 0 \\
+        \sin(nt) & \cos(nt) & 0 \\ 0 & 0 & 1 \end{pmatrix}
+        \begin{pmatrix}\ddot{x}-2n\dot{y}-n^2 x \\ \ddot{y}+2n\dot{x} + n^2 y\\
+        \ddot{z}\end{pmatrix}} \end{equation} If you look carefully you will see
+        that the rotating reference frame has introduced terms like
+        \(n\dot{y}\), \(n\dot{x}\); these are Coriolis accelerations, and \(n^2
+        x\) and \(n^2 y\) are the centrifugal accelerations in the equation of
+        motion. We can substitute in for
+        \(\xi,\eta,\zeta,\ddot{\xi},\ddot{\eta}\) and \(\ddot{\zeta}\) in
+        Eq(27), (28) and (29); then we get: \begin{equation} (\ddot{x} -
+        2n\dot{y} - n^2 x)\cos nt - (\ddot{y} + 2n\dot{x} - n^2 y)\sin nt =
+        \left[ \mu_1 \frac{x_1 - x}{{r_1}^3} + \mu_2 \frac{x_2 - x}{{r_2}^3}
+        \right]\cos nt + \left[ \frac{\mu_1}{{r_1}^3} + \frac{\mu_2}{{r_2}^3}
+        \right] y \sin nt \end{equation} \begin{equation} (\ddot{x} - 2n\dot{y}
+        - n^2 x)\sin nt + (\ddot{y} + 2n\dot{x} - n^2 y)\cos nt = \left[ \mu_1
+        \frac{x_1 - x}{{r_1}^3} + \mu_2 \frac{x_2 - x}{{r_2}^3} \right]\sin nt -
+        \left[ \frac{\mu_1}{{r_1}^3} + \frac{\mu_2}{{r_2}^3} \right] y \cos nt
+        \end{equation} \begin{equation} \ddot{z} = - \left[
+        \frac{\mu_1}{{r_1}^3} + \frac{\mu_2}{{r_2}^3} \right] z. \end{equation}
+        If we multiply Eq(38) by cos nt, and Eq(39) by sin nt, and add the
+        results; and then multiply Eq(38) by sin nt, and Eq(40) by cos nt, and
+        add these together, the equations of motion in the synodic system become
+        \begin{align} \ddot{x} - 2n\dot{y} - n^2 x &= - \left[ \mu_1 \frac{x +
+        a\mu_2}{{r_1}^3} + \mu_2 \frac{x - a\mu_1}{{r_2}^3} \right], \\[1em]
+        \ddot{y} + 2n\dot{x} - n^2 y &= - \left[ \frac{\mu_1}{{r_1}^3} +
+        \frac{\mu_2}{{r_2}^3} \right] y, \\[1em] \ddot{z} &= - \left[
+        \frac{\mu_1}{{r_1}^3} + \frac{\mu_2}{{r_2}^3} \right] z. \end{align}
+      </p>
+      <p>
+        These accelerations can also be written as the gradient of a scalar
+        function \(U\): \begin{equation} \ddot{x}-2n\dot{y}=\frac{\partial
+        U}{\partial x} \end{equation} \begin{equation}
+        \ddot{y}+2n\dot{x}=\frac{\partial U}{\partial y} \end{equation}
+        \begin{equation} \ddot{z}=\frac{\partial U}{\partial z} \end{equation}
+        Here, \begin{equation}
+        U(x,y,z)=\left[\frac{n^2}{2}\left(x^2+y^2\right)+\frac{\mu_1}{r_1}+\frac{\mu_2}{r_2}\right]
+        \end{equation} So, we can write the equaton of moion as,
+        \begin{equation} \mathbf{\ddot{r}}+2\mathbf{\Omega} \times
+        \mathbf{\dot{r}} = \nabla U \end{equation} I want to clarify something.
+        Here the effective potential is not in the usual convention because we
+        removed the negative sign. This does not change the equations of motion
+        since we also removed the minus on the right-hand side of those
+        equations. If you want, you can of course use the conventional form and
+        write \[ \ddot{x}-2n\dot{y}=-\frac{\partial U^*}{\partial x},\qquad
+        \ddot{y}+2n\dot{x}=-\frac{\partial U^*}{\partial y},\qquad
+        \ddot{z}=-\frac{\partial U^*}{\partial z}, \] where \(U^*=-U\). In
+        vector form, \[ \ddot{\mathbf r}+2\Omega\times\dot{\mathbf r}=-\nabla
+        U^*. \]
+      </p>
+
+      <p>
+        We can now use the differential equations (Eqs. 41-43) to simulate the
+        CR3BP. Here we'll use Newton’s law of gravitation to run the simulation
+        and, with the same initial conditions, later run it again using Eqs.
+        41–43 to compare the results and verify that the equations we derived
+        do, in fact, work. By using Newton's law of gravitation and the initial
+        conditions below, we obtain the following result:
+      </p>
+
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Figure_10.png"
+        alt="Orbital Plot"
+        width="640"
+        height="306"
+      />
+      <video width="426" height="437" controls>
+        <source
+          src="/Main/Research & Simulations/N-Body Problem/videos/ren-20001-18001.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <p>
+        Now, if we use the equations of motion obtained earlier (Eqs. 41-43), we
+        obtain:
+      </p>
+
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Figure_11.png"
+        alt="Orbital Plot"
+        width="640"
+        height="306"
+      />
+
+      <video width="692" height="436" controls>
+        <source
+          src="/Main/Research & Simulations/N-Body Problem/videos/ren-30001-18001.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <p>
+        Here we did not need to declare the particle's mass because it was
+        irrelevant to the simulation. The initial conditions in the
+        \((\xi,\eta,\zeta)\) coordinates (non-rotating frame) and the
+        differential equations are:
+      </p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="n">G</span> <span class="o">=</span> <span class="mf">6.67404e-11</span>
+ <span class="n">M_s</span> <span class="o">=</span> <span class="mf">5.97219e24</span>
+ <span class="n">AU</span> <span class="o">=</span> <span class="mf">1.496e11</span>
+ <span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">AU</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="p">(</span><span class="n">G</span> <span class="o">*</span> <span class="n">M_s</span><span class="p">))</span>
+
+
+ <span class="n">m1</span> <span class="o">=</span> <span class="mf">20.0</span>
+ <span class="n">m2</span> <span class="o">=</span> <span class="mf">10.0</span>
+ <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+
+ <span class="n">mu_bar</span> <span class="o">=</span> <span class="n">m2</span> <span class="o">/</span> <span class="p">(</span><span class="n">m1</span> <span class="o">+</span> <span class="n">m2</span><span class="p">)</span>
+ <span class="n">mu1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">mu_bar</span>   <span class="c1"># fraction for body 1</span>
+ <span class="n">mu2</span> <span class="o">=</span> <span class="n">mu_bar</span>         <span class="c1"># fraction for body 2</span>
+
+
+ <span class="n">r1_0</span> <span class="o">=</span> <span class="o">-</span> <span class="n">mu2</span> <span class="o">*</span> <span class="n">a</span>
+ <span class="n">r2_0</span> <span class="o">=</span>   <span class="n">mu1</span> <span class="o">*</span> <span class="n">a</span>
+
+
+ <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">m1</span> <span class="o">+</span> <span class="n">m2</span><span class="p">)</span> <span class="o">/</span> <span class="n">a</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+ <span class="n">N_ORK</span> <span class="o">=</span> <span class="mi">10</span>
+ <span class="n">T_orb</span> <span class="o">=</span> <span class="n">N_ORK</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">omega</span>
+
+
+ <span class="n">x1_0</span><span class="p">,</span> <span class="n">y1_0</span> <span class="o">=</span> <span class="n">r1_0</span><span class="p">,</span> <span class="mf">0.0</span>
+ <span class="n">x2_0</span><span class="p">,</span> <span class="n">y2_0</span> <span class="o">=</span> <span class="n">r2_0</span><span class="p">,</span> <span class="mf">0.0</span>
+
+ <span class="n">vx1_0</span><span class="p">,</span> <span class="n">vy1_0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">r1_0</span>
+ <span class="n">vx2_0</span><span class="p">,</span> <span class="n">vy2_0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">omega</span> <span class="o">*</span> <span class="n">r2_0</span>
+
+
+ <span class="n">x3_0</span><span class="p">,</span> <span class="n">y3_0</span> <span class="o">=</span> <span class="mf">0.21325</span><span class="p">,</span> <span class="mf">0.0</span>
+ <span class="n">vx3_0</span><span class="p">,</span> <span class="n">vy3_0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+
+
+ <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x1_0</span><span class="p">,</span> <span class="n">y1_0</span><span class="p">,</span> <span class="n">vx1_0</span><span class="p">,</span> <span class="n">vy1_0</span><span class="p">,</span>
+                <span class="n">x2_0</span><span class="p">,</span> <span class="n">y2_0</span><span class="p">,</span> <span class="n">vx2_0</span><span class="p">,</span> <span class="n">vy2_0</span><span class="p">,</span>
+                <span class="n">x3_0</span><span class="p">,</span> <span class="n">y3_0</span><span class="p">,</span> <span class="n">vx3_0</span><span class="p">,</span> <span class="n">vy3_0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+
+ <span class="k">def</span><span class="w"> </span><span class="nf">dydt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+
+     <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">vx1</span><span class="p">,</span> <span class="n">vy1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">vx2</span><span class="p">,</span> <span class="n">vy2</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">vx3</span><span class="p">,</span> <span class="n">vy3</span> <span class="o">=</span> <span class="n">Y</span>
+
+
+     <span class="n">r12x</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span>
+     <span class="n">r12y</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">y2</span>
+     <span class="n">r12_sq</span> <span class="o">=</span> <span class="n">r12x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">r12y</span><span class="o">**</span><span class="mi">2</span>
+     <span class="n">r12</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r12_sq</span><span class="p">)</span>
+
+     <span class="n">r13x</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">x3</span>
+     <span class="n">r13y</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">y3</span>
+     <span class="n">r13_sq</span> <span class="o">=</span> <span class="n">r13x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">r13y</span><span class="o">**</span><span class="mi">2</span>
+     <span class="n">r13</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r13_sq</span><span class="p">)</span>
+
+     <span class="n">r23x</span> <span class="o">=</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x3</span>
+     <span class="n">r23y</span> <span class="o">=</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y3</span>
+     <span class="n">r23_sq</span> <span class="o">=</span> <span class="n">r23x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">r23y</span><span class="o">**</span><span class="mi">2</span>
+     <span class="n">r23</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r23_sq</span><span class="p">)</span>
+
+
+     <span class="n">ax1</span> <span class="o">=</span> <span class="o">-</span> <span class="n">mu2</span> <span class="o">*</span> <span class="n">r12x</span> <span class="o">/</span> <span class="p">(</span><span class="n">r12</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+     <span class="n">ay1</span> <span class="o">=</span> <span class="o">-</span> <span class="n">mu2</span> <span class="o">*</span> <span class="n">r12y</span> <span class="o">/</span> <span class="p">(</span><span class="n">r12</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+
+     <span class="n">ax2</span> <span class="o">=</span>   <span class="n">mu1</span> <span class="o">*</span> <span class="n">r12x</span> <span class="o">/</span> <span class="p">(</span><span class="n">r12</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>  
+     <span class="n">ay2</span> <span class="o">=</span>   <span class="n">mu1</span> <span class="o">*</span> <span class="n">r12y</span> <span class="o">/</span> <span class="p">(</span><span class="n">r12</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+
+
+     <span class="n">ax3</span> <span class="o">=</span> <span class="o">-</span> <span class="n">mu1</span> <span class="o">*</span> <span class="p">(</span><span class="n">x3</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r13</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">mu2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x3</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r23</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+     <span class="n">ay3</span> <span class="o">=</span> <span class="o">-</span> <span class="n">mu1</span> <span class="o">*</span> <span class="p">(</span><span class="n">y3</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r13</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">mu2</span> <span class="o">*</span> <span class="p">(</span><span class="n">y3</span> <span class="o">-</span> <span class="n">y2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r23</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+
+     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">vx1</span><span class="p">,</span> <span class="n">vy1</span><span class="p">,</span> <span class="n">ax1</span><span class="p">,</span> <span class="n">ay1</span><span class="p">,</span>
+                      <span class="n">vx2</span><span class="p">,</span> <span class="n">vy2</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ay2</span><span class="p">,</span>
+                      <span class="n">vx3</span><span class="p">,</span> <span class="n">vy3</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ay3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+
+      <p>for rotating frame:</p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="n">G</span> <span class="o">=</span> <span class="mf">6.67404e-11</span>
+ <span class="n">M_s</span> <span class="o">=</span> <span class="mf">5.97219e24</span>
+ <span class="n">AU</span> <span class="o">=</span> <span class="mf">1.496e11</span>
+ <span class="n">t0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">AU</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="p">(</span><span class="n">G</span> <span class="o">*</span> <span class="n">M_s</span><span class="p">))</span>
+
+ <span class="n">m1</span> <span class="o">=</span> <span class="mf">20.0</span>
+ <span class="n">m2</span> <span class="o">=</span> <span class="mf">10.0</span>
+ <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span>
+ <span class="n">M</span> <span class="o">=</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">m2</span>
+
+
+ <span class="n">mu_bar</span> <span class="o">=</span> <span class="n">m2</span> <span class="o">/</span> <span class="n">M</span>
+ <span class="n">mu1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">mu_bar</span>   
+ <span class="n">mu2</span> <span class="o">=</span> <span class="n">mu_bar</span>         
+
+
+
+ <span class="n">mu_1</span> <span class="o">=</span> <span class="n">m1</span>   
+ <span class="n">mu_2</span> <span class="o">=</span> <span class="n">m2</span>  
+
+
+ <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">M</span> <span class="o">/</span> <span class="n">a</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+
+
+ <span class="n">x3_inertial_0</span> <span class="o">=</span> <span class="mf">0.21325</span>
+ <span class="n">y3_inertial_0</span> <span class="o">=</span> <span class="mf">0.0</span>
+ <span class="n">vx3_inertial_0</span> <span class="o">=</span> <span class="mf">0.0</span>
+ <span class="n">vy3_inertial_0</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+ <span class="n">theta0</span> <span class="o">=</span> <span class="mf">0.0</span>
+ <span class="n">x3_0</span> <span class="o">=</span> <span class="n">x3_inertial_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta0</span><span class="p">)</span> <span class="o">+</span> <span class="n">y3_inertial_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta0</span><span class="p">)</span>
+ <span class="n">y3_0</span> <span class="o">=</span> <span class="o">-</span><span class="n">x3_inertial_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta0</span><span class="p">)</span> <span class="o">+</span> <span class="n">y3_inertial_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta0</span><span class="p">)</span>
+ <span class="n">vx3_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">vx3_inertial_0</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">y3_inertial_0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta0</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">vy3_inertial_0</span> <span class="o">-</span> <span class="n">n</span> <span class="o">*</span> <span class="n">x3_inertial_0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta0</span><span class="p">)</span>
+ <span class="n">vy3_0</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">vx3_inertial_0</span> <span class="o">-</span> <span class="n">n</span> <span class="o">*</span> <span class="n">y3_inertial_0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta0</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">vy3_inertial_0</span> <span class="o">-</span> <span class="n">n</span> <span class="o">*</span> <span class="n">x3_inertial_0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta0</span><span class="p">)</span>
+
+ <span class="n">y0</span> <span class="o">=</span> <span class="p">[</span><span class="n">x3_0</span><span class="p">,</span> <span class="n">y3_0</span><span class="p">,</span> <span class="n">vx3_0</span><span class="p">,</span> <span class="n">vy3_0</span><span class="p">]</span>
+
+ <span class="k">def</span><span class="w"> </span><span class="nf">dSdt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+     <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">vx3</span><span class="p">,</span> <span class="n">vy3</span> <span class="o">=</span> <span class="n">S</span>
+     <span class="n">dx1</span> <span class="o">=</span> <span class="n">x3</span> <span class="o">+</span> <span class="p">(</span><span class="n">mu_2</span> <span class="o">/</span> <span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span>   
+     <span class="n">dx2</span> <span class="o">=</span> <span class="n">x3</span> <span class="o">-</span> <span class="p">(</span><span class="n">mu_1</span> <span class="o">/</span> <span class="n">M</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span>   
+     <span class="n">r1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y3</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+     <span class="n">r2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx2</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y3</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+
+     <span class="n">ax</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">vy3</span> <span class="o">+</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x3</span> <span class="o">-</span> <span class="p">(</span> <span class="p">(</span><span class="n">mu_1</span> <span class="o">*</span> <span class="n">dx1</span><span class="p">)</span> <span class="o">/</span> <span class="n">r1</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="n">mu_2</span> <span class="o">*</span> <span class="n">dx2</span><span class="p">)</span> <span class="o">/</span> <span class="n">r2</span><span class="o">**</span><span class="mi">3</span> <span class="p">)</span>
+     <span class="n">ay</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">vx3</span> <span class="o">+</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">y3</span> <span class="o">-</span> <span class="p">(</span> <span class="p">(</span><span class="n">mu_1</span> <span class="o">*</span> <span class="n">y3</span><span class="p">)</span>  <span class="o">/</span> <span class="n">r1</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="p">(</span><span class="n">mu_2</span> <span class="o">*</span> <span class="n">y3</span><span class="p">)</span>  <span class="o">/</span> <span class="n">r2</span><span class="o">**</span><span class="mi">3</span> <span class="p">)</span>
+
+     <span class="k">return</span> <span class="p">[</span><span class="n">vx3</span><span class="p">,</span> <span class="n">vy3</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">]</span>
+
+
+ <span class="n">N_ORK</span> <span class="o">=</span> <span class="mi">10</span>
+ <span class="n">T_orb</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">n</span>
+ <span class="n">t_final</span> <span class="o">=</span> <span class="n">N_ORK</span> <span class="o">*</span> <span class="n">T_orb</span>
+ <span class="n">N_samples</span> <span class="o">=</span> <span class="mi">200_000</span>
+ <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">t_final</span><span class="p">,</span> <span class="n">N_samples</span><span class="p">)</span>
+
+ <span class="n">sol</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">dSdt</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">t_final</span><span class="p">],</span> <span class="n">y0</span><span class="p">,</span> <span class="n">t_eval</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'DOP853'</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+
+      <p>
+        We used those specific initial conditions for the primary because I
+        found the result interesting and beautiful I thought it was kind of cool
+        how the trajectory forms stars.
+      </p>
+      <p>
+        We can use the rotation matrix to transform the particle trajectory from
+        rotating frame to non-rotating frame, that is \[ \begin{pmatrix} \xi \\
+        \eta \end{pmatrix} = \begin{pmatrix} \cos(\theta) & -\sin(\theta) \\
+        \sin(\theta) & \cos(\theta) \end{pmatrix} \begin{pmatrix} x \\ y
+        \end{pmatrix} = \begin{pmatrix} x\cos(\theta) -y\sin(\theta) \\
+        x\sin(\theta)+y\cos(\theta) \end{pmatrix} \] by using this equation I
+        wrote the following code:
+      </p>
+      <div class="code-cell">
+        <div class="code-header">
+          <span class="code-title">Python</span>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="demo-highlight">
+          <pre><span></span> <span class="n">theta</span> <span class="o">=</span> <span class="n">n</span> <span class="o">*</span> <span class="n">t</span>
+ <span class="n">x_in</span> <span class="o">=</span> <span class="n">x_rot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_rot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+ <span class="n">y_in</span> <span class="o">=</span> <span class="n">x_rot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="n">y_rot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+ <span class="n">vx_in</span> <span class="o">=</span> <span class="n">vx_rot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">vy_rot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">n</span> <span class="o">*</span> <span class="n">y_in</span>
+ <span class="n">vy_in</span> <span class="o">=</span> <span class="n">vx_rot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="n">vy_rot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">x_in</span>
+</pre>
+        </div>
+      </div>
+      <p>And plotting \(x_{in}\) and \(y_{in}\) we get:</p>
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Figure_12.png"
+        alt="Orbital Plot"
+        width="669.60"
+        height="390.1916"
+      />
+
+      <p>
+        Here, as you can observe, this is the exact same orbit that we obtained
+        by plotting the solution for the inertial frame.
+      </p>
+      <img
+        src="/Main/Research & Simulations/N-Body Problem/diagrames/Figure_13.png"
+        alt="Orbital Plot"
+        width="725.3"
+        height="346.8"
+      />
+
+      <p>
+        Here we used 5 different inertial initial conditions to simulate the
+        differential equations and plot their orbits. On the left, titled
+        Inertial frame, we plot the solutions obtained by solving the equations
+        of motion from Newton’s law of gravitation; the plot on the right shows
+        those inertial solutions transformed into the rotating frame. For the
+        other pair, we solve the equations of motion we obtained for the
+        rotating frame: the left plots shows the rotating-frame solutions, and
+        the right plots shows those solutions transformed back into the inertial
+        frame. We can see that both solutions from the differential equations
+        match with one another, so we can say that the equations we obtained are
+        in fact correct. In upcomming section we will explore some interesting
+        inertial condition that are called \(\textbf{Lagrange points}\).
+      </p>
+
+      <h3>The Jacobi Integral</h3>
+      <p>
+        The Jacobi integral (or Jacobi constant) is a conserved quantity in the
+        circular restricted three-body problem (in the rotating frame); the
+        numerical value of the Jacobi constant — which depends on the particle’s
+        position and velocity for that orbit — determines the allowed and
+        forbidden regions of motion. Here we are going to talk about the Jacobi
+        constant and its derivation and implications.
+      </p>
+      <h3>Derivation</h3>
+      <p>
+        We have the equation (44), (45) and (46), if we multiply eq(44) by
+        \(\dot{x}\) and multiply eq(45) by \(\dot{y}\) and multiply eq(46) by
+        \(\dot{z}\) and then add all them up then we get: \[
+        \ddot{x}\dot{x}-2n\dot{y}\dot{x} + \ddot{y}\dot{y} + 2n\dot{y}\dot{x} +
+        \ddot{z}\dot{z} = \frac{\partial U}{\partial x} \frac{dx}{dt} +
+        \frac{\partial U}{\partial y} \frac{dy}{dt} + \frac{\partial U}{\partial
+        z} \frac{dz}{dt} \] So we get, \begin{equation} \ddot{x}\dot{x} +
+        \ddot{y}\dot{y} + \ddot{z}\dot{z} = \frac{\partial U}{\partial x}
+        \frac{dx}{dt} + \frac{\partial U}{\partial y} \frac{dy}{dt} +
+        \frac{\partial U}{\partial z} \frac{dz}{dt} \end{equation} We can
+        recongnize the fact that \(\frac{d}{dt}\left(\frac{1}{2}\dot{x}^2
+        \right)= \ddot{x}\dot{x}\), So left side of the equation can be writen
+        as: \[ \frac{d}{dt}\left[\frac{1}{2}\left(\dot{x}^2 + \dot{y}^2 +
+        \dot{z}^2 \right)\right] = \frac{1}{2} \frac{d}{dt}\left(\dot{x}^2 +
+        \dot{y}^2 + \dot{z}^2 \right) = \frac{1}{2} \frac{d}{dt}\left(v^2
+        \right) \] Where, \(v^2=\dot{x}^2 + \dot{y}^2 + \dot{z}^2\). So,
+        equation(49) can be writen as, \[ \frac{1}{2}
+        \frac{d}{dt}\left(v^2\right) = \frac{dU}{dt} \] \(\left(\text{Note: }
+        \frac{dU}{dt} = \frac{\partial U}{\partial x} \frac{dx}{dt} +
+        \frac{\partial U}{\partial y} \frac{dy}{dt} + \frac{\partial U}{\partial
+        z} \frac{dz}{dt} \right)\) Now, if we intigrate both side then we get:
+        \[\int \frac{1}{2} \frac{d}{dt}(v^2)\, dt \;=\; \int \frac{dU}{dt}\, dt
+        \;\;\Longrightarrow\;\; \frac{1}{2} v^2 \;=\; U + C_1\] \[\Rightarrow
+        v^2=2U+2C_1\] Let, \(2C_1=-C_J\) then we get: \begin{equation}
+        v^2=2U-C_J \end{equation} Alright, now we already know what \(U\) is: it
+        is just the effective potential energy in equation (47). Substituting
+        into that equation we get \[ \dot{x}^2 + \dot{y}^2 + \dot{z}^2 =
+        \bigg[n^2\big(x^2+y^2\big) +
+        2\Big(\frac{\mu_1}{r_1}+\frac{\mu_2}{r_2}\Big)\bigg] - C_J \] and
+        therefore \begin{equation} C_J = \bigg[n^2\big(x^2+y^2\big) +
+        2\Big(\frac{\mu_1}{r_1}+\frac{\mu_2}{r_2}\Big)\bigg] - \dot{x}^2 -
+        \dot{y}^2 - \dot{z}^2 . \end{equation} This is what we call the Jacobi
+        constant \(C_J\); it is a conserved quantity for a given orbit. Here, as
+        you can see, it is written in terms of the rotating-frame coordinates.
+        We can indeed transform it to sidereal (inertial) coordinates and hope
+        that we might get some terms that give deeper intuition about the Jacobi
+        constant. We have, \[ \begin{pmatrix}x \\ y \\ z\end{pmatrix} =
+        \begin{pmatrix} \cos(nt) & \sin(nt) & 0 \\ -\sin(nt) & \cos(nt) & 0 \\ 0
+        & 0 & 1 \end{pmatrix} \begin{pmatrix}\xi \\ \eta \\ \zeta\end{pmatrix}
+        \] Using eq. (36), \[ \begin{pmatrix}\dot{x}-ny \\ \dot{y}+nx \\
+        \dot{z}\end{pmatrix} = \begin{pmatrix} \cos(nt) & \sin(nt) & 0 \\
+        -\sin(nt) & \cos(nt) & 0 \\ 0 & 0 & 1 \end{pmatrix}
+        \begin{pmatrix}\dot{\xi} \\ \dot{\eta} \\ \dot{\zeta}\end{pmatrix} \] \[
+        \Rightarrow \begin{pmatrix} \dot x - n y\\[4pt] \dot y + n x\\[4pt] \dot
+        z \end{pmatrix} = \begin{pmatrix} \dot x\\[4pt] \dot y\\[4pt] \dot z
+        \end{pmatrix} + n \begin{pmatrix} \sin(nt) & -\cos(nt) & 0\\[4pt]
+        \cos(nt) & \sin(nt) & 0\\[4pt] 0 & 0 & 0 \end{pmatrix} \begin{pmatrix}
+        \xi\\[4pt] \eta\\[4pt] \zeta \end{pmatrix} \] \[ \Rightarrow
+        \begin{pmatrix} \dot x\\[4pt] \dot y\\[4pt] \dot z \end{pmatrix} =
+        \begin{pmatrix} \cos(nt) & \sin(nt) & 0\\[4pt] -\sin(nt) & \cos(nt) &
+        0\\[4pt] 0 & 0 & 1 \end{pmatrix} \begin{pmatrix} \dot{\xi}\\[4pt]
+        \dot{\eta}\\[4pt] \dot{\zeta} \end{pmatrix} - n \begin{pmatrix} \sin(nt)
+        & -\cos(nt) & 0\\[4pt] \cos(nt) & \sin(nt) & 0\\[4pt] 0 & 0 & 0
+        \end{pmatrix} \begin{pmatrix} \xi\\[4pt] \eta\\[4pt] \zeta
+        \end{pmatrix}. \] Let, \begin{equation} \Pi_0 = \begin{pmatrix} \cos(nt)
+        & \sin(nt) & 0\\[4pt] -\sin(nt) & \cos(nt) & 0\\[4pt] 0 & 0 & 1
+        \end{pmatrix} \quad , \quad \Pi_1 = \begin{pmatrix} \sin(nt) & -\cos(nt)
+        & 0\\[4pt] \cos(nt) & \sin(nt) & 0\\[4pt] 0 & 0 & 0 \end{pmatrix}
+        \end{equation} So, \[ \begin{pmatrix} \dot x\\[4pt] \dot y\\[4pt] \dot z
+        \end{pmatrix} = \Pi_0 \begin{pmatrix} \dot{\xi}\\[4pt] \dot{\eta}\\[4pt]
+        \dot{\zeta} \end{pmatrix} - n \Pi_1 \begin{pmatrix} \xi\\[4pt]
+        \eta\\[4pt] \zeta \end{pmatrix}. \] We want to compute \(\dot{x}^2 +
+        \dot{y}^2 +\dot{z}^2 = \begin{pmatrix}\dot x & \dot y & \dot
+        z\end{pmatrix} \cdot \begin{pmatrix}\dot x\\[4pt]\dot y\\[4pt]\dot
+        z\end{pmatrix}\), so: \[ \dot{x}^2 + \dot{y}^2 +\dot{z}^2 = \left( \Pi_0
+        \Xi - n \Pi_1 \dot{\Xi}\right)^T \left( \Pi_0 \Xi - n \Pi_1
+        \dot{\Xi}\right) \] Here,
+        \(\Xi=\begin{pmatrix}\xi\\[4pt]\eta\\[4pt]\zeta\end{pmatrix}\).
+        \begin{equation} \dot{x}^2 + \dot{y}^2 +\dot{z}^2 = \left( \Pi_0 \Xi - n
+        \Pi_1 \dot{\Xi}\right)^T \left( \Pi_0 \Xi - n \Pi_1 \dot{\Xi}\right) =
+        \dot{\Xi}^T \Pi_0^T \Pi_0 \dot{\Xi} - n \dot{\Xi}^T \Pi_0^T \Pi_1 \Xi -
+        n \Xi^T \Pi_1^T \Pi_0 \dot{\Xi} + n^2 \Xi^T \Pi_1^T \Pi_1 \Xi
+        \end{equation} Here, \(\Pi_0\) is a rotation matrix and we know rotation
+        matrices are orthogonal. So, using our knowledge of linear algebra we
+        can say \(\Pi_0^T \Pi_0 = \mathbb{I}_3\) (here, \(\mathbb{I}_3\) is the
+        \(3 \times 3\) identity matrix), and hence \(\dot{\Xi}^T \Pi_0^T \Pi_0
+        \dot{\Xi} = \dot{\xi}^2 + \dot{\eta}^2 + \dot{\zeta}^2\). We can compute
+        \(\Pi_1^T \Pi_1\); then we get: \begin{equation} \Pi_1^T \Pi_1 =
+        \begin{pmatrix} \sin^2 nt + \cos^2 nt & 0 & 0 \\[6pt] 0 & \sin^2 nt +
+        \cos^2 nt & 0 \\[6pt] 0 & 0 & 0 \end{pmatrix} = \begin{pmatrix} 1 & 0 &
+        0 \\[6pt] 0 & 1 & 0 \\[6pt] 0 & 0 & 0 \end{pmatrix}. \end{equation} And
+        we get \(\Xi^T \Pi_1^2 \Pi_1 \Xi = \xi^2 + \eta^2\). Then we have the
+        terms \(- n\,\dot{\xi}^{T} \Pi_0^{T} \Pi_1 \xi\) and \(- n\,\xi^{T}
+        \Pi_1^{T} \Pi_0 \dot{\xi}\). These two scalars are transposes of each
+        other, so their sum is \(-2n\,\dot{\xi}^{T} \Pi_0^{T} \Pi_1 \xi\). Here
+        \(\Pi_0^{T} \Pi_1\) is: \[ \Pi_0^{T} \Pi_1 = \begin{pmatrix} \cos(nt) &
+        -\sin(nt) & 0\\[4pt] \sin(nt) & \cos(nt) & 0\\[4pt] 0 & 0 & 1
+        \end{pmatrix} \begin{pmatrix} \sin(nt) & -\cos(nt) & 0\\[4pt] \cos(nt) &
+        \sin(nt) & 0\\[4pt] 0 & 0 & 0 \end{pmatrix} = \begin{pmatrix} 0 & -1 &
+        0\\[4pt] 1 & 0 & 0\\[4pt] 0 & 0 & 0 \end{pmatrix}. \] Thus, \[
+        -2n\,\dot{\xi}^{T} \Pi_0^{T} \Pi_1 \xi = -2n\dot{\xi}^{T} A^{T} B \xi =
+        -2n\big(\dot\xi(-\eta) + \dot\eta(\xi) + \dot\zeta\cdot 0\big) =
+        -2n\big(-\xi\dot\eta + \eta\dot\xi\big) = -2n\big(\eta\dot\xi -
+        \xi\dot\eta\big) = 2n\big(\xi\dot\eta - \eta\dot\xi\big). \] Now
+        substituting our results into equation (52) we get: \begin{equation}
+        \dot x^{2} + \dot y^{2} + \dot z^{2} = \dot\xi^{2} + \dot\eta^{2} +
+        \dot\zeta^{2} + n^{2}\big(\xi^{2}+\eta^{2}\big) + 2n\big(\xi\dot\eta -
+        \eta\dot\xi\big). \end{equation} We have, \[ \begin{pmatrix}x \\ y \\
+        z\end{pmatrix} = \begin{pmatrix} \cos(nt) & \sin(nt) & 0 \\ -\sin(nt) &
+        \cos(nt) & 0 \\ 0 & 0 & 1 \end{pmatrix} \begin{pmatrix}\xi \\ \eta \\
+        \zeta\end{pmatrix} \] Using eq. (36), \[ \begin{pmatrix}\dot{x}-ny \\
+        \dot{y}+nx \\ \dot{z}\end{pmatrix} = \begin{pmatrix} \cos(nt) & \sin(nt)
+        & 0 \\ -\sin(nt) & \cos(nt) & 0 \\ 0 & 0 & 1 \end{pmatrix}
+        \begin{pmatrix}\dot{\xi} \\ \dot{\eta} \\ \dot{\zeta}\end{pmatrix} \] \[
+        \Rightarrow \begin{pmatrix} \dot x - n y\\[4pt] \dot y + n x\\[4pt] \dot
+        z \end{pmatrix} = \begin{pmatrix} \dot x\\[4pt] \dot y\\[4pt] \dot z
+        \end{pmatrix} + n \begin{pmatrix} \sin(nt) & -\cos(nt) & 0\\[4pt]
+        \cos(nt) & \sin(nt) & 0\\[4pt] 0 & 0 & 0 \end{pmatrix} \begin{pmatrix}
+        \xi\\[4pt] \eta\\[4pt] \zeta \end{pmatrix} \] \[ \Rightarrow
+        \begin{pmatrix} \dot x\\[4pt] \dot y\\[4pt] \dot z \end{pmatrix} =
+        \begin{pmatrix} \cos(nt) & \sin(nt) & 0\\[4pt] -\sin(nt) & \cos(nt) &
+        0\\[4pt] 0 & 0 & 1 \end{pmatrix} \begin{pmatrix} \dot{\xi}\\[4pt]
+        \dot{\eta}\\[4pt] \dot{\zeta} \end{pmatrix} - n \begin{pmatrix} \sin(nt)
+        & -\cos(nt) & 0\\[4pt] \cos(nt) & \sin(nt) & 0\\[4pt] 0 & 0 & 0
+        \end{pmatrix} \begin{pmatrix} \xi\\[4pt] \eta\\[4pt] \zeta
+        \end{pmatrix}. \] Let, \begin{equation} \Pi_0 = \begin{pmatrix} \cos(nt)
+        & \sin(nt) & 0\\[4pt] -\sin(nt) & \cos(nt) & 0\\[4pt] 0 & 0 & 1
+        \end{pmatrix} \quad , \quad \Pi_1 = \begin{pmatrix} \sin(nt) & -\cos(nt)
+        & 0\\[4pt] \cos(nt) & \sin(nt) & 0\\[4pt] 0 & 0 & 0 \end{pmatrix}
+        \end{equation} So, \[ \begin{pmatrix} \dot x\\[4pt] \dot y\\[4pt] \dot z
+        \end{pmatrix} = \Pi_0 \begin{pmatrix} \dot{\xi}\\[4pt] \dot{\eta}\\[4pt]
+        \dot{\zeta} \end{pmatrix} - n \Pi_1 \begin{pmatrix} \xi\\[4pt]
+        \eta\\[4pt] \zeta \end{pmatrix}. \] We want to compute \(\dot{x}^2 +
+        \dot{y}^2 +\dot{z}^2 = \begin{pmatrix}\dot x & \dot y & \dot
+        z\end{pmatrix} \cdot \begin{pmatrix}\dot x\\[4pt]\dot y\\[4pt]\dot
+        z\end{pmatrix}\), so: \[ \dot{x}^2 + \dot{y}^2 +\dot{z}^2 = \left( \Pi_0
+        \Xi - n \Pi_1 \dot{\Xi}\right)^T \left( \Pi_0 \Xi - n \Pi_1
+        \dot{\Xi}\right) \] Here,
+        \(\Xi=\begin{pmatrix}\xi\\[4pt]\eta\\[4pt]\zeta\end{pmatrix}\).
+        \begin{equation} \dot{x}^2 + \dot{y}^2 +\dot{z}^2 = \left( \Pi_0 \Xi - n
+        \Pi_1 \dot{\Xi}\right)^T \left( \Pi_0 \Xi - n \Pi_1 \dot{\Xi}\right) =
+        \dot{\Xi}^T \Pi_0^T \Pi_0 \dot{\Xi} - n \dot{\Xi}^T \Pi_0^T \Pi_1 \Xi -
+        n \Xi^T \Pi_1^T \Pi_0 \dot{\Xi} + n^2 \Xi^T \Pi_1^T \Pi_1 \Xi
+        \end{equation} Here, \(\Pi_0\) is a rotation matrix and we know rotation
+        matrices are orthogonal. So, using our knowledge of linear algebra we
+        can say \(\Pi_0^T \Pi_0 = \mathbb{I}_3\) (here, \(\mathbb{I}_3\) is the
+        \(3 \times 3\) identity matrix), and hence \(\dot{\Xi}^T \Pi_0^T \Pi_0
+        \dot{\Xi} = \dot{\xi}^2 + \dot{\eta}^2 + \dot{\zeta}^2\). We can compute
+        \(\Pi_1^T \Pi_1\); then we get: \begin{equation} \Pi_1^T \Pi_1 =
+        \begin{pmatrix} \sin^2 nt + \cos^2 nt & 0 & 0 \\[6pt] 0 & \sin^2 nt +
+        \cos^2 nt & 0 \\[6pt] 0 & 0 & 0 \end{pmatrix} = \begin{pmatrix} 1 & 0 &
+        0 \\[6pt] 0 & 1 & 0 \\[6pt] 0 & 0 & 0 \end{pmatrix}. \end{equation} And
+        we get \(\Xi^T \Pi_1^2 \Pi_1 \Xi = \xi^2 + \eta^2\). Then we have the
+        terms \(- n\,\dot{\xi}^{T} \Pi_0^{T} \Pi_1 \xi\) and \(- n\,\xi^{T}
+        \Pi_1^{T} \Pi_0 \dot{\xi}\). These two scalars are transposes of each
+        other, so their sum is \(-2n\,\dot{\xi}^{T} \Pi_0^{T} \Pi_1 \xi\). Here
+        \(\Pi_0^{T} \Pi_1\) is: \[ \Pi_0^{T} \Pi_1 = \begin{pmatrix} \cos(nt) &
+        -\sin(nt) & 0\\[4pt] \sin(nt) & \cos(nt) & 0\\[4pt] 0 & 0 & 1
+        \end{pmatrix} \begin{pmatrix} \sin(nt) & -\cos(nt) & 0\\[4pt] \cos(nt) &
+        \sin(nt) & 0\\[4pt] 0 & 0 & 0 \end{pmatrix} = \begin{pmatrix} 0 & -1 &
+        0\\[4pt] 1 & 0 & 0\\[4pt] 0 & 0 & 0 \end{pmatrix}. \] Thus, \[
+        -2n\,\dot{\xi}^{T} \Pi_0^{T} \Pi_1 \xi = -2n\dot{\xi}^{T} A^{T} B \xi =
+        -2n\big(\dot\xi(-\eta) + \dot\eta(\xi) + \dot\zeta\cdot 0\big) =
+        -2n\big(-\xi\dot\eta + \eta\dot\xi\big) = -2n\big(\eta\dot\xi -
+        \xi\dot\eta\big) = 2n\big(\xi\dot\eta - \eta\dot\xi\big). \] Now
+        substituting our results into equation (52) we get: \begin{equation}
+        \dot x^{2} + \dot y^{2} + \dot z^{2} = \dot\xi^{2} + \dot\eta^{2} +
+        \dot\zeta^{2} + n^{2}\big(\xi^{2}+\eta^{2}\big) + 2n\big(\xi\dot\eta -
+        \eta\dot\xi\big). \end{equation} From Eq. (51) we have: \[ C_J =
+        \bigg[n^2\big(x^2+y^2\big) +
+        2\Big(\frac{\mu_1}{r_1}+\frac{\mu_2}{r_2}\Big)\bigg] - \dot{x}^2 -
+        \dot{y}^2 - \dot{z}^2 \] One thing I want to let you know, in case you
+        didn't know, is that since we are using a rotation matrix to linearly
+        transform from the inertial frame to the rotating frame, lengths are
+        invariant. Meaning: if a vector \(\mathbf{a}\) in the inertial frame has
+        length \(|\mathbf{a}|\), then the same vector in the rotating frame also
+        has length \(|\mathbf{a}|\). So we can say
+        \(x^2+y^2+z^2=\xi^2+\eta^2+\zeta^2\). Since our primaries and the
+        particle are in the ((x,y)) plane, substituting Eq. (59) into \(C_J\) we
+        can rewrite \(C_J\) as: \[ C_J = \bigg[n^2\big(\xi^2+\eta^2\big) +
+        2\Big(\frac{\mu_1}{r_1}+\frac{\mu_2}{r_2}\Big)\bigg] - \left(\dot\xi^{2}
+        + \dot\eta^{2} + \dot\zeta^{2} + n^{2}\big(\xi^{2}+\eta^{2}\big) +
+        2n\big(\xi\dot\eta - \eta\dot\xi\big) \right) \] and it simplifies to:
+        \begin{equation} C_J = 2\Big(\frac{\mu_1}{r_1}+\frac{\mu_2}{r_2}\Big) +
+        2n\big(\xi\dot\eta -\eta\dot\xi \big) - \dot\xi^{2} - \dot\eta^{2} -
+        \dot\zeta^{2} \end{equation} Here, the angular velocity vector is along
+        the \(z\)-axis, so \(\mathbf{n}=\left(0,0,n\right)\). Let’s define
+        \(\mathbf{h}\) as the specific angular momentum vector (angular momentum
+        per unit mass). \(\mathbf{h}\) is: \[ \mathbf{h} = \Xi \times \dot{\Xi}
+        = \left(\xi \dot{\eta} - \eta \dot{\xi}\right)\hat{\zeta} = \left(\xi
+        \dot{\eta} - \eta \dot{\xi}\right)\hat{z} \] (Here, \(\hat{\zeta}\) and
+        \(\hat{z}\) are unit vectors along the \(z\)-axis.) So we can write Eq.
+        (60) as \begin{equation} \frac{1}{2} \left(\dot\xi^{2} + \dot\eta^{2} +
+        \dot\zeta^{2}\right) - \Big(\frac{\mu_1}{r_1}+\frac{\mu_2}{r_2}\Big)
+        =\mathbf{h}\cdot\mathbf{n} - \frac{1}{2} C_J \end{equation} If you have
+        a question about the physical significance of
+        \(\mathbf{h}\cdot\mathbf{n}\), you can think of this term as measuring
+        the coupling between the particle’s spin about the rotation axis and the
+        rotation of the frame (or the primaries). Alright — here, as you can
+        see, the left-hand side of the equation is the total, or mechanical,
+        energy per unit mass of the particle, and since
+        \(\mathbf{h}\cdot\mathbf{n}\) is not constant, the mechanical energy of
+        the test particle is not conserved in the rotating frame. Alright — now
+        that we have finished deriving the Jacobi constant, let’s dive back into
+        what we were talking about before the derivation. We can use the Jacobi
+        constant to determine regions from which the particle is excluded. One
+        simple way to see what are uses of the Jacobi constant is to check where
+        the particle comes to a stop. At those locations, we find that
+        \begin{equation} 2U = C_J = n^2(x^2+y^2) + 2\left(\frac{\mu_1}{r_1} +
+        \frac{\mu_2}{r_2}\right) \end{equation} Because \(C_J\) is constant, Eq.
+        (62) describes a set of points or surfaces where the particle's velocity
+        is zero. These surfaces are called \(\mathbf{zero\text{-}velocity\
+        surfaces}\).
+      </p>
+
+      <p>Below are some examples of plotting the zero-velocity surfaces,</p>
+
+      <table>
+        <tr>
+          <td>
+            <video width="568.62" height="394.875" controls>
+              <source
+                src="/Main/Research & Simulations/N-Body Problem/videos/VID_10001-0600.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </td>
+
+          <td>
+            <video width="568.62" height="394.875" controls>
+              <source
+                src="/Main/Research & Simulations/N-Body Problem/videos/VID_20001-0600.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td>
+            <video width="568.62" height="394.875" controls>
+              <source
+                src="/Main/Research & Simulations/N-Body Problem/videos/VID_30001-0600.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </td>
+
+          <td>
+            <video width="568.62" height="394.875" controls>
+              <source
+                src="/Main/Research & Simulations/N-Body Problem/videos/VID_40001-0600.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </td>
+        </tr>
+      </table>
+      <video width="379.08" height="263.25" controls>
+        <source
+          src="/Main/Research & Simulations/N-Body Problem/videos/VID_50001-0600.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+
+      <p>
+        Up here you can see simulations of the test particle obtained by
+        numerically solving the differential equation. Using the result of the
+        numerical integration, we computed the Jacobi constant for each initial
+        condition and then plugged it into eq(62) to get the surfaces. In case
+        you don't know, when we plot a function of the form \(f(x,y,z)=K\) in
+        3-D (here \(K\) is a constant) we get surfaces (isosurfaces) — that's
+        what's happening here with eq(62). Anyways, up in the videos you'll see
+        two colors: one is purple-like (\(\text{#5200c4}\)) and the other is
+        green-like (\(\text{#008c2a}\)). The purple-like color represents the
+        forbidden regions for that Jacobi constant — meaning the test particle
+        cannot enter those parts of space for that value of the Jacobi constant
+        (entering them would require negative or imaginary kinetic energy). To
+        access those regions the particle's Jacobi constant must change; in
+        practice a spacecraft must perform a maneuver (burn propellant to
+        produce a Δv and change its velocity), which changes the Jacobi constant
+        and thus the allowed regions. In the first video you can see two bulges
+        on the left and right sides, and somewhere in between there is a narrow
+        passage (a neck near the appropriate Lagrange region). If the Jacobi
+        constant allows it, that neck provides a route for the particle to
+        transfer — from orbiting one primary to orbiting the other. In the
+        second video you can see there is no passage between the primaries: both
+        primaries are enclosed by the zero-velocity surface. That means if the
+        particle is inside one of those enclosed regions it cannot leave for
+        that Jacobi constant and will continue to orbit that primary unless an
+        active maneuver changes its Jacobi constant. And that is what we see in
+        the second video: the particle is in the region of the right primary,
+        and the right primary is enclosed by the zero-velocity surface, so the
+        particle continues to orbit the primary and will not leave the enclosed
+        region — because to do so its Jacobi constant would first have to
+        change. Then, in the third video you can see the same thing but for the
+        left primary. In the fourth video you can see two similar-looking
+        shapes, one above and one below (vertically). These are regions the
+        particle can't access with that Jacobi constant; except for those
+        regions the particle has access to all the rest of space, and we can see
+        something similar in the fifth video.
+      </p>
+
+    </div>
+    <div class="content_1">
+      <!-- Resources Section -->
+    <div class="resources-section">
+      <div class="resources-header">
+        <span class="resources-label">Resources</span>
+      </div>
+      <div class="resources-outer">
+        <div class="resources-grid">
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Solar System Dynamics.</p>
+              <span class="resource-card__sub">Carl D. Murray. Ch-\(\text{III}\).</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Classical Mechanics.</p>
+              <span class="resource-card__sub">John R. Taylor.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Classical Mechanics.</p>
+              <span class="resource-card__sub">Herbert Goldstein, Charles P. Poole, and John Safko.</span>
+            </div>
+          </div>
+          <div class="resource-card">
+            <div class="resource-card__icon"><i class="fas fa-book"></i></div>
+            <div class="resource-card__body">
+              <p class="resource-card__title">Theory of orbits: The Restricted Problem of Three Bodies.</p>
+              <span class="resource-card__sub">Victor Szebehely.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="/Main/Research & Simulations/N-Body Problem/index.js"></script>
+    <script src="/Main/Research & Simulations/The_Structure/Structure.js"></script>
+  </body>
+</html>

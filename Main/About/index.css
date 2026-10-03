@@ -1,0 +1,197 @@
+/* ─── Base ─── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "EB Garamond", Georgia, serif;
+  background: #ffffff;
+  color: #1a1a1a;
+  min-height: 100vh;
+}
+
+/* ─── Page wrapper ─── */
+.about-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 56px 80px;
+}
+
+/* ─── Site intro ─── */
+.page-title {
+  font-family: "Raleway", sans-serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #470202;
+  margin: 0 0 30px;
+  letter-spacing: -0.01em;
+}
+
+/* Two newspaper-style columns for the intro text */
+.intro-body {
+  columns: 2;
+  column-gap: 56px;
+}
+
+.intro-body p {
+  font-size: 1.09rem;
+  line-height: 1.92;
+  color: #2a2a2a;
+  margin: 0 0 20px;
+  break-inside: avoid;
+}
+.intro-body p:last-child { margin-bottom: 0; }
+
+/* ─── Section divider ─── */
+.section-rule {
+  height: 1px;
+  background: #e8e8e8;
+  border: none;
+  margin: 56px 0;
+}
+
+/* ─── Section label ─── */
+.section-label {
+  font-family: "Raleway", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #c0c0c0;
+  letter-spacing: 0.1em;
+  margin: 0 0 26px;
+}
+
+/* ─── Author grid ─── */
+.author-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: 52px;
+}
+
+/* ─── Author image ─── */
+.author-img-col { flex-shrink: 0; }
+
+.author-img-wrap {
+  width: 210px;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f0edf8;
+  border: 1.5px solid #f0d6de;
+}
+
+.author-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeholder — remove once you add your photo */
+.img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Raleway", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #e8a8b7;
+  letter-spacing: 0.06em;
+  user-select: none;
+}
+
+/* ─── Author bio ─── */
+.author-bio-col { flex: 1; }
+
+.author-name {
+  font-family: "Raleway", sans-serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #470214;
+  margin: 0 0 5px;
+  letter-spacing: -0.01em;
+}
+
+.author-affiliation {
+  font-family: "Raleway", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #cf7278;
+  letter-spacing: 0.03em;
+  margin: 0 0 20px;
+}
+
+.author-bio {
+  font-size: 1.05rem;
+  line-height: 1.88;
+  color: #444;
+  margin: 0 0 26px;
+}
+
+/* ─── Achievements ─── */
+.achievements {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.achievements li {
+  position: relative;
+  padding: 12px 0 12px 20px;
+  border-bottom: 1px solid #f2f2f2;
+  font-size: 0.97rem;
+  line-height: 1.65;
+  color: #2a2a2a;
+}
+.achievements li:last-child { border-bottom: none; }
+
+/* Purple dot — anchored to the first line */
+.achievements li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #cf7282;
+}
+
+.achievements a {
+  color: #8a3d55;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+.achievements a:hover { color: #470213; }
+
+.achievements em {
+  font-style: italic;
+  color: #555;
+}
+
+/* ─── Responsive ─── */
+
+/* Collapse intro to single column on narrower screens */
+@media (max-width: 900px) {
+  .intro-body { columns: 1; }
+}
+
+@media (max-width: 860px) {
+  .about-page { padding: 40px 28px 60px; }
+
+  .author-grid {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .author-img-wrap { width: 160px; }
+}
+
+@media (max-width: 480px) {
+  .about-page { padding: 24px 18px 52px; }
+  .author-img-wrap { width: 130px; }
+  .page-title { font-size: 1.55rem; }
+  .author-name { font-size: 1.2rem; }
+}

@@ -1,0 +1,246 @@
+/* ─── Navbar ─── */
+.navbar {
+  position: sticky;
+  top: 0;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  z-index: 1000;
+  /* No overflow:hidden — it would clip the dropdown */
+}
+
+/* ─── Video background (clips itself, not the navbar) ─── */
+.VideoBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.VideoBackground video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  filter: brightness(0.6) contrast(1.2);
+}
+
+/* ─── Three-column flex layout ─── */
+.nav-col {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+.nav-left   { flex: 1; justify-content: flex-start; padding-left: 20px; }
+.nav-center { flex: 0 0 auto; justify-content: center; }
+.nav-right  { flex: 1; justify-content: flex-end;  padding-right: 20px; }
+
+/* ─── Logo ─── */
+.Logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.Logo img {
+  height: 70px;
+  width: auto;
+  display: block;
+  filter: brightness(0.88) contrast(1.2);
+}
+
+/* ─── Desktop nav links ─── */
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-links a {
+  display: block;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-links a:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: white;
+}
+
+/* ─── Hamburger button (hidden on desktop) ─── */
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.menu-icon:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.menu-icon .bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transform-origin: center;
+  /* gap=6px, bar-height=2px → bar centres 8px apart */
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+}
+
+/* Animate to × */
+.menu-icon.open .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-icon.open .bar:nth-child(2) { opacity: 0; width: 0; }
+.menu-icon.open .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ─── Mobile dropdown ─── */
+/* Uses opacity/transform (not display) so CSS transitions work */
+.mobile-menu {
+  position: fixed;
+  top: 70px;   /* matches mobile navbar height */
+  left: 0;
+  right: 0;
+  z-index: 999;
+
+  background: rgba(8, 10, 22, 0.96);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 6px 0 18px;
+
+  /* Hidden state */
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-menu li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.mobile-menu li:last-child { border-bottom: none; }
+
+/* Desktop */
+.nav-links a {
+  display: block;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: "Raleway", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Mobile dropdown */
+.mobile-menu a {
+  display: block;
+  padding: 15px 28px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.15s, color 0.15s, padding-left 0.2s;
+}
+
+.mobile-menu a:hover,
+.mobile-menu a:active {
+  background: rgba(255, 255, 255, 0.07);
+  color: white;
+  padding-left: 40px;
+}
+
+/* ─── Tap-outside backdrop ─── */
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.menu-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media screen and (max-width: 900px) {
+  .navbar  { height: 70px; }
+  .Logo img { height: 50px; }
+
+  .menu-icon { display: flex; }
+  .nav-right { display: none; }
+
+  /* ← add this */
+  .nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+}
+
+/* Safety: never let mobile dropdown show on wide screens */
+@media screen and (min-width: 901px) {
+  .mobile-menu,
+  .menu-backdrop { display: none !important; }
+}
+.VideoBackground video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  filter: brightness(0.6) contrast(1.2);
+  pointer-events: none; /* ← add this */
+}
