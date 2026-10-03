@@ -1,4 +1,4 @@
-fetch("/Main/Navigation-bar/NavigationBar.html")
+fetch("/LibPhyMT_mu/Main/Navigation-bar/NavigationBar.html")
   .then(function (response) { return response.text(); })
   .then(function (data) {
     document.getElementById("navbar-container").innerHTML = data;
