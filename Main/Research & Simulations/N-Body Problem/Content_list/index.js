@@ -1,4 +1,4 @@
-fetch("/Main/Navigation-bar/NavigationBar.html")
+fetch("/LibPhyMT_mu/Main/Navigation-bar/NavigationBar.html")
   .then(response => {
     if (!response.ok) {
       throw new Error(
@@ -23,7 +23,7 @@ fetch("/Main/Navigation-bar/NavigationBar.html")
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "/Main/Navigation-bar/NavigationBar.css";
+    link.href = "/LibPhyMT_mu/Main/Navigation-bar/NavigationBar.css";
 
     document.head.appendChild(link);
 
