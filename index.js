@@ -1,4 +1,4 @@
-fetch("/Main/Navigation-bar/NavigationBar.html")
+fetch("/LibPhyMT_mu/Main/Navigation-bar/NavigationBar.html")
   .then(function (response) { return response.text(); })
   .then(function (data) {
     document.getElementById("navbar-container").innerHTML = data;
@@ -7,7 +7,7 @@ fetch("/Main/Navigation-bar/NavigationBar.html")
     // so we load the CSS and init the nav manually here.
     var link = document.createElement("link");
     link.rel  = "stylesheet";
-    link.href = "/Main/Navigation-bar/NavigationBar.css";
+    link.href = "/LibPhyMT_mu/Main/Navigation-bar/NavigationBar.css";
     document.head.appendChild(link);
 
     initNavigation();
