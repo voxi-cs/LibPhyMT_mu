@@ -22,7 +22,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/polyfill/3.115.0/polyfill.min.js?features=es6"></script>
 
     <!-- MathJax -->
     <script
@@ -47,11 +46,11 @@
     <!-- Chapter Title -->
     <div class="title-container">
       <h1 id="title">
-        <div class="title-overlay"></div>
+        <span class="title-overlay" aria-hidden="true"></span>
         <span class="Subject" data-mini="false">Lesson-1</span>
-        <div class="tc">
+        <span class="tc">
           <span class="inner-box">Introduction to Vectors: Some Basic Ideas.</span>
-        </div>
+        </span>
       </h1>
     </div>
 
@@ -84,7 +83,10 @@
       <p>
         In this section, we want to introduce you to vectors without being too
         rigorous; we will talk about what vectors are, some of their properties,
-        and how to visualize them.
+        and how to visualize them. The material in this lesson is meant to be
+        taken as a general overview of ideas we will explore in the upcoming
+        lessons, rather than as a collection of strict mathematical definitions.
+        This lesson is intentionally somewhat informal, as its main goal is to build intuition and provide a general overview of the ideas rather than to develop every concept rigorously. The precise definitions and more detailed discussions of these concepts will be presented in the upcoming lessons.
       </p>
 
       <h2>What is a Scalar Quantity?</h2>
@@ -94,17 +96,17 @@
         where applicable. There are several examples of scalar quantities, such
         as temperature, density, pressure, and the number of objects. These
         quantities do not require a direction as part of their description.
-        Well, life is not always that easy. As we studied the physical world, we
-        encountered quantities that could not be fully described by a single
-        numerical value. Therefore, we introduced another type of quantity and
-        named it a <strong>vector quantity</strong>.
+        Well, life is not always that easy. As we study the physical world, we
+        encounter quantities that cannot be fully described by a single
+        numerical value. Therefore, we introduce another type of quantity and
+        call it a <em>vector quantity</em>.
       </p>
 
       <h2>What is a Vector Quantity?</h2>
       <p>
         In physics, a quantity whose description involves both magnitude and
         direction is called a <em>vector quantity</em>, and the mathematical
-        object used to represent it is called a <strong>vector</strong>. Some
+        object used to represent it is called a <em>vector</em>. Some
         examples of vector quantities are velocity, force, momentum, and
         displacement. To describe a displacement in a plane, for example, we
         need to specify how far we move along each coordinate direction; in
@@ -113,7 +115,7 @@
       <p>
         This description gives us the geometric intuition behind vectors, but
         linear algebra uses a more general definition: a vector is an element of
-        a <strong>vector space</strong>. Once a basis is chosen, the vector can
+        a <em>vector space</em>. Once a basis is chosen, the vector can
         be represented by a collection of scalar components. In elementary
         geometry, we can also visualize a vector as a directed line segment.
         Not every object described by several numbers is automatically a vector
@@ -122,8 +124,8 @@
         section.
       </p>
       <p>
-        You might wonder what a <strong>vector space</strong> is and what a
-        <strong>basis</strong> is, but we will not be discussing them in detail
+        You might wonder what a <em>vector space</em> is and what a
+        <em>basis</em> is, but we will not be discussing them in detail
         just yet. For now, think of a vector space as a set of vectors in which
         we can add vectors and multiply them by scalars while remaining in the
         same space. In a finite-dimensional vector space, a basis is a set of
@@ -132,10 +134,10 @@
         \[
         \vec{v} = c_1\vec{e}_1 + c_2\vec{e}_2 + \dots + c_n\vec{e}_n.
         \]
-        Here, the sum is called a <strong>linear combination</strong>, which we
+        Here, the sum is called a <em>linear combination</em>, which we
         will discuss below, and each \(\vec{e}_i\) is called a
-        <strong>basis vector</strong>. The set
-        \(\{\vec{e}_1,\dots,\vec{e}_n\}\) is called a <strong>basis</strong>.
+        <em>basis vector</em>. The set
+        \(\{\vec{e}_1,\dots,\vec{e}_n\}\) is called a <em>basis</em>.
       </p>
       <p>
         You may recognize this idea from your basic studies of vectors, where
@@ -148,7 +150,7 @@
         both magnitude and direction. This is useful intuition, although it is
         not the full abstract definition: an abstract vector does not need to
         come with a naturally defined magnitude or direction. Even in geometry,
-        the <strong>zero vector</strong> has magnitude zero and no defined
+        the <em>zero vector</em> has magnitude zero and no defined
         direction. We will establish the existence and properties of the zero
         vector in a later lesson.
       </p>
@@ -156,7 +158,7 @@
       <h2>Representation of Vectors</h2>
       <p>
         Once a basis has been chosen, we can represent a vector by listing its
-        components. For example, a <strong>column vector</strong> can be
+        components. For example, a <em>column vector</em> can be
         written as
         \[
         V_C =
@@ -176,15 +178,16 @@
         x_n
         \end{bmatrix}.
         \]
-        A <strong>row vector</strong> is commonly written as
+        A <em>row vector</em> is commonly written as
         \[
         V_R = (x_1, x_2, \dots, x_n)
         = [x_1, x_2, \dots, x_n].
         \]
         We can also use \(\langle x_1, x_2, \dots, x_n\rangle\) to represent
         a vector or tuple, depending on the convention being used. These are
-        different ways of writing components; an abstract vector is not
-        inherently a row or a column until we choose a representation.
+        common ways of arranging components. An abstract vector is not
+        inherently a row or a column, although row and column vectors can
+        play different mathematical roles depending on the context.
       </p>
       <p>
         In a coordinate system with unit basis vectors, a vector can also be
@@ -193,7 +196,7 @@
         \vec{v} = a_1\hat{\mathbf{e}}_1 + a_2\hat{\mathbf{e}}_2 + \dots
         + a_n\hat{\mathbf{e}}_n.
         \]
-        This is called <strong>unit-vector component notation</strong>. Here,
+        This is called <em>unit-vector component notation</em>. Here,
         \(\hat{\mathbf{e}}_i\) are the unit basis vectors, and \(a_i\) are
         the components of the vector relative to this basis. In two- and
         three-dimensional Cartesian coordinates, you will often see
@@ -203,9 +206,9 @@
         notation is specifically using a unit basis.
       </p>
       <p>
-        Another convention is <strong>bra–ket notation</strong>, which is widely
-        used in <strong>quantum mechanics</strong>. In a finite-dimensional
-        space with a chosen orthonormal basis, a ket \(\ket{\psi}\) is
+        Another convention is <em>bra–ket notation</em>, which is widely
+        used in <em>quantum mechanics</em>. In a finite-dimensional complex
+        inner-product space with a chosen orthonormal basis, a ket \(\ket{\psi}\) is
         represented by a column vector, while the corresponding bra
         \(\bra{\psi}\) is represented by its conjugate transpose. If
         \[
@@ -267,8 +270,8 @@
         </div>
       </div>
       <p>
-        The first component specifies the horizontal displacement along the
-        \(x\)-axis, while the second specifies the vertical displacement along
+        In Cartesian coordinates, the first component specifies the horizontal
+        displacement along the \(x\)-axis, while the second specifies the vertical displacement along
         the \(y\)-axis. In three dimensions, the third component specifies the
         displacement along the \(z\)-direction. A vector can be drawn from a
         different starting point too; translating the arrow without changing
@@ -366,15 +369,16 @@
 
       <h3>Scalar Multiplication</h3>
       <p>
-        Another vector operation is <strong>scalar multiplication</strong>,
+        Another vector operation is <em>scalar multiplication</em>,
         which scales a vector by a scalar. Let \(c\) be a scalar and
         \(\vec{v}\) a vector. We write
         \[ \vec{w} = c\,\vec{v}. \]
-        If \(c \gt 0\) and \(\vec{v}\) is nonzero, the result points in the
-        same direction as \(\vec{v}\). If \(c \lt 0\) and \(\vec{v}\) is nonzero, it points in the
-        opposite direction. Its magnitude is multiplied by \(|c|\). If
-        \(c=0\), the result is the zero vector. (The zero vector has no defined
-        direction.)
+        For the geometric interpretation, suppose \(c\in\mathbb{R}\). If
+        \(c \gt 0\) and \(\vec{v}\) is nonzero, the result points in the same
+        direction as \(\vec{v}\). If \(c \lt 0\) and \(\vec{v}\) is nonzero,
+        it points in the opposite direction. The magnitude of \(c\vec{v}\) is
+        \(|c|\) times the magnitude of \(\vec{v}\). If \(c=0\), the result is
+        the zero vector. (The zero vector has no defined direction.)
       </p>
       <p>
         For example, if \(\vec{v} = \begin{pmatrix}2 \\ 4\end{pmatrix}\),
@@ -420,14 +424,14 @@
       <h3>Linear Combination</h3>
       <p>
         Given vectors \(\vec{v}_1,\vec{v}_2,\dots,\vec{v}_n\), a
-        <strong>linear combination</strong> of these vectors is an expression of
+        <em>linear combination</em> of these vectors is an expression of
         the form
         \[
         \vec{u} = c_1\vec{v}_1 + c_2\vec{v}_2 + \dots + c_n\vec{v}_n.
         \]
-        Here, each coefficient \(c_i\) belongs to the field \(\mathbb{F}\),
-        so the coefficients are real or complex numbers according to the field
-        over which the vector space is defined.
+        Here, each coefficient \(c_i\) belongs to the field \(\mathbb{F}\)
+        over which the vector space is defined; in the usual cases, this field
+        is \(\mathbb{R}\) or \(\mathbb{C}\).
       </p>
       <p>
         Let us look at an example. Take three vectors
@@ -478,15 +482,15 @@
       <p>
         Above, we can see a linear combination of three vectors. There is
         another important concept related to linear combinations:
-        <strong>span</strong>. The span of a list of vectors is the set of all
+        <em>span</em>. The span of a list of vectors is the set of all
         linear combinations of those vectors. We will discuss it in an upcoming
         lesson.
       </p>
 
       <h3>Linear Independence</h3>
       <p>
-        Given a list of vectors \(\vec{v}_1,\dots,\vec{v}_m\), we call them
-        <em>linearly independent</em> if the only way to make their linear
+        Given a list of vectors \(\vec{v}_1,\dots,\vec{v}_m\), we call the list
+        <em>linearly independent</em> if the only way to make its linear
         combination equal to the zero vector,
         \[
         c_1\vec{v}_1+c_2\vec{v}_2+\dots+c_m\vec{v}_m=\vec{0},
@@ -496,13 +500,12 @@
         c_1=c_2=\dots=c_m=0.
         \]
         If there is a choice of coefficients, not all zero, that makes the sum
-        equal to \(\vec{0}\), the vectors are called
-        <em>linearly dependent</em>.
+        equal to \(\vec{0}\), the list is called <em>linearly dependent</em>.
       </p>
       <p>
-        This condition is equivalent to saying that a list is linearly
-        dependent exactly when at least one vector in the list can be written as
-        a linear combination of the others. To see why, suppose
+        Equivalently, a list is linearly dependent if and only if at least one vector
+        in the list can be written as a linear combination of the others. To
+        prove one direction, suppose
         \(c_1\vec{v}_1+\dots+c_m\vec{v}_m=\vec{0}\) and that
         \(c_i\ne0\) for some index \(i\). Rearranging gives
         \[
@@ -511,6 +514,12 @@
         +c_{i+1}\vec{v}_{i+1}+\dots+c_m\vec{v}_m\right),
         \]
         so \(\vec{v}_i\) is a linear combination of the other vectors.
+        Conversely, suppose \(\vec{v}_i\) can be written as a linear
+        combination of the other vectors, so that
+        \(\vec{v}_i=\sum_{j\ne i}a_j\vec{v}_j\). Moving all terms to
+        one side gives a nontrivial linear combination equal to \(\vec{0}\),
+        because the coefficient of \(\vec{v}_i\) is nonzero. Therefore,
+        the list is linearly dependent.
       </p>
       <p>
         For example, the vectors \(\begin{pmatrix}1 \\ 2\end{pmatrix}\) and
@@ -527,10 +536,10 @@
         are \(c_1=c_2=0\).
       </p>
 
-      <h2>Matrix</h2>
+      <h2>Matrices</h2>
       <p>
         The component representations we have been using are arrays of numbers.
-        A <strong>matrix</strong> is a rectangular array of numbers arranged in
+        A <em>matrix</em> is a rectangular array of numbers arranged in
         rows and columns. Since matrices will be useful in the following
         lessons, let us briefly introduce them here. For example,
         \[
@@ -543,9 +552,9 @@
         \end{pmatrix}.
         \]
         Here, \(A\) is an \(m\times n\) matrix, meaning that it has \(m\) rows
-        and \(n\) columns. Each number \(a_{ij}\) is an entry of the matrix,
-        where \(i\) tells us which row the entry is in and \(j\) tells us which
-        column it is in. For example, \(a_{23}\) is the entry in the second row
+        and \(n\) columns. Each symbol \(a_{ij}\) denotes an entry of the matrix, where \(i\)
+        tells us which row the entry is in and \(j\) tells us which column it
+        is in. For example, \(a_{23}\) is the entry in the second row
         and third column. We usually use capital letters such as \(A\), \(B\),
         and \(C\) to represent matrices.
       </p>
@@ -595,8 +604,9 @@
         dimensions \(m\times n\) and a matrix \(B\) of dimensions \(n\times p\),
         the product \(AB\) is defined and has dimensions \(m\times p\). The
         number of columns in the first matrix must equal the number of rows in
-        the second. Each entry of the product is found by taking the dot product
-        of a row of \(A\) with a column of \(B\):
+        the second. To find the entry in row \(i\) and column \(j\) of the product, multiply
+        the entries of row \(i\) of \(A\) by the corresponding entries of
+        column \(j\) of \(B\), then add those products:
         \[
         (AB)_{ij}=\sum_{k=1}^{n}a_{ik}b_{kj}.
         \]
@@ -620,9 +630,8 @@
         later when we use matrices to represent transformations and other
         mathematical structures.
       </p>
-
       <p>
-        I think this is enough to brush up on some basic concepts. We will build
+        This should be enough to introduce some basic concepts. We will build
         on these ideas in the following lessons.
       </p>
     </div>
