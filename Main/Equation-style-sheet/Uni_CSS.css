@@ -289,7 +289,10 @@ blockquote span {
 
   margin: 20px auto;
 
-  background-color: #b4b4b4;
+  background-image: url("Untitled122.png"); /* HD image, e.g. 1920×1080+ */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   padding: 40px;
 
