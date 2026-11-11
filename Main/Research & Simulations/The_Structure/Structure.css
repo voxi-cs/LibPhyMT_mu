@@ -154,7 +154,7 @@ blockquote span {
 
   background-image: 
     linear-gradient(rgba(109, 108, 108, 0.5), rgba(109, 108, 108, 0.5)),
-    url("/Main/Equation-style-sheet/optimized.webp");
+    url("optimized.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
