@@ -151,16 +151,17 @@ blockquote span {
   text-align: left;
   max-width: 1000px;
   margin: 20px auto;
-  background-color: #6d6c6c;
+
+  background-image: 
+    linear-gradient(rgba(109, 108, 108, 0.5), rgba(109, 108, 108, 0.5)),
+    url("/Main/Equation-style-sheet/optimized.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  /*
-   * KEY FIX: must be "hidden", NOT "clip" and NOT "visible".
-   * - "clip"    → child mjx-container scroll is completely blocked (equations overflow uncontrolled)
-   * - "visible" → equations escape the white content box entirely
-   * - "hidden"  → content box stays intact AND child overflow-x:auto scrollbars still work
-   */
   overflow-x: hidden;
 }
 /* ---------- 10) Paragraphs ---------- */
