@@ -596,22 +596,16 @@
     </div>
 
       <p>
-        We stated that a <strong>vector</strong> is an object that belongs to a
-        <strong>vector space</strong> \(\mathbb{V}\). We have discussed the idea
-        of vectors before and we have seen vector components can be real or
-        complex, but nothing in our definition of vector space restricts vector
-        components to only real or complex numbers. As long as the axioms of a
-        vector space are satisfied by the elements, the set is a vector space
-        and we call its elements vectors.
-      </p>
-      <p>
-        Even though vectors can be many types, most often you will see vectors
-        that are either real or complex. The vector space of n-dimensional real
-        vectors is denoted by \(\mathbb{R}^n\) and for complex vectors it is
-        denoted by \(\mathbb{C}^n\). Throughout this lecture we will be either
-        working on \(\mathbb{R}^n\) or \(\mathbb{C}^n\), and for the general
-        case when our discussion applies to both real and complex vector spaces
-        we will denote the vector space by \(\mathbb{F}^n\).
+        Keep this in mind even though throughout many lesson we will moslty talk about \(\mathbb{V} = \mathbb{F}^n\) \(\mathbb F^n\) is not only vector space. 
+        There are vector spaces of all continuous real-valued (or complex-valued) functions defined on the closed, bounded interval \([a,b]\) donoted as \(C[a,b]\),
+        there is also a sequence space consisting of all real or complex sequence \(x = (x_n) \) whose \(p\)-th powers have a finite sum. For \(1 \leq p \lt \infty\) it is defined by:
+        \[
+        ||x||_p = \left( \sum_{n=1}^{\infty} |x_n|^p \right)^{1/p} \lt \infty
+        \]
+        and for \(p = \infty\) it is defined by:
+        \[
+        ||x||_\infty = \sup_{n \in \mathbb{N}} |x_n|
+        \]
       </p>
       <p>
         More casually speaking: the space \(\mathbb{R}^n\) consists of all
