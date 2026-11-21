@@ -92,7 +92,7 @@
     <div class="content">
       <h1>Introduction</h1>
       <p>
-        In this lesson we will talk about to Vector Space, Sub-Space and
+        In this lesson we will talk about Vector Space, Sub-Space and
         some basics of Matrices. This lesson is going to be more abstract and rigorous; this is
         so that it helps the reader in their academics while keeping in mind the
         reader might want to explore more abstract subjects from their genuine
@@ -119,33 +119,36 @@
         where we discussed basics of vectors and matrices.
       </p>
       <p>
-        You may here the basic definition of a that is a vector is a mathematical object that has a
-        <strong>magnitude</strong> and a <strong>direction</strong>, while it is true that vecotrs on 
-        two dimention can be represented as arrows and thus length of the arrow can be interpreted as the magnitude and the direction it is pointing 
-        toward is the direction but as antisipate this is not really a mathmetical defination but rather a interpritation of certain type of vecotrs. This simplestic view doesnt really hold up 
-        when we move to more abstract settings such as: polynomials, matrix, continuous function infinite sequence this all can be considered as vectors and we can and infact do work with them 
-        as if vectors in abstract vector spaces. Thus we need to break free from the intuative idea of vecotrs and submerge our feet into vector space which will allow us to understand what a vector is more acuretly.
+        You may have heard the basic definition that a vector is a mathematical object that has a
+        <strong>magnitude</strong> and a <strong>direction</strong>, and while it is true that vectors in
+        two dimensions can be represented as arrows and thus the length of the arrow can be interpreted as the magnitude and the direction it is pointing
+        toward is the direction, this is not really a mathematical definition but rather an interpretation of a certain type of vector. This simplistic view doesn't really hold up
+        when we move to more abstract settings such as: polynomials, matrices, continuous functions, and infinite sequences — all of these can be considered vectors, and we can and in fact
+        do work with them as vectors in abstract vector spaces. Thus we need to break free from the intuitive idea of vectors and submerge our feet into vector space, which will allow us to understand what a vector is more accurately.
       </p>
       <p>
         In this section we will walk through various concepts that
-        will allow us to define a rigorous definition of vector starting with <strong>vector space</strong>.
+        will allow us to arrive at a rigorous definition of a vector, starting with <strong>vector space</strong>.
       </p>
       <p>
-        Regerless, we will see the defiantion of a vecotor soon but essentially vectors a mathmetical 
-        objects and one of the advantage it has is that it can be used to represent a wide variety of phenomena in different fields. Beyond pure mathematics,
+        Regardless, we will see the definition of a vector soon, but essentially vectors are mathematical
+        objects, and one of the advantages they have is that they can be used to represent a wide variety of phenomena in different fields. Beyond pure mathematics,
         vectors are mostly used in <strong>Physics</strong> and
         <strong>Computer Science</strong>.
       </p>
-      
+      <p>
+        We shall first start by talking about the representation of vectors so that we can clear up some basic ideas about vectors, and then we will move on to more abstract concepts.
+      </p>
       <h3>Representation of Vectors</h3>
       <p>
-        Vectors are represented with some numbers \( (x_1, x_2, \dots, x_n) \)
+        Vectors in a finite-dimensional coordinate space are represented with some numbers \( (x_1, x_2, \dots, x_n) \)
         enclosed by brackets such as: \(\begin{bmatrix} 2 \\ 3 \\ 6
         \end{bmatrix}\), \(\begin{pmatrix} 2 \\ 3 \\ 6 \end{pmatrix}\) or
         \(\begin{bmatrix} 2 & 3 & 6 \end{bmatrix}\). These numbers can be either
         <strong>real</strong> or <strong>complex</strong>. From now on, unless
-        we explicitly mention otherwise, we will draw the vector from the origin
-        to the point \( (x_1, x_2, \dots, x_n) \).
+        we explicitly mention otherwise, we will draw the finite-dimensional vector from the origin of a chosen coordinate system
+        to the point \( (x_1, x_2, \dots, x_n) \). Not all vectors need be finite, nor do they have to be represented by a point on a coordinate system; here we are explicitly talking about finite-dimensional vectors
+        to build our intuition so that the later abstractness still makes sense to us.
       </p>
 
       <h3>Column vectors and Row vectors</h3>
