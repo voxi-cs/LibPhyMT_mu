@@ -152,44 +152,101 @@
       </p>
 
       <h3>Column vectors and Row vectors</h3>
+
       <p>
-        Column vectors are mainly \(n \times 1\) matrices and row vectors are
-        \(1 \times n\) matrices. (Note: \(n \times 1\) and \(1 \times n\)
-        matrices are vectors.) Even though they are both vectors, column and row
-        vectors have different meanings and applications.
+        In coordinate linear algebra, vectors in \(\mathbb F^n\) are commonly
+        represented as \(n\times 1\) column matrices, while \(1\times n\) row
+        matrices are called row vectors. Here, \(\mathbb F\) denotes a field,
+        such as \(\mathbb R\) or \(\mathbb C\).
       </p>
+
       <p>
-        Column vectors are written so that the components \(x_1, x_2, \dots,
-        x_n\) appear vertically and are enclosed with brackets, as you can see
-        below, and row vectors are written horizontally.
+        Column vectors are written vertically, with their components
+        \(x_1,x_2,\dots,x_n\) arranged from top to bottom, whereas row vectors
+        are written horizontally. Both are matrices, but they play different
+        roles in linear algebra.
       </p>
+
       <div class="Animation">
         <figure class="media">
           <img
             width="960"
             height="540"
             src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/Vec_1_ManimCE_v0.19.2.png"
-            alt="Manim rendering showing vector addition"
+            alt="Illustration of column and row vector representations"
             loading="lazy"
           />
         </figure>
       </div>
+
       <p>
-        Column vectors are used to represent vectors in a
-        <strong>vector space</strong>. We haven't discussed vector spaces yet,
-        but after we do it will be clear what we mean by that.
+        Column vectors are the standard way of representing vectors in a
+        coordinate vector space. More precisely, once we choose a basis for
+        a vector space, we can represent each vector by a column containing
+        its coordinates relative to that basis. This is a coordinate
+        representation; an abstract vector space does not necessarily
+        consist of tuples or matrices.
       </p>
+
       <p>
-        Row vectors often represent linear functionals (elements of the dual
-        space) — they map column vectors to scalars via multiplication. In other
-        words, the dot product is essentially matrix multiplication between a
-        row vector and a column vector, and the result is a scalar (a
-        \(1\times1\) matrix interpreted as a number). So we say row vectors are
-        linear functionals. To truly understand this we will wait until we cover
-        the dual space, but you can think of a row vector as a function \(f\)
-        that takes a column vector as input and maps it to a scalar. Linear
-        functionals are also known as one-forms or linear forms; these ideas
-        play a very important role in differential geometry.
+        Row vectors have another important interpretation: they can represent
+        <strong>linear functionals</strong>, which are elements of the
+        <strong>dual space</strong>. A linear functional is a linear map
+        \(f:\mathbb F^n\to\mathbb F\) that takes a vector as input and
+        produces a scalar as output.
+      </p>
+
+      <p>
+        For example, consider a row vector
+        \[
+          \mathbf a^T =
+          \begin{bmatrix}
+            a_1 & a_2 & \cdots & a_n
+          \end{bmatrix}
+        \]
+        and a column vector
+        \[
+          \mathbf x =
+          \begin{bmatrix}
+            x_1\\
+            x_2\\
+            \vdots\\
+            x_n
+          \end{bmatrix}.
+        \]
+        Their matrix product is
+        \[
+          \mathbf a^T\mathbf x
+          =
+          a_1x_1+a_2x_2+\cdots+a_nx_n.
+        \]
+        This is a scalar. In fact, the row vector defines a linear
+        functional through the map
+        \[
+          f(\mathbf x)=\mathbf a^T\mathbf x.
+        \]
+        Every linear functional on \(\mathbb F^n\) can be represented by
+        a unique row vector once the standard coordinates are chosen.
+      </p>
+
+      <p>
+        For real coordinate vectors, this row-by-column multiplication
+        corresponds to the usual dot product when the row contains the
+        components of the first vector. However, for complex vectors, we
+        must be more careful: the standard Hermitian inner product involves
+        complex conjugation, usually written using the conjugate transpose
+        \(\mathbf a^*\), rather than simply the transpose \(\mathbf a^T\).
+        Thus, a general linear functional and an inner product should not
+        be treated as the same thing.
+      </p>
+
+      <p>
+        Row vectors representing linear functionals are also known as
+        <strong>covectors</strong>. In differential geometry, covectors
+        play an important role: a smooth field of covectors is called a
+        <strong>differential 1-form</strong> or simply a <strong>one-form</strong>.
+        We will return to these ideas when we study dual spaces and
+        differential geometry.
       </p>
       <h3>Vectors in 2-Dimension</h3>
       <p>
