@@ -328,11 +328,8 @@
       </div>
       <p>
         Geometrically, when we add two vectors what basically happens is that
-        the endpoints — meaning the coordinates of each vector — get moved (or,
-        a more proper word, translated) in the same direction and by an amount
-        equal to the magnitude of the other vector. The endpoints of both
-        vectors end up at the same point, as you can see in the animation and
-        the diagram.
+        we translate either of the vectors so its tail coincides with the head of the other vector.
+        The resultant vector goes from the tail of the first to the head of the translated second vector.
       </p>
       <h3>Scalar Multiplication</h3>
       <p>
@@ -374,6 +371,9 @@
           </figure>
         </div>
       </div>
+      <p>
+        When \(c>0\) the vector gets scaled by a factor of \(c\) and when \(c \lt 0\) the vector gets scaled by a factor of \(|c|\) and also gets flipped in the opposite direction. And when \(c=0\) the vector gets scaled to a zero vector. All three scenarios are in the above animation.
+      </p>
       <h3>Linear Combination</h3>
       <p>
         Given some vectors \(\vec{v}_1,\vec{v}_2,\dots,\vec{v}_n\), their linear
@@ -425,8 +425,7 @@
 
       <p>
         Above we can see how a linear combination for three vectors looks. There
-        is another important concept about linear combination: span. We are not
-        going to talk about span yet but in an upcoming lesson we will.
+        is another important concept about linear combination: span. 
       </p>
 
       <h2>Vectors in 3-Dimension</h2>
@@ -471,24 +470,21 @@
         multiplication operators defined over the vector space.
       </p>
       <p>
-        Vector spaces are sets of tuples
+        A particular vector spaces is the set \(\mathbb F^n\), this is the set of tuples
         \(\mathbb{V} = \{(x_1,x_2,\dots,x_n)\mid x_i\in \mathbb{F}\}\)
         for some field \(\mathbb{F}\) such as \(\mathbb{R}\) or \(\mathbb{C}\).
-        The elements of a vector space are called <strong>points</strong> or
-        <strong>vectors</strong> and obey certain axioms as shown below in the
-        definition.
+        The elements of a vector space \(\mathbb F^n\) are called <strong>points</strong> or
+        <strong>vectors</strong> and obeys the axioms of vector space as shown below in the
+        definition. THe vector space \(\mathbb F^n\) is the finite dimentional vector space over the real numbers in that case we write it as \(\mathbb R\), otherwise if it is the finite dimentional vector space over complex number \(\mathbb{C}\) we write it as \(\mathbb C^n\), with dimension \(n\).
       </p>
       <p>
-        Such a set, let's call it \(\mathbb{V}\), is called a vector space. Let
-        two vectors \(\mathbf{v},\mathbf{w} \in \mathbb{V}\) meaning
-        \(\mathbf{v}\) and \(\mathbf{w}\) are objects or vectors of the set
-        \(\mathbb{V}\). Then we call \(\mathbb{V}\) a vector space if
+        Such a set , let's call it \(\mathbb{V}\), that ovey the axioms of vector space as stated bellow is called a vector space. And we have see a example of a vector space, that is the vecotor space\(\mathbb{F}^n\) above. The elements of a vector space are called vectors, and the set of all vectors in a vector space is called the vector space itself.
+      </p>
+      <p>
+        Consider \(\mathbb V = \mathbb{F}^n\), \(n=2\), and \(\mathbb F = \mathbb{C}\), then \(\mathbb V = \mathbb{C}^2\) is the set of all ordered pairs of complex numbers. The elements of \(\mathbb{C}^2\) are called vectors, and they can be represented as column vectors:
         \[
-        c_1\mathbf{v} + c_2\mathbf{w} \in \mathbb{V} \quad \text{and} \quad
-        c\mathbf{v} \in \mathbb{V}.
+        \mathbf{v} = \begin{pmatrix} a+b\mathit{i} \\ c+d\mathit{i} \end{pmatrix}, \quad a,b,c,d \in \mathbb{R}
         \]
-        Here \(c,c_1,c_2 \in \mathbb{F}\) is a scalar. We have already defined vector
-        addition and scalar multiplication, so we will not redefine them again here.
       </p>
       <p>
         <strong>Note:</strong> \(\mathbb{F}\) stands for a field, usually
