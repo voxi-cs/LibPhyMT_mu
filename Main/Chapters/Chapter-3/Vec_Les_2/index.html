@@ -372,7 +372,7 @@
         </div>
       </div>
       <p>
-        When \(c>0\) the vector gets scaled by a factor of \(c\) and when \(c \lt 0\) the vector gets scaled by a factor of \(|c|\) and also gets flipped in the opposite direction. And when \(c=0\) the vector gets scaled to a zero vector. All three scenarios are in the above animation.
+        When \(c>0\) the vector gets scaled by a factor of \(c\), and when \(c \lt 0\) the vector gets scaled by a factor of \(|c|\) and also gets flipped in the opposite direction. And when \(c=0\) the vector gets scaled to the zero vector. All three scenarios are shown in the above animation.
       </p>
       <h3>Linear Combination</h3>
       <p>
@@ -425,7 +425,7 @@
 
       <p>
         Above we can see how a linear combination for three vectors looks. There
-        is another important concept about linear combination: span. 
+        is another important concept about linear combination: span.
       </p>
 
       <h2>Vectors in 3-Dimension</h2>
@@ -470,15 +470,15 @@
         multiplication operators defined over the vector space.
       </p>
       <p>
-        A particular vector spaces is the set \(\mathbb F^n\), this is the set of tuples
+        A particular vector space is the set \(\mathbb F^n\); this is the set of tuples
         \(\mathbb{V} = \{(x_1,x_2,\dots,x_n)\mid x_i\in \mathbb{F}\}\)
         for some field \(\mathbb{F}\) such as \(\mathbb{R}\) or \(\mathbb{C}\).
         The elements of a vector space \(\mathbb F^n\) are called <strong>points</strong> or
-        <strong>vectors</strong> and obeys the axioms of vector space as shown below in the
-        definition. THe vector space \(\mathbb F^n\) is the finite dimentional vector space over the real numbers in that case we write it as \(\mathbb R\), otherwise if it is the finite dimentional vector space over complex number \(\mathbb{C}\) we write it as \(\mathbb C^n\), with dimension \(n\).
+        <strong>vectors</strong> and obey the axioms of vector space as shown below in the
+        definition. The vector space \(\mathbb F^n\) is the finite-dimensional vector space over the real numbers in the case we write it as \(\mathbb R^n\), otherwise if it is the finite-dimensional vector space over the complex numbers \(\mathbb{C}\) we write it as \(\mathbb C^n\), with dimension \(n\).
       </p>
       <p>
-        Such a set , let's call it \(\mathbb{V}\), that ovey the axioms of vector space as stated bellow is called a vector space. And we have see a example of a vector space, that is the vecotor space\(\mathbb{F}^n\) above. The elements of a vector space are called vectors, and the set of all vectors in a vector space is called the vector space itself.
+        Such a set, let's call it \(\mathbb{V}\), that obeys the axioms of vector space as stated below is called a vector space. And we have seen an example of a vector space, that is the vector space \(\mathbb{F}^n\) above. The elements of a vector space are called vectors, and the set of all vectors in a vector space is called the vector space itself.
       </p>
       <p>
         Consider \(\mathbb V = \mathbb{F}^n\), \(n=2\), and \(\mathbb F = \mathbb{C}\), then \(\mathbb V = \mathbb{C}^2\) is the set of all ordered pairs of complex numbers. The elements of \(\mathbb{C}^2\) are called vectors, and they can be represented as column vectors:
@@ -492,52 +492,108 @@
       </p>
 
       <div class="definition-box">
-        <p>
-          <strong class="DEF">DEFINITION: Vector Space</strong> A
-          <strong>vector space</strong> is a set \(\mathbb{V}\) along with an
-          addition on \(\mathbb{V}\) and scalar multiplication on \(\mathbb{V}\)
-          such that the following properties hold:
-        </p>
+      <p>
+        <strong class="DEF">DEFINITION: Vector Space</strong>
+        A <strong>vector space</strong> over a field \(\mathbb{F}\) is a set
+        \(\mathbb{V}\) equipped with two operations: vector addition and scalar
+        multiplication. These operations are defined as follows:
+      </p>
 
-        <h4>Commutativity:</h4>
-        <p class="equation">
-          \[ \mathbf{v} + \mathbf{w} = \mathbf{w} + \mathbf{v} \quad \text{for
-          all} \quad \mathbf{v},\mathbf{w} \in \mathbb{V} \]
-        </p>
+      <p class="equation">
+        \[
+          + : \mathbb{V} \times \mathbb{V} \longrightarrow \mathbb{V}
+        \]
+      </p>
 
-        <h4>Associativity:</h4>
-        <p class="equation">
-          \[ (\mathbf{v} + \mathbf{w}) + \mathbf{u} = \mathbf{v} + (\mathbf{w} +
-          \mathbf{u}) \quad \text{and} \quad (ab)\mathbf{v} = a(b\mathbf{v})
-          \quad \text{for all} \quad \mathbf{v},\mathbf{w},\mathbf{u} \in
-          \mathbb{V} \text{ and } a,b \in \mathbb{F}. \]
-        </p>
+      <p class="equation">
+        \[
+          \cdot : \mathbb{F} \times \mathbb{V} \longrightarrow \mathbb{V}
+        \]
+      </p>
 
-        <h4>Additive Identity:</h4>
-        <p class="equation">
-          There exists an element \(\mathbf{0} \in \mathbb{V}\) such that
-          \(\mathbf{v} + \mathbf{0} = \mathbf{v}\) for all \(\mathbf{v} \in
-          \mathbb{V}\). We call this \(\mathbf{0}\) the zero vector.
-        </p>
+      <p>
+        The first operation assigns a vector in \(\mathbb{V}\) to every pair of
+        vectors in \(\mathbb{V}\), while the second assigns a vector in
+        \(\mathbb{V}\) to every scalar-vector pair. We denote these operations
+        by \(\mathbf{v}+\mathbf{w}\) and \(a\mathbf{v}\), respectively.
+        They must satisfy the following properties:
+      </p>
 
-        <h4>Additive Inverse:</h4>
-        <p class="equation">
-          For every \(\mathbf{v} \in \mathbb{V}\) there exists \(\mathbf{w} \in
-          \mathbb{V}\) such that \(\mathbf{v} + \mathbf{w} = \mathbf{0}\).
-        </p>
+      <h4>Commutativity:</h4>
+      <p class="equation">
+        \[
+          \mathbf{v} + \mathbf{w} = \mathbf{w} + \mathbf{v}
+          \quad \text{for all} \quad
+          \mathbf{v},\mathbf{w} \in \mathbb{V}.
+        \]
+      </p>
 
-        <h4>Multiplicative Identity:</h4>
-        <p class="equation">
-          \(1\mathbf{v} = \mathbf{v}\) for all \(\mathbf{v} \in \mathbb{V}\).
-        </p>
+      <h4>Associativity of Vector Addition:</h4>
+      <p class="equation">
+        \[
+          (\mathbf{v} + \mathbf{w}) + \mathbf{u}
+          =
+          \mathbf{v} + (\mathbf{w} + \mathbf{u})
+          \quad \text{for all} \quad
+          \mathbf{v},\mathbf{w},\mathbf{u} \in \mathbb{V}.
+        \]
+      </p>
 
-        <h4>Distributive Properties:</h4>
-        <p class="equation">
-          \(a(\mathbf{v} + \mathbf{w}) = a\mathbf{v} + a\mathbf{w}\) and
-          \((a+b)\mathbf{v} = a\mathbf{v} + b\mathbf{v}\) for all \(a,b \in
-          \mathbb{F}\) and all \(\mathbf{v},\mathbf{w} \in \mathbb{V}\).
-        </p>
-      </div>
+      <h4>Compatibility of Scalar Multiplication:</h4>
+      <p class="equation">
+        \[
+          (ab)\mathbf{v} = a(b\mathbf{v})
+          \quad \text{for all} \quad
+          a,b \in \mathbb{F},\ \mathbf{v} \in \mathbb{V}.
+        \]
+      </p>
+
+      <h4>Additive Identity:</h4>
+      <p class="equation">
+        There exists an element \(\mathbf{0} \in \mathbb{V}\) such that
+        \[
+          \mathbf{v} + \mathbf{0} = \mathbf{v}
+          \quad \text{for all} \quad
+          \mathbf{v} \in \mathbb{V}.
+        \]
+        We call \(\mathbf{0}\) the zero vector.
+      </p>
+
+      <h4>Additive Inverse:</h4>
+      <p class="equation">
+        For every \(\mathbf{v} \in \mathbb{V}\), there exists
+        \(\mathbf{w} \in \mathbb{V}\) such that
+        \[
+          \mathbf{v} + \mathbf{w} = \mathbf{0}.
+        \]
+      </p>
+
+      <h4>Scalar Identity:</h4>
+      <p class="equation">
+        \[
+          1\mathbf{v} = \mathbf{v}
+          \quad \text{for all} \quad
+          \mathbf{v} \in \mathbb{V},
+        \]
+        where \(1\) is the multiplicative identity of the field
+        \(\mathbb{F}\).
+      </p>
+
+      <h4>Distributive Properties:</h4>
+      <p class="equation">
+        \[
+          a(\mathbf{v} + \mathbf{w})
+          = a\mathbf{v} + a\mathbf{w}
+        \]
+        and
+        \[
+          (a+b)\mathbf{v}
+          = a\mathbf{v} + b\mathbf{v},
+        \]
+        for all \(a,b \in \mathbb{F}\) and
+        \(\mathbf{v},\mathbf{w} \in \mathbb{V}\).
+      </p>
+    </div>
 
       <p>
         We stated that a <strong>vector</strong> is an object that belongs to a
