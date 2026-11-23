@@ -799,7 +799,7 @@
           <figure class="media">
             <img
               src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_lc.png"
-              alt="Manim rendering showing linear combination of vectors"
+              alt="Animation showing a linear combination of three vectors as their coefficients change"
               loading="lazy"
             />
           </figure>
@@ -830,9 +830,11 @@
           \mathbf{L} = c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \dots + c_n\mathbf{v}_n
         \]
         the vectors \(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n \in \mathbb{V}\) are said to be linearly independent if the only way for \(\mathbf{L}\) to be
-        zero is by making all \(c_i\)'s zero. In other words:
+        zero is by making all \(c_i\)'s zero. In other words, for every choice of scalars \(c_1,c_2,\dots,c_n\):
         \[
-          \mathbf{L} = \mathbf{0} \implies c_1 = c_2 = \dots = c_n = 0
+          \mathbf{L} = \mathbf{0}
+          \implies
+          c_1 = c_2 = \dots = c_n = 0.
         \]
         Otherwise, the vectors are said to be linearly dependent.
       </p>
@@ -844,7 +846,7 @@
           <figure class="media">
             <img
               src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_2.png"
-              alt="Manim rendering showing linear combination of two vectors"
+              alt="Animation showing two linearly independent vectors in the xy-plane"
               loading="lazy"
             />
           </figure>
@@ -884,7 +886,7 @@
         where at least one of the coefficients is nonzero. Suppose \(c_i \ne 0\). We can then write:
         \[
           \mathbf{v}_i =
-          -\sum_{\substack{j=1\\j\ne i}}^n \frac{c_j}{c_i}\mathbf{v}_j
+          -\sum_{\substack{j=1\\j\ne i}}^n \frac{c_j}{c_i}\mathbf{v}_j.
         \]
         Since \(c_i\) is not zero, we can divide by it and express \(\mathbf{v}_i\) as a linear combination of the other vectors. This means that at least one vector can be written in terms of the others, and hence the vectors are linearly dependent.
       </p>
@@ -893,7 +895,7 @@
           <figure class="media">
             <img
               src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_2.png"
-              alt="Manim rendering showing two linearly dependent vectors"
+              alt="Animation showing two linearly dependent vectors"
               loading="lazy"
             />
           </figure>
@@ -923,14 +925,14 @@
           1 \cdot \begin{pmatrix} 2 \\ 4 \end{pmatrix}
           - 2 \cdot \begin{pmatrix} 1 \\ 2 \end{pmatrix}
           =
-          \begin{pmatrix} 0 \\ 0 \end{pmatrix}
+          \begin{pmatrix} 0 \\ 0 \end{pmatrix}.
         \]
         Thus we call them linearly dependent. We can also see that by changing the values of the constants we can reach every point that lies on the straight line that passes through the origin and has the slope \(4/2=2\), or \(y=2x\). In the \(xy\)-plane, two linearly dependent vectors always produce a vector via linear combination that is restricted to the same line through the origin, provided at least one of the vectors is nonzero.
       </p>
 
       <h3>Span</h3>
       <p>
-        <strong>Span</strong> is the set of all linear combinations of a list of vectors \(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n\) in vector space \(\mathbb{V}\).
+        <strong>Span</strong> is the set of all linear combinations of a list of vectors \(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n\) in the vector space \(\mathbb{V}\).
         The set is denoted by \(\mathrm{span}(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n)\).
         \[
           \mathrm{span}(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n)
@@ -938,7 +940,7 @@
           \left\{
             c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \dots + c_n\mathbf{v}_n
             : c_1, \dots, c_n \in \mathbb{F}
-          \right\}
+          \right\}.
         \]
       </p>
       <p>
@@ -949,7 +951,7 @@
           <figure class="media">
             <img
               src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_1.png"
-              alt="Manim rendering showing the span of two vectors"
+              alt="Animation showing the span of two linearly independent vectors in the xy-plane"
               loading="lazy"
             />
           </figure>
@@ -979,7 +981,7 @@
           <figure class="media">
             <img
               src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_1/Images/Vec_1_ManimCE_v0.19.2_lc.png"
-              alt="Manim rendering showing the span of three vectors"
+              alt="Animation showing the span of three vectors in the xy-plane"
               loading="lazy"
             />
           </figure>
@@ -1014,7 +1016,7 @@
           <figure class="media">
             <img
               src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_3.png"
-              alt="Manim rendering showing the linear combination of two vectors in 3D space"
+              alt="Animation showing the linear combination of two vectors in 3D space"
               loading="lazy"
             />
           </figure>
@@ -1049,7 +1051,7 @@
           <figure class="media">
             <img
               src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img6.png"
-              alt="Manim rendering showing three vectors spanning 3D space"
+              alt="Animation showing three vectors spanning 3D space"
               loading="lazy"
             />
           </figure>
@@ -1077,50 +1079,77 @@
         And it is denoted by \(\mathrm{span}(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n)\).
       </p>
       <p>
-        If the span of a set of vectors is a line through the origin and reaches every point on that line, then we say: "The vectors \(\mathbf{v}_1,\mathbf{v}_2,\dots,\mathbf{v}_n \in \mathbb{V}\) <strong>span</strong> that line." A line through the origin is a one-dimensional subspace, which is isomorphic to \(\mathbb{F}^1\). If the vectors' linear combinations reach every point on a plane through the origin, then we say the vectors span that plane. Such a plane is a two-dimensional subspace, which is isomorphic to \(\mathbb{F}^2\). And if the vectors span the whole space, then we say they span the whole \(\mathbb{F}^m\), when the vectors belong to \(\mathbb{F}^m\).
+        In real coordinate spaces, the span of vectors can take different forms depending on the vectors. For example, if the span is a line through the origin, then it is a one-dimensional subspace, isomorphic to \(\mathbb{R}\). If the span is a plane through the origin in \(\mathbb{R}^3\), then it is a two-dimensional subspace, isomorphic to \(\mathbb{R}^2\). And if the vectors span the whole space, then we say they span the whole \(\mathbb{R}^m\), when the vectors belong to \(\mathbb{R}^m\).
       </p>
       <p>
-        Remember that we even through we showed examples of spanning a line, a plane, and the whole space, there are also other subspaces that can be spanned by vectors such as a higher-dimensional subspace, the entire ambient space, the zero subspace ,etc.
+        Remember that even though we showed examples of spanning a line, a plane, and the whole space, these are not the only possibilities. The span could also be the zero subspace or a higher-dimensional subspace, depending on the vectors and the ambient space.
       </p>
+
       <h2>Subspace</h2>
       <p>
         We know what a vector space is.
-        A <strong>subspace</strong> is a subset of the vector space that is also a vector space. Note that being a subset does not necessarily mean it is also a vector space. If it is a
-        subset of a vector space and does not follow the axioms of a vector space, then it is just a subset. More formally:
+        A <strong>subspace</strong> is a subset of a vector space that is also a vector space under the same addition and scalar multiplication operations inherited from the original vector space. Note that being a subset does not necessarily mean it is also a vector space. If it is a subset of a vector space and does not follow the axioms of a vector space under these inherited operations, then it is just a subset. More formally:
       </p>
       <div class="definition-box">
         <p>
           <strong class="DEF">DEFINITION: Subspace</strong>
-          A subset \(\mathbb{U}\) of \(\mathbb{V}\) is called a <strong>subspace</strong> if \(\mathbb{U}\) also obeys the axioms of a vector space.
+          Let \(\mathbb{V}\) be a vector space over a field \(\mathbb{F}\). A subset \(\mathbb{U}\) of \(\mathbb{V}\) is called a <strong>subspace</strong> if it is itself a vector space over the same field \(\mathbb{F}\), under the operations inherited from \(\mathbb{V}\).
         </p>
+
+        <p>
+          To check whether a subset is a subspace, it is enough to verify the following three conditions:
+        </p>
+
         <h4>Additive Identity:</h4>
         <p>
-          \(\mathbf{0} \in \mathbb U\)
+          \(\mathbf{0} \in \mathbb{U}\)
         </p>
+
         <h4>Closed Under Addition:</h4>
         <p>
-          \(u,w \in \mathbb U \implies u+w \in \mathbb U\)
+          \[
+            \mathbf{u},\mathbf{w} \in \mathbb{U}
+            \implies
+            \mathbf{u}+\mathbf{w} \in \mathbb{U}.
+          \]
         </p>
+
         <h4>Closed Under Scalar Multiplication:</h4>
         <p>
-          \(a \in \mathbb F\) and \(u \in \mathbb U \implies au \in \mathbb U\)
+          \[
+            a \in \mathbb{F},\quad \mathbf{u} \in \mathbb{U}
+            \implies
+            a\mathbf{u} \in \mathbb{U}.
+          \]
         </p>
+
         <p>
           <strong class="DEF">Example:</strong>
-          \(\{(x_1, x_2,0): x_1,x_2 \in \mathbb{F}\}\) is a subspace of \(\mathbb{F}^3\). It is like having a 3D space and a plane that passes through the origin. Indeed, a plane passing through the origin of a 3D space is a vector space. It is an \(\mathbb{F}^2\)
-          vector space and is a subspace of \(\mathbb{F}^3\).
+          \[
+            \mathbb{U}
+            =
+            \{(x_1,x_2,0):x_1,x_2\in\mathbb{F}\}
+          \]
+          is a subspace of \(\mathbb{F}^3\). It is a two-dimensional vector space over \(\mathbb{F}\), and it is isomorphic to \(\mathbb{F}^2\). When \(\mathbb{F}=\mathbb{R}\), we can picture it as the \(xy\)-plane inside \(\mathbb{R}^3\).
         </p>
       </div>
-      <p>Let's look at a few simple examples:</p>
+
       <p>
-        A line passing through the origin is a \(\mathbb{R}^1\) subspace of a vector space. Lines can be defined by a linear equation with no displacement, so that it must pass through the origin.
+        Let's look at a few simple examples:
+      </p>
+      <p>
+        A line passing through the origin in \(\mathbb{R}^2\) or \(\mathbb{R}^3\) is a one-dimensional subspace, isomorphic to \(\mathbb{R}\). For example, in \(\mathbb{R}^2\), a line through the origin can be defined by a homogeneous linear equation:
+        \[
+          ax+by=0,
+        \]
+        where \(a\) and \(b\) are not both zero. In \(\mathbb{R}^3\), a line through the origin generally requires two independent homogeneous linear equations.
       </p>
       <div class="Animation">
         <div class="Cont_ent">
           <figure class="media">
             <img
               src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img5.png"
-              alt="Manim rendering showing linear combination of vectors"
+              alt="Animation showing a line through the origin as a one-dimensional subspace"
               loading="lazy"
             />
           </figure>
@@ -1144,14 +1173,18 @@
         </div>
       </div>
       <p>
-        A plane that passes through the origin is a two dimensional subspace of a vector space. The plane can be defined by an equation of the form \(c_1x+c_2y+c_3z = 0\).
+        A plane that passes through the origin in \(\mathbb{R}^3\) is a two-dimensional subspace. The plane can be defined by an equation of the form
+        \[
+          c_1x+c_2y+c_3z=0,
+        \]
+        where \(c_1,c_2,c_3\) are not all zero.
       </p>
       <div class="Animation">
         <div class="Cont_ent">
           <figure class="media">
             <img
               src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_3.png"
-              alt="Manim rendering showing linear combination of vectors"
+              alt="Animation showing a plane through the origin spanned by two vectors in 3D space"
               loading="lazy"
             />
           </figure>
@@ -1175,33 +1208,46 @@
         </div>
       </div>
       <p>
-        The reason they must pass through the origin is that a subspace is also a vector space, and a vector space must have an origin. Alright, but given the vectors, how do
+        The reason these lines and planes must pass through the origin is that a subspace must contain the zero vector. In \(\mathbb{R}^2\) and \(\mathbb{R}^3\), we represent the zero vector by the origin. Alright, but given the vectors, how do
         we find the space that they span?
       </p>
+
       <div class="cm-example-card">
         <div class="cm-labels-row">
           <div class="cm-badge cm-badge--example">EXAMPLE</div>
         </div>
         <p>
-          Given the linearly independent vectors \( \mathbf{v_1} = \begin{pmatrix} 2.2 \\ 0.8 \\ 0.5 \end{pmatrix}\) and \( \mathbf{v_2} = \begin{pmatrix} -0.8 \\ 2.0 \\ 1.1 \end{pmatrix}\)
-          what is the plane that they span? Find \(\text{span}(\mathbf{v_1}, \mathbf{v_2})\).
+          Given the linearly independent vectors
+          \(\mathbf{v}_1 = \begin{pmatrix} 2.2 \\ 0.8 \\ 0.5 \end{pmatrix}\)
+          and
+          \(\mathbf{v}_2 = \begin{pmatrix} -0.8 \\ 2.0 \\ 1.1 \end{pmatrix}\),
+          what is the plane that they span? Find \(\operatorname{span}(\mathbf{v}_1,\mathbf{v}_2)\).
         </p>
         <br>
         <br>
         <p>
-          We have the vectors \( \mathbf{v_1} = \begin{pmatrix} 2.2 \\ 0.8 \\ 0.5 \end{pmatrix}\) and \( \mathbf{v_2} = \begin{pmatrix} -0.8 \\ 2.0 \\ 1.1 \end{pmatrix}\).
-          The plane they span is the plane they lie on. It is the same reason why two-dimensional vectors that are linearly independent on the \(xy\) plane span the \(xy\)
-          plane.
+          We have the vectors
+          \(\mathbf{v}_1 = \begin{pmatrix} 2.2 \\ 0.8 \\ 0.5 \end{pmatrix}\)
+          and
+          \(\mathbf{v}_2 = \begin{pmatrix} -0.8 \\ 2.0 \\ 1.1 \end{pmatrix}\).
+          Since these two vectors are linearly independent in \(\mathbb{R}^3\), they span a plane through the origin.
         </p>
         <p>
-          Here is the thing. Now any vector, assume \(\mathbf{X} = \begin{pmatrix} x \\ y \\ z \end{pmatrix}\), is a vector that lies on the plane \(\text{span}(\mathbf{v_1}, \mathbf{v_2})\).
-          Now assume another vector called \(\mathbf{n}\) that is perpendicular to the plane and so is perpendicular to every vector on the plane.
+          Let
+          \(\mathbf{X} = \begin{pmatrix} x \\ y \\ z \end{pmatrix}\)
+          be an arbitrary vector in \(\mathbb{R}^3\). We want to find the condition that \(\mathbf{X}\) must satisfy to belong to the plane spanned by \(\mathbf{v}_1\) and \(\mathbf{v}_2\).
+          To do this, we first need a vector \(\mathbf{n}\) that is perpendicular to both \(\mathbf{v}_1\) and \(\mathbf{v}_2\). Such a vector is called a normal vector to the plane.
         </p>
         <p>
-          Now that we have a vector \(\mathbf{n}\) perpendicular to the plane, and hence perpendicular to \(\mathbf{X}\), we can use the fact that the dot product between two perpendicular vectors is zero. But for that we first need to know the perpendicular vector
-          \(\mathbf{n}\). To find \(\mathbf{n}\) we just need to take the cross product of \(\mathbf{v_1}\) and \(\mathbf{v_2}\). Then we get:
+          Since we are working in Euclidean \(\mathbb{R}^3\), we can find \(\mathbf{n}\) by taking the cross product of \(\mathbf{v}_1\) and \(\mathbf{v}_2\). Then we get:
           \[
-          \mathbf{n} = \begin{pmatrix} 2.2 \\ 0.8 \\ 0.5 \end{pmatrix} \times \begin{pmatrix} -0.8 \\ 2.0 \\ 1.1 \end{pmatrix} = \begin{pmatrix} -0.12 \\ -2.82 \\ 5.04 \end{pmatrix}
+            \mathbf{n}
+            =
+            \begin{pmatrix} 2.2 \\ 0.8 \\ 0.5 \end{pmatrix}
+            \times
+            \begin{pmatrix} -0.8 \\ 2.0 \\ 1.1 \end{pmatrix}
+            =
+            \begin{pmatrix} -0.12 \\ -2.82 \\ 5.04 \end{pmatrix}.
           \]
         </p>
         <div class="Animation">
@@ -1209,7 +1255,7 @@
             <figure class="media">
               <img
                 src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img4.png"
-                alt="Manim rendering showing linear combination of vectors"
+                alt="Animation illustrating the normal vector to the plane spanned by two vectors"
                 loading="lazy"
               />
             </figure>
@@ -1217,10 +1263,10 @@
             <figure class="media">
               <video
                 controls
-              muted
-              loop
-              playsinline
-              preload="none"
+                muted
+                loop
+                playsinline
+                preload="none"
                 poster="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img4.png"
               >
                 <source
@@ -1233,27 +1279,38 @@
           </div>
         </div>
         <p>
-          Now taking the dot product we get:
+          Since \(\mathbf{n}\) is perpendicular to both \(\mathbf{v}_1\) and \(\mathbf{v}_2\), it is also perpendicular to every linear combination of them. Therefore, every vector \(\mathbf{X}\) in their span must satisfy:
           \[
-          \mathbf{n} \cdot \mathbf{X} = 0
+            \mathbf{n}\cdot\mathbf{X}=0.
           \]
+          Substituting our normal vector and taking the dot product, we get:
           \[
-          \Rightarrow 
-          \mathbf{n} \cdot \mathbf{X} = 0 = \begin{pmatrix} -0.12 \\ -2.82 \\ 5.04 \end{pmatrix} \cdot \begin{pmatrix} x \\ y \\ z \end{pmatrix}
+            \begin{aligned}
+              0
+              &= \begin{pmatrix} -0.12 \\ -2.82 \\ 5.04 \end{pmatrix}
+              \cdot
+              \begin{pmatrix} x \\ y \\ z \end{pmatrix}\\
+              &= -0.12x-2.82y+5.04z.
+            \end{aligned}
           \]
-          Taking the dot product, we get:
+          Thus, every vector in the span satisfies the equation
           \[
-          \Rightarrow
-          -0.12x - 2.82y + 5.04z = 0 
+            -0.12x-2.82y+5.04z=0.
           \]
-          and this is the equation of the plane our vectors \(\mathbf{v_1}\) and \(\mathbf{v_2}\) span, and hence the animation below shows it:
+          Equivalently, multiplying through and simplifying:
+          \[
+            2x+47y-84z=0.
+          \]
+        </p>
+        <p>
+          This equation describes a plane through the origin. We have shown that every vector in the span belongs to this plane. Conversely, the plane is two-dimensional, and the span is also two-dimensional because \(\mathbf{v}_1\) and \(\mathbf{v}_2\) are linearly independent. Since the span is contained in the plane and both have the same dimension, they must be equal. Therefore, the equation above describes exactly the plane spanned by \(\mathbf{v}_1\) and \(\mathbf{v}_2\), as shown in the animation below:
         </p>
         <div class="Animation">
           <div class="Cont_ent">
             <figure class="media">
               <img
                 src="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_3.png"
-                alt="Manim rendering showing linear combination of vectors"
+                alt="Animation showing the plane spanned by the two given vectors in 3D space"
                 loading="lazy"
               />
             </figure>
@@ -1261,10 +1318,10 @@
             <figure class="media">
               <video
                 controls
-              muted
-              loop
-              playsinline
-              preload="none"
+                muted
+                loop
+                playsinline
+                preload="none"
                 poster="/LibPhyMT_mu/Main/Chapters/Chapter-3/Vec_Les_2/Images/img_3.png"
               >
                 <source
@@ -1277,32 +1334,94 @@
           </div>
         </div>
       </div>
+
       <p>
-        So span is basically all points that a linear combination of some vectors gives.
+        So span is basically the set of all vectors that can be obtained as linear combinations of some given vectors. In a coordinate space, we can picture these vectors as points, but mathematically the span is a set of vectors.
       </p>
+
       <h2>Column space</h2>
       <p>
-        Column space is a specific type of <strong>subspace</strong>. Given a matrix \(\mathbf{A}\), the column space is the subspace spanned by the column vectors of the
-        matrix.
+        Column space is a specific type of <strong>subspace</strong>. Given an \(m\times n\) matrix \(A\) over a field \(\mathbb{F}\), the column space is the subspace of \(\mathbb{F}^m\) spanned by the column vectors of the matrix. We denote it by \(\operatorname{Col}(A)\).
       </p>
       <p>
         Given an example, assume we have the matrix:
         \[
-        \mathbf{A} = \begin{bmatrix}
-        1 & 0 & 0 \\
-        0 & 1 & -1 \\
-        2 & 0 & -1
-        \end{bmatrix}
+          A =
+          \begin{bmatrix}
+            1 & 0 & 0 \\
+            0 & 1 & -1 \\
+            2 & 0 & -1
+          \end{bmatrix}.
         \]
-        The column space of this matrix \(\mathbf{A}\) is denoted by \(Ra(A)\) and is:
+        Its column vectors are:
         \[
-        Ra(A) = x \begin{pmatrix} 1\\ 0\\ 2 \end{pmatrix} + y \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + z   \begin{pmatrix} 0 \\ -1 \\ -1 \end{pmatrix}
+          \mathbf{a}_1 =
+          \begin{pmatrix} 1\\0\\2 \end{pmatrix},
+          \qquad
+          \mathbf{a}_2 =
+          \begin{pmatrix} 0\\1\\0 \end{pmatrix},
+          \qquad
+          \mathbf{a}_3 =
+          \begin{pmatrix} 0\\-1\\-1 \end{pmatrix}.
         \]
+        The column space is the set of all linear combinations of these columns:
+        \[
+          \begin{aligned}
+            \operatorname{Col}(A)
+            &= \operatorname{span}\{\mathbf{a}_1,\mathbf{a}_2,\mathbf{a}_3\}\\
+            &= \left\{
+              c_1\mathbf{a}_1+c_2\mathbf{a}_2+c_3\mathbf{a}_3:
+              c_1,c_2,c_3\in\mathbb{F}
+            \right\}.
+          \end{aligned}
+        \]
+        Since \(\det(A)=-1\ne0\), the columns are linearly independent and therefore span the whole \(\mathbb{F}^3\):
+        \[
+          \operatorname{Col}(A)=\mathbb{F}^3.
+        \]
+      </p>
+      <p>
+        To see an example where the column space is a proper subspace of the ambient space, consider another matrix:
+        \[
+          B =
+          \begin{bmatrix}
+            1 & 0 & 1\\
+            0 & 1 & 1\\
+            0 & 0 & 0
+          \end{bmatrix}.
+        \]
+        Its columns are:
+        \[
+          \mathbf{b}_1 =
+          \begin{pmatrix} 1\\0\\0 \end{pmatrix},
+          \qquad
+          \mathbf{b}_2 =
+          \begin{pmatrix} 0\\1\\0 \end{pmatrix},
+          \qquad
+          \mathbf{b}_3 =
+          \begin{pmatrix} 1\\1\\0 \end{pmatrix}.
+        \]
+        Therefore,
+        \[
+          \begin{aligned}
+            \operatorname{Col}(B)
+            &=\operatorname{span}\{\mathbf{b}_1,\mathbf{b}_2,\mathbf{b}_3\}\\
+            &=\left\{
+              (c_1+c_3,c_2+c_3,0):
+              c_1,c_2,c_3\in\mathbb{F}
+            \right\}\\
+            &=\left\{
+              (x,y,0):x,y\in\mathbb{F}
+            \right\}.
+          \end{aligned}
+        \]
+        This is a two-dimensional subspace of \(\mathbb{F}^3\). When \(\mathbb{F}=\mathbb{R}\), we can picture it as the \(xy\)-plane.
+      </p>
+      <p>
         Column space is a special type of subspace and in upcoming lessons we will see it used often. There are also row space, null space, left null space, etc.
       </p>
       <p>
-        In this lesson we have learnt about vector space, subspace, and dived more deep into linear combination, linear independence and dependence. As we progress in
-        lessons we will understand these concepts more. As usual, go to your textbook and use this as a side reference for better understanding and solve a few problems so
+        In this lesson we have learnt about vector space, subspace, and dived more deeply into linear combination, linear independence and dependence. As we progress through the lessons we will understand these concepts more. As usual, go to your textbook and use this as a side reference for better understanding and solve a few problems so
         that you actually understand the material instead of getting the feeling of understanding.
       </p>
     </div>
