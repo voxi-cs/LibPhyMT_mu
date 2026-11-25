@@ -309,12 +309,7 @@
       <h2>Dimension</h2>
 
       <p>
-        We many times mentioned the word "dimension" without defining it first.
-        It is my bad, but this is a good time to define it. Dimension is quite
-        an easy idea, but quite an intriguing one. Soon we will move to vector
-        spaces with infinite dimension rather than studying finite-dimensional
-        vector spaces, but right now we will look at finite-dimensional vector
-        spaces.
+        Given a finite-dimensional vector space, let be a set of linearly dependent vectors \(\{v_1,v_2,\dots,v_n\}\). Then there is atleast one vector \(v_j\) in the set that can be expressed as a linear combination of the other vectors in the set. This means that we can remove \(v_j\) from the set without changing the span of the set. We can repeat this process until we are left with a linearly independent set of vectors that still spans the vector space. The number of vectors in this linearly independent set is what we call the <strong>dimension</strong> of the vector space. This is what we call a <strong> Linear Dependence Lemma</strong> and it is proven bellow:
       </p>
 
       <div class="definition-box">
@@ -378,6 +373,10 @@
         </p>
         <span class="qed"></span>
       </div>
+      <p>
+        Let us ask ourselves can there be more number of linerly indipedent direction or vectors of a finite-dimensional vector space than the number of spanning vectors of that vector space? Using some intuition we can say that the answer is no, assume for the sake of intuition (compleate this). Thus bellow is the proof the theorem:
+
+      </p>
       <div class="theo-type1">
         <h4>
           Theorem-3.002: Length of a linearly independent list \(\le\) Length of
@@ -438,6 +437,9 @@
           <span class="qed"></span>
         </p>
       </div>
+      <p>
+        Now at this point we can show that given any basis of a finite-dimensional vector space, all bases have the same length. This will allow us to define the dimension of a finite-dimensional vector space.
+      </p>
       <div class="theo-type1">
         <h4>Theorem-3.003: Length of all bases of a vector space is equal.</h4>
         <p>
@@ -486,13 +488,8 @@
       </div>
 
       <p>
-        Another proof I think we should explore is that the dimension of a
-        subspace is always going to be less than the dimension of the vector
-        space that it is a subspace of. For example, a plane is a subspace of
-        \(\mathbb{R}^3\), and indeed the plane has lower dimension than the
-        whole 3D space. This is because \(\dim \mathbb{R}^{2}\) is \(2\) and
-        \(\dim \mathbb{R}^{3}\) is \(3\). But we cannot rely on a simple
-        example; we need a proof for the general case.
+        Suppose we are in \(\mathbb{V} = \mathbb{F}^n\) and we take a slice through \(\mathbb F^n\) and thus we get a subspace of \(\mathbb F^n\) which is a hyperplane and isomorphic to \(\mathbb F^{n-1}\). 
+        The following theorem shows any such subspace of a finite-dimensional vector space has dimension less than or equal to the dimension of the vector space itself. For example a plane in \(\mathbb{R}^3\) is a subspace of \(\mathbb R^3\) and we know two linerly indipendent vector are needed to span a plane and three linerly indipendent vector are needed to span \(\mathbb R^3\). Thus the dimension of the plane is less than the dimension of \(\mathbb R^3\).
       </p>
       <div class="theo-type1">
         <h4>Theorem-3.004: \(\dim \mathbb{U} \le \dim \mathbb{V}\).</h4>
