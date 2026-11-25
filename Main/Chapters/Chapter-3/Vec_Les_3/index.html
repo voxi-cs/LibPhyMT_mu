@@ -89,24 +89,47 @@
     
     <div class="content">
       <p>
-        In this lesson, we will mainly study two fundamental concepts of linear algebra: bases and dimension. We will also prove some important theorems related to these concepts. This lesson is somewhat abstract, so if you are not familiar with some of the fundamental concepts, you can go back to Lesson 2, where the necessary prerequisites are discussed.
+        In this lesson we will mainly study some of the fundamental concepts of linear algebra, which are bases and dimension.
+        We will also prove some important theorems related to these concepts. This lesson is somewhat abstract, so
+        in case you are not familiar with some of the fundamental concepts, you can go back to Lesson 2, where the necessary
+        prerequisites are discussed.
       </p>
 
       <h2>Bases</h2>
 
       <p>
-        Given a finite-dimensional vector space, we can find a finite list of vectors whose linear combinations give every vector in the vector space. For this list to be a basis, its vectors must also be linearly independent. The spanning condition ensures that every vector can be expressed as a linear combination of the basis vectors, while linear independence ensures that this representation is unique. Each vector in the list is called a <strong>basis vector</strong>, and the list itself is called a <strong>basis</strong> of the vector space. More precisely, a basis is defined as follows:
+        Given a finite-dimensional vector space, we can find a list of vectors that allows us to express every vector
+        in that vector space as a linear combination. These vectors must be linearly independent and span the entire
+        vector space. Such a list of vectors is called a <strong>basis</strong> of the vector space, and its elements
+        are called <strong>basis vectors</strong>. More precisely, a basis is defined as follows:
       </p>
 
       <div class="definition-box">
         <p>
           <strong class="DEF">Definition: Basis</strong>
-          A <strong>basis</strong> of a finite-dimensional vector space \(\mathbb{V}\) is a list of vectors in \(\mathbb{V}\) that is linearly independent and spans the vector space \(\mathbb{V}\).
+          A <strong>basis</strong> of a vector space \(\mathbb{V}\) is a list of
+          vectors in \(\mathbb{V}\) that is linearly independent and spans the
+          vector space \(\mathbb{V}\).
         </p>
       </div>
 
       <p>
-        One use of a basis is that, once we choose a basis, we can represent every vector in a finite-dimensional vector space by its coordinates relative to that basis. For example, in \(\mathbb{R}^3\), we can represent a vector as a linear combination of the standard basis vectors, as shown below.
+        Assume we have a finite-dimensional vector space \(\mathbb{V}\).
+        Let \((v_1, v_2, \dots, v_n)\) be a list of linearly independent
+        vectors that can be linearly combined to obtain every vector in the
+        vector space \(\mathbb{V}\). We call this list a
+        <strong>basis</strong> of the vector space \(\mathbb{V}\).
+        The elements of a basis are called <strong>basis vectors</strong>.
+        As we will prove later, every basis of a finite-dimensional vector space
+        has the same number of vectors, and this number is the minimum number
+        of vectors needed to span the vector space.
+      </p>
+
+      <p>
+        One of the main uses of a basis is that it allows us to represent vectors
+        of a finite-dimensional vector space using coordinates once a basis has
+        been chosen. For example, in \(\mathbb{R}^3\), we can represent a vector
+        as a linear combination of the standard basis vectors, as shown below.
       </p>
 
       <h3>
@@ -120,39 +143,45 @@
         \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}\), and \(\mathbf{\hat{k}} =
         \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\). These are the
         <strong>standard basis</strong> vectors of \(\mathbb{R}^3\). You may
-        also know that we used to write vectors such as \(\mathbf{v} =
-        \begin{pmatrix} 4 \\ 2 \\ 6 \end{pmatrix}\) as \(\mathbf{v} =
-        4\mathbf{\hat{i}} + 2\mathbf{\hat{j}} + 6\mathbf{\hat{k}}\). Notice that
-        this is just a linear combination:
+        also know that we write vectors such as \(\mathbf{v} =
+        \begin{pmatrix} 4 \\ 2 \\ 6 \end{pmatrix}\) as
+        \(\mathbf{v} = 4\mathbf{\hat{i}} + 2\mathbf{\hat{j}} +
+        6\mathbf{\hat{k}}\). Notice that this is just a linear combination:
         \[
-          \mathbf{v} =
-          4\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
-          + 2\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
-          + 6\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+        \mathbf{v} =
+        4\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+        + 2\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}
+        + 6\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
         \]
-        These basis vectors allow us to reach every vector in \(\mathbb{R}^3\), and they are also linearly independent. This is why they form a basis. With this basis, each component of a vector can be read directly from its coefficients, so no extra calculation is needed.
+        These basis vectors allow us to express every vector in
+        \(\mathbb{R}^3\) as a linear combination of them, which is why they
+        form a basis. The specific reason we use them to represent vectors
+        in 3D is that each component can be read directly from the coefficients,
+        so no extra calculation is needed.
       </p>
 
       <p>
-        The same idea works in \(\mathbb{F}^n\). The list of vectors
-        \(\left(\left(1,0,\dots,0\right), \left(0,1,\dots,0\right), \dots,
-        \left(0,0,\dots,1\right)\right)\) is a basis of \(\mathbb{F}^n\). We call
-        this the <strong>standard basis</strong> of \(\mathbb{F}^n\).
+        A vector space can have many different bases. The list of vectors
+        \(\left((1,0,\dots,0), (0,1,\dots,0), \dots,
+        (0,0,\dots,1)\right)\) is a basis of \(\mathbb{F}^n\). This
+        basis is a special type of basis, so we call it the
+        <strong>standard basis</strong> of \(\mathbb{F}^n\).
       </p>
 
       <p>
         The vectors \(\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}\),
         \(\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}\), and
-        \(\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\) are linearly independent
-        and span \(\mathbb{R}^3\), so they form a basis of \(\mathbb{R}^3\).
-        The vectors \(\begin{pmatrix} 1 \\ 2 \\ 3 \end{pmatrix}\),
-        \(\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}\), and
+        \(\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\) form a basis of
+        \(\mathbb{R}^3\). The vectors \(\begin{pmatrix} 1 \\ 2 \\ 3
+        \end{pmatrix}\), \(\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}\), and
         \(\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}\) also form a basis of
-        \(\mathbb{R}^3\). However, \(\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}\)
-        and \(\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\) do not form a basis of
-        \(\mathbb{R}^3\), and neither do \(\begin{pmatrix} 1 \\ 2 \\ -4
-        \end{pmatrix}\) and \(\begin{pmatrix} 7 \\ -5 \\ 6 \end{pmatrix}\),
-        because two vectors cannot span all of \(\mathbb{R}^3\).
+        \(\mathbb{R}^3\). However, the vectors
+        \(\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}\) and
+        \(\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\) do not form a basis of
+        \(\mathbb{R}^3\). Neither do
+        \(\begin{pmatrix} 1 \\ 2 \\ -4 \end{pmatrix}\) and
+        \(\begin{pmatrix} 7 \\ -5 \\ 6 \end{pmatrix}\), because two vectors
+        cannot span all of \(\mathbb{R}^3\).
       </p>
 
       <h3>Criterion for basis</h3>
