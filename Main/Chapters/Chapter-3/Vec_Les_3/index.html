@@ -89,21 +89,18 @@
     
     <div class="content">
       <p>
-        In this lesson we will explore some abstract but intuitive concepts.
-        These are useful ideas what will be needed in analysis. They are
-        intuitive ideas that in finite dimentional vector space.
+        In this lesson we will mainly study the some of the fundamental concepts of linear algebra, which are bases and dimension. 
+        As well as we will prove some of the important theorems related to these concepts. This lesson is some what abstarct so 
+        in case you are not familiar with some of the fundamental concepts you can go back to lesson-2 where the nessecary pre-requisites are discussed.
       </p>
 
       <h2>Bases</h2>
 
       <p>
-        Given a finite-dimensional vector space, every vector in the vector
-        space can be expressed as a linear combination of certain vectors in
-        that vector space. These vectors are what we call a basis. Bases are
-        quite important when working with vectors, as they allow us to represent
-        vectors using coordinates and take advantage of geometry and analysis to
-        solve many important and beautiful problems in engineering, physics, and
-        mathematics.
+        Given a finite-dimensional vector space, every vector 
+        can be expressed as a linear combination of a "certain" set of vectors, this certain vectors need to be linearly independent and span the vector space otherwise as you can antisipate we wont able to write every vector in that vector space.
+        These vectors are each called a <strong>basis vector</strong> and the set containing the basis vectors is called a <strong>basis</strong> of the vector space.
+        More presisly basis are defined as follows:
       </p>
 
       <div class="definition-box">
@@ -118,8 +115,8 @@
       </div>
 
       <p>
-        Assume we have a vector space \(\mathbb{V}\). It has many
-        points/vectors. Now assume we have a collection of linearly independent
+        Assume we have a finite-dimensional vector space \(\mathbb{V}\).
+        let \(\{v_1, v_2, \dots, v_n\}\) be a collection of linearly independent
         vectors that we can linearly combine to get every vector in the vector
         space \(\mathbb{V}\). That is when we call this collection of vectors a
         <strong>basis</strong> of the vector space \(\mathbb{V}\). The elements
@@ -127,10 +124,8 @@
       </p>
 
       <p>
-        In other words, a basis is a set of linearly independent vectors that is
-        also a spanning set of \(\mathbb{V}\).
+        One of the usefulness of basis is that they allowe us to represent vectors of a finite-dimensional vector space after a coordinate system is chosen. For example, in \(\mathbb{R}^3\) we can represent a vector as a linear combination of the standard basis vectors as showen bellow.
       </p>
-
       <h3>
         Some familiar basis vectors \(\mathbf{\hat{i}}\), \(\mathbf{\hat{j}}\),
         and \(\mathbf{\hat{k}}\)
