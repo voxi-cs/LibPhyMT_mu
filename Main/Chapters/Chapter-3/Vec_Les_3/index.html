@@ -309,74 +309,127 @@
       <h2>Dimension</h2>
 
       <p>
-        Given a finite-dimensional vector space, let be a set of linearly dependent vectors \(\{v_1,v_2,\dots,v_n\}\). Then there is atleast one vector \(v_j\) in the set that can be expressed as a linear combination of the other vectors in the set. This means that we can remove \(v_j\) from the set without changing the span of the set. We can repeat this process until we are left with a linearly independent set of vectors that still spans the vector space. The number of vectors in this linearly independent set is what we call the <strong>dimension</strong> of the vector space. This is what we call a <strong> Linear Dependence Lemma</strong> and it is proven bellow:
+        Given a finite-dimensional vector space \(\mathbb V\), we know that it has
+        a finite spanning list of vectors. Suppose this list is linearly dependent.
+        Then there is at least one vector \(v_j\) in the list that can be expressed
+        as a linear combination of the vectors preceding it in the list. This means
+        that we can remove \(v_j\) from the list without changing its span.
+        We can repeat this process until we are left with a linearly independent
+        list of vectors that still spans the vector space. Therefore, we obtain
+        a basis of \(\mathbb V\). We will prove the result that allows us to remove
+        such vectors below.
       </p>
-
-      <div class="definition-box">
-        <p>
-          <strong class="DEF">Definition: Dimension</strong>
-          <strong>Dimension</strong> of a vector space is the minimum number of
-          vectors needed to form a basis of a vector space \(\mathbb{V}\). That
-          is, for a vector space \(\mathbf{F}^n\), the dimension is \(n\).
-        </p>
-      </div>
 
       <p>
-        Alright this is how we define <strong>dimension</strong>. One question
-        arises: why do we assume that all bases of a vector space have the same
-        length? Below we will prove it, but before that we need to two more
-        statments.
+        This gives us a basis, but one question arises: why should all bases of a
+        vector space have the same length? Below we will prove it, but before that
+        we need two more statements.
       </p>
+
       <div class="lemma-type1">
         <h4>Lemma-3.0.1: Linear Dependence Lemma</h4>
         <p>
-          Suppose \(v_1,v_2,\dots,v_m\) are linearly dependent vectors in
-          \(\mathbb V\). Then there exists \(j \in \{1,2,\dots,m\}\) such that:
+          Suppose \(\mathbb V\) is a vector space over a field \(\mathbb F\), and
+          \(v_1,v_2,\dots,v_m\) are linearly dependent vectors in \(\mathbb V\).
+          Then there exists \(j \in \{1,2,\dots,m\}\) such that:
         </p>
-        <p>\((i):\) \(v_j \in \text{span}(v_1,\dots,v_{j-1})\).</p>
+        <p>\((i):\) \(v_j \in \operatorname{span}(v_1,\dots,v_{j-1})\).</p>
         <p>
-          \((ii):\) If \(v_j\) from \((i)\) is removed, meaning the
-          \(j^{\text{th}}\) term is removed from the list \(v_1,\dots,v_m\),
-          then the span of the remaining vectors is the same as the span of
-          \(v_1,\dots,v_m\).
+          When \(j=1\), the list preceding \(v_j\) is empty. We use the convention
+          that \(\operatorname{span}(\varnothing)=\{\mathbf 0\}\).
+        </p>
+        <p>
+          \((ii):\) If \(v_j\) from \((i)\) is removed from the list
+          \(v_1,\dots,v_m\), then the span of the remaining vectors is the same
+          as the span of \(v_1,\dots,v_m\).
         </p>
 
         <h4>Proof:</h4>
         <p>
           \((i):\) Since \(v_1,\dots,v_m\) are a linearly dependent list of
           vectors in \(\mathbb V\), there exist \(a_1,\dots,a_m \in \mathbb F\),
-          not all zero, such that: \[ a_1v_1+\dots+a_mv_m=0. \] Choose the
-          largest \(j\in\{1,\dots,m\}\) such that \(a_j\neq0\). Because \(j\) is
-          the largest such index, we have \(a_{j+1}=\dots=a_m=0\). Therefore: \[
-          a_1v_1+\dots+a_jv_j=0. \] Since \(a_j\neq0\), we can solve for
-          \(v_j\): \[ v_j=-\frac{a_1}{a_j}v_1+\dots-\frac{a_{j-1}}{a_j}v_{j-1}.
-          \] Therefore: \[ v_j\in\text{span}(v_1,\dots,v_{j-1}). \]
+          not all zero, such that:
+          \[
+          a_1v_1+\dots+a_mv_m=0.
+          \]
+          Choose the largest \(j\in\{1,\dots,m\}\) such that \(a_j\neq0\).
+          Because \(j\) is the largest such index, we have
+          \(a_{j+1}=\dots=a_m=0\). Therefore:
+          \[
+          a_1v_1+\dots+a_jv_j=0.
+          \]
+          Since \(a_j\neq0\), we can solve for \(v_j\):
+          \[
+          v_j=-\frac{a_1}{a_j}v_1+\dots-\frac{a_{j-1}}{a_j}v_{j-1}.
+          \]
+          Therefore:
+          \[
+          v_j\in\operatorname{span}(v_1,\dots,v_{j-1}).
+          \]
         </p>
         <p>
-          \((ii):\) Let \(u\in\text{span}(v_1,\dots,v_m)\). Then \(u\) can be
-          written as: \[
-          u=b_1v_1+\dots+b_{j-1}v_{j-1}+b_jv_j+b_{j+1}v_{j+1}+\dots+b_mv_m \]
-          for some \(b_1,\dots,b_m\in\mathbb F\). From \((i)\), we know that: \[
-          v_j=-\frac{a_1}{a_j}v_1+\dots-\frac{a_{j-1}}{a_j}v_{j-1}. \] So we can
-          substitute this expression for \(v_j\) into the expression for \(u\).
-          After substitution, \(u\) is written entirely in terms of the
-          remaining vectors: \[
-          u\in\text{span}(v_1,\dots,v_{j-1},v_{j+1},\dots,v_m). \] Since \(u\)
-          was arbitrary: \[ \text{span}(v_1,\dots,v_m) \subseteq
-          \text{span}(v_1,\dots,v_{j-1},v_{j+1},\dots,v_m). \] On the other
-          hand, every remaining vector \(v_i\), where \(i\neq j\), is already
-          one of \(v_1,\dots,v_m\). Therefore: \[
-          \text{span}(v_1,\dots,v_{j-1},v_{j+1},\dots,v_m) \subseteq
-          \text{span}(v_1,\dots,v_m). \] Thus, both inclusions hold, and
-          therefore: \[ \boxed{ \text{span}(v_1,\dots,v_m) =
-          \text{span}(v_1,\dots,v_{j-1},v_{j+1},\dots,v_m) } \]
+          \((ii):\) Let \(u\in\operatorname{span}(v_1,\dots,v_m)\). Then
+          \(u\) can be written as:
+          \[
+          u=b_1v_1+\dots+b_{j-1}v_{j-1}
+          +b_jv_j+b_{j+1}v_{j+1}+\dots+b_mv_m
+          \]
+          for some \(b_1,\dots,b_m\in\mathbb F\). From \((i)\), we know that:
+          \[
+          v_j=-\frac{a_1}{a_j}v_1+\dots-\frac{a_{j-1}}{a_j}v_{j-1}.
+          \]
+          So we can substitute this expression for \(v_j\) into the expression for \(u\).
+          After substitution, we get:
+          \[
+          \begin{aligned}
+          u={}&
+          \left(b_1-\frac{b_ja_1}{a_j}\right)v_1
+          +\dots+
+          \left(b_{j-1}-\frac{b_ja_{j-1}}{a_j}\right)v_{j-1}\\
+          &+b_{j+1}v_{j+1}+\dots+b_mv_m.
+          \end{aligned}
+          \]
+          Therefore:
+          \[
+          u\in\operatorname{span}(v_1,\dots,v_{j-1},v_{j+1},\dots,v_m).
+          \]
+          Since \(u\) was arbitrary:
+          \[
+          \operatorname{span}(v_1,\dots,v_m)
+          \subseteq
+          \operatorname{span}(v_1,\dots,v_{j-1},v_{j+1},\dots,v_m).
+          \]
+          On the other hand, every remaining vector \(v_i\), where \(i\neq j\),
+          is already one of \(v_1,\dots,v_m\). Therefore:
+          \[
+          \operatorname{span}(v_1,\dots,v_{j-1},v_{j+1},\dots,v_m)
+          \subseteq
+          \operatorname{span}(v_1,\dots,v_m).
+          \]
+          Thus, both inclusions hold, and therefore:
+          \[
+          \boxed{
+          \operatorname{span}(v_1,\dots,v_m)
+          =
+          \operatorname{span}(v_1,\dots,v_{j-1},v_{j+1},\dots,v_m)
+          }
+          \]
         </p>
         <span class="qed"></span>
       </div>
-      <p>
-        Let us ask ourselves can there be more number of linerly indipedent direction or vectors of a finite-dimensional vector space than the number of spanning vectors of that vector space? Using some intuition we can say that the answer is no, assume for the sake of intuition (compleate this). Thus bellow is the proof the theorem:
 
+      <p>
+        Let us ask ourselves: can there be more linearly independent vectors in
+        a finite-dimensional vector space than the number of vectors in a
+        spanning list of that vector space? Using some intuition, we can say
+        that the answer is no. Suppose we already have a list of \(n\) vectors
+        that spans the entire vector space. Every vector in the vector space,
+        including any additional linearly independent vectors, can be expressed
+        as a linear combination of these \(n\) vectors. Therefore, we cannot
+        have more than \(n\) linearly independent vectors. The proof below
+        makes this precise.
       </p>
+
       <div class="theo-type1">
         <h4>
           Theorem-3.002: Length of a linearly independent list \(\le\) Length of
@@ -387,82 +440,171 @@
           vector space \(\mathbb V\), and let \(w_1,\dots,w_n\) be a spanning
           list of vectors in \(\mathbb V\). Then the length of the linearly
           independent list cannot be greater than the length of the spanning
-          list. In other words, \[ \boxed{m\le n}. \]
+          list. In other words:
+          \[
+          \boxed{m\le n}.
+          \]
         </p>
 
         <h4>Proof:</h4>
         <p>
           Suppose \(u_1,\dots,u_m\) is a linearly independent list of vectors in
           \(\mathbb V\), and \(w_1,\dots,w_n\) is a spanning list of vectors in
-          \(\mathbb V\). We want to prove that: \[ m\le n. \] Here is the idea:
-          we start with the spanning list \(w_1,\dots,w_n\), and then add the
-          \(u\)'s to it one at a time. Every time we add a \(u\), we remove one
-          of the \(w\)'s so that the list keeps spanning \(\mathbb V\). (Note:
-          This proof was adopted from Axler's LDR.)
+          \(\mathbb V\). We want to prove that:
+          \[
+          m\le n.
+          \]
+          Here is the idea: we start with the spanning list \(w_1,\dots,w_n\),
+          and then add the \(u\)'s to it one at a time. Every time we add a \(u\),
+          we remove one of the remaining vectors from the spanning list so that
+          the list keeps spanning \(\mathbb V\). We have to make sure that the
+          \(u\)'s remain in the list throughout the process.
+          (Note: This proof was adopted from Axler's LDR.)
         </p>
 
         <p>
           <strong>Step 1:</strong>
-          Start with: \[ \mathbf B=(w_1,\dots,w_n). \] Since \(\mathbf B\) spans
-          \(\mathbb V\), we know that \(u_1\) can be written as a linear
-          combination of the \(w\)'s. Therefore, the list: \( u_1,w_1,\dots,w_n
-          \) is linearly dependent. By the Linear Dependence Lemma, we can
-          remove one vector from this list without changing its span. We cannot
-          remove \(u_1\), because \(u_1\) by itself is linearly independent.
-          Therefore, one of the \(w\)'s can be removed. So now we have a list
-          \(\mathbf B\) of length \(n\), containing \(u_1\), which still spans
-          \(\mathbb V\).
+          Start with:
+          \[
+          \mathbf B=(w_1,\dots,w_n).
+          \]
+          Since \(\mathbf B\) spans \(\mathbb V\), we know that \(u_1\) can be
+          written as a linear combination of the \(w\)'s. Therefore, the list:
+          \[
+          (u_1,w_1,\dots,w_n)
+          \]
+          is linearly dependent. By the Linear Dependence Lemma, we can remove
+          one vector from this list without changing its span. We cannot remove
+          \(u_1\), because it is the first vector in the list and is linearly
+          independent by itself, so it cannot be expressed as a linear
+          combination of the preceding vectors. Therefore, one of the \(w\)'s
+          can be removed. So now we have a list \(\mathbf B\) of length \(n\),
+          containing \(u_1\), which still spans \(\mathbb V\).
         </p>
 
         <p>
           <strong>Step \(j\):</strong>
           Now suppose that we already have a list \(\mathbf B\) of length \(n\)
-          that spans \(\mathbb V\), and it contains: \[ u_1,\dots,u_{j-1}. \]
-          Add \(u_j\) to this list. Since \(\mathbf B\) already spans \(\mathbb
-          V\), the new list becomes linearly dependent. So, by the Linear
+          that spans \(\mathbb V\), and it contains:
+          \[
+          u_1,\dots,u_{j-1}.
+          \]
+          We can write this list in the following order:
+          \[
+          \mathbf B=(u_1,\dots,u_{j-1},z_1,\dots,z_{n-j+1}),
+          \]
+          where \(z_1,\dots,z_{n-j+1}\) are the remaining vectors in the list.
+          Add \(u_j\) immediately after \(u_{j-1}\), before the remaining
+          vectors. We now have:
+          \[
+          (u_1,\dots,u_{j-1},u_j,z_1,\dots,z_{n-j+1}).
+          \]
+          Since \(\mathbf B\) spans \(\mathbb V\), the vector \(u_j\) can be
+          written as a linear combination of the vectors in \(\mathbf B\).
+          Therefore, the new list is linearly dependent. By the Linear
           Dependence Lemma, we can remove one vector while keeping the same
-          span. But we cannot remove any of: \[ u_1,\dots,u_j, \] because these
-          vectors are linearly independent. Therefore, the vector we remove must
-          be one of the \(w\)'s. After removing it, we again have a list of
-          length \(n\) that spans \(\mathbb V\), but now contains: \[
-          u_1,\dots,u_j. \]
+          span. But we cannot remove any of:
+          \[
+          u_1,\dots,u_j,
+          \]
+          because these vectors are linearly independent. More precisely,
+          none of the first \(j\) vectors can be expressed as a linear
+          combination of the vectors preceding it. Therefore, the vector
+          selected by the Linear Dependence Lemma must be one of the remaining
+          \(z\)'s. After removing it, we again have a list of length \(n\)
+          that spans \(\mathbb V\), but now contains:
+          \[
+          u_1,\dots,u_j.
+          \]
         </p>
 
         <p>
-          We can repeat this process until all \(u_1,\dots,u_m\) have been
-          added. Each time we add one \(u\), we must remove one \(w\).
-          Therefore, we need at least as many \(w\)'s as there are \(u\)'s.
-          Hence: \[ \boxed{m\le n}. \] Therefore: \[ \text{Length of a linearly
-          independent list} \le \text{Length of a spanning list}. \]
+          We can repeat this process, adding one \(u\) at a time and removing
+          one of the remaining vectors from the spanning list each time.
+          Now suppose, for the sake of contradiction, that \(m>n\).
+          After \(n\) steps, we would have a list:
+          \[
+          (u_1,\dots,u_n)
+          \]
+          that still spans \(\mathbb V\). Since \(m>n\), the vector
+          \(u_{n+1}\) also exists and belongs to \(\mathbb V\). But since
+          \(u_1,\dots,u_n\) span \(\mathbb V\), we must have:
+          \[
+          u_{n+1}\in\operatorname{span}(u_1,\dots,u_n).
+          \]
+          This contradicts the linear independence of
+          \(u_1,\dots,u_m\). Therefore:
+          \[
+          \boxed{m\le n}.
+          \]
+          Hence:
+          \[
+          \text{Length of a linearly independent list}
+          \le
+          \text{Length of a spanning list}.
+          \]
           <span class="qed"></span>
         </p>
       </div>
+
       <p>
-        Now at this point we can show that given any basis of a finite-dimensional vector space, all bases have the same length. This will allow us to define the dimension of a finite-dimensional vector space.
+        Now at this point we can show that given any basis of a finite-dimensional
+        vector space, all bases have the same length. This will allow us to define
+        the dimension of a finite-dimensional vector space.
       </p>
+
       <div class="theo-type1">
         <h4>Theorem-3.003: Length of all bases of a vector space is equal.</h4>
         <p>
           Let \(\mathbb V\) be a finite-dimensional vector space. Then every
           basis of \(\mathbb V\) has the same number of vectors. In other words,
           if \(\mathbf B_1\) and \(\mathbf B_2\) are two bases of \(\mathbb V\),
-          then: \[ \boxed{\text{Length}(\mathbf B_1)=\text{Length}(\mathbf
-          B_2)}. \]
+          then:
+          \[
+          \boxed{
+          \text{Length}(\mathbf B_1)=\text{Length}(\mathbf B_2)
+          }.
+          \]
         </p>
 
         <h4>Proof:</h4>
         <p>
-          We have just seen: \[ \text{Length of a linearly independent list} \le
-          \text{Length of a spanning list}. \] Now assume we have two lists of
-          basis vectors of some vector space \(\mathbb V\), and they are
-          \(\mathbf{B}_1\) and \(\mathbf{B}_2\). Here is the thing: these two
-          lists are both linearly independent and spanning lists. Therefore,
-          using the result from the previous theorem: \[
-          \text{Length}(\mathbf{B}_1) \le \text{Length}(\mathbf{B}_2). \]
-          Similarly: \[ \text{Length}(\mathbf{B}_2) \le
-          \text{Length}(\mathbf{B}_1). \] The only way both inequalities can
-          hold is if: \[
-          \boxed{\text{Length}(\mathbf{B}_1)=\text{Length}(\mathbf{B}_2)}. \]
+          Since \(\mathbb V\) is finite-dimensional, it has a finite spanning
+          list. Let the length of this list be \(n\). By the previous theorem,
+          every finite linearly independent list in \(\mathbb V\) can have
+          at most \(n\) vectors. Therefore, no basis of \(\mathbb V\) can have
+          more than \(n\) vectors. In particular, every basis of \(\mathbb V\)
+          must be finite.
+        </p>
+
+        <p>
+          We have just seen:
+          \[
+          \text{Length of a linearly independent list}
+          \le
+          \text{Length of a spanning list}.
+          \]
+          Now assume we have two lists of basis vectors of some vector space
+          \(\mathbb V\), and they are \(\mathbf B_1\) and \(\mathbf B_2\).
+          Here is the thing: these two lists are both linearly independent and
+          spanning lists. Therefore, using the result from the previous theorem:
+          \[
+          \text{Length}(\mathbf B_1)
+          \le
+          \text{Length}(\mathbf B_2).
+          \]
+          Similarly:
+          \[
+          \text{Length}(\mathbf B_2)
+          \le
+          \text{Length}(\mathbf B_1).
+          \]
+          The only way both inequalities can hold is if:
+          \[
+          \boxed{
+          \text{Length}(\mathbf B_1)=\text{Length}(\mathbf B_2)
+          }.
+          \]
           Therefore, every basis of a finite-dimensional vector space has the
           same length.
           <span class="qed"></span>
@@ -482,47 +624,118 @@
           basis of the vector space.
         </p>
         <p>
-          We denote the dimension of a vector space \(\mathbb{V}\) as \(\dim
-          \mathbb{V}\).
+          We denote the dimension of a vector space \(\mathbb V\) as
+          \(\dim\mathbb V\).
         </p>
       </div>
 
       <p>
-        Suppose we are in \(\mathbb{V} = \mathbb{F}^n\) and we take a slice through \(\mathbb F^n\) and thus we get a subspace of \(\mathbb F^n\) which is a hyperplane and isomorphic to \(\mathbb F^{n-1}\). 
-        The following theorem shows any such subspace of a finite-dimensional vector space has dimension less than or equal to the dimension of the vector space itself. For example a plane in \(\mathbb{R}^3\) is a subspace of \(\mathbb R^3\) and we know two linerly indipendent vector are needed to span a plane and three linerly indipendent vector are needed to span \(\mathbb R^3\). Thus the dimension of the plane is less than the dimension of \(\mathbb R^3\).
+        For example, a plane passing through the origin in \(\mathbb R^3\) is a
+        subspace of \(\mathbb R^3\). We know that two linearly independent vectors
+        are needed to form a basis of such a plane, while three linearly
+        independent vectors are needed to form a basis of \(\mathbb R^3\).
+        Thus, the dimension of the plane is less than the dimension of
+        \(\mathbb R^3\). The following theorem shows that any subspace of a
+        finite-dimensional vector space has dimension less than or equal to the
+        dimension of the vector space itself.
       </p>
+
       <div class="theo-type1">
         <h4>Theorem-3.004: \(\dim \mathbb{U} \le \dim \mathbb{V}\).</h4>
         <p>
           Let \(\mathbb{U}\) be a subspace of a finite-dimensional vector space
           \(\mathbb{V}\). Then the dimension of \(\mathbb{U}\) cannot be greater
-          than the dimension of \(\mathbb{V}\). That is: \[ \boxed{\dim
-          \mathbb{U} \le \dim \mathbb{V}}. \]
+          than the dimension of \(\mathbb{V}\). That is:
+          \[
+          \boxed{\dim \mathbb{U} \le \dim \mathbb{V}}.
+          \]
         </p>
 
         <h4>Proof:</h4>
         <p>
           Assume a vector space \(\mathbb{V}\) and a subspace of it
-          \(\mathbb{U}\). Now see, basis vectors are lists of spanning vectors
-          and lists of linearly independent vectors of a vector space. The basis
-          of \(\mathbb{V}\) is both a list of spanning vectors and a list of
-          linearly independent vectors, but notice the basis of \(\mathbb{U}\)
-          is also a list of linearly independent vectors and a spanning list for
-          \(\mathbb{U}\), even though it does not span \(\mathbb{V}\). So using
-          our previous theorem: \[ \text{Length of a linearly independent list}
-          \le \text{Length of a spanning list} \] Assume the basis of
-          \(\mathbb{U}\) is \(\mathbf{B}_U\) and the basis of \(\mathbb{V}\) is
-          \(\mathbf{B}_V\), so \[ \text{Length}(\mathbf{B}_U) \le
-          \text{Length}(\mathbf{B}_V). \] Hence: \[ \boxed{\dim \mathbb{U} \le
-          \dim \mathbb{V}} \]
+          \(\mathbb{U}\). Since \(\mathbb{V}\) is finite-dimensional, it has a
+          finite basis. Let this basis be:
+          \[
+          \mathbf B_V=(v_1,\dots,v_n).
+          \]
+          We know that \(\mathbf B_V\) is a spanning list of \(\mathbb V\).
+          Now consider all finite linearly independent lists of vectors in
+          \(\mathbb U\). Since \(\mathbb U\subseteq\mathbb V\), these are also
+          linearly independent lists in \(\mathbb V\).
+        </p>
+
+        <p>
+          Using our previous theorem, the length of every such list cannot
+          exceed \(n\), the length of the spanning list \(\mathbf B_V\).
+          Therefore, the possible lengths of these linearly independent lists
+          belong to the finite set:
+          \[
+          \{0,1,\dots,n\}.
+          \]
+          So there must be a linearly independent list in \(\mathbb U\) having
+          the maximum possible length. Let this list be \(\mathbf B_U\).
+        </p>
+
+        <p>
+          Now suppose \(\mathbf B_U\) does not span \(\mathbb U\). Then there
+          must be some vector \(u\in\mathbb U\) such that:
+          \[
+          u\notin\operatorname{span}(\mathbf B_U).
+          \]
+          We can add this vector to \(\mathbf B_U\), and the resulting list
+          will still be linearly independent, since \(u\) does not belong to
+          the span of the vectors already in the list. But this contradicts
+          the fact that \(\mathbf B_U\) was chosen to have the maximum possible
+          length. Therefore, \(\mathbf B_U\) must span \(\mathbb U\), and hence
+          it is a basis of \(\mathbb U\).
+        </p>
+
+        <p>
+          Now we have a basis of both \(\mathbb U\) and \(\mathbb V\).
+          Notice that the basis of \(\mathbb U\) is also a linearly independent
+          list in \(\mathbb V\), even though it does not necessarily span
+          \(\mathbb V\). So using our previous theorem:
+          \[
+          \text{Length of a linearly independent list}
+          \le
+          \text{Length of a spanning list}.
+          \]
+          Therefore:
+          \[
+          \text{Length}(\mathbf B_U)
+          \le
+          \text{Length}(\mathbf B_V).
+          \]
+          Hence:
+          \[
+          \boxed{\dim\mathbb U\le\dim\mathbb V}.
+          \]
         </p>
         <span class="qed"></span>
       </div>
+
+      <p>
+        Notice that equality is possible when \(\mathbb U=\mathbb V\).
+        If \(\mathbb U\) is a proper subspace of \(\mathbb V\), then the
+        inequality is strict. To see this, let \(u\in\mathbb V\) be a vector
+        that does not belong to \(\mathbb U\). If we add \(u\) to a basis of
+        \(\mathbb U\), the resulting list is linearly independent in
+        \(\mathbb V\). Therefore, by Theorem-3.002:
+        \[
+        \dim\mathbb U+1\le\dim\mathbb V.
+        \]
+        Thus:
+        \[
+        \dim\mathbb U<\dim\mathbb V.
+        \]
+      </p>
+
       <div class="definition-box">
         <p>
-          <strong class="DEF"
-            >Definition: Sum of subspace \(\mathbb U_1 + \mathbb U_2\).</strong
-          >
+          <strong class="DEF">
+            Definition: Sum of two subspaces \(\mathbb U_1+\mathbb U_2\).
+          </strong>
           Let \(\mathbb U_1\) and \(\mathbb U_2\) be two subspaces of a vector
           space \(\mathbb V\). The <strong>sum</strong> of \(\mathbb U_1\) and
           \(\mathbb U_2\), denoted by \(\mathbb U_1 + \mathbb U_2\), is the set
@@ -530,173 +743,448 @@
           \(\mathbb U_1\) and one vector from \(\mathbb U_2\). That is,
         </p>
         <p class="equation">
-          \[ \mathbb U_1 + \mathbb U_2 = \left\{ \mathbf{u}_1+\mathbf{u}_2 \mid
-          \mathbf{u}_1\in\mathbb U_1,\; \mathbf{u}_2\in\mathbb U_2 \right\}. \]
+          \[
+          \mathbb U_1 + \mathbb U_2 =
+          \left\{
+          \mathbf{u}_1+\mathbf{u}_2
+          \mid
+          \mathbf{u}_1\in\mathbb U_1,\;
+          \mathbf{u}_2\in\mathbb U_2
+          \right\}.
+          \]
         </p>
         <p>
-          The sum \(\mathbb U_1+\mathbb U_2\) is itself a subspace of \(\mathbb
-          V\).
+          The sum \(\mathbb U_1+\mathbb U_2\) is itself a subspace of
+          \(\mathbb V\).
         </p>
       </div>
+
+      <p>
+        We also use the notation \(\mathbb U_1\cap\mathbb U_2\), which is the
+        set of all vectors that belong to both \(\mathbb U_1\) and
+        \(\mathbb U_2\). That is:
+        \[
+        \mathbb U_1\cap\mathbb U_2
+        =
+        \{u\in\mathbb V\mid u\in\mathbb U_1
+        \text{ and }u\in\mathbb U_2\}.
+        \]
+        The intersection \(\mathbb U_1\cap\mathbb U_2\) is also a subspace
+        of \(\mathbb V\). This is because it contains the zero vector and
+        is closed under vector addition and scalar multiplication, as both
+        \(\mathbb U_1\) and \(\mathbb U_2\) have these properties.
+      </p>
+
       <div class="theo-type1">
         <h4>Theorem-3.005: \(\mathbb{U}_1 + \mathbb{U}_2\) is a subspace.</h4>
         <p>
           Suppose \(\mathbb{U}_1\) and \(\mathbb{U}_2\) are two subspaces of a
           vector space \(\mathbb V\). Then their sum
-          \(\mathbb{U}_1+\mathbb{U}_2\), defined by \[ \mathbb{U}_1+\mathbb{U}_2
-          = \{u_1+u_2\mid u_1\in\mathbb{U}_1,\;u_2\in\mathbb{U}_2\}, \] is also
-          a subspace of \(\mathbb V\).
+          \(\mathbb{U}_1+\mathbb{U}_2\), defined by
+          \[
+          \mathbb{U}_1+\mathbb{U}_2
+          =
+          \{u_1+u_2\mid u_1\in\mathbb{U}_1,\;u_2\in\mathbb{U}_2\},
+          \]
+          is also a subspace of \(\mathbb V\).
         </p>
 
         <h4>Proof:</h4>
         <p>
-          In order to prove that \(\mathbb{U}_1+\mathbb{U}_2\) is a subspace, we
-          have to show that it contains the zero vector and is closed under
+          In order to prove that \(\mathbb{U}_1+\mathbb{U}_2\) is a subspace,
+          we have to show that it contains the zero vector and is closed under
           vector addition and scalar multiplication. First, since
           \(\mathbb{U}_1\) and \(\mathbb{U}_2\) are subspaces, we know that
-          \(0\in\mathbb{U}_1\) and \(0\in\mathbb{U}_2\). Therefore: \[
-          0=0+0\in\mathbb{U}_1+\mathbb{U}_2. \] Now let
-          \(x,y\in\mathbb{U}_1+\mathbb{U}_2\). Then by the definition of the
-          sum, there exist \(u_1,v_1\in\mathbb{U}_1\) and
-          \(u_2,v_2\in\mathbb{U}_2\) such that: \[ x=u_1+u_2,\qquad y=v_1+v_2.
-          \] Therefore: \[ x+y=(u_1+u_2)+(v_1+v_2) =(u_1+v_1)+(u_2+v_2). \]
+          \(0\in\mathbb{U}_1\) and \(0\in\mathbb{U}_2\). Therefore:
+          \[
+          0=0+0\in\mathbb{U}_1+\mathbb{U}_2.
+          \]
+          Now let \(x,y\in\mathbb{U}_1+\mathbb{U}_2\). Then by the definition
+          of the sum, there exist \(u_1,v_1\in\mathbb{U}_1\) and
+          \(u_2,v_2\in\mathbb{U}_2\) such that:
+          \[
+          x=u_1+u_2,\qquad y=v_1+v_2.
+          \]
+          Therefore:
+          \[
+          x+y=(u_1+u_2)+(v_1+v_2)
+          =(u_1+v_1)+(u_2+v_2).
+          \]
           Since \(\mathbb{U}_1\) and \(\mathbb{U}_2\) are subspaces, we have
-          \(u_1+v_1\in\mathbb{U}_1\) and \(u_2+v_2\in\mathbb{U}_2\). Hence: \[
-          x+y\in\mathbb{U}_1+\mathbb{U}_2. \] So \(\mathbb{U}_1+\mathbb{U}_2\)
-          is closed under vector addition. Finally, let
-          \(x\in\mathbb{U}_1+\mathbb{U}_2\) and \(c\) be any scalar. Then there
-          exist \(u_1\in\mathbb{U}_1\) and \(u_2\in\mathbb{U}_2\) such that
-          \(x=u_1+u_2\). Therefore: \[ cx=c(u_1+u_2)=cu_1+cu_2. \] Since
-          \(\mathbb{U}_1\) and \(\mathbb{U}_2\) are subspaces, we have
-          \(cu_1\in\mathbb{U}_1\) and \(cu_2\in\mathbb{U}_2\). Thus: \[
-          cx\in\mathbb{U}_1+\mathbb{U}_2. \] Therefore
-          \(\mathbb{U}_1+\mathbb{U}_2\) contains the zero vector and is closed
-          under vector addition and scalar multiplication. Hence, by the
-          definition of a subspace, \(\mathbb{U}_1+\mathbb{U}_2\) is a subspace
-          of \(\mathbb V\).
+          \(u_1+v_1\in\mathbb{U}_1\) and \(u_2+v_2\in\mathbb{U}_2\).
+          Hence:
+          \[
+          x+y\in\mathbb{U}_1+\mathbb{U}_2.
+          \]
+          So \(\mathbb{U}_1+\mathbb{U}_2\) is closed under vector addition.
+          Finally, let \(x\in\mathbb{U}_1+\mathbb{U}_2\) and \(c\) be any
+          scalar. Then there exist \(u_1\in\mathbb{U}_1\) and
+          \(u_2\in\mathbb{U}_2\) such that \(x=u_1+u_2\). Therefore:
+          \[
+          cx=c(u_1+u_2)=cu_1+cu_2.
+          \]
+          Since \(\mathbb{U}_1\) and \(\mathbb{U}_2\) are subspaces, we have
+          \(cu_1\in\mathbb{U}_1\) and \(cu_2\in\mathbb{U}_2\). Thus:
+          \[
+          cx\in\mathbb{U}_1+\mathbb{U}_2.
+          \]
+          Therefore \(\mathbb{U}_1+\mathbb{U}_2\) contains the zero vector
+          and is closed under vector addition and scalar multiplication.
+          Hence, by the definition of a subspace,
+          \(\mathbb{U}_1+\mathbb{U}_2\) is a subspace of \(\mathbb V\).
         </p>
 
         <span class="qed"></span>
       </div>
+
       <p>
-        Now let us see what is the dimention of this new subspace \(\mathbb U_1
-        + \mathbb U_2\). Bellow is theorem that answers that, it might be little
-        bit unintuative but we will try our best to try make sence of it.
+        Now let us see what is the dimension of this new subspace
+        \(\mathbb U_1+\mathbb U_2\). Below is a theorem that answers that.
+        It might be a little bit unintuitive, but we will try our best to
+        make sense of it.
       </p>
+
       <div class="theo-type1">
         <h4>Theorem-3.006: Dimension of a Sum</h4>
         <p>
-          Suppose \(V\) is a finite-dimensional vector space and
-          \(\mathbb{U}_1,\mathbb{U}_2\) are subspaces of \(V\). Then: \[
-          \dim(\mathbb{U}_1+\mathbb{U}_2) =
+          Suppose \(\mathbb V\) is a finite-dimensional vector space and
+          \(\mathbb{U}_1,\mathbb{U}_2\) are subspaces of \(\mathbb V\). Then:
+          \[
+          \dim(\mathbb{U}_1+\mathbb{U}_2)
+          =
           \dim(\mathbb{U}_1)+\dim(\mathbb{U}_2)
-          -\dim(\mathbb{U}_1\cap\mathbb{U}_2). \]
+          -\dim(\mathbb{U}_1\cap\mathbb{U}_2).
+          \]
         </p>
 
         <h4>Proof:</h4>
         <p>
-          Let \(u_1,\dots,u_m\) be a basis of \(\mathbb{U}_1\cap\mathbb{U}_2\).
-          Then: \[ \dim(\mathbb{U}_1\cap\mathbb{U}_2)=m. \] Since
-          \(u_1,\dots,u_m\) is linearly independent in \(\mathbb{U}_1\), we can
-          extend it to a basis of \(\mathbb{U}_1\). Let this basis be: \[
-          u_1,\dots,u_m,v_1,\dots,v_j. \] Therefore: \[ \dim(\mathbb{U}_1)=m+j.
-          \] Similarly, we can extend \(u_1,\dots,u_m\) to a basis of
-          \(\mathbb{U}_2\). Let this basis be: \[ u_1,\dots,u_m,w_1,\dots,w_k.
-          \] Therefore: \[ \dim(\mathbb{U}_2)=m+k. \]
+          By Theorem-3.004, \(\mathbb U_1\) and \(\mathbb U_2\) are
+          finite-dimensional. Since their intersection is also a subspace
+          of \(\mathbb V\), it is finite-dimensional as well.
         </p>
 
         <p>
-          We will now show that: \[ u_1,\dots,u_m,v_1,\dots,v_j,w_1,\dots,w_k \]
+          Let \(u_1,\dots,u_m\) be a basis of
+          \(\mathbb{U}_1\cap\mathbb{U}_2\). Then:
+          \[
+          \dim(\mathbb{U}_1\cap\mathbb{U}_2)=m.
+          \]
+          Since \(u_1,\dots,u_m\) is linearly independent in
+          \(\mathbb{U}_1\), we can extend it to a basis of
+          \(\mathbb{U}_1\). To see why this is possible, if the current list
+          does not span \(\mathbb U_1\), we can add a vector from
+          \(\mathbb U_1\) that is not in the span of the current list.
+          This keeps the list linearly independent. Since \(\mathbb U_1\)
+          is finite-dimensional, this process must eventually stop. Indeed,
+          by Theorem-3.002, a linearly independent list cannot be longer
+          than a finite spanning list of \(\mathbb U_1\). Once the list
+          spans \(\mathbb U_1\), it is a basis.
+        </p>
+
+        <p>
+          Let this basis be:
+          \[
+          u_1,\dots,u_m,v_1,\dots,v_j.
+          \]
+          Therefore:
+          \[
+          \dim(\mathbb{U}_1)=m+j.
+          \]
+          Similarly, we can extend \(u_1,\dots,u_m\) to a basis of
+          \(\mathbb{U}_2\) using the same argument. Let this basis be:
+          \[
+          u_1,\dots,u_m,w_1,\dots,w_k.
+          \]
+          Therefore:
+          \[
+          \dim(\mathbb{U}_2)=m+k.
+          \]
+        </p>
+
+        <p>
+          We will now show that:
+          \[
+          u_1,\dots,u_m,v_1,\dots,v_j,w_1,\dots,w_k
+          \]
           is a basis of \(\mathbb{U}_1+\mathbb{U}_2\). First, since
-          \(u_1,\dots,u_m,v_1,\dots,v_j\) is a basis of \(\mathbb{U}_1\) and
-          \(u_1,\dots,u_m,w_1,\dots,w_k\) is a basis of \(\mathbb{U}_2\), every
-          vector in \(\mathbb{U}_1\) and \(\mathbb{U}_2\) can be written as a
-          linear combination of the vectors above. Therefore, every vector in
+          \(u_1,\dots,u_m,v_1,\dots,v_j\) is a basis of
+          \(\mathbb{U}_1\) and \(u_1,\dots,u_m,w_1,\dots,w_k\) is a basis
+          of \(\mathbb{U}_2\), every vector in \(\mathbb{U}_1\) and
+          \(\mathbb{U}_2\) can be written as a linear combination of the
+          vectors above. Therefore, every vector in
           \(\mathbb{U}_1+\mathbb{U}_2\) can also be written as a linear
-          combination of them. Thus: \[ \mathbb{U}_1+\mathbb{U}_2 =
-          \operatorname{span}(u_1,\dots,u_m,v_1,\dots,v_j,w_1,\dots,w_k). \] So
-          it remains only to show that these vectors are linearly independent.
+          combination of them. Thus:
+          \[
+          \mathbb{U}_1+\mathbb{U}_2
+          \subseteq
+          \operatorname{span}(u_1,\dots,u_m,v_1,\dots,v_j,w_1,\dots,w_k).
+          \]
+          On the other hand, all these vectors belong to
+          \(\mathbb{U}_1+\mathbb{U}_2\), and this sum is a subspace by
+          Theorem-3.005. Therefore:
+          \[
+          \operatorname{span}(u_1,\dots,u_m,v_1,\dots,v_j,w_1,\dots,w_k)
+          \subseteq
+          \mathbb{U}_1+\mathbb{U}_2.
+          \]
+          Hence:
+          \[
+          \mathbb{U}_1+\mathbb{U}_2
+          =
+          \operatorname{span}(u_1,\dots,u_m,v_1,\dots,v_j,w_1,\dots,w_k).
+          \]
+          So it remains only to show that these vectors are linearly independent.
         </p>
 
         <p>
-          Suppose: \[ a_1u_1+\cdots+a_mu_m+b_1v_1+\cdots+b_jv_j
-          +c_1w_1+\cdots+c_kw_k=0. \] We want to show that all the \(a\)'s,
-          \(b\)'s, and \(c\)'s are equal to \(0\). We can rewrite the equation
-          as: \[ c_1w_1+\cdots+c_kw_k =
-          -a_1u_1-\cdots-a_mu_m-b_1v_1-\cdots-b_jv_j. \] The left side belongs
-          to \(\mathbb{U}_2\), since \(w_1,\dots,w_k\in\mathbb{U}_2\). Therefore
-          the right side must also belong to \(\mathbb{U}_2\). But the right
-          side is already a vector in \(\mathbb{U}_1\), since
-          \(u_1,\dots,u_m,v_1,\dots,v_j\in\mathbb{U}_1\). Hence: \[
+          Suppose:
+          \[
+          a_1u_1+\cdots+a_mu_m+b_1v_1+\cdots+b_jv_j
+          +c_1w_1+\cdots+c_kw_k=0.
+          \]
+          We want to show that all the \(a\)'s, \(b\)'s, and \(c\)'s are
+          equal to \(0\). We can rewrite the equation as:
+          \[
+          c_1w_1+\cdots+c_kw_k
+          =
+          -a_1u_1-\cdots-a_mu_m-b_1v_1-\cdots-b_jv_j.
+          \]
+          The left side belongs to \(\mathbb{U}_2\), since
+          \(w_1,\dots,w_k\in\mathbb{U}_2\). Therefore, the right side must
+          also belong to \(\mathbb{U}_2\). But the right side is already
+          a vector in \(\mathbb{U}_1\), since
+          \(u_1,\dots,u_m,v_1,\dots,v_j\in\mathbb{U}_1\). Hence:
+          \[
           -a_1u_1-\cdots-a_mu_m-b_1v_1-\cdots-b_jv_j
-          \in\mathbb{U}_1\cap\mathbb{U}_2. \] Since \(u_1,\dots,u_m\) is a basis
-          of \(\mathbb{U}_1\cap\mathbb{U}_2\), there exist scalars
-          \(d_1,\dots,d_m\) such that: \[
-          -a_1u_1-\cdots-a_mu_m-b_1v_1-\cdots-b_jv_j = d_1u_1+\cdots+d_mu_m. \]
-          Rearranging gives: \[ (a_1+d_1)u_1+\cdots+(a_m+d_m)u_m
-          +b_1v_1+\cdots+b_jv_j=0. \] But \(u_1,\dots,u_m,v_1,\dots,v_j\) is a
-          basis of \(\mathbb{U}_1\), and therefore it is linearly independent.
-          Thus: \[ a_i+d_i=0\qquad (i=1,\dots,m) \] and \[ b_1=\cdots=b_j=0. \]
-          Therefore the original equation becomes: \[ c_1w_1+\cdots+c_kw_k=0. \]
-          Since \(w_1,\dots,w_k\), together with \(u_1,\dots,u_m\), form a basis
-          of \(\mathbb{U}_2\), they are linearly independent. Hence: \[
-          c_1=\cdots=c_k=0. \] Now since \(b_1=\cdots=b_j=0\) and
-          \(c_1=\cdots=c_k=0\), the original equation reduces to: \[
-          a_1u_1+\cdots+a_mu_m=0. \] Again, \(u_1,\dots,u_m\) is linearly
-          independent, so: \[ a_1=\cdots=a_m=0. \] Therefore all the
-          coefficients are \(0\), and hence \[
-          u_1,\dots,u_m,v_1,\dots,v_j,w_1,\dots,w_k \] is linearly independent.
-          Thus it is a basis of \(\mathbb{U}_1+\mathbb{U}_2\), and so: \[
-          \dim(\mathbb{U}_1+\mathbb{U}_2)=m+j+k. \] Finally, since \[
-          \dim(\mathbb{U}_1)=m+j,\qquad \dim(\mathbb{U}_2)=m+k,\qquad
-          \dim(\mathbb{U}_1\cap\mathbb{U}_2)=m, \] we get: \[ \begin{aligned}
-          \dim(\mathbb{U}_1+\mathbb{U}_2) &=m+j+k\\ &=(m+j)+(m+k)-m\\
+          \in\mathbb{U}_1\cap\mathbb{U}_2.
+          \]
+          Since \(u_1,\dots,u_m\) is a basis of
+          \(\mathbb{U}_1\cap\mathbb{U}_2\), there exist scalars
+          \(d_1,\dots,d_m\) such that:
+          \[
+          -a_1u_1-\cdots-a_mu_m-b_1v_1-\cdots-b_jv_j
+          =
+          d_1u_1+\cdots+d_mu_m.
+          \]
+          Rearranging gives:
+          \[
+          (a_1+d_1)u_1+\cdots+(a_m+d_m)u_m
+          +b_1v_1+\cdots+b_jv_j=0.
+          \]
+          But \(u_1,\dots,u_m,v_1,\dots,v_j\) is a basis of
+          \(\mathbb{U}_1\), and therefore it is linearly independent.
+          Thus:
+          \[
+          a_i+d_i=0\qquad (i=1,\dots,m)
+          \]
+          and:
+          \[
+          b_1=\cdots=b_j=0.
+          \]
+        </p>
+
+        <p>
+          Now recall that we established:
+          \[
+          c_1w_1+\cdots+c_kw_k
+          =
+          d_1u_1+\cdots+d_mu_m.
+          \]
+          Rearranging gives:
+          \[
+          c_1w_1+\cdots+c_kw_k
+          -d_1u_1-\cdots-d_mu_m=0.
+          \]
+          Since \(u_1,\dots,u_m,w_1,\dots,w_k\) form a basis of
+          \(\mathbb{U}_2\), they are linearly independent. Hence:
+          \[
+          c_1=\cdots=c_k=0
+          \]
+          and:
+          \[
+          d_1=\cdots=d_m=0.
+          \]
+          But we already established that:
+          \[
+          a_i+d_i=0\qquad (i=1,\dots,m).
+          \]
+          Therefore:
+          \[
+          a_1=\cdots=a_m=0.
+          \]
+          Together with \(b_1=\cdots=b_j=0\) and
+          \(c_1=\cdots=c_k=0\), all the coefficients are \(0\).
+          Hence:
+          \[
+          u_1,\dots,u_m,v_1,\dots,v_j,w_1,\dots,w_k
+          \]
+          is linearly independent.
+        </p>
+
+        <p>
+          Thus it is a basis of \(\mathbb{U}_1+\mathbb{U}_2\), and so:
+          \[
+          \dim(\mathbb{U}_1+\mathbb{U}_2)=m+j+k.
+          \]
+          Finally, since:
+          \[
+          \begin{aligned}
+          \dim(\mathbb{U}_1)&=m+j,\\
+          \dim(\mathbb{U}_2)&=m+k,\\
+          \dim(\mathbb{U}_1\cap\mathbb{U}_2)&=m,
+          \end{aligned}
+          \]
+          we get:
+          \[
+          \begin{aligned}
+          \dim(\mathbb{U}_1+\mathbb{U}_2)
+          &=m+j+k\\
+          &=(m+j)+(m+k)-m\\
           &=\dim(\mathbb{U}_1)+\dim(\mathbb{U}_2)
-          -\dim(\mathbb{U}_1\cap\mathbb{U}_2). \end{aligned} \] This proves the
-          theorem.
+          -\dim(\mathbb{U}_1\cap\mathbb{U}_2).
+          \end{aligned}
+          \]
+          This proves the theorem.
         </p>
 
         <span class="qed"></span>
       </div>
+
       <p>
-        To make sense of this image, consider a \(\mathbb R^3\) space, and
-        suppose two planes are passing through the origin. They need to pass
-        through the origin so that they are each a subspace of \(\mathbb R^3\),
-        since they contain the origin. Then, since they both pass through the
-        origin, two things can happen: either both planes overlap with each
-        other, that is \(\mathbb U_1=\mathbb U_2\), or they just intersect, in
-        which case the intersection of the planes is a line, that is \(\mathbb
-        U_1\cap\mathbb U_2\) is a line. In this case, their sum is the whole
-        \(\mathbb R^3\), so: \[ \mathbb U_1+\mathbb U_2=\mathbb R^3. \] Then, in
-        the case when both planes overlap, what we get is \(\mathbb U_1+\mathbb
-        U_2=\mathbb U_1=\mathbb U_2\), and thus \[ \dim(\mathbb U_1+\mathbb U_2)
-        =\dim\mathbb U_1 =\dim\mathbb U_2. \] By the theorem \[
-        \dim(\mathbb{U}_1+\mathbb{U}_2) = \dim(\mathbb{U}_1)+\dim(\mathbb{U}_2)
-        -\dim(\mathbb{U}_1\cap\mathbb{U}_2), \] here \(\mathbb U_1\cap\mathbb
-        U_2=\mathbb U_1=\mathbb U_2\), so \[ \dim(\mathbb U_1\cap\mathbb U_2)
-        =\dim\mathbb U_1 =\dim\mathbb U_2. \] Therefore, we get: \[
-        \begin{aligned} \dim(\mathbb{U}_1+\mathbb{U}_2) &=
+        To make sense of this theorem, consider \(\mathbb R^3\), and suppose
+        two planes are passing through the origin. They need to pass through
+        the origin so that they are each a subspace of \(\mathbb R^3\), since
+        they contain the origin. Then, since they both pass through the origin,
+        two things can happen: either both planes coincide, that is
+        \(\mathbb U_1=\mathbb U_2\), or they are distinct, in which case their
+        intersection is a line.
+      </p>
+
+      <p>
+        To see why the intersection of two distinct planes is a line, notice
+        that each plane has dimension \(2\). Their sum is a subspace of
+        \(\mathbb R^3\), so by Theorem-3.004 its dimension cannot exceed \(3\).
+        By Theorem-3.006:
+        \[
+        \dim(\mathbb U_1\cap\mathbb U_2)
+        =
+        2+2-\dim(\mathbb U_1+\mathbb U_2)
+        \geq 1.
+        \]
+        Since the planes are distinct, their intersection cannot itself be
+        a plane. Therefore, the intersection has dimension exactly \(1\),
+        meaning that it is a line.
+      </p>
+
+      <p>
+        For example, imagine the two planes to be the \(xy\)-plane and the
+        \(yz\)-plane. Their intersection is the \(y\)-axis. In this case,
+        their sum is the whole \(\mathbb R^3\), so:
+        \[
+        \mathbb U_1+\mathbb U_2=\mathbb R^3.
+        \]
+        We can see this explicitly by considering the following three vectors:
+        \[
+        \mathbf e_1=
+        \begin{pmatrix}1\\0\\0\end{pmatrix},
+        \qquad
+        \mathbf e_2=
+        \begin{pmatrix}0\\1\\0\end{pmatrix},
+        \qquad
+        \mathbf e_3=
+        \begin{pmatrix}0\\0\\1\end{pmatrix}.
+        \]
+        Here, \(\mathbf e_1\) belongs to the \(xy\)-plane,
+        \(\mathbf e_2\) belongs to both planes, and \(\mathbf e_3\)
+        belongs to the \(yz\)-plane. These three vectors are linearly
+        independent and span \(\mathbb R^3\).
+      </p>
+
+      <p>
+        In the other case, when both planes coincide, we get:
+        \[
+        \mathbb U_1+\mathbb U_2=\mathbb U_1=\mathbb U_2.
+        \]
+        Also:
+        \[
+        \mathbb U_1\cap\mathbb U_2
+        =
+        \mathbb U_1
+        =
+        \mathbb U_2.
+        \]
+        Therefore:
+        \[
+        \dim(\mathbb U_1+\mathbb U_2)
+        =
+        \dim\mathbb U_1
+        =
+        \dim\mathbb U_2.
+        \]
+        By the theorem:
+        \[
+        \dim(\mathbb{U}_1+\mathbb{U}_2)
+        =
         \dim(\mathbb{U}_1)+\dim(\mathbb{U}_2)
-        -\dim(\mathbb{U}_1\cap\mathbb{U}_2)\\ &=
-        \dim(\mathbb{U}_1)+\dim(\mathbb{U}_2)-\dim(\mathbb U_1)\\ &=\dim(\mathbb
-        U_2), \end{aligned} \] as expected. Similarly, since \(\dim(\mathbb
-        U_1\cap\mathbb U_2)=\dim(\mathbb U_2)\), we can also write: \[
-        \begin{aligned} \dim(\mathbb{U}_1+\mathbb{U}_2) &=
-        \dim(\mathbb{U}_1)+\dim(\mathbb{U}_2)-\dim(\mathbb U_2)\\ &=\dim(\mathbb
-        U_1), \end{aligned} \] which is again exactly what we expected.
+        -\dim(\mathbb{U}_1\cap\mathbb{U}_2).
+        \]
+        Here:
+        \[
+        \dim(\mathbb U_1\cap\mathbb U_2)
+        =
+        \dim\mathbb U_1
+        =
+        \dim\mathbb U_2.
+        \]
+        Therefore, we get:
+        \[
+        \begin{aligned}
+        \dim(\mathbb{U}_1+\mathbb{U}_2)
+        &=
+        \dim(\mathbb{U}_1)+\dim(\mathbb{U}_2)
+        -\dim(\mathbb{U}_1\cap\mathbb{U}_2)\\
+        &=
+        \dim(\mathbb{U}_1)+\dim(\mathbb{U}_2)
+        -\dim(\mathbb U_1)\\
+        &=\dim(\mathbb U_2),
+        \end{aligned}
+        \]
+        as expected. Similarly, since
+        \(\dim(\mathbb U_1\cap\mathbb U_2)=\dim(\mathbb U_2)\),
+        we can also write:
+        \[
+        \begin{aligned}
+        \dim(\mathbb{U}_1+\mathbb{U}_2)
+        &=
+        \dim(\mathbb{U}_1)+\dim(\mathbb{U}_2)
+        -\dim(\mathbb U_2)\\
+        &=\dim(\mathbb U_1),
+        \end{aligned}
+        \]
+        which is again exactly what we expected.
       </p>
+
       <p>
-        In the other case, when they only intersect in a line, then we get
-        \(\mathbb U_1\cap\mathbb U_2\) is a line, so by the theorem: \[
-        \dim(\mathbb{U}_1+\mathbb{U}_2) = 2+2-1=3. \] Here, since both are
-        planes in \(\mathbb R^3\), that means \(\dim(\mathbb U_1)=\dim(\mathbb
-        U_2)=2\), and since they intersect in a line, we get \(\dim(\mathbb
-        U_1\cap\mathbb U_2)=1\). So \(\mathbb U_1+\mathbb U_2\) will span the
-        whole space \(\mathbb R^3\). It should not be surprising, as you can
-        imagine those two planes to be the \(xy\)-plane and the \(yz\)-plane,
-        and as you know, linear combinations of three linearly independent
-        vectors taken from those two planes can span the whole \(\mathbb R^3\).
+        In the other case, when they only intersect in a line, we get:
+        \[
+        \dim(\mathbb U_1\cap\mathbb U_2)=1.
+        \]
+        Since both are planes in \(\mathbb R^3\), we also know that:
+        \[
+        \dim(\mathbb U_1)=\dim(\mathbb U_2)=2.
+        \]
+        So by the theorem:
+        \[
+        \dim(\mathbb{U}_1+\mathbb{U}_2)=2+2-1=3.
+        \]
+        Therefore, their sum has dimension \(3\). Since it is a subspace
+        of \(\mathbb R^3\), it must be the whole space:
+        \[
+        \mathbb U_1+\mathbb U_2=\mathbb R^3.
+        \]
       </p>
+
       <p>
         We will for now leave this lesson here. Soon, more material will be
         added to this lesson.
