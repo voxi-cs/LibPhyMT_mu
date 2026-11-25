@@ -197,62 +197,113 @@
       </p>
 
       <p>
-        What it means is that if \( \mathbf{v}_1,\mathbf{v}_2,\dots,\mathbf{v}_n
-        \in \mathbb{V} \) are basis vectors of the vector space \(\mathbb{V}\),
-        then every unique/different choice of \(c_1,c_2,\dots,c_n\) will give
-        different vectors, and the linear combination of the vectors gives all
-        vectors of the vector space \(\mathbb{V}\). Below is the proof:
+        What this means is that two things must hold. First, every vector
+        \(\mathbf{v} \in \mathbb{V}\) must be expressible as a linear combination
+        of the basis vectors \(\mathbf{v}_1,\mathbf{v}_2,\dots,\mathbf{v}_n\).
+        This is because the basis vectors span the entire vector space
+        \(\mathbb{V}\). Second, different choices of coefficients must give
+        different vectors. This follows from the linear independence of the
+        basis vectors. Together, these two properties ensure that every vector
+        in \(\mathbb{V}\) can be written as one and only one linear combination
+        of the basis vectors. Below is the proof:
       </p>
+
       <div class="theo-type1">
         <h4>Theorem-3.001:</h4>
         <p>
           If \(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n\) are basis
-          vectors of a vector space \(\mathbb{V}\), then every vector
-          \(\mathbf{v} \in \mathbb{V}\) can be written as a
+          vectors of a vector space \(\mathbb{V}\) over a field \(\mathbb{F}\),
+          then every vector \(\mathbf{v} \in \mathbb{V}\) can be written as a
           <strong>unique linear combination</strong> of these basis vectors.
-          That is, \[ \mathbf{v} = c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \dots +
-          c_n\mathbf{v}_n \] for one and only one set of coefficients
-          \(c_1,c_2,\dots,c_n\).
+          That is,
+          \[
+          \mathbf{v} = c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \dots +
+          c_n\mathbf{v}_n
+          \]
+          for one and only one choice of coefficients
+          \(c_1,c_2,\dots,c_n \in \mathbb{F}\).
         </p>
 
         <h4>Proof:</h4>
         <p>
-          Let \(\mathbf{v}\) be a vector in the vector space \(\mathbb{V}\), so
-          \(\mathbf{v} \in \mathbb{V}\).
+          Let \(\mathbf{v}\) be any vector in the vector space
+          \(\mathbb{V}\), so \(\mathbf{v} \in \mathbb{V}\).
         </p>
 
         <p>
-          Suppose \(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n\) are basis
-          vectors of \(\mathbb{V}\), and hence they must be linearly
-          independent.
+          Suppose \(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n\)
+          are basis vectors of \(\mathbb{V}\). By the definition of a basis,
+          these vectors are linearly independent and span \(\mathbb{V}\).
         </p>
 
         <p>
-          Assume the vector \(\mathbf{v} \in \mathbb{V}\) can be written in two
-          different ways using a linear combination of the basis vectors with
-          <strong>different sets of coefficients</strong>, let them be \(c\)'s
-          and \(a\)'s. Hence: \[ \mathbf{v} = c_1\mathbf{v}_1 + c_2\mathbf{v}_2
-          + \dots + c_n\mathbf{v}_n \] \[ \mathbf{v} = a_1\mathbf{v}_1 +
-          a_2\mathbf{v}_2 + \dots + a_n\mathbf{v}_n \] Now if we subtract them,
-          we get: \[ \mathbf{0} = (c_1-a_1)\mathbf{v}_1 + (c_2-a_2)\mathbf{v}_2
-          + \dots + (c_n-a_n)\mathbf{v}_n \] Since the vectors \(\mathbf{v}_1,
-          \mathbf{v}_2, \dots, \mathbf{v}_n\) are linearly independent, the only
-          way for the linear combination above to be zero is if and only if
-          \(c_i-a_i = 0\) for every \(i\). And hence: \[ \boxed{c_i = a_i} \] So
-          it contradicts our assumption of "different sets of coefficients".
-          Hence, every vector in \(\mathbb{V}\) has a unique set of coefficients
-          when written as a linear combination of the basis vectors
-          \(\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n\).
+          Since these vectors span \(\mathbb{V}\), there must exist
+          coefficients \(c_1,c_2,\dots,c_n \in \mathbb{F}\) such that
+          \[
+          \mathbf{v} = c_1\mathbf{v}_1 + c_2\mathbf{v}_2
+          + \dots + c_n\mathbf{v}_n.
+          \]
+          Hence, every vector in \(\mathbb{V}\) can be expressed as a
+          linear combination of the basis vectors.
+        </p>
+
+        <p>
+          Now we need to show that this representation is unique.
+          Suppose the same vector \(\mathbf{v}\) can be written in two
+          different ways as linear combinations of the basis vectors,
+          using coefficients \(c_1,c_2,\dots,c_n\) and
+          \(a_1,a_2,\dots,a_n\), respectively. Hence:
+          \[
+          \mathbf{v} = c_1\mathbf{v}_1 + c_2\mathbf{v}_2
+          + \dots + c_n\mathbf{v}_n
+          \]
+          \[
+          \mathbf{v} = a_1\mathbf{v}_1 + a_2\mathbf{v}_2
+          + \dots + a_n\mathbf{v}_n
+          \]
+          Subtracting these two equations, we get:
+          \[
+          \mathbf{0} = (c_1-a_1)\mathbf{v}_1
+          + (c_2-a_2)\mathbf{v}_2 + \dots
+          + (c_n-a_n)\mathbf{v}_n.
+          \]
+          Since the vectors \(\mathbf{v}_1,\mathbf{v}_2,\dots,\mathbf{v}_n\)
+          are linearly independent, the only way for the linear combination
+          above to be zero is if
+          \[
+          c_i-a_i=0
+          \]
+          for every \(i=1,2,\dots,n\). Therefore,
+          \[
+          \boxed{c_i=a_i \quad \text{for every } i=1,2,\dots,n.}
+          \]
+          Hence, the two representations must have exactly the same
+          coefficients. This proves that every vector in \(\mathbb{V}\)
+          has a unique representation as a linear combination of the
+          basis vectors \(\mathbf{v}_1,\mathbf{v}_2,\dots,\mathbf{v}_n\).
           <span class="qed"></span>
         </p>
       </div>
+
       <p>
-        NOTE: Go back to the definition and remember we said
-        <strong>list of minimum number of vectors</strong>. If you ignore that,
-        then every linearly independent list becomes a basis, and that is not
-        correct. For \(\mathbb{R}^1\) the number is one, for \(\mathbb{R}^2\) it
-        is two, for \(\mathbb{R}^3\) it is three, and for \(\mathbb{R}^n\) the
-        number is \(n\). This is what we call a dimension.
+        NOTE: Go back to the definition of a basis. We defined it as a
+        linearly independent list of vectors that spans the entire vector
+        space. Both conditions are necessary. If we only require a list
+        to be linearly independent, it does not necessarily become a basis
+        because it may not span the entire vector space. For example,
+        \(\begin{pmatrix}1\\0\end{pmatrix}\) is linearly independent
+        as a list containing one vector, but it does not span
+        \(\mathbb{R}^2\).
+      </p>
+
+      <p>
+        For \(\mathbb{R}^1\), the standard basis contains one vector;
+        for \(\mathbb{R}^2\), it contains two vectors; for
+        \(\mathbb{R}^3\), it contains three vectors; and, in general,
+        for \(\mathbb{R}^n\), the standard basis contains \(n\) vectors.
+        Later, we will prove that all bases of a finite-dimensional
+        vector space contain the same number of vectors. This number
+        is what we call the <strong>dimension</strong> of the vector space.
       </p>
 
       <h2>Dimension</h2>
