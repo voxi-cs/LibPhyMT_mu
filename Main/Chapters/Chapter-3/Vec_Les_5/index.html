@@ -526,21 +526,27 @@
         <span class="qed"></span>
       </div>
       <p>
-        Well, till now we have shown you what a linear transformation is and
-        treated \(T\) as a <strong>black box</strong>, and we have not told you
-        yet how we can form a linear transformation. Actually, it is because
-        there are many ways to represent and study a linear transformation. In
-        finite-dimensional vector spaces, we can represent a linear
-        transformation using an \(m\times n\) matrix, but in
-        infinite-dimensional vector spaces, it is not that simple.
+        In finite-dimensional vector spaces, we can represent a linear transformation using a matrix. The matrix representation
+        of a linear transformation depends on the choice of basis for the domain and codomain vector spaces.
+        If we have a linear transformation \(T: \mathbb{V} \to \mathbb{W}\) and we choose bases
+        \(\mathcal B\) and \(\mathcal C\) for \(\mathbb{V}\) and \(\mathbb{W}\), respectively,
+        we can represent \(T\) as a matrix \(A\) such that
+        \[
+        [T(\mathbf{v})]_{\mathcal C} = A[\mathbf{v}]_{\mathcal B}
+        \]
+        for all \(\mathbf{v} \in \mathbb{V}\).
+        This allows us to perform computations with linear transformations using matrix multiplication in the finite-dimensional case.
       </p>
 
       <p>
         In an infinite-dimensional vector space, we cannot generally represent a
-        linear transformation using an ordinary finite matrix. In some settings,
-        infinite matrices can be used, but this requires additional structure
-        and is not the general way to describe linear transformations. An
-        example of an infinite-dimensional vector space is a
+        linear transformation using an ordinary finite matrix. However, after
+        choosing Hamel bases, linear transformations can also be represented using
+        infinite matrices. In this representation, each column has only finitely
+        many nonzero entries, since each basis vector is mapped to a finite linear
+        combination of basis vectors. Infinite sums and convergence become relevant
+        in other settings, particularly when working with operators on particular
+        function spaces. An example of an infinite-dimensional vector space is a
         <strong>Function Space</strong>. Putting it simply for now, a function
         space is a vector space where the elements are functions. In a function
         space, the vectors are functions, and the vector-space operations are
@@ -548,11 +554,12 @@
         too much detail now, mainly because it may misguide you. We will return
         to these spaces later.
       </p>
+
       <p>
         A large part of the mathematical framework behind quantum mechanics and
         QFT involves infinite-dimensional vector spaces. Infinite-dimensional
         vector spaces are not limited to function spaces; they include many
-        other types of spaces, such as \(l^2\), the space of square-summable
+        other types of spaces, such as \(\ell^2\), the space of square-summable
         sequences.
       </p>
       <h2>Linear Transformation of Finite Dimensional Vector Space.</h2>
