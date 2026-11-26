@@ -115,7 +115,7 @@
         When we multiply a vector by a matrix it gives us a new vector. It is
         not necessary that the new vector is going to be totally new from the
         original vector we had, but the matrix in a way "transforms" our
-        original vector. 
+        original vector.
       </p>
       <p>
         We can transform a vector by putting it in a function that takes in our
@@ -129,29 +129,54 @@
         In linear algebra, to represent a function we will use \(T\) instead of
         \(f\), \(T\) for transform. A transform can be thought of as a function
         that takes in a vector from a finite-dimensional vector space and
-        multiplies with a matrix to produce a new vector in a new finite
-        dimensional vector space. This can be written as: \[
-        T(\mathbf v) = \mathbf A \mathbf v \] or a transformation that takes in
-        a vector from \(\mathbb R^n\) and produces the magnitude of the vector can be written as 
-        a transformation \(T : \mathbb R^n \to \mathbb R\): \[ T(\mathbf v) = \sqrt{\mathbf v \cdot
-        \mathbf v} \] This is a examples of transformations. But whether it is
-        a linear transformation or not is 
-        a different matter about which we will discuss later, this perticuler function is not a linear transformation.
+        multiplies it by a matrix to produce a new vector in a new finite
+        dimensional vector space. This can be written as:
+        \[
+        T(\mathbf v) = \mathbf A \mathbf v
+        \]
+        Or a transformation that takes in a vector from \(\mathbb R^n\) and
+        produces the magnitude of the vector can be written as a
+        transformation \(T : \mathbb R^n \to \mathbb R\):
+        \[
+        T(\mathbf v) = \sqrt{\mathbf v \cdot \mathbf v}
+        \]
+        This is an example of a transformation. But whether it is a linear
+        transformation or not is a different matter, which we will discuss
+        later. This particular function is not a linear transformation.
+        Indeed,
+        \[
+        T(c\mathbf v) = \|c\mathbf v\|
+        = |c|\|\mathbf v\|
+        = |c|T(\mathbf v)
+        \]
+        which is not equal to \(cT(\mathbf v)\) for every real scalar \(c\).
+        For example, take \(c=-1\) and any nonzero vector \(\mathbf v\).
       </p>
       <p>
-        A transform acts on vectors, in linear algebra when we study vector
-        transformation we do not just study what happens to a single specific
+        A transform acts on vectors. In linear algebra, when we study vector
+        transformations, we do not just study what happens to a single specific
         vector but we also want to know what happens to a whole vector space when
-        the transformation acts on it. For \(\mathbb R^2 \) and \(\mathbb R^3 \)
-        we can also visualize what happens to the vector after choosing a basis. 
-        Remember that in this chapter of linear algebra when we talk about vector spaces we mianly talk about 
-        finite dimensional vector spaces if not otherwise mentioned, we talk about infinite dimensional vector spaces in later chapter 
-        on functional analysis. A vector is strictly not an arrow, it is a
-        mathematical object, we can think of them as points after choosing a basis, Thus for the case of \(\mathbb R^2\) and \(\mathbb R^3\) we can visualize a whole set of vector as grid. While visualizing a \(\mathbb R^2\) or \(\mathbb R^3\) vector space
-        it gets useless when we draw many vectors and there is nothing to look
-        at, so in this lesson when we animate a grid are mainly looking at points that are assocaited with vectors with end at those points. We will look at points on a grid to better understand what a
-        transformation does to a the set of vectors of the vector space, as you will see one imprtatn part of it is to choose a coordinate system and here we will mainly work in standard cartesian coordinate system. Below we show a demonstration of
-        that:
+        the transformation acts on it. For \(\mathbb R^2\) and \(\mathbb R^3\)
+        we can also visualize what happens to the vectors after choosing a basis.
+        Remember that in this chapter of linear algebra when we talk about vector
+        spaces we mainly talk about finite-dimensional vector spaces if not
+        otherwise mentioned. We talk about infinite-dimensional vector spaces in
+        a later chapter on functional analysis.
+
+        A vector is an abstract mathematical object, not necessarily an arrow.
+        In \(\mathbb R^2\) and \(\mathbb R^3\), we can represent vectors
+        geometrically as arrows or, after choosing a basis, by their coordinates
+        as points in the coordinate space. Thus, in the cases of
+        \(\mathbb R^2\) and \(\mathbb R^3\), we can visualize vectors as points
+        on a grid. When visualizing a \(\mathbb R^2\) or \(\mathbb R^3\) vector
+        space, drawing an arrow for every vector quickly becomes cluttered.
+        So in this lesson, when we animate a grid, we mainly look at points
+        associated with vectors: the points at which the arrows representing
+        those vectors end. We will look at points on a grid to better understand
+        what a transformation does to the set of vectors of the vector space.
+        As you will see, one important part of this is choosing a coordinate
+        system, and here we will mainly work in the standard Cartesian
+        coordinate system. Below we show a demonstration of that:
       </p>
 
       <div class="Animation">
@@ -191,35 +216,46 @@
         transformation. The word "linear" represents two properties a function
         must obey. These properties are <strong>Additivity</strong> and
         <strong>Homogeneity</strong>. A transformation must follow these rules
-        in order to be called linear. Bellow we define linear transformation more properly:
+        in order to be called linear. Bellow we define linear transformation
+        more properly:
       </p>
       <div class="definition-box">
         <p>
           <strong class="DEF">Definition: Linear Transformation</strong>
-          A <strong>Linear Transformation</strong> from a vector space \(\mathbb{V}\) to
-          \(\mathbb{W}\) is a function \(T: \mathbb{V} \to \mathbb{W}\) that
-          obeys the following rules:
+          A <strong>Linear Transformation</strong> from a vector space
+          \(\mathbb{V}\) to \(\mathbb{W}\) is a function
+          \(T: \mathbb{V} \to \mathbb{W}\) that obeys the following rules:
         </p>
         <h4>Additivity:</h4>
         <p class="equation">
-          \[ T\left(\mathbf{u}+\mathbf{v}\right) = T\left(\mathbf{u}\right) +
-          T\left(\mathbf{v}\right) \text{ for all } \mathbf{u},\mathbf{v} \in
-          \mathbb{V} \]
+          \[
+          T\left(\mathbf{u}+\mathbf{v}\right)
+          = T\left(\mathbf{u}\right) + T\left(\mathbf{v}\right)
+          \text{ for all } \mathbf{u},\mathbf{v} \in \mathbb{V}
+          \]
         </p>
         <h4>Homogeneity:</h4>
         <p class="equation">
-          \[ T\left(c\mathbf{u}\right) = cT\left(\mathbf{u}\right) \text{ for
-          all } \mathbf{u} \in \mathbb{V} \text{ and } c \in \mathbb{F} \]
+          \[
+          T\left(c\mathbf{u}\right)
+          = cT\left(\mathbf{u}\right)
+          \text{ for all } \mathbf{u} \in \mathbb{V}
+          \text{ and } c \in \mathbb{F}
+          \]
         </p>
       </div>
       <p>
-        The resut of this properties <strong>Additivity</strong> and
-        <strong>Homogeneity</strong> make sure two things happens. They make sure
-        any straight line drawn/defined in the space stays straight after we transform
-        the vectors that defines the straight line via the transformation, and they also make sure the
-        origin or the zero vector maps into itself and does not "move from its place". While we
-        cannot actually visualize these things for \(n>3\) in \(\mathbb F^n\),
-        we can still get some idea by watching an animation on a grid. For genaral \(\mathbb F^n\) we have proven it mathematically later which you will see later.
+        The result of these properties, <strong>Additivity</strong> and
+        <strong>Homogeneity</strong>, is that any straight line in the space
+        maps to another straight line or a single point after we transform
+        the vectors that define the straight line. They also make sure that
+        the origin, or the zero vector, maps to the origin. While we cannot
+        directly visualize the full geometry of \(\mathbb R^n\) for \(n>3\),
+        we can still get some idea by watching an animation on a grid. These
+        animations illustrate the behavior in low-dimensional real vector
+        spaces; they do not prove that a transformation is linear. For general
+        vector spaces over \(\mathbb F\), these properties can be established
+        mathematically, as we will see later.
       </p>
 
       <div class="Animation">
@@ -252,10 +288,12 @@
       </div>
 
       <p>
-        Here you can see the lines are straight and so is the origin. It is at
-        its original place, so this transformation is what we call linear
-        transformation. Below we show an example of transformation that seems
-        linear but truly is not.
+        Here you can see that the grid lines remain straight and the origin
+        remains at its original position. This animation illustrates an example
+        of a linear transformation. However, the appearance of the grid alone
+        does not prove that a transformation is linear; linearity must be
+        established by checking additivity and homogeneity. Below we show an
+        example of a transformation that seems linear but truly is not.
       </p>
 
       <div class="Animation">
@@ -288,35 +326,47 @@
       </div>
 
       <p>
-        In these two animations the first one shows a linear transformation, and
-        the second one is just a transformation. Even if the origin maps to
-        itself in both transformations, in the second one the vertical and
-        horizontal lines do stay straight but the other lines drawn on the grid
-        curve due to the transformation and hence it was not a linear
-        transformation but just a transformation.
+        In these two animations, the first one illustrates a linear transformation,
+        and the second one illustrates a transformation that is not linear. Even
+        though the origin maps to itself in both transformations, in the second
+        one the vertical and horizontal lines remain straight, but the other
+        lines drawn on the grid curve due to the transformation. Since a linear
+        transformation maps every straight line to a straight line or a point,
+        this shows that the second transformation is not linear but just a
+        transformation.
       </p>
 
-
       <p>
-        What the definition of a linear transformation means is that, let us say we have a linear transformation \(T\),
-        it takes in one vector and gives us another vector. Doing this for all
-        vectors in a vector space called \(\mathbb V\) gives us a new set of
-        vectors. Meaning, the transformed vector space is defined as: \[
-        \mathbb{W} = \{T(\mathbf{v}) : \mathbf{v} \in \mathbb{V}\} \] More
-        precisely you could say \(\mathbb W\) is the <strong>image</strong> or
-        <strong>range</strong> of \(V\) under \(T\).
+        What the definition of a linear transformation means is that, let us say
+        we have a linear transformation \(T\), it takes in one vector and gives
+        us another vector. Doing this for all vectors in a vector space called
+        \(\mathbb V\) gives us a new set of vectors, called the image of \(T\).
+        More precisely:
+        \[
+        \operatorname{Im}(T)
+        =
+        \{T(\mathbf{v}) : \mathbf{v} \in \mathbb{V}\}
+        \subseteq \mathbb{W}
+        \]
+        Here, \(\mathbb W\) is the codomain, while
+        \(\operatorname{Im}(T)\) is the <strong>image</strong> or
+        <strong>range</strong> of \(T\), equivalently the image of
+        \(\mathbb V\) under \(T\).
       </p>
 
       <p>
         A Linear Transformation can be \(\mathbb R^n \to \mathbb R^m\), and
         could also be \(\mathbb R^n \to \mathbb C^m\) or \(\mathbb C^n \to
-        \mathbb C^m\). Let us say we have a vector \(\begin{pmatrix} x_1 \\ x_2
-        \end{pmatrix}\) in \(\mathbb R^2\), and let us say we have a linear
-        transformation \(T\) that takes vectors in \(\mathbb R^2\) and gives a
-        vector in \(\mathbb R^3\). What it means is that: \[ T:\mathbb R^2 \to
-        \mathbb R^3,\qquad T\!\left(\begin{pmatrix} x_1 \\ x_2
-        \end{pmatrix}\right) = \begin{pmatrix} x_1' \\ x_2' \\ x_3'
-        \end{pmatrix} \]
+        \mathbb C^m\). Let us say we have a vector
+        \(\begin{pmatrix} x_1 \\ x_2 \end{pmatrix}\) in \(\mathbb R^2\),
+        and let us say we have a linear transformation \(T\) that takes
+        vectors in \(\mathbb R^2\) and gives a vector in \(\mathbb R^3\).
+        What it means is that:
+        \[
+        T:\mathbb R^2 \to \mathbb R^3,\qquad
+        T\!\left(\begin{pmatrix} x_1 \\ x_2 \end{pmatrix}\right)
+        = \begin{pmatrix} x_1' \\ x_2' \\ x_3' \end{pmatrix}
+        \]
       </p>
 
       <p>
@@ -355,25 +405,42 @@
 
       <p>
         This animation shows an example of linear transformation and how points
-        and grids transform due to it. This perticuler transformation is called a 
-        shear transformation.  
+        and grids transform due to it. This particular transformation is called a
+        shear transformation.
       </p>
 
       <p>
-        Linear transformation keeps the origin or the zero vector at its place,
-        meaning it maps the zero vector to the zero vector: \[ T(\mathbf 0 ) = \mathbf 0. \] That means
-        any transformation that shifts/trnslate the grid/vectors is not linear. Using this logic
-        we can use the <strong>Additivity</strong> and
-        <strong>Homogeneity</strong> rule to get the following. A linear
-        transformation must obey: \[ T(c_1 \mathbf v + c_2 \mathbf u) = c_1
-        T(\mathbf v) + c_2 T(\mathbf u) \] We can test this for a matrix
-        transformation. Let us say we have the following transformation: \[
-        T(\mathbf v) = \mathbf A \mathbf v \] then, if we put \(T(c_1 \mathbf v
-        + c_2 \mathbf u)\) we get: \[ T(c_1 \mathbf v + c_2 \mathbf u) = \mathbf
-        A (c_1 \mathbf v + c_2 \mathbf u) = \mathbf A(c_1 \mathbf v) + \mathbf
-        A(c_2 \mathbf u) = c_1 \mathbf A(\mathbf v) + c_2 \mathbf A(\mathbf u) =
-        c_1T(\mathbf v) + c_2T(\mathbf u) \] So hence that implies \(T(\mathbf
-        v) = \mathbf A \mathbf v\) is linear.
+        A linear transformation keeps the origin or the zero vector at its place,
+        meaning it maps the zero vector to the zero vector:
+        \[
+        T(\mathbf 0_{\mathbb V}) = \mathbf 0_{\mathbb W}.
+        \]
+        A transformation that translates the entire space by a nonzero vector
+        is not linear. This does not mean that every vector stays in place:
+        a linear transformation can move nonzero vectors, but it must keep the
+        zero vector fixed. Also, by the <strong>Additivity</strong> and
+        <strong>Homogeneity</strong> rules, a linear transformation must obey:
+        \[
+        T(c_1 \mathbf v + c_2 \mathbf u)
+        = c_1 T(\mathbf v) + c_2 T(\mathbf u)
+        \]
+        We can test this for a matrix transformation. Let us say we have the
+        following transformation:
+        \[
+        T(\mathbf v) = \mathbf A \mathbf v
+        \]
+        then, if we put \(T(c_1 \mathbf v + c_2 \mathbf u)\) we get:
+        \[
+        \begin{aligned}
+        T(c_1 \mathbf v + c_2 \mathbf u)
+        &= \mathbf A (c_1 \mathbf v + c_2 \mathbf u) \\
+        &= \mathbf A(c_1 \mathbf v) + \mathbf A(c_2 \mathbf u) \\
+        &= c_1 \mathbf A(\mathbf v) + c_2 \mathbf A(\mathbf u) \\
+        &= c_1T(\mathbf v) + c_2T(\mathbf u)
+        \end{aligned}
+        \]
+        So hence that implies \(T(\mathbf v) = \mathbf A \mathbf v\)
+        is linear.
       </p>
 
       <p>
@@ -381,7 +448,6 @@
         rules make more sense and so that the reader can grasp this concept more
         strongly.
       </p>
-
       <div class="cm-example-card"> <div class="cm-labels-row"> <div class="cm-badge cm-badge--example">EXAMPLE</div> </div> <p> Show that given a <strong>Transformation</strong> \(T : \mathbb R^2 \to \mathbb R^3\) that takes vectors \(\begin{pmatrix} x \\ y\end{pmatrix}\) in \(\mathbb R^2\) and transforms the vector into a vector \(\begin{pmatrix} x \\ y \\ 0\end{pmatrix}\) in \(\mathbb R^3\) is a <strong>Linear Transformation</strong>. </p> <br /> <p> We have seen a transformation to be linear the transformation must obey the <strong>Additivity</strong> and <strong>Homogeneity</strong> rule. To prove that \(T\) is linear we must make sure it obeys these rules. We can do this by showing that for any two vectors and any two scalars \(c_1\) and \(c_2\), \(T(c_1\mathbf v+c_2\mathbf u)=c_1T(\mathbf v)+c_2T(\mathbf u)\). </p> <p> Let us assume we have two vectors \(\begin{pmatrix} x_1 \\ y_1 \end{pmatrix}\) and \(\begin{pmatrix} x_2 \\ y_2 \end{pmatrix}\) in \(\mathbb R^2\). We start with \(T(c_1\mathbf v+c_2\mathbf u)\) and calculate both sides to see if they are equal: \[ T\left(c_1\begin{pmatrix} x_1 \\ y_1 \end{pmatrix} + c_2\begin{pmatrix} x_2 \\ y_2 \end{pmatrix}\right) = T\left(\begin{pmatrix} c_1x_1 + c_2x_2 \\ c_1y_1 + c_2y_2 \end{pmatrix}\right) \] Now if we apply the transformation as \(\begin{pmatrix} x \\ y \end{pmatrix} \to \begin{pmatrix} x \\ y \\ 0\end{pmatrix}\): \[ T\left(\begin{pmatrix} c_1x_1 + c_2x_2 \\ c_1y_1 + c_2y_2 \end{pmatrix}\right) = \begin{pmatrix} c_1x_1 + c_2x_2 \\ c_1y_1 + c_2y_2 \\ 0 \end{pmatrix} = \begin{pmatrix} c_1x_1 \\ c_1y_1 \\ 0 \end{pmatrix} + \begin{pmatrix} c_2x_2 \\ c_2y_2 \\ 0 \end{pmatrix} = c_1\begin{pmatrix} x_1 \\ y_1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} x_2 \\ y_2 \\ 0 \end{pmatrix} = c_1T\left(\begin{pmatrix} x_1 \\ y_1 \end{pmatrix}\right) + c_2T\left(\begin{pmatrix} x_2 \\ y_2 \end{pmatrix}\right) \] and since the two sides are equal for any vectors and any scalars \(c_1,c_2\), \(T\) satisfies the linearity rule. Therefore, \(T\) is a Linear Transformation. </p> </div>
 
       <div class="equation-type2">
