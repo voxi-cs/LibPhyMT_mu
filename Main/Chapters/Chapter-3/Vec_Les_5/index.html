@@ -502,19 +502,26 @@
 
       <div class="equation-type2">
         <h4>
-          Proof: Linear Transformation Keeps All Straight Lines Straight from
-          \(\mathbb V \to \mathbb W\)
+          Proof: Linear Transformation Maps a Line in
+          \(\mathbb V\) to a Line or a Point in \(\mathbb W\)
         </h4>
+
         <p>
-          Assume a line \(\mathbf L\) in \(\mathbb V\). A line is defined as: \[
-          \mathbf L = \{\mathbf x_0 + t\mathbf v : t \in \mathbb F\}, \quad
-          \text{where } \mathbf x_0,\mathbf v \in \mathbb V \text{ and } \mathbf
-          v \neq \mathbf 0. \] Here \(\mathbf x_0\) is a fixed point on the line
-          and \(\mathbf v\) is a fixed direction vector. As \(t\) varies over
-          \(\mathbb F\), the vector \(t\mathbf v\) moves along the direction of
-          \(\mathbf v\), and adding \(\mathbf x_0\) shifts it to form the line
-          \(\mathbf L\).
+          Assume a line \(\mathbf L\) in \(\mathbb V\). A line is defined as:
+          \[
+          \mathbf L =
+          \{\mathbf x_0+t\mathbf v:t\in\mathbb F\},
+          \quad
+          \text{where }\mathbf x_0,\mathbf v\in\mathbb V
+          \text{ and }\mathbf v\neq\mathbf 0.
+          \]
+          Here \(\mathbf x_0\) is a fixed point on the line and
+          \(\mathbf v\) is a fixed direction vector. As \(t\) varies over
+          \(\mathbb F\), the vector \(t\mathbf v\) moves along the direction
+          of \(\mathbf v\), and adding \(\mathbf x_0\) shifts it to form the
+          line \(\mathbf L\).
         </p>
+
         <p>Below we show how the definition makes sense.</p>
 
         <div class="Animation">
@@ -545,6 +552,78 @@
             </figure>
           </div>
         </div>
+
+        <p>
+          Now, let us apply a linear transformation \(T:\mathbb V\to\mathbb W\)
+          to every vector in the line \(\mathbf L\). The resulting set of
+          transformed vectors is:
+          \[
+          \mathbf L'=T(\mathbf L)
+          =
+          \{T(\mathbf x_0+t\mathbf v):t\in\mathbb F\}.
+          \]
+          Since \(T\) is a linear transformation, using its properties of
+          <strong>Additivity</strong> and <strong>Homogeneity</strong>, we get:
+          \[
+          \begin{aligned}
+          \mathbf L'
+          &=
+          \{T(\mathbf x_0)+T(t\mathbf v):t\in\mathbb F\}\\
+          &=
+          \{T(\mathbf x_0)+tT(\mathbf v):t\in\mathbb F\}.
+          \end{aligned}
+          \]
+          Notice that both \(T(\mathbf x_0)\) and \(T(\mathbf v)\) belong
+          to \(\mathbb W\), since \(T\) maps vectors from \(\mathbb V\)
+          into \(\mathbb W\).
+        </p>
+
+        <p>
+          Now, \(T(\mathbf x_0)\) is a fixed vector in \(\mathbb W\), and
+          \(T(\mathbf v)\) is also a fixed vector in \(\mathbb W\). We have
+          two possible cases:
+        </p>
+
+        <p>
+          <strong>Case 1: \(T(\mathbf v)\neq\mathbf 0_{\mathbb W}\)</strong>
+        </p>
+
+        <p>
+          In this case, \(T(\mathbf v)\) is a nonzero direction vector
+          in \(\mathbb W\). Therefore,
+          \[
+          \mathbf L'=
+          \{T(\mathbf x_0)+tT(\mathbf v):t\in\mathbb F\}
+          \]
+          is a straight line in \(\mathbb W\).
+        </p>
+
+        <p>
+          <strong>Case 2: \(T(\mathbf v)=\mathbf 0_{\mathbb W}\)</strong>
+        </p>
+
+        <p>
+          In this case, we get:
+          \[
+          \begin{aligned}
+          \mathbf L'
+          &=
+          \{T(\mathbf x_0)+t\mathbf 0_{\mathbb W}:t\in\mathbb F\}\\
+          &=
+          \{T(\mathbf x_0):t\in\mathbb F\}\\
+          &=
+          \{T(\mathbf x_0)\}.
+          \end{aligned}
+          \]
+          Therefore, every vector on the original line maps to the same
+          point \(T(\mathbf x_0)\) in \(\mathbb W\).
+        </p>
+
+        <p>
+          Hence, a linear transformation maps every line in \(\mathbb V\)
+          to either a straight line or a single point in \(\mathbb W\).
+        </p>
+      </div>
 
         <p>
           Now let us apply a Linear Transformation \(T\) on the line \(\mathbf
@@ -626,11 +705,11 @@
       </p>
       <div class="definition-box">
         <p>
-          <strong class="DEF">DEFINITION:</strong> A linear transformation \(T\)
+          <strong class="DEF">Definition:</strong> A linear transformation \(T: \mathbb V \to \mathbb W\)
           represented by an \(m \times n\) matrix \(\mathbf A\) is the
           transformation: \[ T(\mathbf v) = \mathbf A \mathbf v \] where
-          \(\mathbf v \in \mathbb F^n\) and \(\mathbf A \mathbf v \in \mathbb
-          F^m\).
+          \(\mathbf v \in \mathbb V\), \(\mathbf A \mathbf v \in \mathbb
+          W\), and \(\mathbf A \in \mathbb F^{m \times n}\).
         </p>
         <p>
           This kind of transformation is called a
@@ -646,46 +725,146 @@
         <div class="cm-labels-row">
           <div class="cm-badge cm-badge--example">EXAMPLE</div>
         </div>
+
         <p>
           Given a matrix transformation \(T(\mathbf v) = \mathbf A \mathbf v\),
-          where \[ \mathbf A = \begin{pmatrix} \frac{\sqrt{2}}{2} &
-          -\frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
-          \end{pmatrix}, \] find what happens to the vector \(\mathbf v\).
+          where
+          \[
+          \mathbf A =
+          \begin{pmatrix}
+          \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
+          \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
+          \end{pmatrix},
+          \]
+          find the images of the standard basis vectors and identify the
+          transformation represented by \(\mathbf A\).
         </p>
+
         <br />
+
         <p>
-          Let us assume, for instance, \(\mathbf v = \begin{pmatrix} 1 \\ 0
-          \end{pmatrix}\). Applying the transformation, we get: \[ T
-          \left(\begin{pmatrix} 1 \\ 0 \end{pmatrix}\right) = \begin{pmatrix}
-          \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} &
-          \frac{\sqrt{2}}{2} \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix}
-          = \begin{pmatrix} \frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2}
-          \end{pmatrix} \]
-        </p>
-        <p>
-          Let us look at another example. Let \(\mathbf v = \begin{pmatrix} 0 \\
-          1 \end{pmatrix}\). Then, applying the transformation, we get: \[ T
-          \left(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\right) = \begin{pmatrix}
-          \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} &
-          \frac{\sqrt{2}}{2} \end{pmatrix} \begin{pmatrix} 0 \\ 1 \end{pmatrix}
-          = \begin{pmatrix} -\frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2}
-          \end{pmatrix} \]
-        </p>
-        <p>
-          Notice something interesting? Calculating the angle between the vector
-          \(\mathbf v\) and the transformed vector seems to always give
-          \(45^\circ\) (using the formula \(\theta =
-          \cos^{-1}\left(\frac{\mathbf a \cdot \mathbf b}{\|\mathbf a\|
-          \|\mathbf b\|}\right)\)). In fact, that is true for any nonzero vector
-          we choose: the vector \(\mathbf v\) and the transformed vector
-          \(\mathbf A\mathbf v\) always make an angle of \(45^\circ\) for this
-          specific choice of matrix \(\mathbf A\).
+          Let us assume, for instance,
+          \(\mathbf v = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\).
+          Applying the transformation, we get:
+          \[
+          \begin{aligned}
+          T\left(\begin{pmatrix} 1 \\ 0 \end{pmatrix}\right)
+          &=
+          \begin{pmatrix}
+          \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
+          \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
+          \end{pmatrix}
+          \begin{pmatrix} 1 \\ 0 \end{pmatrix}\\
+          &=
+          \begin{pmatrix}
+          \frac{\sqrt{2}}{2}\\
+          \frac{\sqrt{2}}{2}
+          \end{pmatrix}.
+          \end{aligned}
+          \]
         </p>
 
         <p>
-          Below, we have shown how all vectors rotate by \(45^\circ\) from their
-          original position as we apply the transformation matrix \(\mathbf A\),
-          and how the grid rotates by \(45^\circ\).
+          Let us look at another example. Let
+          \(\mathbf v = \begin{pmatrix} 0 \\ 1 \end{pmatrix}\).
+          Then, applying the transformation, we get:
+          \[
+          \begin{aligned}
+          T\left(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\right)
+          &=
+          \begin{pmatrix}
+          \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
+          \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
+          \end{pmatrix}
+          \begin{pmatrix} 0 \\ 1 \end{pmatrix}\\
+          &=
+          \begin{pmatrix}
+          -\frac{\sqrt{2}}{2}\\
+          \frac{\sqrt{2}}{2}
+          \end{pmatrix}.
+          \end{aligned}
+          \]
+        </p>
+
+        <p>
+          Notice something interesting? Calculating the angle between the vector
+          \(\mathbf v\) and the transformed vector seems to always give
+          \(45^\circ\) (using the formula
+          \(\theta =
+          \cos^{-1}\left(\frac{\mathbf a \cdot \mathbf b}
+          {\|\mathbf a\|\|\mathbf b\|}\right)\)).
+          In fact, that is true for any nonzero vector we choose. Let us see
+          why this is the case.
+        </p>
+
+        <p>
+          Let us take a general nonzero vector
+          \[
+          \mathbf v = \begin{pmatrix} x \\ y \end{pmatrix}.
+          \]
+          Applying the transformation, we get:
+          \[
+          \mathbf A\mathbf v
+          =
+          \frac{1}{\sqrt{2}}
+          \begin{pmatrix}
+          x-y\\
+          x+y
+          \end{pmatrix}.
+          \]
+          Now, calculating the dot product of the original vector and its
+          transformed vector, we get:
+          \[
+          \begin{aligned}
+          \mathbf v\cdot\mathbf A\mathbf v
+          &=
+          \frac{x(x-y)+y(x+y)}{\sqrt{2}}\\
+          &=
+          \frac{x^2-xy+xy+y^2}{\sqrt{2}}\\
+          &=
+          \frac{x^2+y^2}{\sqrt{2}}.
+          \end{aligned}
+          \]
+          We can also calculate the magnitude of the transformed vector:
+          \[
+          \begin{aligned}
+          \|\mathbf A\mathbf v\|^2
+          &=
+          \frac{(x-y)^2+(x+y)^2}{2}\\
+          &=
+          \frac{x^2-2xy+y^2+x^2+2xy+y^2}{2}\\
+          &=
+          x^2+y^2\\
+          &=\|\mathbf v\|^2.
+          \end{aligned}
+          \]
+          Therefore, using the formula for the angle between two vectors:
+          \[
+          \begin{aligned}
+          \cos\theta
+          &=
+          \frac{\mathbf v\cdot\mathbf A\mathbf v}
+          {\|\mathbf v\|\|\mathbf A\mathbf v\|}\\
+          &=
+          \frac{x^2+y^2}
+          {\sqrt{2}\|\mathbf v\|^2}\\
+          &=\frac{1}{\sqrt{2}}.
+          \end{aligned}
+          \]
+          Hence,
+          \[
+          \boxed{\theta=45^\circ}.
+          \]
+          Thus, for every nonzero vector \(\mathbf v\in\mathbb R^2\),
+          the vector \(\mathbf v\) and its transformed vector
+          \(\mathbf A\mathbf v\) make an angle of \(45^\circ\).
+        </p>
+
+        <p>
+          Below, we have shown how every nonzero vector rotates by
+          \(45^\circ\) from its original position as we apply the
+          transformation matrix \(\mathbf A\), and how the grid rotates
+          by \(45^\circ\).
         </p>
 
         <div class="Animation">
@@ -749,30 +928,40 @@
         </div>
 
         <p>
-          This specific matrix that rotates all vectors in \(\mathbb R^2\) by
-          \(45^\circ\) is called a
-          <strong>45-degree rotation matrix</strong>. You could say
-          this matrix rotates the euclidean plane by \(45^\circ\) with respect to the
-          “original vector space,”, essentially saying that the transformation rotates 
-          each vector by \(45^\circ\) on the plane fixed to the origin.
+          This specific matrix that rotates all vectors in \(\mathbb R^2\)
+          by \(45^\circ\) counterclockwise is called a
+          <strong>45-degree rotation matrix</strong>. This transformation
+          rotates the Euclidean plane by \(45^\circ\) counterclockwise about
+          the origin, essentially rotating each vector in the plane by
+          \(45^\circ\) while keeping the origin fixed.
         </p>
 
         <p>
-          In general, a rotation matrix \(\mathbb R^2 \to \mathbb R^2\) is: \[
-          \boxed{ \mathcal{R}(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta
-          \\ \sin\theta & \cos\theta \end{pmatrix} } \]
+          In general, a rotation matrix representing a rotation of
+          \(\mathbb R^2\) by an angle \(\theta\) is:
+          \[
+          \boxed{
+          \mathcal R(\theta) =
+          \begin{pmatrix}
+          \cos\theta & -\sin\theta\\
+          \sin\theta & \cos\theta
+          \end{pmatrix}
+          }
+          \]
         </p>
 
         <p>
-          In the example with \(\mathbf A\), it was \(\mathcal{R}(45^\circ)\).
+          In the example with \(\mathbf A\), it was
+          \(\mathbf A=\mathcal R(45^\circ)\).
         </p>
 
         <p>
-          <strong>Note: </strong> The \(\mathcal{R}(\theta)\) shown here is
-          defined with respect to the standard basis. This matrix represents the
-          rotation transformation in standard coordinates. In another basis, the
-          same geometric rotation will generally have a different matrix
-          representation.
+          <strong>Note: </strong> The \(\mathcal R(\theta)\) shown here is
+          the matrix representation of the rotation transformation with
+          respect to the standard basis. This matrix represents the
+          rotation transformation in standard coordinates. In another
+          basis, the same geometric rotation will generally have a different
+          matrix representation.
         </p>
       </div>
 
