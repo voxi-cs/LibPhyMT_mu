@@ -413,43 +413,90 @@
         <div class="cm-labels-row">
           <div class="cm-badge cm-badge--example">EXAMPLE</div>
         </div>
+
         <p>
-          Show that given a <strong>Transformation</strong> \(T : \mathbb R^2
-          \to \mathbb R^3\) that takes vectors \(\begin{pmatrix} x \\
-          y\end{pmatrix}\) in \(\mathbb R^2\) and transforms the vector into a
-          vector \(\begin{pmatrix} x \\ y \\ 0\end{pmatrix}\) in \(\mathbb R^3\)
+          Show that the transformation \(T : \mathbb R^2 \to \mathbb R^3\),
+          defined by
+          \[
+          T\begin{pmatrix}x\\y\end{pmatrix}
+          =
+          \begin{pmatrix}x\\y\\0\end{pmatrix},
+          \]
           is a <strong>Linear Transformation</strong>.
         </p>
+
         <br />
+
         <p>
-          We have seen a transformation to be linear the transformation must
-          obey the <strong>Additivity</strong> and
-          <strong>Homogeneity</strong> rule. To prove that \(T\) is linear we
-          must make sure it obeys these rules. We can do this by showing that
-          for any two vectors and any two scalars \(c_1\) and \(c_2\),
-          \(T(c_1\mathbf v+c_2\mathbf u)=c_1T(\mathbf v)+c_2T(\mathbf u)\).
+          We have seen that for a transformation to be linear, it must obey
+          the <strong>Additivity</strong> and <strong>Homogeneity</strong>
+          rules. To prove that \(T\) is linear, we must make sure it obeys
+          these rules. We can do this by showing that for any two vectors
+          and any two scalars \(c_1,c_2\in\mathbb R\),
+          \[
+          T(c_1\mathbf v+c_2\mathbf u)
+          =
+          c_1T(\mathbf v)+c_2T(\mathbf u).
+          \]
         </p>
+
         <p>
-          Let us assume we have two vectors \(\begin{pmatrix} x_1 \\ y_1
-          \end{pmatrix}\) and \(\begin{pmatrix} x_2 \\ y_2 \end{pmatrix}\) in
-          \(\mathbb R^2\). We start with \(T(c_1\mathbf v+c_2\mathbf u)\) and
-          calculate both sides to see if they are equal: \[
-          T\left(c_1\begin{pmatrix} x_1 \\ y_1 \end{pmatrix} +
-          c_2\begin{pmatrix} x_2 \\ y_2 \end{pmatrix}\right) =
-          T\left(\begin{pmatrix} c_1x_1 + c_2x_2 \\ c_1y_1 + c_2y_2
-          \end{pmatrix}\right) \] Now if we apply the transformation as
-          \(\begin{pmatrix} x \\ y \end{pmatrix} \to \begin{pmatrix} x \\ y \\
-          0\end{pmatrix}\): \[ T\left(\begin{pmatrix} c_1x_1 + c_2x_2 \\ c_1y_1
-          + c_2y_2 \end{pmatrix}\right) = \begin{pmatrix} c_1x_1 + c_2x_2 \\
-          c_1y_1 + c_2y_2 \\ 0 \end{pmatrix} = \begin{pmatrix} c_1x_1 \\ c_1y_1
-          \\ 0 \end{pmatrix} + \begin{pmatrix} c_2x_2 \\ c_2y_2 \\ 0
-          \end{pmatrix} = c_1\begin{pmatrix} x_1 \\ y_1 \\ 0 \end{pmatrix} +
-          c_2\begin{pmatrix} x_2 \\ y_2 \\ 0 \end{pmatrix} =
-          c_1T\left(\begin{pmatrix} x_1 \\ y_1 \end{pmatrix}\right) +
-          c_2T\left(\begin{pmatrix} x_2 \\ y_2 \end{pmatrix}\right) \] and since
-          the two sides are equal for any vectors and any scalars \(c_1,c_2\),
-          \(T\) satisfies the linearity rule. Therefore, \(T\) is a Linear
-          Transformation.
+          Let us assume we have two vectors
+          \[
+          \mathbf v =
+          \begin{pmatrix}x_1\\y_1\end{pmatrix},
+          \qquad
+          \mathbf u =
+          \begin{pmatrix}x_2\\y_2\end{pmatrix}
+          \]
+          in \(\mathbb R^2\). We start with the left-hand side and apply
+          the definition of \(T\):
+          \[
+          \begin{aligned}
+          T\left(
+          c_1\begin{pmatrix}x_1\\y_1\end{pmatrix}
+          +
+          c_2\begin{pmatrix}x_2\\y_2\end{pmatrix}
+          \right)
+          &=
+          T\left(
+          \begin{pmatrix}
+          c_1x_1+c_2x_2\\
+          c_1y_1+c_2y_2
+          \end{pmatrix}
+          \right)\\
+          &=
+          \begin{pmatrix}
+          c_1x_1+c_2x_2\\
+          c_1y_1+c_2y_2\\
+          0
+          \end{pmatrix}\\
+          &=
+          \begin{pmatrix}
+          c_1x_1\\
+          c_1y_1\\
+          0
+          \end{pmatrix}
+          +
+          \begin{pmatrix}
+          c_2x_2\\
+          c_2y_2\\
+          0
+          \end{pmatrix}\\
+          &=
+          c_1\begin{pmatrix}x_1\\y_1\\0\end{pmatrix}
+          +
+          c_2\begin{pmatrix}x_2\\y_2\\0\end{pmatrix}\\
+          &=
+          c_1T\left(\begin{pmatrix}x_1\\y_1\end{pmatrix}\right)
+          +
+          c_2T\left(\begin{pmatrix}x_2\\y_2\end{pmatrix}\right).
+          \end{aligned}
+          \]
+          We have obtained the right-hand side. Since the two sides are
+          equal for any vectors and any scalars \(c_1,c_2\in\mathbb R\),
+          \(T\) satisfies the linearity rule. Therefore, \(T\) is a
+          Linear Transformation.
         </p>
       </div>
 
