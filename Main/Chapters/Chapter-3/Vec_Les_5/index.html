@@ -191,16 +191,35 @@
         transformation. The word "linear" represents two properties a function
         must obey. These properties are <strong>Additivity</strong> and
         <strong>Homogeneity</strong>. A transformation must follow these rules
-        in order to be called linear.
+        in order to be called linear. Bellow we define linear transformation more properly:
       </p>
+      <div class="definition-box">
+        <p>
+          <strong class="DEF">Definition: Linear Transformation</strong>
+          A <strong>Linear Transformation</strong> from a vector space \(\mathbb{V}\) to
+          \(\mathbb{W}\) is a function \(T: \mathbb{V} \to \mathbb{W}\) that
+          obeys the following rules:
+        </p>
+        <h4>Additivity:</h4>
+        <p class="equation">
+          \[ T\left(\mathbf{u}+\mathbf{v}\right) = T\left(\mathbf{u}\right) +
+          T\left(\mathbf{v}\right) \text{ for all } \mathbf{u},\mathbf{v} \in
+          \mathbb{V} \]
+        </p>
+        <h4>Homogeneity:</h4>
+        <p class="equation">
+          \[ T\left(c\mathbf{u}\right) = cT\left(\mathbf{u}\right) \text{ for
+          all } \mathbf{u} \in \mathbb{V} \text{ and } c \in \mathbb{F} \]
+        </p>
+      </div>
       <p>
-        The properties <strong>Additivity</strong> and
-        <strong>Homogeneity</strong> make sure two things happen. They make sure
-        any straight line drawn in the space stays straight after we transform
-        the vector space via the transformation, and they also make sure the
-        origin maps into itself and does not move from its place. While we
+        The resut of this properties <strong>Additivity</strong> and
+        <strong>Homogeneity</strong> make sure two things happens. They make sure
+        any straight line drawn/defined in the space stays straight after we transform
+        the vectors that defines the straight line via the transformation, and they also make sure the
+        origin or the zero vector maps into itself and does not "move from its place". While we
         cannot actually visualize these things for \(n>3\) in \(\mathbb F^n\),
-        we can still get some idea by watching an animation on a grid.
+        we can still get some idea by watching an animation on a grid. For genaral \(\mathbb F^n\) we have proven it mathematically later which you will see later.
       </p>
 
       <div class="Animation">
@@ -277,46 +296,9 @@
         transformation but just a transformation.
       </p>
 
-      <div class="definition-box">
-        <p>
-          <strong class="DEF">Definition: Linear Transformation</strong>
-          A <strong>Linear Transformation</strong> from a vector space \(\mathbb{V}\) to
-          \(\mathbb{W}\) is a function \(T: \mathbb{V} \to \mathbb{W}\) that
-          obeys the following rules:
-        </p>
-        <h4>Additivity:</h4>
-        <p class="equation">
-          \[ T\left(\mathbf{u}+\mathbf{v}\right) = T\left(\mathbf{u}\right) +
-          T\left(\mathbf{v}\right) \text{ for all } \mathbf{u},\mathbf{v} \in
-          \mathbb{V} \]
-        </p>
-        <h4>Homogeneity:</h4>
-        <p class="equation">
-          \[ T\left(c\mathbf{u}\right) = cT\left(\mathbf{u}\right) \text{ for
-          all } \mathbf{u} \in \mathbb{V} \text{ and } c \in \mathbb{F} \]
-        </p>
-      </div>
 
       <p>
-        If Linear Transformation is a relatively new concept to you it may be
-        that this definition does not make much sense yet, and the reason why
-        straight lines must stay straight after the linear transformation is
-        also not clear from the definition, but we have shown you a little proof
-        why that is the case. But first let us try to understand what the
-        definition actually says.
-      </p>
-
-      <p>
-        The definition says
-        <strong
-          >A Linear Transformation from a vector space \(\mathbb{V}\) to
-          \(\mathbb{W}\) is a function \(T: \mathbb{V} \to \mathbb{W}\) that
-          obeys Additivity and Homogeneity.</strong
-        >
-      </p>
-
-      <p>
-        What it means is that, let us say we have a linear transformation \(T\),
+        What the definition of a linear transformation means is that, let us say we have a linear transformation \(T\),
         it takes in one vector and gives us another vector. Doing this for all
         vectors in a vector space called \(\mathbb V\) gives us a new set of
         vectors. Meaning, the transformed vector space is defined as: \[
@@ -373,11 +355,8 @@
 
       <p>
         This animation shows an example of linear transformation and how points
-        and grids transform due to it. Even though we mentioned that we are
-        going to show how vectors transform just by showing how the grids
-        transform since vectors can just be visualized as points on the grid,
-        here we just showed also how vectors transform as well as the grid for
-        you to see more closely.
+        and grids transform due to it. This perticuler transformation is called a 
+        shear transformation.  
       </p>
 
       <p>
