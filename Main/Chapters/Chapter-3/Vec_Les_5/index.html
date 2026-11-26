@@ -416,110 +416,58 @@
 
         <p>
           Show that the transformation \(T : \mathbb R^2 \to \mathbb R^3\),
-          defined by
-          \[
-          T\begin{pmatrix}x\\y\end{pmatrix}
-          =
-          \begin{pmatrix}x\\y\\0\end{pmatrix},
-          \]
-          is a <strong>Linear Transformation</strong>.
+          defined by \[ T\begin{pmatrix}x\\y\end{pmatrix} =
+          \begin{pmatrix}x\\y\\0\end{pmatrix}, \] is a
+          <strong>Linear Transformation</strong>.
         </p>
 
         <br />
 
         <p>
-          We have seen that for a transformation to be linear, it must obey
-          the <strong>Additivity</strong> and <strong>Homogeneity</strong>
-          rules. To prove that \(T\) is linear, we must make sure it obeys
-          these rules. We can do this by showing that for any two vectors
-          and any two scalars \(c_1,c_2\in\mathbb R\),
-          \[
-          T(c_1\mathbf v+c_2\mathbf u)
-          =
-          c_1T(\mathbf v)+c_2T(\mathbf u).
-          \]
+          We have seen that for a transformation to be linear, it must obey the
+          <strong>Additivity</strong> and <strong>Homogeneity</strong>
+          rules. To prove that \(T\) is linear, we must make sure it obeys these
+          rules. We can do this by showing that for any two vectors and any two
+          scalars \(c_1,c_2\in\mathbb R\), \[ T(c_1\mathbf v+c_2\mathbf u) =
+          c_1T(\mathbf v)+c_2T(\mathbf u). \]
         </p>
 
         <p>
-          Let us assume we have two vectors
-          \[
-          \mathbf v =
-          \begin{pmatrix}x_1\\y_1\end{pmatrix},
-          \qquad
-          \mathbf u =
-          \begin{pmatrix}x_2\\y_2\end{pmatrix}
-          \]
-          in \(\mathbb R^2\). We start with the left-hand side and apply
-          the definition of \(T\):
-          \[
-          \begin{aligned}
-          T\left(
-          c_1\begin{pmatrix}x_1\\y_1\end{pmatrix}
-          +
-          c_2\begin{pmatrix}x_2\\y_2\end{pmatrix}
-          \right)
-          &=
-          T\left(
-          \begin{pmatrix}
-          c_1x_1+c_2x_2\\
-          c_1y_1+c_2y_2
-          \end{pmatrix}
-          \right)\\
-          &=
-          \begin{pmatrix}
-          c_1x_1+c_2x_2\\
-          c_1y_1+c_2y_2\\
-          0
-          \end{pmatrix}\\
-          &=
-          \begin{pmatrix}
-          c_1x_1\\
-          c_1y_1\\
-          0
-          \end{pmatrix}
-          +
-          \begin{pmatrix}
-          c_2x_2\\
-          c_2y_2\\
-          0
-          \end{pmatrix}\\
-          &=
-          c_1\begin{pmatrix}x_1\\y_1\\0\end{pmatrix}
-          +
-          c_2\begin{pmatrix}x_2\\y_2\\0\end{pmatrix}\\
-          &=
-          c_1T\left(\begin{pmatrix}x_1\\y_1\end{pmatrix}\right)
-          +
-          c_2T\left(\begin{pmatrix}x_2\\y_2\end{pmatrix}\right).
-          \end{aligned}
-          \]
-          We have obtained the right-hand side. Since the two sides are
-          equal for any vectors and any scalars \(c_1,c_2\in\mathbb R\),
-          \(T\) satisfies the linearity rule. Therefore, \(T\) is a
-          Linear Transformation.
+          Let us assume we have two vectors \[ \mathbf v =
+          \begin{pmatrix}x_1\\y_1\end{pmatrix}, \qquad \mathbf u =
+          \begin{pmatrix}x_2\\y_2\end{pmatrix} \] in \(\mathbb R^2\). We start
+          with the left-hand side and apply the definition of \(T\): \[
+          \begin{aligned} T\left( c_1\begin{pmatrix}x_1\\y_1\end{pmatrix} +
+          c_2\begin{pmatrix}x_2\\y_2\end{pmatrix} \right) &= T\left(
+          \begin{pmatrix} c_1x_1+c_2x_2\\ c_1y_1+c_2y_2 \end{pmatrix} \right)\\
+          &= \begin{pmatrix} c_1x_1+c_2x_2\\ c_1y_1+c_2y_2\\ 0 \end{pmatrix}\\
+          &= \begin{pmatrix} c_1x_1\\ c_1y_1\\ 0 \end{pmatrix} + \begin{pmatrix}
+          c_2x_2\\ c_2y_2\\ 0 \end{pmatrix}\\ &=
+          c_1\begin{pmatrix}x_1\\y_1\\0\end{pmatrix} +
+          c_2\begin{pmatrix}x_2\\y_2\\0\end{pmatrix}\\ &=
+          c_1T\left(\begin{pmatrix}x_1\\y_1\end{pmatrix}\right) +
+          c_2T\left(\begin{pmatrix}x_2\\y_2\end{pmatrix}\right). \end{aligned}
+          \] We have obtained the right-hand side. Since the two sides are equal
+          for any vectors and any scalars \(c_1,c_2\in\mathbb R\), \(T\)
+          satisfies the linearity rule. Therefore, \(T\) is a Linear
+          Transformation.
         </p>
       </div>
-
       <div class="equation-type2">
         <h4>
-          Proof: Linear Transformation Maps a Line in
-          \(\mathbb V\) to a Line or a Point in \(\mathbb W\)
+          Proof: Linear Transformation Maps a Line in \(\mathbb V\) to a Line or
+          a Point in \(\mathbb W\)
         </h4>
 
         <p>
-          Assume a line \(\mathbf L\) in \(\mathbb V\). A line is defined as:
-          \[
-          \mathbf L =
-          \{\mathbf x_0+t\mathbf v:t\in\mathbb F\},
-          \quad
-          \text{where }\mathbf x_0,\mathbf v\in\mathbb V
-          \text{ and }\mathbf v\neq\mathbf 0.
-          \]
-          Here \(\mathbf x_0\) is a fixed point on the line and
-          \(\mathbf v\) is a fixed direction vector. As \(t\) varies over
-          \(\mathbb F\), the vector \(t\mathbf v\) moves along the direction
-          of \(\mathbf v\), and adding \(\mathbf x_0\) shifts it to form the
-          line \(\mathbf L\).
+          Assume a line \(\mathbf L\) in \(\mathbb V\). A line is defined as: \[
+          \mathbf L = \{\mathbf x_0+t\mathbf v:t\in\mathbb F\}, \quad
+          \text{where }\mathbf x_0,\mathbf v\in\mathbb V \text{ and }\mathbf
+          v\neq\mathbf 0. \] Here \(\mathbf x_0\) is a fixed point on the line
+          and \(\mathbf v\) is a fixed direction vector. As \(t\) varies over
+          \(\mathbb F\), the vector \(t\mathbf v\) moves along the direction of
+          \(\mathbf v\), and adding \(\mathbf x_0\) shifts it to form the line
+          \(\mathbf L\).
         </p>
 
         <p>Below we show how the definition makes sense.</p>
@@ -556,32 +504,21 @@
         <p>
           Now, let us apply a linear transformation \(T:\mathbb V\to\mathbb W\)
           to every vector in the line \(\mathbf L\). The resulting set of
-          transformed vectors is:
-          \[
-          \mathbf L'=T(\mathbf L)
-          =
-          \{T(\mathbf x_0+t\mathbf v):t\in\mathbb F\}.
-          \]
-          Since \(T\) is a linear transformation, using its properties of
+          transformed vectors is: \[ \mathbf L'=T(\mathbf L) = \{T(\mathbf
+          x_0+t\mathbf v):t\in\mathbb F\}. \] Since \(T\) is a linear
+          transformation, using its properties of
           <strong>Additivity</strong> and <strong>Homogeneity</strong>, we get:
-          \[
-          \begin{aligned}
-          \mathbf L'
-          &=
-          \{T(\mathbf x_0)+T(t\mathbf v):t\in\mathbb F\}\\
-          &=
-          \{T(\mathbf x_0)+tT(\mathbf v):t\in\mathbb F\}.
-          \end{aligned}
-          \]
-          Notice that both \(T(\mathbf x_0)\) and \(T(\mathbf v)\) belong
-          to \(\mathbb W\), since \(T\) maps vectors from \(\mathbb V\)
-          into \(\mathbb W\).
+          \[ \begin{aligned} \mathbf L' &= \{T(\mathbf x_0)+T(t\mathbf
+          v):t\in\mathbb F\}\\ &= \{T(\mathbf x_0)+tT(\mathbf v):t\in\mathbb
+          F\}. \end{aligned} \] Notice that both \(T(\mathbf x_0)\) and
+          \(T(\mathbf v)\) belong to \(\mathbb W\), since \(T\) maps vectors
+          from \(\mathbb V\) into \(\mathbb W\).
         </p>
 
         <p>
           Now, \(T(\mathbf x_0)\) is a fixed vector in \(\mathbb W\), and
-          \(T(\mathbf v)\) is also a fixed vector in \(\mathbb W\). We have
-          two possible cases:
+          \(T(\mathbf v)\) is also a fixed vector in \(\mathbb W\). We have two
+          possible cases:
         </p>
 
         <p>
@@ -589,13 +526,9 @@
         </p>
 
         <p>
-          In this case, \(T(\mathbf v)\) is a nonzero direction vector
-          in \(\mathbb W\). Therefore,
-          \[
-          \mathbf L'=
-          \{T(\mathbf x_0)+tT(\mathbf v):t\in\mathbb F\}
-          \]
-          is a straight line in \(\mathbb W\).
+          In this case, \(T(\mathbf v)\) is a nonzero direction vector in
+          \(\mathbb W\). Therefore, \[ \mathbf L'= \{T(\mathbf x_0)+tT(\mathbf
+          v):t\in\mathbb F\} \] is a straight line in \(\mathbb W\).
         </p>
 
         <p>
@@ -603,76 +536,43 @@
         </p>
 
         <p>
-          In this case, we get:
-          \[
-          \begin{aligned}
-          \mathbf L'
-          &=
-          \{T(\mathbf x_0)+t\mathbf 0_{\mathbb W}:t\in\mathbb F\}\\
-          &=
-          \{T(\mathbf x_0):t\in\mathbb F\}\\
-          &=
-          \{T(\mathbf x_0)\}.
-          \end{aligned}
-          \]
-          Therefore, every vector on the original line maps to the same
-          point \(T(\mathbf x_0)\) in \(\mathbb W\).
+          In this case, we get: \[ \begin{aligned} \mathbf L' &= \{T(\mathbf
+          x_0)+t\mathbf 0_{\mathbb W}:t\in\mathbb F\}\\ &= \{T(\mathbf
+          x_0):t\in\mathbb F\}\\ &= \{T(\mathbf x_0)\}. \end{aligned} \]
+          Therefore, every vector on the original line maps to the same point
+          \(T(\mathbf x_0)\) in \(\mathbb W\).
         </p>
 
         <p>
-          Hence, a linear transformation maps every line in \(\mathbb V\)
-          to either a straight line or a single point in \(\mathbb W\).
+          Hence, a linear transformation maps every line in \(\mathbb V\) to
+          either a straight line or a single point in \(\mathbb W\).
         </p>
       </div>
 
-        <p>
-          Now let us apply a Linear Transformation \(T\) on the line \(\mathbf
-          L\), let the new transformed line be \(\mathbf L'\): \[ \mathbf L' =
-          \{T(\mathbf x_0 + t\mathbf v): \mathbf v, \mathbf x_0 \in \mathbb V
-          \text{ and } t \in \mathbb F\} \] so the transformed line is made up
-          of all the vectors \(T(\mathbf x_0 + t\mathbf v)\). For now, we just
-          need to look at that. By Additivity and Homogeneity: \[ T(\mathbf x_0
-          + t\mathbf v) = T(\mathbf x_0) + T(t\mathbf v) = T(\mathbf x_0) +
-          tT(\mathbf v) \] But look at this, \(T(\mathbf x_0) + tT(\mathbf v)\)
-          is just the parametric equation for a line as we had before, \(\mathbf
-          x_0 + t\mathbf v\). Here \(T(\mathbf x_0)\) is also a vector, and so
-          is \(T(\mathbf v)\). The vectors \(\mathbf x_0\) and \(\mathbf v\)
-          have changed to \(T(\mathbf x_0)\) and \(T(\mathbf v)\).
-        </p>
-        <p>
-          Hence the linearly transformed line is \[ \mathbf L' = \{T(\mathbf
-          x_0) + tT(\mathbf v): \mathbf v, \mathbf x_0 \in \mathbb V \text{ and
-          } t \in \mathbb F\} \] Since this is the parametric equation for a
-          straight line, hence we have proven that:
-        </p>
-        <p>
-          A Linear Transformation maps every line in \(\mathbb V\) to a line or
-          a point in \(\mathbb W\).
-        </p>
-        <span class="qed"></span>
-      </div>
       <p>
-        In finite-dimensional vector spaces, we can represent a linear transformation using a matrix. The matrix representation
-        of a linear transformation depends on the choice of basis for the domain and codomain vector spaces.
-        If we have a linear transformation \(T: \mathbb{V} \to \mathbb{W}\) and we choose bases
-        \(\mathcal B\) and \(\mathcal C\) for \(\mathbb{V}\) and \(\mathbb{W}\), respectively,
-        we can represent \(T\) as a matrix \(A\) such that
-        \[
-        [T(\mathbf{v})]_{\mathcal C} = A[\mathbf{v}]_{\mathcal B}
-        \]
-        for all \(\mathbf{v} \in \mathbb{V}\).
-        This allows us to perform computations with linear transformations using matrix multiplication in the finite-dimensional case.
+        In finite-dimensional vector spaces, we can represent a linear
+        transformation using a matrix. The matrix representation of a linear
+        transformation depends on the choice of basis for the domain and
+        codomain vector spaces. If we have a linear transformation \(T:
+        \mathbb{V} \to \mathbb{W}\) and we choose bases \(\mathcal B\) and
+        \(\mathcal C\) for \(\mathbb{V}\) and \(\mathbb{W}\), respectively, we
+        can represent \(T\) as a matrix \(A\) such that \[
+        [T(\mathbf{v})]_{\mathcal C} = A[\mathbf{v}]_{\mathcal B} \] for all
+        \(\mathbf{v} \in \mathbb{V}\). This allows us to perform computations
+        with linear transformations using matrix multiplication in the
+        finite-dimensional case.
       </p>
 
       <p>
         In an infinite-dimensional vector space, we cannot generally represent a
         linear transformation using an ordinary finite matrix. However, after
-        choosing Hamel bases, linear transformations can also be represented using
-        infinite matrices. In this representation, each column has only finitely
-        many nonzero entries, since each basis vector is mapped to a finite linear
-        combination of basis vectors. Infinite sums and convergence become relevant
-        in other settings, particularly when working with operators on particular
-        function spaces. An example of an infinite-dimensional vector space is a
+        choosing Hamel bases, linear transformations can also be represented
+        using infinite matrices. In this representation, each column has only
+        finitely many nonzero entries, since each basis vector is mapped to a
+        finite linear combination of basis vectors. Infinite sums and
+        convergence become relevant in other settings, particularly when working
+        with operators on particular function spaces. An example of an
+        infinite-dimensional vector space is a
         <strong>Function Space</strong>. Putting it simply for now, a function
         space is a vector space where the elements are functions. In a function
         space, the vectors are functions, and the vector-space operations are
@@ -705,11 +605,11 @@
       </p>
       <div class="definition-box">
         <p>
-          <strong class="DEF">Definition:</strong> A linear transformation \(T: \mathbb V \to \mathbb W\)
-          represented by an \(m \times n\) matrix \(\mathbf A\) is the
-          transformation: \[ T(\mathbf v) = \mathbf A \mathbf v \] where
-          \(\mathbf v \in \mathbb V\), \(\mathbf A \mathbf v \in \mathbb
-          W\), and \(\mathbf A \in \mathbb F^{m \times n}\).
+          <strong class="DEF">Definition:</strong> A linear transformation \(T:
+          \mathbb V \to \mathbb W\) represented by an \(m \times n\) matrix
+          \(\mathbf A\) is the transformation: \[ T(\mathbf v) = \mathbf A
+          \mathbf v \] where \(\mathbf v \in \mathbb V\), \(\mathbf A \mathbf v
+          \in \mathbb W\), and \(\mathbf A \in \mathbb F^{m \times n}\).
         </p>
         <p>
           This kind of transformation is called a
@@ -728,143 +628,68 @@
 
         <p>
           Given a matrix transformation \(T(\mathbf v) = \mathbf A \mathbf v\),
-          where
-          \[
-          \mathbf A =
-          \begin{pmatrix}
-          \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
-          \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
-          \end{pmatrix},
-          \]
-          find the images of the standard basis vectors and identify the
-          transformation represented by \(\mathbf A\).
+          where \[ \mathbf A = \begin{pmatrix} \frac{\sqrt{2}}{2} &
+          -\frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
+          \end{pmatrix}, \] find the images of the standard basis vectors and
+          identify the transformation represented by \(\mathbf A\).
         </p>
 
         <br />
 
         <p>
-          Let us assume, for instance,
-          \(\mathbf v = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\).
-          Applying the transformation, we get:
-          \[
-          \begin{aligned}
-          T\left(\begin{pmatrix} 1 \\ 0 \end{pmatrix}\right)
-          &=
-          \begin{pmatrix}
-          \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
-          \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
-          \end{pmatrix}
-          \begin{pmatrix} 1 \\ 0 \end{pmatrix}\\
-          &=
-          \begin{pmatrix}
-          \frac{\sqrt{2}}{2}\\
-          \frac{\sqrt{2}}{2}
-          \end{pmatrix}.
-          \end{aligned}
-          \]
+          Let us assume, for instance, \(\mathbf v = \begin{pmatrix} 1 \\ 0
+          \end{pmatrix}\). Applying the transformation, we get: \[
+          \begin{aligned} T\left(\begin{pmatrix} 1 \\ 0 \end{pmatrix}\right) &=
+          \begin{pmatrix} \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
+          \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \end{pmatrix} \begin{pmatrix}
+          1 \\ 0 \end{pmatrix}\\ &= \begin{pmatrix} \frac{\sqrt{2}}{2}\\
+          \frac{\sqrt{2}}{2} \end{pmatrix}. \end{aligned} \]
         </p>
 
         <p>
-          Let us look at another example. Let
-          \(\mathbf v = \begin{pmatrix} 0 \\ 1 \end{pmatrix}\).
-          Then, applying the transformation, we get:
-          \[
-          \begin{aligned}
-          T\left(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\right)
-          &=
-          \begin{pmatrix}
-          \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
-          \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2}
-          \end{pmatrix}
-          \begin{pmatrix} 0 \\ 1 \end{pmatrix}\\
-          &=
-          \begin{pmatrix}
-          -\frac{\sqrt{2}}{2}\\
-          \frac{\sqrt{2}}{2}
-          \end{pmatrix}.
-          \end{aligned}
-          \]
+          Let us look at another example. Let \(\mathbf v = \begin{pmatrix} 0 \\
+          1 \end{pmatrix}\). Then, applying the transformation, we get: \[
+          \begin{aligned} T\left(\begin{pmatrix} 0 \\ 1 \end{pmatrix}\right) &=
+          \begin{pmatrix} \frac{\sqrt{2}}{2} & -\frac{\sqrt{2}}{2} \\
+          \frac{\sqrt{2}}{2} & \frac{\sqrt{2}}{2} \end{pmatrix} \begin{pmatrix}
+          0 \\ 1 \end{pmatrix}\\ &= \begin{pmatrix} -\frac{\sqrt{2}}{2}\\
+          \frac{\sqrt{2}}{2} \end{pmatrix}. \end{aligned} \]
         </p>
 
         <p>
           Notice something interesting? Calculating the angle between the vector
           \(\mathbf v\) and the transformed vector seems to always give
-          \(45^\circ\) (using the formula
-          \(\theta =
-          \cos^{-1}\left(\frac{\mathbf a \cdot \mathbf b}
-          {\|\mathbf a\|\|\mathbf b\|}\right)\)).
-          In fact, that is true for any nonzero vector we choose. Let us see
-          why this is the case.
+          \(45^\circ\) (using the formula \(\theta =
+          \cos^{-1}\left(\frac{\mathbf a \cdot \mathbf b} {\|\mathbf
+          a\|\|\mathbf b\|}\right)\)). In fact, that is true for any nonzero
+          vector we choose. Let us see why this is the case.
         </p>
 
         <p>
-          Let us take a general nonzero vector
-          \[
-          \mathbf v = \begin{pmatrix} x \\ y \end{pmatrix}.
-          \]
-          Applying the transformation, we get:
-          \[
-          \mathbf A\mathbf v
-          =
-          \frac{1}{\sqrt{2}}
-          \begin{pmatrix}
-          x-y\\
-          x+y
-          \end{pmatrix}.
-          \]
-          Now, calculating the dot product of the original vector and its
-          transformed vector, we get:
-          \[
-          \begin{aligned}
-          \mathbf v\cdot\mathbf A\mathbf v
-          &=
-          \frac{x(x-y)+y(x+y)}{\sqrt{2}}\\
-          &=
-          \frac{x^2-xy+xy+y^2}{\sqrt{2}}\\
-          &=
-          \frac{x^2+y^2}{\sqrt{2}}.
-          \end{aligned}
-          \]
-          We can also calculate the magnitude of the transformed vector:
-          \[
-          \begin{aligned}
-          \|\mathbf A\mathbf v\|^2
-          &=
-          \frac{(x-y)^2+(x+y)^2}{2}\\
-          &=
-          \frac{x^2-2xy+y^2+x^2+2xy+y^2}{2}\\
-          &=
-          x^2+y^2\\
-          &=\|\mathbf v\|^2.
-          \end{aligned}
-          \]
-          Therefore, using the formula for the angle between two vectors:
-          \[
-          \begin{aligned}
-          \cos\theta
-          &=
-          \frac{\mathbf v\cdot\mathbf A\mathbf v}
-          {\|\mathbf v\|\|\mathbf A\mathbf v\|}\\
-          &=
-          \frac{x^2+y^2}
-          {\sqrt{2}\|\mathbf v\|^2}\\
-          &=\frac{1}{\sqrt{2}}.
-          \end{aligned}
-          \]
-          Hence,
-          \[
-          \boxed{\theta=45^\circ}.
-          \]
-          Thus, for every nonzero vector \(\mathbf v\in\mathbb R^2\),
-          the vector \(\mathbf v\) and its transformed vector
+          Let us take a general nonzero vector \[ \mathbf v = \begin{pmatrix} x
+          \\ y \end{pmatrix}. \] Applying the transformation, we get: \[ \mathbf
+          A\mathbf v = \frac{1}{\sqrt{2}} \begin{pmatrix} x-y\\ x+y
+          \end{pmatrix}. \] Now, calculating the dot product of the original
+          vector and its transformed vector, we get: \[ \begin{aligned} \mathbf
+          v\cdot\mathbf A\mathbf v &= \frac{x(x-y)+y(x+y)}{\sqrt{2}}\\ &=
+          \frac{x^2-xy+xy+y^2}{\sqrt{2}}\\ &= \frac{x^2+y^2}{\sqrt{2}}.
+          \end{aligned} \] We can also calculate the magnitude of the
+          transformed vector: \[ \begin{aligned} \|\mathbf A\mathbf v\|^2 &=
+          \frac{(x-y)^2+(x+y)^2}{2}\\ &= \frac{x^2-2xy+y^2+x^2+2xy+y^2}{2}\\ &=
+          x^2+y^2\\ &=\|\mathbf v\|^2. \end{aligned} \] Therefore, using the
+          formula for the angle between two vectors: \[ \begin{aligned}
+          \cos\theta &= \frac{\mathbf v\cdot\mathbf A\mathbf v} {\|\mathbf
+          v\|\|\mathbf A\mathbf v\|}\\ &= \frac{x^2+y^2} {\sqrt{2}\|\mathbf
+          v\|^2}\\ &=\frac{1}{\sqrt{2}}. \end{aligned} \] Hence, \[
+          \boxed{\theta=45^\circ}. \] Thus, for every nonzero vector \(\mathbf
+          v\in\mathbb R^2\), the vector \(\mathbf v\) and its transformed vector
           \(\mathbf A\mathbf v\) make an angle of \(45^\circ\).
         </p>
 
         <p>
-          Below, we have shown how every nonzero vector rotates by
-          \(45^\circ\) from its original position as we apply the
-          transformation matrix \(\mathbf A\), and how the grid rotates
-          by \(45^\circ\).
+          Below, we have shown how every nonzero vector rotates by \(45^\circ\)
+          from its original position as we apply the transformation matrix
+          \(\mathbf A\), and how the grid rotates by \(45^\circ\).
         </p>
 
         <div class="Animation">
@@ -928,40 +753,32 @@
         </div>
 
         <p>
-          This specific matrix that rotates all vectors in \(\mathbb R^2\)
-          by \(45^\circ\) counterclockwise is called a
+          This specific matrix that rotates all vectors in \(\mathbb R^2\) by
+          \(45^\circ\) counterclockwise is called a
           <strong>45-degree rotation matrix</strong>. This transformation
-          rotates the Euclidean plane by \(45^\circ\) counterclockwise about
-          the origin, essentially rotating each vector in the plane by
-          \(45^\circ\) while keeping the origin fixed.
+          rotates the Euclidean plane by \(45^\circ\) counterclockwise about the
+          origin, essentially rotating each vector in the plane by \(45^\circ\)
+          while keeping the origin fixed.
         </p>
 
         <p>
-          In general, a rotation matrix representing a rotation of
-          \(\mathbb R^2\) by an angle \(\theta\) is:
-          \[
-          \boxed{
-          \mathcal R(\theta) =
-          \begin{pmatrix}
-          \cos\theta & -\sin\theta\\
-          \sin\theta & \cos\theta
-          \end{pmatrix}
-          }
-          \]
+          In general, a rotation matrix representing a rotation of \(\mathbb
+          R^2\) by an angle \(\theta\) is: \[ \boxed{ \mathcal R(\theta) =
+          \begin{pmatrix} \cos\theta & -\sin\theta\\ \sin\theta & \cos\theta
+          \end{pmatrix} } \]
         </p>
 
         <p>
-          In the example with \(\mathbf A\), it was
-          \(\mathbf A=\mathcal R(45^\circ)\).
+          In the example with \(\mathbf A\), it was \(\mathbf A=\mathcal
+          R(45^\circ)\).
         </p>
 
         <p>
-          <strong>Note: </strong> The \(\mathcal R(\theta)\) shown here is
-          the matrix representation of the rotation transformation with
-          respect to the standard basis. This matrix represents the
-          rotation transformation in standard coordinates. In another
-          basis, the same geometric rotation will generally have a different
-          matrix representation.
+          <strong>Note: </strong> The \(\mathcal R(\theta)\) shown here is the
+          matrix representation of the rotation transformation with respect to
+          the standard basis. This matrix represents the rotation transformation
+          in standard coordinates. In another basis, the same geometric rotation
+          will generally have a different matrix representation.
         </p>
       </div>
 
@@ -972,7 +789,6 @@
         represented by a matrix after choosing bases.
       </p>
 
-      
       <h4>Computing the Matrix of a Linear Transformation \(T\)</h4>
 
       <p>
@@ -989,130 +805,94 @@
       </p>
 
       <p>
-        We must choose a basis in both vector spaces \(\mathbb V\) and
-        \(\mathbb W\), where \(T : \mathbb V \to \mathbb W\), so that we can
-        represent the vectors in both vector spaces using the bases. Let
-        \(\mathbf v \in \mathbb V\), and let \(\mathbf v_1, \dots, \mathbf v_n\)
-        be a basis of \(\mathbb V\) and \(\mathbf w_1, \dots, \mathbf w_m\)
-        be a basis of \(\mathbb W\). Remember, we choose the bases independently
-        from one another. We can choose any basis of \(\mathbb V\) and any basis
-        of \(\mathbb W\), provided that each is a valid basis for its respective
+        We must choose a basis in both vector spaces \(\mathbb V\) and \(\mathbb
+        W\), where \(T : \mathbb V \to \mathbb W\), so that we can represent the
+        vectors in both vector spaces using the bases. Let \(\mathbf v \in
+        \mathbb V\), and let \(\mathbf v_1, \dots, \mathbf v_n\) be a basis of
+        \(\mathbb V\) and \(\mathbf w_1, \dots, \mathbf w_m\) be a basis of
+        \(\mathbb W\). Remember, we choose the bases independently from one
+        another. We can choose any basis of \(\mathbb V\) and any basis of
+        \(\mathbb W\), provided that each is a valid basis for its respective
         vector space.
       </p>
 
       <p>
         Now, if we represent our vector \(\mathbf v \in \mathbb V\) using the
-        basis vectors, we get:
-        \[
-        \mathbf v = c_1 \mathbf v_1 + \dots + c_n \mathbf v_n
-        \]
-        And if we apply the linear transformation to \(\mathbf v\), we get
-        something like:
-        \[
-        T(\mathbf v) = c_1 T(\mathbf v_1) + \dots
-        + c_n T(\mathbf v_n)
-        \]
-        Notice here that this suggests that if we know where the basis vectors
-        land when we apply the transformation to all the basis vectors
-        \(\mathbf v_1,\dots, \mathbf v_n\) in \(\mathbb V\), then that will
-        allow us to know, for all vectors \(\mathbf v \in \mathbb V\), how they
-        will transform if we apply the linear transformation. So we should
-        examine how our basis vectors transform from \(\mathbb V\) to
+        basis vectors, we get: \[ \mathbf v = c_1 \mathbf v_1 + \dots + c_n
+        \mathbf v_n \] And if we apply the linear transformation to \(\mathbf
+        v\), we get something like: \[ T(\mathbf v) = c_1 T(\mathbf v_1) + \dots
+        + c_n T(\mathbf v_n) \] Notice here that this suggests that if we know
+        where the basis vectors land when we apply the transformation to all the
+        basis vectors \(\mathbf v_1,\dots, \mathbf v_n\) in \(\mathbb V\), then
+        that will allow us to know, for all vectors \(\mathbf v \in \mathbb V\),
+        how they will transform if we apply the linear transformation. So we
+        should examine how our basis vectors transform from \(\mathbb V\) to
         \(\mathbb W\).
       </p>
 
       <p>
         Applying the transformation to a basis vector \(\mathbf v_i\) will give
-        a transformed vector in \(\mathbb W\). Let \(\mathbb V\) and
-        \(\mathbb W\) be finite-dimensional vector spaces over the same field
-        \(\mathbb F\), with dimensions \(n\) and \(m\), respectively. Then the
-        basis vectors transform as:
-        \[
-        T(\mathbf v_i) = a_{1i}\mathbf w_1 + a_{2i}\mathbf w_2 + \dots +
-        a_{mi}\mathbf w_m
-        \]
-        Here, the reason why we wrote \(a_{mi}\) is so that we can put them in
-        a matrix; soon you will see why we want to put them in a matrix. Doing
-        this for all basis vectors gives us something like:
-        \[
-        \begin{aligned}
-        T(\mathbf v_1) &= a_{11}\mathbf w_1 + a_{21}\mathbf w_2 + \dots
-        + a_{m1}\mathbf w_m \\
-        T(\mathbf v_2) &= a_{12}\mathbf w_1 + a_{22}\mathbf w_2 + \dots
-        + a_{m2}\mathbf w_m \\
-        T(\mathbf v_3) &= a_{13}\mathbf w_1 + a_{23}\mathbf w_2 + \dots
-        + a_{m3}\mathbf w_m \\
-        &\vdots \\
-        T(\mathbf v_n) &= a_{1n}\mathbf w_1 + a_{2n}\mathbf w_2 + \dots
-        + a_{mn}\mathbf w_m
-        \end{aligned}
-        \]
-        Now here we would like to solve for the \(a_{ij}\)'s; then we would
-        be able to tell how the basis vectors map to \(\mathbb W\). Alright,
-        there is a slight issue: you might be wondering how we are supposed
-        to know what the left side of the equation is. Yes, we have chosen the
-        domain and codomain bases \(\mathbf v\)'s and \(\mathbf w\)'s, but to
-        solve for the \(a_{ij}\)'s we also need to know what \(T(\mathbf v_i)\)
-        is. And you are totally right. Actually, we calculate \(T(\mathbf v_i)\)
-        from the definition of \(T\). Sometimes you will see \(T\) being
-        defined as
-        \[
-        T\begin{pmatrix} x \\ y \end{pmatrix}
-        =
-        \begin{pmatrix} f(x,y) \\ g(x,y) \end{pmatrix},
-        \]
-        or sometimes its geometric definition, like a rotation: we could just
-        rotate the basis vector \(\mathbf v_i\) by \(\theta\) degrees to find
-        what \(T(\mathbf v_i)\) is. Sometimes it is defined physically. The
-        point is that \(T\) will be defined; after all, a linear transformation
-        is an abstract map, and without defining it first, we won't be able to
-        apply any operation using it. So, using the definition, we can easily
-        deduce the transformation of the basis.
+        a transformed vector in \(\mathbb W\). Let \(\mathbb V\) and \(\mathbb
+        W\) be finite-dimensional vector spaces over the same field \(\mathbb
+        F\), with dimensions \(n\) and \(m\), respectively. Then the basis
+        vectors transform as: \[ T(\mathbf v_i) = a_{1i}\mathbf w_1 +
+        a_{2i}\mathbf w_2 + \dots + a_{mi}\mathbf w_m \] Here, the reason why we
+        wrote \(a_{mi}\) is so that we can put them in a matrix; soon you will
+        see why we want to put them in a matrix. Doing this for all basis
+        vectors gives us something like: \[ \begin{aligned} T(\mathbf v_1) &=
+        a_{11}\mathbf w_1 + a_{21}\mathbf w_2 + \dots + a_{m1}\mathbf w_m \\
+        T(\mathbf v_2) &= a_{12}\mathbf w_1 + a_{22}\mathbf w_2 + \dots +
+        a_{m2}\mathbf w_m \\ T(\mathbf v_3) &= a_{13}\mathbf w_1 + a_{23}\mathbf
+        w_2 + \dots + a_{m3}\mathbf w_m \\ &\vdots \\ T(\mathbf v_n) &=
+        a_{1n}\mathbf w_1 + a_{2n}\mathbf w_2 + \dots + a_{mn}\mathbf w_m
+        \end{aligned} \] Now here we would like to solve for the \(a_{ij}\)'s;
+        then we would be able to tell how the basis vectors map to \(\mathbb
+        W\). Alright, there is a slight issue: you might be wondering how we are
+        supposed to know what the left side of the equation is. Yes, we have
+        chosen the domain and codomain bases \(\mathbf v\)'s and \(\mathbf
+        w\)'s, but to solve for the \(a_{ij}\)'s we also need to know what
+        \(T(\mathbf v_i)\) is. And you are totally right. Actually, we calculate
+        \(T(\mathbf v_i)\) from the definition of \(T\). Sometimes you will see
+        \(T\) being defined as \[ T\begin{pmatrix} x \\ y \end{pmatrix} =
+        \begin{pmatrix} f(x,y) \\ g(x,y) \end{pmatrix}, \] or sometimes its
+        geometric definition, like a rotation: we could just rotate the basis
+        vector \(\mathbf v_i\) by \(\theta\) degrees to find what \(T(\mathbf
+        v_i)\) is. Sometimes it is defined physically. The point is that \(T\)
+        will be defined; after all, a linear transformation is an abstract map,
+        and without defining it first, we won't be able to apply any operation
+        using it. So, using the definition, we can easily deduce the
+        transformation of the basis.
       </p>
 
       <p>
         After we are done solving for \(a_{ij}\), we can put them in a matrix,
-        and we will call it \(\mathcal{M}(T,\mathcal B,\mathcal C)\):
-        \[
-        \mathcal{M}(T,\mathcal B,\mathcal C) =
-        \begin{pmatrix}
-        a_{11} & a_{12} & \dots & a_{1n} \\
-        a_{21} & a_{22} & \dots & a_{2n} \\
-        \vdots & \vdots & \ddots & \vdots \\
-        a_{m1} & a_{m2} & \dots & a_{mn}
-        \end{pmatrix}
-        \]
-        This is our transformation matrix for the linear transformation
-        \(T\), where
-        \(\mathcal B=(\mathbf v_1,\dots,\mathbf v_n)\) is the domain basis
+        and we will call it \(\mathcal{M}(T,\mathcal B,\mathcal C)\): \[
+        \mathcal{M}(T,\mathcal B,\mathcal C) = \begin{pmatrix} a_{11} & a_{12} &
+        \dots & a_{1n} \\ a_{21} & a_{22} & \dots & a_{2n} \\ \vdots & \vdots &
+        \ddots & \vdots \\ a_{m1} & a_{m2} & \dots & a_{mn} \end{pmatrix} \]
+        This is our transformation matrix for the linear transformation \(T\),
+        where \(\mathcal B=(\mathbf v_1,\dots,\mathbf v_n)\) is the domain basis
         and \(\mathcal C=(\mathbf w_1,\dots,\mathbf w_m)\) is the codomain
         basis. Because the matrix is also specific to the bases, you may also
-        write it as
-        \(\mathcal{M}(T,(\mathbf v_1,\dots,\mathbf v_n),
-        (\mathbf w_1,\dots,\mathbf w_m))\).
-
-        For any \(\mathbf v \in \mathbb V\), the relationship between the
-        transformation and its matrix representation is:
-        \[
-        [T(\mathbf v)]_{\mathcal C}
-        =
-        \mathcal{M}(T,\mathcal B,\mathcal C)
-        [\mathbf v]_{\mathcal B}.
-        \]
+        write it as \(\mathcal{M}(T,(\mathbf v_1,\dots,\mathbf v_n), (\mathbf
+        w_1,\dots,\mathbf w_m))\). For any \(\mathbf v \in \mathbb V\), the
+        relationship between the transformation and its matrix representation
+        is: \[ [T(\mathbf v)]_{\mathcal C} = \mathcal{M}(T,\mathcal B,\mathcal
+        C) [\mathbf v]_{\mathcal B}. \]
       </p>
 
       <p>
         It may be that we won't always be given a linear transformation defined
-        in the form \(T(x,y)\), but often it is possible from the definition
-        of \(T\), no matter how it is defined, to obtain something in the form
+        in the form \(T(x,y)\), but often it is possible from the definition of
+        \(T\), no matter how it is defined, to obtain something in the form
         \(T(x,y)\) that encodes the information of how the transformation is
-        going to act on vectors in a vector space. Below, we show an example
-        so that all this makes more sense to you. Again, no amount of reading
-        is going to help you if you don't solve problems. You should go back
-        to the textbook you are following and solve a few problems to see how
-        much you understand all of this. Remember, this is just reading
-        material that is meant to be read with a textbook if you truly want to
-        master these concepts.
+        going to act on vectors in a vector space. Below, we show an example so
+        that all this makes more sense to you. Again, no amount of reading is
+        going to help you if you don't solve problems. You should go back to the
+        textbook you are following and solve a few problems to see how much you
+        understand all of this. Remember, this is just reading material that is
+        meant to be read with a textbook if you truly want to master these
+        concepts.
       </p>
 
       <div class="cm-example-card">
@@ -1121,215 +901,87 @@
         </div>
 
         <p>
-          Consider the linear transformation \(T: \mathbb{R}^4 \to \mathbb{R}^3\)
-          defined as:
-          \[
-          T \begin{pmatrix}
-          x_1 \\ x_2 \\ x_3 \\ x_4
-          \end{pmatrix}
-          =
-          \begin{pmatrix}
-          f(x_1,x_2,x_3,x_4) \\
-          g(x_1,x_2,x_3,x_4) \\
-          h(x_1,x_2,x_3,x_4)
-          \end{pmatrix}
-          \]
-          where \(f = x_1 + 2x_2 - x_4\),
-          \(g = 3x_1 - x_3\), and
-          \(h = x_2 + x_3 + 4x_4\).
-          We want to find its matrix representation with respect to two
-          chosen bases.
+          Consider the linear transformation \(T: \mathbb{R}^4 \to
+          \mathbb{R}^3\) defined as: \[ T \begin{pmatrix} x_1 \\ x_2 \\ x_3 \\
+          x_4 \end{pmatrix} = \begin{pmatrix} f(x_1,x_2,x_3,x_4) \\
+          g(x_1,x_2,x_3,x_4) \\ h(x_1,x_2,x_3,x_4) \end{pmatrix} \] where \(f =
+          x_1 + 2x_2 - x_4\), \(g = 3x_1 - x_3\), and \(h = x_2 + x_3 + 4x_4\).
+          We want to find its matrix representation with respect to two chosen
+          bases.
         </p>
 
         <br />
 
         <p>
           To find the transformation matrix, recall that we first need to choose
-          a basis for \(\mathbb R^4\), the domain, and a basis for \(\mathbb R^3\),
-          the codomain. Let the basis for \(\mathbb R^4\) be
-          \(\mathbf B' = (\mathbf v_1,\mathbf v_2,\mathbf v_3,\mathbf v_4')\)
-          and for \(\mathbb R^3\) be
-          \(\mathbf C = (\mathbf w_1,\mathbf w_2,\mathbf w_3)\).
+          a basis for \(\mathbb R^4\), the domain, and a basis for \(\mathbb
+          R^3\), the codomain. Let the basis for \(\mathbb R^4\) be \(\mathbf B'
+          = (\mathbf v_1,\mathbf v_2,\mathbf v_3,\mathbf v_4')\) and for
+          \(\mathbb R^3\) be \(\mathbf C = (\mathbf w_1,\mathbf w_2,\mathbf
+          w_3)\).
         </p>
 
         <p>
-          Let the basis vectors be
-          \[
-          \mathbf v_1 =
-          \begin{pmatrix} 1\\1\\0\\0 \end{pmatrix},
-          \quad
-          \mathbf v_2 =
-          \begin{pmatrix} 0\\1\\1\\0 \end{pmatrix},
-          \quad
-          \mathbf v_3 =
-          \begin{pmatrix} 0\\0\\1\\1 \end{pmatrix},
-          \quad
-          \mathbf v_4' =
-          \begin{pmatrix} 0\\0\\0\\1 \end{pmatrix}.
-          \]
-          So,
-          \[
-          \mathbf B' =
-          \left\{
-          (1,1,0,0),
-          (0,1,1,0),
-          (0,0,1,1),
-          (0,0,0,1)
-          \right\}.
-          \]
-          These vectors form a basis since the determinant of the matrix
-          having them as columns is nonzero:
-          \[
-          \det
-          \begin{pmatrix}
-          1&0&0&0\\
-          1&1&0&0\\
-          0&1&1&0\\
-          0&0&1&1
-          \end{pmatrix}
-          =1.
+          Let the basis vectors be \[ \mathbf v_1 = \begin{pmatrix} 1\\1\\0\\0
+          \end{pmatrix}, \quad \mathbf v_2 = \begin{pmatrix} 0\\1\\1\\0
+          \end{pmatrix}, \quad \mathbf v_3 = \begin{pmatrix} 0\\0\\1\\1
+          \end{pmatrix}, \quad \mathbf v_4' = \begin{pmatrix} 0\\0\\0\\1
+          \end{pmatrix}. \] So, \[ \mathbf B' = \left\{ (1,1,0,0), (0,1,1,0),
+          (0,0,1,1), (0,0,0,1) \right\}. \] These vectors form a basis since the
+          determinant of the matrix having them as columns is nonzero: \[ \det
+          \begin{pmatrix} 1&0&0&0\\ 1&1&0&0\\ 0&1&1&0\\ 0&0&1&1 \end{pmatrix}
+          =1. \]
+        </p>
+
+        <p>
+          And for \(\mathbb R^3\), let the basis be \[ \mathbf C = \left\{
+          (1,1,0), (0,1,1), (1,1,1) \right\}. \] These vectors also form a basis
+          since \[ \det \begin{pmatrix} 1&0&1\\ 1&1&1\\ 0&1&1 \end{pmatrix} =1.
           \]
         </p>
 
         <p>
-          And for \(\mathbb R^3\), let the basis be
-          \[
-          \mathbf C =
-          \left\{
-          (1,1,0),
-          (0,1,1),
-          (1,1,1)
-          \right\}.
-          \]
-          These vectors also form a basis since
-          \[
-          \det
-          \begin{pmatrix}
-          1&0&1\\
-          1&1&1\\
-          0&1&1
-          \end{pmatrix}
-          =1.
-          \]
-        </p>
-
-        <p>
-          Now, if we apply our transformation to the basis \(\mathbf B'\),
-          we get:
-          \[
-          T(\mathbf v_1) =
-          \begin{pmatrix} 3\\3\\1 \end{pmatrix},
-          \quad
-          T(\mathbf v_2) =
-          \begin{pmatrix} 2\\-1\\2 \end{pmatrix},
-          \quad
-          T(\mathbf v_3) =
-          \begin{pmatrix} -1\\-1\\5 \end{pmatrix},
-          \quad
-          T(\mathbf v_4') =
-          \begin{pmatrix} -1\\0\\4 \end{pmatrix}.
-          \]
-
+          Now, if we apply our transformation to the basis \(\mathbf B'\), we
+          get: \[ T(\mathbf v_1) = \begin{pmatrix} 3\\3\\1 \end{pmatrix}, \quad
+          T(\mathbf v_2) = \begin{pmatrix} 2\\-1\\2 \end{pmatrix}, \quad
+          T(\mathbf v_3) = \begin{pmatrix} -1\\-1\\5 \end{pmatrix}, \quad
+          T(\mathbf v_4') = \begin{pmatrix} -1\\0\\4 \end{pmatrix}. \]
           Expressing these vectors in terms of the basis \(\mathbf C\), we get:
-          \[
-          [T(\mathbf v_1)]_{\mathbf C}
-          =
-          \begin{pmatrix} 2\\0\\1 \end{pmatrix},
-          \quad
-          [T(\mathbf v_2)]_{\mathbf C}
-          =
-          \begin{pmatrix} -3\\-3\\5 \end{pmatrix},
-          \]
-          \[
-          [T(\mathbf v_3)]_{\mathbf C}
-          =
-          \begin{pmatrix} -6\\0\\5 \end{pmatrix},
-          \quad
-          [T(\mathbf v_4')]_{\mathbf C}
-          =
-          \begin{pmatrix} -4\\1\\3 \end{pmatrix}.
-          \]
-          Here \([T(\mathbf v_i)]_{\mathbf C}\) means the coordinate vector of
+          \[ [T(\mathbf v_1)]_{\mathbf C} = \begin{pmatrix} 2\\0\\1
+          \end{pmatrix}, \quad [T(\mathbf v_2)]_{\mathbf C} = \begin{pmatrix}
+          -3\\-3\\5 \end{pmatrix}, \] \[ [T(\mathbf v_3)]_{\mathbf C} =
+          \begin{pmatrix} -6\\0\\5 \end{pmatrix}, \quad [T(\mathbf
+          v_4')]_{\mathbf C} = \begin{pmatrix} -4\\1\\3 \end{pmatrix}. \] Here
+          \([T(\mathbf v_i)]_{\mathbf C}\) means the coordinate vector of
           \(T(\mathbf v_i)\) with respect to the basis \(\mathbf C\). This is
-          just to familiarize you with the notation you might see in some places.
+          just to familiarize you with the notation you might see in some
+          places.
         </p>
 
         <p>
-          Now, if we write the equation which we showed before:
-          \[
-          T(\mathbf v_i) =
-          a_{1i}\mathbf w_1 + a_{2i}\mathbf w_2 + \dots +
-          a_{mi}\mathbf w_m
-          \]
-          and apply this to all the basis vectors \(\mathbf v_i\), we get:
-          \[
-          T(\mathbf v_1) =
-          a_{11}\mathbf w_1 +
-          a_{21}\mathbf w_2 +
-          a_{31}\mathbf w_3
-          \]
-          \[
-          \Rightarrow
-          \begin{pmatrix} 3\\3\\1 \end{pmatrix}
-          =
-          a_{11}
-          \begin{pmatrix} 1\\1\\0 \end{pmatrix}
-          +
-          a_{21}
-          \begin{pmatrix} 0\\1\\1 \end{pmatrix}
-          +
-          a_{31}
-          \begin{pmatrix} 1\\1\\1 \end{pmatrix}
-          \]
-          \[
-          \Rightarrow
-          \begin{pmatrix} 3\\3\\1 \end{pmatrix}
-          =
-          \begin{pmatrix}
-          a_{11}+a_{31}\\
-          a_{11}+a_{21}+a_{31}\\
-          a_{21}+a_{31}
-          \end{pmatrix}
-          \]
-          This is just a system of linear equations. If we solve them, we get:
-          \[
-          a_{11}=2,\quad a_{21}=0,\quad a_{31}=1.
-          \]
-
-          Doing a similar thing for all the other basis vectors, we get:
-          \[
-          \begin{aligned}
-          a_{11} &= 2 & a_{21} &= 0 & a_{31} &= 1\\
-          a_{12} &= -3 & a_{22} &= -3 & a_{32} &= 5\\
-          a_{13} &= -6 & a_{23} &= 0 & a_{33} &= 5\\
-          a_{14} &= -4 & a_{24} &= 1 & a_{34} &= 3
-          \end{aligned}
-          \]
-
-          Now, if we put them in the matrix, we will get our transformation matrix
-          \(\mathcal M(T,\mathbf B',\mathbf C)\):
-          \[
-          \mathcal M(T,\mathbf B',\mathbf C)
-          =
-          \begin{pmatrix}
-          2 & -3 & -6 & -4\\
-          0 & -3 & 0 & 1\\
-          1 & 5 & 5 & 3
-          \end{pmatrix}
-          \]
-
-          Sometimes you may see it written as:
-          \[
-          [T]_{\mathbf C}^{\mathbf B'}
-          =
-          \begin{pmatrix}
-          2 & -3 & -6 & -4\\
-          0 & -3 & 0 & 1\\
-          1 & 5 & 5 & 3
-          \end{pmatrix}
-          \]
-          It is important to highlight the bases used for the transformation
-          matrix. Here, we have seen how we may calculate a transformation matrix.
+          Now, if we write the equation which we showed before: \[ T(\mathbf
+          v_i) = a_{1i}\mathbf w_1 + a_{2i}\mathbf w_2 + \dots + a_{mi}\mathbf
+          w_m \] and apply this to all the basis vectors \(\mathbf v_i\), we
+          get: \[ T(\mathbf v_1) = a_{11}\mathbf w_1 + a_{21}\mathbf w_2 +
+          a_{31}\mathbf w_3 \] \[ \Rightarrow \begin{pmatrix} 3\\3\\1
+          \end{pmatrix} = a_{11} \begin{pmatrix} 1\\1\\0 \end{pmatrix} + a_{21}
+          \begin{pmatrix} 0\\1\\1 \end{pmatrix} + a_{31} \begin{pmatrix} 1\\1\\1
+          \end{pmatrix} \] \[ \Rightarrow \begin{pmatrix} 3\\3\\1 \end{pmatrix}
+          = \begin{pmatrix} a_{11}+a_{31}\\ a_{11}+a_{21}+a_{31}\\ a_{21}+a_{31}
+          \end{pmatrix} \] This is just a system of linear equations. If we
+          solve them, we get: \[ a_{11}=2,\quad a_{21}=0,\quad a_{31}=1. \]
+          Doing a similar thing for all the other basis vectors, we get: \[
+          \begin{aligned} a_{11} &= 2 & a_{21} &= 0 & a_{31} &= 1\\ a_{12} &= -3
+          & a_{22} &= -3 & a_{32} &= 5\\ a_{13} &= -6 & a_{23} &= 0 & a_{33} &=
+          5\\ a_{14} &= -4 & a_{24} &= 1 & a_{34} &= 3 \end{aligned} \] Now, if
+          we put them in the matrix, we will get our transformation matrix
+          \(\mathcal M(T,\mathbf B',\mathbf C)\): \[ \mathcal M(T,\mathbf
+          B',\mathbf C) = \begin{pmatrix} 2 & -3 & -6 & -4\\ 0 & -3 & 0 & 1\\ 1
+          & 5 & 5 & 3 \end{pmatrix} \] Sometimes you may see it written as: \[
+          [T]_{\mathbf C}^{\mathbf B'} = \begin{pmatrix} 2 & -3 & -6 & -4\\ 0 &
+          -3 & 0 & 1\\ 1 & 5 & 5 & 3 \end{pmatrix} \] It is important to
+          highlight the bases used for the transformation matrix. Here, we have
+          seen how we may calculate a transformation matrix.
         </p>
 
         <p>
