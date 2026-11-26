@@ -704,11 +704,10 @@
         <p>
           This specific matrix that rotates all vectors in \(\mathbb R^2\) by
           \(45^\circ\) is called a
-          <strong>45-degree rotation matrix</strong>. In a way, you could say
-          this matrix rotates a vector space by \(45^\circ\) with respect to the
-          “original vector space,” but that does not make sense mathematically,
-          so it is better not to say that; it is just a viewpoint, and that is
-          all it is.
+          <strong>45-degree rotation matrix</strong>. You could say
+          this matrix rotates the euclidean plane by \(45^\circ\) with respect to the
+          “original vector space,”, essentially saying that the transformation rotates 
+          each vector by \(45^\circ\) on the plane fixed to the origin.
         </p>
 
         <p>
@@ -737,97 +736,96 @@
         represented by a matrix after choosing bases.
       </p>
 
-      <p>
-        But the question arises: how does one choose the matrix that represents
-        a linear transformation from one vector space \(\mathbb V\) to another
-        \(\mathbb W\)?
-      </p>
-
-      <p>
-        Before we answer that, I believe it is better for me to clear up some
-        confusion some of you may have related to linear transformations,
-        matrices, and bases.
-      </p>
-
-      <p>
-        First of all, a linear transformation \(T\) is not defined by a matrix.
-        A linear transformation \(T\) is uniquely determined by what it does to
-        the vectors in its domain. You might get the impression that a linear
-        transformation \(T\) is defined by a matrix, but that is not true at
-        all; instead, it is the other way around.
-      </p>
-      <p>
-        And as our second part, a matrix is defined by a linear transformation
-        and a choice of basis. As we said, a linear transformation is not
-        defined by a matrix; instead, a matrix is defined by a linear
-        transformation and a choice of basis. A matrix representation works
-        correctly only when the input vectors are expressed in the chosen domain
-        basis and the output vectors are interpreted in the chosen codomain
-        basis. For now, keep that in mind; soon it will all be clear.
-      </p>
-
+      
       <h4>Computing the Matrix of a Linear Transformation \(T\)</h4>
 
       <p>
-        Let's say we have a linear transformation \(T\). The matrix of \(T\) is
-        calculated with respect to a basis, let it be \(\mathbf v_1, \dots,
-        \mathbf v_n\) of \(\mathbb V\) and \(\mathbf w_1, \dots, \mathbf w_m\)
-        of \(\mathbb W\). What that means is that we have to decide on a
-        coordinate system to compute the matrix associated with the linear
-        transformation, and the chosen coordinate systems of both \(\mathbb V\)
-        and \(\mathbb W\) are defined by bases. For different bases, we get
-        different coordinate systems and hence different transformation matrices
+        Now let us see how we construct the matrix representation of a linear
+        transformation. The matrix of \(T\) is calculated with respect to two
+        bases: let them be \(\mathbf v_1, \dots, \mathbf v_n\) of \(\mathbb V\)
+        and \(\mathbf w_1, \dots, \mathbf w_m\) of \(\mathbb W\). What that
+        means is that we have to decide on a coordinate system to compute the
+        matrix associated with the linear transformation, and the chosen
+        coordinate systems of both \(\mathbb V\) and \(\mathbb W\) are defined
+        by bases. For different choices of bases, we may get different
+        coordinate systems and hence different transformation matrices
         representing the same linear transformation.
       </p>
 
       <p>
-        We must choose a basis in both vector spaces \(\mathbb V\) and \(\mathbb
-        W\), where \(T : \mathbb V \to \mathbb W\), so that we can represent the
-        vectors in both vector spaces using the bases. Let \(\mathbf v \in
-        \mathbb V\), and let \(\mathbf v_1, \dots, \mathbf v_n\) be the basis of
-        \(\mathbb V\) and \(\mathbf w_1, \dots, \mathbf w_m\) be the basis of
-        \(\mathbb W\); remember, we choose the bases independently from one
-        another, and there is no restriction on choosing them.
+        We must choose a basis in both vector spaces \(\mathbb V\) and
+        \(\mathbb W\), where \(T : \mathbb V \to \mathbb W\), so that we can
+        represent the vectors in both vector spaces using the bases. Let
+        \(\mathbf v \in \mathbb V\), and let \(\mathbf v_1, \dots, \mathbf v_n\)
+        be a basis of \(\mathbb V\) and \(\mathbf w_1, \dots, \mathbf w_m\)
+        be a basis of \(\mathbb W\). Remember, we choose the bases independently
+        from one another. We can choose any basis of \(\mathbb V\) and any basis
+        of \(\mathbb W\), provided that each is a valid basis for its respective
+        vector space.
       </p>
 
       <p>
         Now, if we represent our vector \(\mathbf v \in \mathbb V\) using the
-        basis vectors, we get: \[ \mathbf v = c_1 \mathbf v_1 + \dots + c_n
-        \mathbf v_n \] And if we apply the linear transformation to \(\mathbf
-        v\), we get something like: \[ T(\mathbf v) = c_1 T(\mathbf v_1) + \dots
-        + c_n T(\mathbf v_n) \] Notice here that this suggests that if we know
-        where the basis vectors land when we apply the transformation to all the
-        basis vectors \(\mathbf v_1,\dots, \mathbf v_n\) in \(\mathbb W\), then
-        that will allow us to know, for all vectors \(\mathbf v \in \mathbb V\),
-        how they will transform if we apply the linear transformation. So we
-        should examine how our basis vectors transform from \(\mathbb V\) to
+        basis vectors, we get:
+        \[
+        \mathbf v = c_1 \mathbf v_1 + \dots + c_n \mathbf v_n
+        \]
+        And if we apply the linear transformation to \(\mathbf v\), we get
+        something like:
+        \[
+        T(\mathbf v) = c_1 T(\mathbf v_1) + \dots
+        + c_n T(\mathbf v_n)
+        \]
+        Notice here that this suggests that if we know where the basis vectors
+        land when we apply the transformation to all the basis vectors
+        \(\mathbf v_1,\dots, \mathbf v_n\) in \(\mathbb V\), then that will
+        allow us to know, for all vectors \(\mathbf v \in \mathbb V\), how they
+        will transform if we apply the linear transformation. So we should
+        examine how our basis vectors transform from \(\mathbb V\) to
         \(\mathbb W\).
       </p>
 
       <p>
         Applying the transformation to a basis vector \(\mathbf v_i\) will give
-        a transformed vector in \(\mathbb W\). Assume \(\mathbb V=\mathbb R^n\)
-        and \(\mathbb W=\mathbb R^m\), so the basis vectors transform as: \[
+        a transformed vector in \(\mathbb W\). Let \(\mathbb V\) and
+        \(\mathbb W\) be finite-dimensional vector spaces over the same field
+        \(\mathbb F\), with dimensions \(n\) and \(m\), respectively. Then the
+        basis vectors transform as:
+        \[
         T(\mathbf v_i) = a_{1i}\mathbf w_1 + a_{2i}\mathbf w_2 + \dots +
-        a_{mi}\mathbf w_m \] Here, the reason why we wrote \(a_{mi}\) is so that
-        we can put them in a matrix; soon you will see why we want to put them
-        in a matrix. Doing this for all basis vectors gives us something like:
-        \[ \begin{aligned} T(\mathbf v_1) &= a_{11}\mathbf w_1 + a_{21}\mathbf
-        w_2 + \dots + a_{m1}\mathbf w_m \\ T(\mathbf v_2) &= a_{12}\mathbf w_1 +
-        a_{22}\mathbf w_2 + \dots + a_{m2}\mathbf w_m \\ T(\mathbf v_3) &=
-        a_{13}\mathbf w_1 + a_{23}\mathbf w_2 + \dots + a_{m3}\mathbf w_m \\
-        &\vdots \\ T(\mathbf v_n) &= a_{1n}\mathbf w_1 + a_{2n}\mathbf w_2 +
-        \dots + a_{mn}\mathbf w_m \end{aligned} \] Now here we would like to
-        solve for the \(a_{ij}\)'s; then we would be able to tell how the basis
-        vectors map to \(\mathbb W\). Alright, there is a slight issue: you
-        might be wondering how we are supposed to know what the left side of the
-        equation is. Yes, we have chosen the domain and codomain bases \(\mathbf
-        v\)'s and \(\mathbf w\)'s, but to solve for the \(a_{ij}\)'s we also
-        need to know what \(T(\mathbf v_i)\) is. And you are totally right.
-        Actually, we calculate \(T(\mathbf v_i)\) from the definition of \(T\).
-        Sometimes you will see \(T\) being defined as \(T \begin{pmatrix} x \\
-        y\end{pmatrix} = \begin{pmatrix} f(x,y) \\ g(x,y) \end{pmatrix}\), or
-        sometimes its geometric definition, like a rotation: we could just
+        a_{mi}\mathbf w_m
+        \]
+        Here, the reason why we wrote \(a_{mi}\) is so that we can put them in
+        a matrix; soon you will see why we want to put them in a matrix. Doing
+        this for all basis vectors gives us something like:
+        \[
+        \begin{aligned}
+        T(\mathbf v_1) &= a_{11}\mathbf w_1 + a_{21}\mathbf w_2 + \dots
+        + a_{m1}\mathbf w_m \\
+        T(\mathbf v_2) &= a_{12}\mathbf w_1 + a_{22}\mathbf w_2 + \dots
+        + a_{m2}\mathbf w_m \\
+        T(\mathbf v_3) &= a_{13}\mathbf w_1 + a_{23}\mathbf w_2 + \dots
+        + a_{m3}\mathbf w_m \\
+        &\vdots \\
+        T(\mathbf v_n) &= a_{1n}\mathbf w_1 + a_{2n}\mathbf w_2 + \dots
+        + a_{mn}\mathbf w_m
+        \end{aligned}
+        \]
+        Now here we would like to solve for the \(a_{ij}\)'s; then we would
+        be able to tell how the basis vectors map to \(\mathbb W\). Alright,
+        there is a slight issue: you might be wondering how we are supposed
+        to know what the left side of the equation is. Yes, we have chosen the
+        domain and codomain bases \(\mathbf v\)'s and \(\mathbf w\)'s, but to
+        solve for the \(a_{ij}\)'s we also need to know what \(T(\mathbf v_i)\)
+        is. And you are totally right. Actually, we calculate \(T(\mathbf v_i)\)
+        from the definition of \(T\). Sometimes you will see \(T\) being
+        defined as
+        \[
+        T\begin{pmatrix} x \\ y \end{pmatrix}
+        =
+        \begin{pmatrix} f(x,y) \\ g(x,y) \end{pmatrix},
+        \]
+        or sometimes its geometric definition, like a rotation: we could just
         rotate the basis vector \(\mathbf v_i\) by \(\theta\) degrees to find
         what \(T(\mathbf v_i)\) is. Sometimes it is defined physically. The
         point is that \(T\) will be defined; after all, a linear transformation
@@ -838,29 +836,47 @@
 
       <p>
         After we are done solving for \(a_{ij}\), we can put them in a matrix,
-        and we will call it \(\mathcal{M}(T)\): \[ \mathcal{M}(T) =
-        \begin{pmatrix} a_{11} & a_{12} & \dots & a_{1n} \\ a_{21} & a_{22} &
-        \dots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} &
-        \dots & a_{mn} \end{pmatrix} \] This is our transformation matrix for
-        the linear transformation \(T\) for domain basis \(\mathbf v_1, \dots,
-        \mathbf v_n\) and codomain basis \(\mathbf w_1, \dots, \mathbf w_m\).
-        Because the matrix is also specific to the bases, you may also write it
-        as \(\mathcal{M}(T,(\mathbf v_1, \dots, \mathbf v_n),(\mathbf w_1,
-        \dots, \mathbf w_m))\).
+        and we will call it \(\mathcal{M}(T,\mathcal B,\mathcal C)\):
+        \[
+        \mathcal{M}(T,\mathcal B,\mathcal C) =
+        \begin{pmatrix}
+        a_{11} & a_{12} & \dots & a_{1n} \\
+        a_{21} & a_{22} & \dots & a_{2n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        a_{m1} & a_{m2} & \dots & a_{mn}
+        \end{pmatrix}
+        \]
+        This is our transformation matrix for the linear transformation
+        \(T\), where
+        \(\mathcal B=(\mathbf v_1,\dots,\mathbf v_n)\) is the domain basis
+        and \(\mathcal C=(\mathbf w_1,\dots,\mathbf w_m)\) is the codomain
+        basis. Because the matrix is also specific to the bases, you may also
+        write it as
+        \(\mathcal{M}(T,(\mathbf v_1,\dots,\mathbf v_n),
+        (\mathbf w_1,\dots,\mathbf w_m))\).
+
+        For any \(\mathbf v \in \mathbb V\), the relationship between the
+        transformation and its matrix representation is:
+        \[
+        [T(\mathbf v)]_{\mathcal C}
+        =
+        \mathcal{M}(T,\mathcal B,\mathcal C)
+        [\mathbf v]_{\mathcal B}.
+        \]
       </p>
 
       <p>
         It may be that we won't always be given a linear transformation defined
-        in the form \(T(x,y)\), but often it is possible from the definition of
-        \(T\), no matter how it is defined, to obtain something in the form
+        in the form \(T(x,y)\), but often it is possible from the definition
+        of \(T\), no matter how it is defined, to obtain something in the form
         \(T(x,y)\) that encodes the information of how the transformation is
-        going to act on vectors in a vector space. Below, we show an example so
-        that all this makes more sense to you. Again, no amount of reading is
-        going to help you if you don't solve problems. You should go back to the
-        textbook you are following and solve a few problems to see how much you
-        understand all of this. Remember, this is just reading material that is
-        meant to be read with a textbook if you truly want to master these
-        concepts.
+        going to act on vectors in a vector space. Below, we show an example
+        so that all this makes more sense to you. Again, no amount of reading
+        is going to help you if you don't solve problems. You should go back
+        to the textbook you are following and solve a few problems to see how
+        much you understand all of this. Remember, this is just reading
+        material that is meant to be read with a textbook if you truly want to
+        master these concepts.
       </p>
 
       <div class="cm-example-card">
